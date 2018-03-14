@@ -1,0 +1,59 @@
+
+#side{
+  //margin-top: 15px; // 这个值关系到　zc.content.initSideAffix
+  //margin-left: XXX; // 这个值由 js side400()决定
+}
+
+#side-first-page {
+  @extend #intro-first-page;
+  padding: 15px 10px 5px !important;
+}
+
+// 用在显示图像上
+//#side-first-page-white {
+//  margin-top: 15px; // 这个值关系到　zc.content.initSideAffix
+//  margin-left: 85px;
+//}
+//#quote-img{
+//  >img{
+//    border-radius: 15px;
+//  }
+//}
+@media (min-width: $screen-sm-min) {
+  #side{
+    max-width:400px;
+  }
+}
+@media (max-width: $screen-sm-min) {
+  #side{
+    margin-bottom:20px;
+    border-bottom:1px dotted gray;
+  }
+  #LMap{
+    height:42%;
+  }
+  #LMap-info{
+    min-height:85px;
+    overflow-y: scroll;
+  }
+}
+
+.affix {
+  position: fixed;
+  top: 30px;
+}
+.affix-bottom {
+  position: absolute;
+  //right: 0 !important; // overwrite the right value set by js function affixBack
+}
+#LMap-info{
+  font-size:12px;
+  margin-top:15px;
+  margin-left:5px;
+}
+#LMap-info-addr{
+  margin-bottom:8px;
+  font-weight: bold;
+  opacity: 0.8;
+}
+

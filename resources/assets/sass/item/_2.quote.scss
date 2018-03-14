@@ -1,0 +1,36 @@
+
+.middle-for-item-quote{
+  width:650px ;
+  margin:auto;
+  @media (max-width: 800px){
+    width:100%;
+    padding:0 0px;
+  }
+}
+
+#quote-item-first-page {
+  margin-top: 80px;
+  min-height: 150px;
+  border-left-width: 0;
+  padding: 0 0 60px;
+  border-bottom: 5px solid #eee;
+  font-size:17px;
+  @media (max-width: 800px){
+    width:100%;
+    padding: 25px 25px;
+  }
+  >p{
+    >img{
+      display: none;
+    }
+    >.footnote-ref{
+      display: none;
+    }
+  }
+}
+
+.quote-item-cite{
+  margin-top:2em;
+}
+
+

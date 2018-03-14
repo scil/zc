@@ -1,0 +1,32 @@
+
+
+#item-no{
+  text-align:right;
+  color: #555;
+  float: right;
+  >button{
+     border-color: #fff;
+  }
+}
+
+#dropDownCaret{
+  margin:-4px 0 0 10px;
+}
+
+.middle{
+  width:700px;
+  margin:auto;
+  @media (max-width: $screen-sm){
+    width:100%;
+    padding:0 25px;
+  }
+}
+
+#item {
+  margin-bottom: 150px;
+}
+#item-no-header{
+  margin-bottom: 150px;
+  margin-top:27px;
+}
+

@@ -1,0 +1,68 @@
+
+#V{
+  border: 1px solid lightblue;
+  padding: 10px 25px 20px;
+}
+#V-title{
+  font-size:20px;
+  font-weight: bold;
+  color: darkcyan;
+  line-height: 1.1;
+  margin-top: 28px;
+  letter-spacing: 3px;
+  text-align: center;
+  margin-bottom:7%;
+}
+#V-no{
+  font-size:105%;
+}
+.V-item-hr{
+  //margin: 25px 0 5px;
+  border-top: 1px dashed #ccc;
+  margin:15px 0;
+}
+
+
+
+.note-item-title{
+  &:before{
+    content: '后记：';
+    color: #999;
+  }
+}
+
+
+#comment {
+  margin: 20px 0 30px;
+}
+
+
+#quotes-body {
+  > blockquote {
+    padding: 0;
+    border-left: 0;
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+}
+
+#suggests-body {
+  > ol {
+    padding-left: 1.5em;
+    > li {
+      margin-bottom: 6px;
+      > cite {
+        font-style: normal;
+      }
+      > blockquote {
+        display: none;
+      }
+    }
+  }
+}
+
+#suggests > ul > li > ul {
+  display: none;
+}
+
+

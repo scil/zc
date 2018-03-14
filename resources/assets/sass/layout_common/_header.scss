@@ -1,0 +1,57 @@
+/**
+ *  header
+ * -------------------------- */
+
+#header {
+  @extend .heiti;
+  letter-spacing: 2px;
+}
+
+#header-row {
+  padding: 4px 0;
+}
+
+#header-name {
+  margin: 0 0 0 -15px;
+  > a {
+    padding: 10px 15px;
+    font-size: 24px;
+    color: #222;
+    display: block;
+    &:hover, &:active {
+      text-decoration: none;
+    }
+  }
+}
+
+#header-nav {
+  font-size: 19px;
+  > li {
+    & > a {
+      color: #999;
+      &:hover, &:focus {
+        color: #333;
+        background-color: #fff;
+      }
+    }
+    &:last-child>a{
+      padding-right:0;
+    }
+  }
+  > li.active > a {
+    color: #000;
+    background-color: #fff;
+  }
+}
+//
+//.nav-item-fan,.nav-item-fan2{
+//  padding: 10px 20px 5px !important;
+//  display: inline-block !important;
+//  &.active{
+//    color: #000 !important;
+//    background-color: #fff !important;
+//  }
+//}
+//.nav-item-split{
+//  padding:10px 2px;
+//}

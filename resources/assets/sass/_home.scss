@@ -1,0 +1,108 @@
+//@width: 315px;
+//@height: 170px;
+$column-img-width: 85%;
+$column-img-max-width: 315px;
+
+//.columns {
+//margin-top: 15px;
+//margin-bottom: 15px;
+//  @media (max-width:@screen-sm-min){
+//    margin-top:35px;
+//    margin-bottom:35px;
+//  }
+//> hr {
+//margin: 25px 0 0px 0;
+//}
+//}
+
+@media (min-width: $screen-sm-min) {
+  .row-more-cols {
+    position: relative;
+    right: 0;
+   opacity:0.99 ; // used for js , 相关的　js 动作只在特定屏幕下发生作用，用z-index识别
+    &.row-more-cols-4 {
+      width: 133.33333333333%;
+    }
+    &.row-more-cols-5 {
+      width: 166.66666666666%;
+    }
+  }
+ .col-sm-zc-5{
+   width:20% !important;
+ }
+  .more-col {
+    opacity: 0.1
+  }
+  .column-left {
+    float: left;
+  }
+  .column-right {
+    float: right;
+  }
+}
+
+.column-img {
+  width: 100%;
+  max-width: $column-img-max-width;
+}
+
+.column-name {
+  margin-bottom: 8px;
+}
+
+.column-intro {
+  color: #888;
+  font-size: 16px;
+  // 保证两行intro高度，是因为后两个栏目的intro，一个一行，一个两行，切换时会造成页码抖动
+  height: 56px;
+  @extend .kaiti;
+}
+
+.column:hover {
+  > .column-intro {
+    color: #222;
+  }
+}
+
+/*  小屏幕时各图片竖排: 增大之间间距 */
+@media (max-width: $screen-sm-min) {
+  .column {
+    margin-bottom: 15px;
+  }
+
+  .h2title {
+    margin-bottom: 50px; //  那么h2title也要和图片加大间距
+    margin-top: 20px;
+    font-weight: bold;
+  }
+
+  .column-name {
+    margin-top: 10px;
+  }
+
+}
+
+@media (max-width: $screen-xs-min) {
+  .h2title {
+    margin-bottom: 40px;
+    margin-top: 15px;
+
+  }
+}
+
+#zc-map {
+  margin-bottom: 150px;
+}
+
+.zc-map-title {
+  margin-top: 0;
+}
+
+.zc-map {
+  > li > a {
+    color: #888;
+    &:hover {
+      color: #222;
+    }
+  }
+}

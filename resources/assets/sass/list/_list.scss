@@ -1,0 +1,108 @@
+#column-box {
+  padding-top: 27px;
+}
+
+#L,#QL{
+  @media (min-width: $screen-sm-min) {
+    margin-top:-25px;
+  }
+  @media (max-width: $screen-sm-min) {
+    // required by perfect-scrollbar
+    overflow: hidden;
+    position: relative;
+
+    height: 500px;
+    padding-bottom:180px;// 让最后一个元素也能滚动到最上面
+
+    margin-right:25px; // 右侧多留些区域 方便滚动页面而非此列表
+  }
+}
+
+.L-item-hr {
+  margin: 30px 0 5px;
+}
+.vol-item-hr{
+  margin: 30px 0 5px;
+  border-top:1px  dashed #ccc;
+}
+.vol.limit-height{
+  //color: darkblue;
+  >article+article{
+    display: none;
+  }
+}
+.vol{
+  >article>header>.no-in-vol-1{
+    display: none;
+  }
+  >article>.vol-item-hr-1{
+    display: none;
+  }
+}
+.vol.no-limit-height>article{
+  display: block !important;
+  >.vol-item-hr-1{
+    display: block;
+  }
+  >header{
+    >.no-in-vol-1{
+      display: block;
+    }
+  //  >.no{
+  //  display: none;
+  //}
+  }
+}
+
+.no-in-vol {
+  float: left;
+  margin-right: 12px;
+  font-size: 16px;
+  line-height: 1.4;
+  color: #777;
+}
+.no-in-vol{
+  font-family: fantasy;
+  &::after {
+    content: '.';
+  }
+}
+
+.prefix-col-name{
+  float: left;
+  margin-right: 8px;
+  line-height: 1.5;
+  background-color:#bfbfbf;
+  border-radius: 11px;
+  color: white;
+  padding:0 7px;
+  height: 24px;
+  display: block;
+  text-align: center;
+}
+.prefix-col-name-q{
+ @extend .prefix-col-name;
+  background-color:chocolate;
+}
+.prefix-col-name-1{
+  background-color:purple ;
+  opacity: 0.3;
+}
+.prefix-col-name-2{
+  background-color: lightsteelblue;
+}
+
+.L-item-header{
+  margin:28px 0 14px;
+}
+.L-item-title {
+  font-size: 16px;
+  font-weight: bold;
+  line-height:1.5;
+  margin:0;
+}
+
+.single-hr {
+  margin: 50px 0;
+}
+
