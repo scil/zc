@@ -7,14 +7,16 @@
     margin-top:-25px;
   }
   @media (max-width: $screen-sm-min) {
-    // required by perfect-scrollbar
-    overflow: hidden;
-    position: relative;
 
-    height: 500px;
-    padding-bottom:180px;// 让最后一个元素也能滚动到最上面
+    // perfect-scrollbar
+    //
+    //overflow: hidden; position: relative; // required by perfect-scrollbar
+    //
+    //height: 500px;
+    //padding-bottom:180px;// 让最后一个元素也能滚动到最上面
+    //
+    //margin-right:25px; // 右侧多留些区域 方便滚动页面而非此列表
 
-    margin-right:25px; // 右侧多留些区域 方便滚动页面而非此列表
   }
 }
 

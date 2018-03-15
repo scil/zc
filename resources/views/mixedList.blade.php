@@ -6,7 +6,45 @@
     <div class="container">
         <div class="row" id="column-box">
 
-            <div class="col-sm-7">
+
+
+            <div class="col-sm-5 col-sm-push-7">
+                <div id="side">
+                    <div id="LMap-box">
+                        <div id="side-first-page">
+                            <div id="LMap">
+                                <div class="map"></div>
+                            </div>
+                        </div>
+                        <div id="LMap-info-swipebox">
+                            <section id="LMap-info">
+                                <p id="LMap-info-addr" v-html="addr"></p>
+                                <div id="LMap-info-intro" v-html="intro"></div>
+                            </section>
+                        </div>
+                        <?php
+                        $mapInfosByID = []; $IDs=[];
+                        ?>
+                        @foreach($vols as $vol)
+                            @foreach($vol->firstArticlesSimple as $article)
+                                @if($article->places->count()>0)
+                                    <?php $a_place = $article->places[0];$IDs[]= $article->id;  ?>
+                                    <?php
+                                    $mapInfosByID[$article->id] = [
+                                        'addr' => $a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en,
+                                        'intro' => $a_place->pivot->intro]
+                                    ?>
+
+                                @endif
+                            @endforeach
+                        @endforeach
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-7 col-sm-pull-5">
                 <div id="L">
                     @foreach($vols as $vol)
                         @if($columnLevel==2)
@@ -55,41 +93,6 @@
                 </div>
             </div>
 
-
-            <div class="col-sm-5">
-                <div id="side">
-                    <div id="LMap-box">
-                        <div id="side-first-page">
-                            <div id="LMap">
-                                <div class="map"></div>
-                            </div>
-                        </div>
-                        <div id="LMap-info-swipebox">
-                            <section id="LMap-info">
-                                <p id="LMap-info-addr" v-html="addr"></p>
-                                <div id="LMap-info-intro" v-html="intro"></div>
-                            </section>
-                        </div>
-                        <?php
-                        $mapInfosByID = []; $IDs=[];
-                        ?>
-                        @foreach($vols as $vol)
-                            @foreach($vol->firstArticlesSimple as $article)
-                                @if($article->places->count()>0)
-                                    <?php $a_place = $article->places[0];$IDs[]= $article->id;  ?>
-                                    <?php
-                                    $mapInfosByID[$article->id] = [
-                                        'addr' => $a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en,
-                                        'intro' => $a_place->pivot->intro]
-                                    ?>
-
-                                @endif
-                            @endforeach
-                        @endforeach
-
-                    </div>
-                </div>
-            </div>
 
 
 

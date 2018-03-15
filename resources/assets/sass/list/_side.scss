@@ -1,3 +1,4 @@
+$affix-top: 30px;
 
 #side{
   //margin-top: 15px; // 这个值关系到　zc.content.initSideAffix
@@ -25,26 +26,32 @@
   }
 }
 @media (max-width: $screen-sm-min) {
-  #side{
+  #LMap-box{
     margin-bottom:20px;
     border-bottom:1px dotted gray;
+
+  // purpose: map cover text
+    background-color: #fff;
+    margin-top: - $affix-top;
+    padding-top: $affix-top;
   }
   #LMap{
     height:42%;
   }
   #LMap-info{
-    min-height:85px;
-    overflow-y: scroll;
+    //min-height:85px;
+    //overflow-y: scroll;
   }
 }
 
 .affix {
   position: fixed;
-  top: 30px;
+  top: $affix-top;
+  z-index: 2; //  used for initTopAffix().  in xs screen , map should cover text, not bellow text
 }
 .affix-bottom {
   position: absolute;
-  //right: 0 !important; // overwrite the right value set by js function affixBack
+  z-index: 2; //  used for initTopAffix().  in xs screen , map should cover text.
 }
 #LMap-info{
   font-size:12px;

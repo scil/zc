@@ -674,14 +674,14 @@ var zc = {
 
             // 在 chrome 59 中发现 ，被 .affix 的元素 如果其中的子元素没有确定width 会导致这些元素被长内容撑得非常长；
             // 在firefox 53 中也有类似问题，但撑得不太长
-            // 解决：给定一个width
+            // 解决：给定一个width, 根据元素 #side 的长度而变化
             zc.workAccordingScreen.add({
-                name: 'affix_children',
+                name: 'affix_child',
                 level: 6, // it must be after 'side_400px' because the children width depends #side
                 runEnterNow: true,
 
                 sideEle: $('#side'),
-                elements: [$(opts.affix), $('#LMap-info')],
+                elements: [$(opts.affix), $('#LMap-info-swipebox')],
 
                 bigResizeCallback: zc.list.affixChildren,
                 enterBigCallback: zc.list.affixChildren,
@@ -694,11 +694,18 @@ var zc = {
                 runEnterNow: true,
 
                 affixEle: $(opts.affix),
+                contentEle: $('#L'),
 
                 // 为什么小屏幕也做个affix？利用grid实现图片居上很简单 但因为bug affix不能用在pull push的column中
                 // https://getbootstrap.com/docs/3.3/css/#grid-column-ordering
-                enterBigCallback: zc.list.initSideAffix,
-                enterXsCallback: zc.list.initTopAffix,
+                enterBigCallback: function (config) {
+                    zc.list.destroyAffix(config);
+                    zc.list.initSideAffix(config);
+                },
+                enterXsCallback: function (config) {
+                    zc.list.destroyAffix(config);
+                    zc.list.initTopAffix(config);
+                },
 
             });
 
@@ -706,11 +713,18 @@ var zc = {
                 name: 'big_monitor_h1',
                 level: 7,
                 runEnterNow: true,
-                enterBigCallback: function () {
+
+                enabled:false,
+
+                enterBigCallback: function (config) {
                     zc.log('[moniter h1] start')
+                    config.enabled=true;
                     zc.elementsSpy.addEventHandler();
                 },
                 enterXsCallback: function () {
+                    if(!config.enabled) return;
+
+                    config.enabled=false;
                     zc.elementsSpy.removeEventHandler();
                     zc.log('[moniter h1] stop')
                 },
@@ -736,8 +750,15 @@ var zc = {
                 name: 'xs_wipe_info',
                 level: 8,
                 runEnterNow: true,
-                enterXsCallback: function () {
+
+                enabled: false,
+
+                enterXsCallback: function (config) {
+                    if (config.enabled) return;
+
+                    config.enabled = true;
                     zc.log('[map info] make swipe')
+
                     $(opts.infoSwipeBox).swipe({
                         swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
                             if (direction == 'left') {
@@ -751,9 +772,12 @@ var zc = {
                     });
 
                 },
-                enterBigCallback: function () {
-                    zc.log('[map info] end swipe')
-                    $(opts.infoSwipeBox).swipe('destroy');
+                enterBigCallback: function (config) {
+                    if (config.enabled) {
+                        config.enabled = false;
+                        zc.log('[map info] end swipe')
+                        $(opts.infoSwipeBox).swipe('destroy');
+                    }
                 },
             });
 
@@ -829,6 +853,7 @@ var zc = {
             for (var ele in config.elements) {
                 config.elements[ele].width(sideWidth);
             }
+            zc.log('[affix child] width ' + sideWidth);
 
         },
         quitAffixChildren: function (config) {
@@ -837,15 +862,16 @@ var zc = {
             }
         },
 
-        destroySideAffix: function (config) {
+        destroyAffix: function (config) {
 
             $(window).off('.affix');
             $(config.affixEle).removeData('bs.affix').removeClass('affix affix-top affix-bottom');
 
-            zc.log('[affix] end');
+            zc.log('[affix] clear');
         },
         initSideAffix: function (config) {
-            zc.log('[affix] side start')
+
+            zc.log('[affix] side set')
             var $ele = config.affixEle;
 
 
@@ -865,13 +891,12 @@ var zc = {
 
         },
         initTopAffix: function (config) {
-            zc.list.destroySideAffix(config);
-            zc.log('[affix] top start')
+            zc.log('[affix] top set')
             var $ele = config.affixEle;
 
             $ele.affix({
                 offset: {
-                    top: 0,
+                    top: $ele.offset().top - parseInt($ele.css('marginTop')) - 30, // 避免地图抖动， jq给的top没计算margin-top,　30 见.affix{top:30px;}
                     bottom: function () {
                         return ($('#footer').outerHeight(true) + $('#quotes-slide').outerHeight(true) + 100); // 100 只是个概数
                     }
