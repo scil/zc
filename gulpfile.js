@@ -165,7 +165,15 @@ function dist_browserify() {
 
 }
 
-function dist_js() {
+function dist_js_app() {
+   return gulp.src(['resources/js/zc.js'])
+       .pipe(sourcemaps.init())
+       .pipe(uglify())
+       .pipe(sourcemaps.write())
+       .pipe(gulp.dest('public/js'));
+}
+
+function dist_js_vendor() {
 
     // google maps in a dependent file
     gulp.src([
@@ -241,7 +249,17 @@ function sass_ferry() {
 }
 
 
-function watch_sass() {
+function watch() {
+
+    gulp.watch('./resources/js/zc.js',
+        {
+            ignoreInitial:false,
+            delay:600,
+            // Usually necessary when watching files on a network mount or on a VMs file system.
+            usePolling:true,
+        },
+        dist_js_app)
+
     gulp.watch(
         './resources/assets/sass/**/*.scss',
         {
@@ -299,17 +317,20 @@ gulp.task('db:seeds:watch', function () {
 
 exports.clean = clean;
 exports.dist_css = dist_css;
-exports.dist_js = dist_js;
+exports.dist_js = dist_js_vendor;
+exports.dist_js_app = dist_js_app;
 
 exports.sass_app = sass_app;
 exports.sass_ferry = sass_ferry;
-exports.watch_sass = watch_sass;
+
+exports.watch= watch;
 
 var build = gulp.series(
     clean,
     gulp.parallel(
         dist_css,
-        gulp.series(dist_js, dist_browserify),
+        dist_js_app,
+        gulp.series(dist_js_vendor, dist_browserify),
     ),
     sass_app,
     sass_ferry
