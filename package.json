@@ -1,6 +1,7 @@
 {
   "private": true,
   "devDependencies": {
+    "Font-Awesome": "https://github.com/FortAwesome/Font-Awesome.git",
     "babel-cli": "^6.24.1",
     "babel-preset-env": "^1.6.0",
     "del": "^3.0.0",
@@ -45,7 +46,6 @@
     "markdown-it-ins": "~2.0.0",
     "markdown-it-mark": "~2.0.0",
     "markdown-it-sup": "~1.0.0",
-    "perfect-scrollbar": "^0.7.1",
     "select2": "^4.0.3",
     "simplemde": "^1.11.2",
     "slick-carousel": "^1.6.0",

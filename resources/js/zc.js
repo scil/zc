@@ -731,21 +731,6 @@ var zc = {
 
             });
 
-            // zc.workAccordingScreen.add({
-            //     name: 'xs_list_scroll',
-            //     level: 7,
-            //     runEnterNow: true,
-            //     enterXsCallback: function () {
-            //         zc.log('[list scroll] start')
-            //         zc.listScroll.init(opts.listArea, opts.findItemWay);
-            //     },
-            //     enterBigCallback: function () {
-            //         zc.listScroll.destroy();
-            //         zc.log('[list scroll] stop')
-            //     },
-            // });
-
-
             zc.workAccordingScreen.add({
                 name: 'xs_wipe_info',
                 level: 8,
@@ -815,13 +800,25 @@ var zc = {
         _update2Up: function () {
             var id = zc.list._IDs[parseInt(zc.list._IDs.indexOf(zc.list._lastID)) - 1];
             zc.list._updateSideMap(id);
-            zc.listScroll.item2Top(id);
+            zc.list.item2Top(id);
         },
         _update2Down: function () {
             var plus = zc.list._IDs.indexOf(zc.list._lastID) + 1;
             var id = zc.list._IDs[plus == zc.list._IDs.length ? 0 : plus];
             zc.list._updateSideMap(id);
-            zc.listScroll.item2Top(id);
+            zc.list.item2Top(id);
+        },
+
+        _findItemWay:null,
+        item2Top: function (id) {
+
+            var item = this._findItemWay(id, this._listBox);
+            if (item) {
+                // this._listBox[0].scrollTop = item[0].offsetTop;
+                this._listBox.animate({scrollTop: item[0].offsetTop}, 800);
+            }
+            else
+                console.debug('item2top not correct item ', id, item);
         },
 
 
@@ -906,39 +903,6 @@ var zc = {
 
         },
 
-    },
-    listScroll: {
-        _listBox: null,
-        /*
-        **  return a jquery instance
-         */
-        _findItemWay: null,
-        _enable: false,
-        init: function (query, findItemWay) {
-            this._listBox = $(query);
-            this._listBox.perfectScrollbar();
-            this._findItemWay = findItemWay;
-            this._enalbe = true;
-
-        },
-        item2Top: function (id) {
-            if (!this._enalbe) return;
-
-            var item = this._findItemWay(id, this._listBox);
-            if (item) {
-                // this._listBox[0].scrollTop = item[0].offsetTop;
-                this._listBox.animate({scrollTop: item[0].offsetTop}, 800);
-            }
-            else
-                console.debug('item2top not correct item ', id, item);
-        },
-        update: function () {
-            this._listBox.perfectScrollbar('update');
-        },
-        destroy: function () {
-            this._listBox && this._listBox.perfectScrollbar('destroy');
-            this._enalbe = false;
-        },
     },
     // 不断定位显示在屏幕最上方的目标元素 对元素或元素的id进行操作
     elementsSpy: {
