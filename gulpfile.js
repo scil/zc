@@ -18,7 +18,7 @@ const markdown_editor = 'simplemde',
 const gulp = require('gulp'), del = require('del'), rename = require('gulp-rename'),
     gulp_replace = require('gulp-replace'), concat = require('gulp-concat'),
 
-    shell = require("gulp-shell"), process = require('child_process'), path = require('path'),
+    exec = require("gulp-exec"), process = require('child_process'), path = require('path'),
 
     cleanCSS = require('gulp-clean-css'),
 
@@ -91,12 +91,8 @@ function editormd_font_version() {
 }
 
 function editormd_font_version_move() {
-    return shell.task([
-        'mv node_modules/editor.md/css/editormd.css node_modules/editor.md/css/editormd.css.bak',
-        'mv node_modules/editor.md/css/editormd.css.version node_modules/editor.md/css/editormd.css',
-    ], {
-        ignoreErrors: true,
-    })
+    return gulp.src('node_modules/editor.md/css/editormd.css')
+        .pipe(exec('mv <%= file.path %>  <%= file.path %>.bak && mv <%= file.path %>.version <%= file.path %> '));
 }
 
 gulp.task('pkg_editormd', gulp.series(editormd_font_version, editormd_font_version_move));
@@ -166,11 +162,11 @@ function dist_browserify() {
 }
 
 function dist_js_app() {
-   return gulp.src(['resources/js/zc.js'])
-       .pipe(sourcemaps.init())
-       .pipe(uglify())
-       .pipe(sourcemaps.write())
-       .pipe(gulp.dest('public/js'));
+    return gulp.src(['resources/js/zc.js'])
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest('public/js'));
 }
 
 function dist_js_vendor() {
@@ -248,72 +244,95 @@ function sass_ferry() {
         .pipe(gulp.dest('./resources/views/css'));
 }
 
+function column_cache() {
+    return process.exec('php artisan column:cache', function (error, stdout, stderr) {
+            if (error !== null) {
+                console.log('php artisan column:cache error: ' + error);
+            }
+        }
+    );
+}
+
+function column_data() {
+    return process.exec('php artisan db:seed --class=MenuItemsTableSeeder ', function (error, stdout, stderr) {
+            if (error !== null) {
+                console.log('php artisan db:seed MenuItemsTableSeeder and column:cache error: ' + error);
+            } else {
+                column_cache();
+            }
+        }
+    );
+}
 
 function watch() {
 
     gulp.watch('./resources/js/zc.js',
         {
-            ignoreInitial:false,
-            delay:600,
+            ignoreInitial: false,
+            delay: 600,
             // Usually necessary when watching files on a network mount or on a VMs file system.
-            usePolling:true,
+            usePolling: true,
         },
         dist_js_app)
 
     gulp.watch(
         './resources/assets/sass/**/*.scss',
         {
-            ignoreInitial:false,
-            ignored:'./resources/assets/sass/pass/_ferry.scss',
-            delay:300,
+            ignoreInitial: false,
+            ignored: './resources/assets/sass/pass/_ferry.scss',
+            delay: 300,
             // Usually necessary when watching files on a network mount or on a VMs file system.
-            usePolling:true,
+            usePolling: true,
         },
         sass_app);
 
     gulp.watch(
         './resources/assets/sass/pass/_ferry.scss',
         {
-            ignoreInitial:false,
-            delay:300,
-            usePolling:true,
+            ignoreInitial: false,
+            delay: 300,
+            usePolling: true,
         },
         sass_ferry);
+
+    gulp.watch(
+        './database/seeds/MenuItemsTableSeeder.php',
+        {
+            delay: 500,
+            usePolling: true,
+        },
+        column_data
+    );
+    gulp.watch(
+        './resources/views/layouts/base.blade.php',
+        {
+            delay: 500,
+            usePolling: true,
+        },
+        column_cache);
 }
 
 
-gulp.task('db:seeds:watch', function () {
-    var ids = {};
-    var watcher = gulp.watch('database/seeds/*.php', ['']);
+function watch_seed() {
 
-    watcher.on('change', function (event) {
-            if (event.type === 'added' || event.type === 'changed') {
-                var file = event.path;
-                if (file in ids) {
-                    clearTimeout(ids[file]);
-                    delete ids[file];
-                    console.log('esc db:seed ' + file);
+    gulp.watch('database/seeds/*.php',
+        {
+            ignoreInitial: false,
+            delay: 300,
+            usePolling: true,
+        }, function (path, stats) {
+
+            var className = path.basename(path, '.php');
+            var cmd = "php artisan db:seed --class=" + className;
+            console.log(cmd);
+            process.exec(cmd, function (error, stdout, stderr) {
+                    if (error !== null) {
+                        console.log('db:seed error: ' + error);
+                    }
                 }
-                console.log('[prepare db:seed] ' + file);
-                ids[file] = setTimeout(function () {
-                    delete ids[file];
-                    var className = path.basename(file, '.php');
-                    var cmd = "start db:seed --class=" + className;
-                    console.log(cmd);
-                    process.exec(cmd, function (error, stdout, stderr) {
-                            if (error !== null) {
-                                console.log('db:seed error: ' + error);
-                            }
-                        }
-                    );
-                    //gulp.src("").pipe(shell(cmd));
-                }, 1000 * 20);
-            }
-        }
-    )
-    ;
-});
-
+            );
+        })
+};
 
 exports.clean = clean;
 exports.dist_css = dist_css;
@@ -323,7 +342,8 @@ exports.dist_js_app = dist_js_app;
 exports.sass_app = sass_app;
 exports.sass_ferry = sass_ferry;
 
-exports.watch= watch;
+exports.watch = watch;
+exports.watch_seed = watch_seed;
 
 var build = gulp.series(
     clean,
