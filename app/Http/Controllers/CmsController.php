@@ -246,6 +246,7 @@ class CmsController extends Controller
 
 
         }
+
         return view('mixedList', compact('columnInfo', 'vols', 'quotes', 'columnLevel', 'desc', 'title'));
 
     }

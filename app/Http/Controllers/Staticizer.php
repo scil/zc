@@ -56,6 +56,10 @@ class Staticizer
     }
 
     /**
+     *
+     * php artisan column:cache
+     *
+     * or
      * open tinker and run:
      * ( new \App\Http\Controllers\Staticizer)->createColumnsData();
      */
@@ -71,7 +75,7 @@ class Staticizer
         \File::deleteDirectory(base_path() . '/resources/views/partials/columns');
         \File::deleteDirectory(base_path() . '/resources/views/layouts/columns');
 
-        $this->_columnsCache();
+        $this->_makeColumnsCache();
 
         $this->partial('columns.navbar-nav-left', [], 'columns._navbar-nav-left');
         $this->partial('columns.map', [], 'columns._map');
@@ -98,7 +102,7 @@ class Staticizer
 
     }
 
-    protected function _columnsCache()
+    protected function _makeColumnsCache()
     {
         $file = storage_path() . '/staticizer/columns.php';
         file_put_contents($file, '<?'
