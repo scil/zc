@@ -1,5 +1,12 @@
-console.log('\n****************\n[run]  yarn add  gulpjs/gulp#4.0 --dev')
-console.log('[run] `gulp pkg` every time your pkgs are changed\n****************\n')
+console.log('\n\
+[init command]\n\
+yarn add gulpjs/gulp#4.0 --dev \n\
+yarn add gulp-flowtype --dev \n\
+yarn add gulp-babel @babel/core @babel/preset-env @babel/preset-flow -dev \n\
+\n\
+[run when pkgs are changed] \n\
+gulp pkg \n\
+');
 
 
 /**
@@ -15,30 +22,38 @@ const markdown_editor = 'simplemde',
     pkg_dir = 'node_modules/',
     bower_pkg_dir = 'bower_components/';
 
-const gulp = require('gulp'), del = require('del'), rename = require('gulp-rename'),
-    gulp_replace = require('gulp-replace'), concat = require('gulp-concat'),
+const gulp = require('gulp'),
+    babel = require('gulp-babel'),
+    flow = require('gulp-flowtype'),
 
-    exec = require("gulp-exec"), process = require('child_process'), path = require('path'),
+    // By default, gulp-uglify uses the version of UglifyJS installed as a dependency.
+    // var uglify = require('gulp-uglify'),
+    // 要压缩的文件用到了es6语法 It's possible to configure the use of a different version using the "composer" entry point.
+    composer = require('gulp-uglify/composer'),
+    uglify = composer(require('uglify-es'), console),
 
-    cleanCSS = require('gulp-clean-css'),
-
-// By default, gulp-uglify uses the version of UglifyJS installed as a dependency.
-// var uglify = require('gulp-uglify'),
-// 要压缩的文件用到了es6语法
-// It's possible to configure the use of a different version using the "composer" entry point.
-// let uglify supporting es6
-    uglifyjs = require('uglify-es'), composer = require('gulp-uglify/composer'), uglify = composer(uglifyjs, console),
-
-    browserify = require('browserify'), source = require('vinyl-source-stream'), buffer = require('vinyl-buffer'),
+    browserify = require('browserify'),
+    source = require('vinyl-source-stream'),
+    buffer = require('vinyl-buffer'),
 
     sourcemaps = require('gulp-sourcemaps'),
 
+    del = require('del'),
+    rename = require('gulp-rename'),
+    replace = require('gulp-replace'),
+    concat = require('gulp-concat'),
+
+    exec = require("gulp-exec"),
+    process = require('child_process'),
+    path = require('path'),
+
+    cleanCSS = require('gulp-clean-css'),
     sass = require('gulp-sass'),
 
     log = require('fancy-log')
 
 
-var markdown_editor_res = {
+const markdown_editor_res = {
     // editor.md + codemirror
     'editormd': {
         'css': [
@@ -80,12 +95,11 @@ var markdown_editor_res = {
     }
 }
 
-
 // 把字体后缀 ?v=4.3.0 变成 ?v=4.5.0 虽然没必要 只是个query string 但还是一致点好
 // 把原文件备份为 editormd.css.bak
 function editormd_font_version() {
     return gulp.src([pkg_dir + 'editor.md/css/editormd.css'])
-        .pipe(gulp_replace(/fontawesome-([^=]+)v=([\d\.]+)/g, 'fontawesome-$1v=' + fontawesome_versin))
+        .pipe(replace(/fontawesome-([^=]+)v=([\d\.]+)/g, 'fontawesome-$1v=' + fontawesome_versin))
         .pipe(rename('editormd.css.version'))
         .pipe(gulp.dest(pkg_dir + 'editor.md/css'));
 }
@@ -125,7 +139,6 @@ function clean() {
     ]);
 }
 
-
 function dist_css() {
     return gulp.src([
         // pkg_dir + 'formvalidation/dist/css/formValidation.min.css',
@@ -163,9 +176,36 @@ function dist_browserify() {
 
 function dist_js_app() {
     return gulp.src(['resources/js/zc.js'])
+        .pipe(flow({
+            all: false,
+            weak: false,
+            killFlow: false,
+            beep: true,
+            abort: false
+        }))
         .pipe(sourcemaps.init())
-        .pipe(uglify())
-        .pipe(sourcemaps.write())
+        .pipe(babel({
+            presets: [
+                '@babel/flow',
+                [
+                    '@babel/env',
+                    {
+                        "targets": {
+                            "browsers": ["last 2 versions", "ie >= 8"],
+                            "firefox": 55,
+                        },
+                        //todo
+                        "modules": false,
+                        "useBuiltIns": false,
+                        "debug": true
+                    }]
+            ]
+        }))
+        .pipe(gulp.dest('public/js/babeled'))
+        .pipe(uglify().on('error', function (err) {
+            console.error(err.toString());
+        }))
+        .pipe(sourcemaps.write('./map'))
         .pipe(gulp.dest('public/js'));
 }
 
@@ -339,8 +379,13 @@ exports.dist_css = dist_css;
 exports.dist_js = dist_js_vendor;
 exports.dist_js_app = dist_js_app;
 
+// sass
 exports.sass_app = sass_app;
 exports.sass_ferry = sass_ferry;
+
+// view and data
+exports.column_cache = column_cache;
+exports.column_data = column_data;
 
 exports.watch = watch;
 exports.watch_seed = watch_seed;
