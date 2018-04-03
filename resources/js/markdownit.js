@@ -4,7 +4,7 @@
 
 var MarkDownIt = require('markdown-it');
 
-var getParser = function() {
+var getMDParser = function() {
     var options = {
         html: true,
     }
@@ -50,17 +50,19 @@ console.log(m)
     return md;
 }
 
-var g;
-if (typeof window !== "undefined") {
-    g = window
-} else if (typeof global !== "undefined") {
-    g = global
-} else if (typeof self !== "undefined") {
-    g = self
-} else {
-    g = this
-}
-
-g.getMDParser = getParser;
-
+module.exports=getMDParser;
+//
+// var g;
+// if (typeof window !== "undefined") {
+//     g = window
+// } else if (typeof global !== "undefined") {
+//     g = global
+// } else if (typeof self !== "undefined") {
+//     g = self
+// } else {
+//     g = this
+// }
+//
+// g.getMDParser = getMDParser;
+//
 

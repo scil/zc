@@ -1,10 +1,21 @@
 console.log('\n\
-[init command]\n\
+[[init command]]\n\
 yarn add gulpjs/gulp#4.0 --dev \n\
 yarn add gulp-flowtype --dev \n\
-yarn add gulp-babel @babel/core @babel/preset-env @babel/preset-flow -dev \n\
+\
+yarn add gulp-babel@8.0.0 --dev\n\
+yarn add @babel/core@7.0.0 --dev\n\
+yarn add @babel/cli@7.0.0 --dev\n\
+yarn add @babel/polyfill@7.0.0 --save\n\
+yarn add @babel/preset-env @babel/preset-flow -dev \n\
 \n\
-[run when pkgs are changed] \n\
+\
+//why not use official babelify? Read:\n\
+//  Upgrade to Babel 7 and @babel scoped packages https://github.com/babel/babelify/pull/255\n\
+yarn add "github:ylemkimon/babelify" --dev \n\
+\
+\n\
+[[run when pkgs are changed]] \n\
 gulp pkg \n\
 ');
 
@@ -15,14 +26,16 @@ gulp pkg \n\
  *  simplemde
  * @type {string}
  */
-const markdown_editor = 'simplemde',
+const
+    markdown_editor = 'simplemde',
     // used by editormd
     font_css_path = 'resources/font/fontello/css/fontello.css',
     fontawesome_versin = '4.5.0',
     pkg_dir = 'node_modules/',
     bower_pkg_dir = 'bower_components/';
 
-const gulp = require('gulp'),
+const
+    gulp = require('gulp'),
     babel = require('gulp-babel'),
     flow = require('gulp-flowtype'),
 
@@ -50,7 +63,7 @@ const gulp = require('gulp'),
     cleanCSS = require('gulp-clean-css'),
     sass = require('gulp-sass'),
 
-    log = require('fancy-log')
+    log = require('fancy-log');
 
 
 const markdown_editor_res = {
@@ -139,13 +152,22 @@ function clean() {
     ]);
 }
 
+let css_files = [];
+let js_files = [];
+
+// select2
+css_files.push(pkg_dir + 'select2/dist/css/select2.min.css');
+js_files.push(pkg_dir + 'select2/dist/js/select2.min.js'); // 66k
+
+// slick
+css_files.push(pkg_dir + 'slick-carousel/slick/slick.css');
+//css_files.push(pkg_dir + 'slick-carousel/slick/slick-theme.css');
+js_files.push(pkg_dir + 'slick-carousel/slick/slick.min.js');
+
+/* 41k*/
+
 function dist_css() {
-    return gulp.src([
-        // pkg_dir + 'formvalidation/dist/css/formValidation.min.css',
-        pkg_dir + 'select2/dist/css/select2.min.css',
-        pkg_dir + 'slick-carousel/slick/slick.css',
-        // pkg_dir + 'slick-carousel/slick/slick-theme.css',
-    ].concat(
+    return gulp.src(css_files.concat(
         markdown_editor_res[markdown_editor]['css']
     ))
         .pipe(concat('vendor.css'))
@@ -153,57 +175,35 @@ function dist_css() {
         .pipe(gulp.dest('public/css'));
 }
 
-
-//  used by both client side and server side(merged to vendor.js)
-function dist_browserify() {
-
-    var b = browserify({
-        entries: './resources/js/_markdownit.js',
-        debug: true
-    });
-
-    return b.bundle()
-        .pipe(source('browserify_md.js'))  // output file
-        .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true}))
-        // Add transformation tasks to the pipeline here.
-        .pipe(uglify())
-        .on('error', log)
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest('./public/js/'));
-
-}
-
-function dist_js_app() {
-    return gulp.src(['resources/js/zc.js'])
+function flow_js_app() {
+    return gulp.src(['resources/js/*.js'])
         .pipe(flow({
             all: false,
             weak: false,
             killFlow: false,
             beep: true,
             abort: false
-        }))
+        }));
+}
+
+function dist_js_app() {
+    return browserify({
+        // entries: './resources/js/entry.js',
+        debug: true
+    })
+        .transform("babelify")
+        .require("./resources/js/entry.js", {entry: true})
+        .bundle()
+        .on("error", function (err) {
+            console.error("Error: " + err.message);
+        })
+        .pipe(source('zc.js'))  // Set source name
+        .pipe(buffer()) // Convert to gulp pipeline
         .pipe(sourcemaps.init())
-        .pipe(babel({
-            presets: [
-                '@babel/flow',
-                [
-                    '@babel/env',
-                    {
-                        "targets": {
-                            "browsers": ["last 2 versions", "ie >= 8"],
-                            "firefox": 55,
-                        },
-                        //todo
-                        "modules": false,
-                        "useBuiltIns": false,
-                        "debug": true
-                    }]
-            ]
-        }))
         .pipe(gulp.dest('public/js/babeled'))
+        // todo: a replacement https://github.com/babel/minify   it has not pkg @babel
         .pipe(uglify().on('error', function (err) {
-            console.error(err.toString());
+            console.error("Uglify: " + err.toString());
         }))
         .pipe(sourcemaps.write('./map'))
         .pipe(gulp.dest('public/js'));
@@ -214,8 +214,6 @@ function dist_js_vendor() {
     // google maps in a dependent file
     gulp.src([
         pkg_dir + 'gmaps/gmaps.min.js',
-
-        // bower_pkg_dir + 'jquery-timer/jquery.timer.js',
     ])
         .pipe(concat('gmaps.js'))
         .pipe(uglify())
@@ -231,8 +229,6 @@ function dist_js_vendor() {
 
     return gulp.src([
         pkg_dir + 'underscore/underscore-min.js', // 17k
-        // use cdn instead
-        // pkg_dir + 'd3/build/d3.min.js', // 214k
 
         // pkg_dir + 'formvalidation/dist/js/formValidation.min.js',// 119k
         // pkg_dir + 'formvalidation/dist/js/framework/bootstrap.min.js',
@@ -240,10 +236,8 @@ function dist_js_vendor() {
 
         pkg_dir + 'form-serializer/jquery.serialize-object.js',
         pkg_dir + 'jQuery-autoGrowInput/jquery.auto-grow-input.min.js',
-        pkg_dir + 'select2/dist/js/select2.min.js', // 66k
         pkg_dir + 'vanilla-masker/build/vanilla-masker.min.js',
 
-        pkg_dir + 'slick-carousel/slick/slick.min.js', // 41k
         pkg_dir + 'jquery-mousewheel/jquery.mousewheel.js',
         pkg_dir + 'jquery-visible/jquery.visible.min.js',
         pkg_dir + 'perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js',
@@ -255,11 +249,9 @@ function dist_js_vendor() {
         'resources/js/world.js',
 
         pkg_dir + 'vue/dist/vue.min.js',
-
-
-    ].concat(
-        markdown_editor_res[markdown_editor]['js']
-    ))
+    ]
+        .concat(markdown_editor_res[markdown_editor]['js'])
+        .concat(js_files) )
         .pipe(concat('vendor.js'))
         .pipe(uglify())
         .pipe(gulp.dest('public/js'));
@@ -378,6 +370,7 @@ exports.clean = clean;
 exports.dist_css = dist_css;
 exports.dist_js = dist_js_vendor;
 exports.dist_js_app = dist_js_app;
+exports.flow_js_app = flow_js_app;
 
 // sass
 exports.sass_app = sass_app;
@@ -394,8 +387,8 @@ var build = gulp.series(
     clean,
     gulp.parallel(
         dist_css,
-        dist_js_app,
-        gulp.series(dist_js_vendor, dist_browserify),
+        gulp.series(flow_js_app, dist_js_app),
+        dist_js_vendor,
     ),
     sass_app,
     sass_ferry
