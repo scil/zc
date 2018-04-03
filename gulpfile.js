@@ -278,6 +278,15 @@ function sass_ferry() {
         .pipe(gulp.dest('./resources/views/css'));
 }
 
+function column_blade() {
+    return process.exec('php artisan column:blade', function (error, stdout, stderr) {
+            if (error !== null) {
+                console.log('php artisan column:blade error: ' + error);
+            }
+        }
+    );
+}
+
 function column_cache() {
     return process.exec('php artisan column:cache', function (error, stdout, stderr) {
             if (error !== null) {
@@ -339,11 +348,12 @@ function watch() {
     );
     gulp.watch(
         './resources/views/layouts/base.blade.php',
+        './resources/views/mixedList.blade.php',
         {
             delay: 500,
             usePolling: true,
         },
-        column_cache);
+        column_blade);
 }
 
 

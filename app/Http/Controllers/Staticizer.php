@@ -58,12 +58,13 @@ class Staticizer
     /**
      *
      * php artisan column:cache
+     * php artisan column:blade
      *
      * or
      * open tinker and run:
-     * ( new \App\Http\Controllers\Staticizer)->createColumnsData();
+     * ( new \App\Http\Controllers\Staticizer)->useColumnsData();
      */
-    function createColumnsData($method = null, ...$params)
+    function useColumnsData($method = null, ...$params)
     {
         $this->_initColumnsData();
 
@@ -72,10 +73,10 @@ class Staticizer
             return;
         }
 
+        $this->_makeColumnsCache();
+
         \File::deleteDirectory(base_path() . '/resources/views/partials/columns');
         \File::deleteDirectory(base_path() . '/resources/views/layouts/columns');
-
-        $this->_makeColumnsCache();
 
         $this->partial('columns.navbar-nav-left', [], 'columns._navbar-nav-left');
         $this->partial('columns.map', [], 'columns._map');

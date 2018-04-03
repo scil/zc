@@ -105,7 +105,7 @@ class MenuItemsTableSeeder extends Seeder
 
         $this->insertColumns($yilu_menu);
 
-        (new \App\Http\Controllers\Staticizer)->createColumnsData();
+        (new \App\Http\Controllers\Staticizer)->useColumnsData();
 
 
     }

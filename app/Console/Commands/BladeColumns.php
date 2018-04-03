@@ -4,21 +4,21 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class CacheColumns extends Command
+class BladeColumns extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'column:cache';
+    protected $signature = 'column:blade';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'generate ./staticizer/columns.php';
+    protected $description = 'generate view files';
 
     /**
      * Create a new command instance.
@@ -37,6 +37,6 @@ class CacheColumns extends Command
      */
     public function handle()
     {
-        ( new \App\Http\Controllers\Staticizer)->useColumnsData('_makeColumnsCache');
+        ( new \App\Http\Controllers\Staticizer)->useColumnsData();
     }
 }

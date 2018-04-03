@@ -553,6 +553,12 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'intro' => '1982 年，89 岁高龄的晏阳初撰文怀念阔别半生的至友卢作孚。30 多年前，他劝卢乘桴浮于海，从此天人永隔。',
                     ],
                 ],
+                '_vol' => [
+                    'title' => '卢作孚',
+                    'column_id' => $qing_id,
+                    'no' => ++$qing_vol_no,
+                    'person_id' => $person_ids['Lu_Zuofu'],
+                ],
                 '_quotes' => [
 
                     [
@@ -590,7 +596,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 '_brothers' => [
                     [
                         'slug' => 'Lu-Zuofu-microbe',
-                        'articleable_id'=>$column_id,'title' => '「微生物」之路：从文人到官员再到商人',
+                        'articleable_id'=>$column_id,'title' => '「微生物」之路：从文人到官员，从官员到商人',
                         'desc' => '如何发展中囶？卢作孚的探索之路。',
                         'intro' => '如何发展中囶？卢作孚的探索之路。',
                         'author' => '结巢人境（编）',
@@ -604,12 +610,6 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 
                         'editor_id' => 1, 'status' => 1, 'deep' => 'open',
                         'comment' => null,
-                        '_vol' => [
-                            'title' => '卢作孚',
-                            'column_id' => $qing_id,
-                            'no' => ++$qing_vol_no,
-                            'person_id' => $person_ids['Lu_Zuofu'],
-                        ],
                         '_place' => [
                             'name' => '北碚卢作孚纪念馆',
                             'name_en' => '',
@@ -1922,7 +1922,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 '_brothers' => [
                     [
                         'slug' => "human-civilizations-come-dripping--every-pore-with-blood-and-dirt-2",
-                        'articleable_id'=>$column_id,'title' => '《人类文明来到世间》之二：没有杀戮哪有新帝国',
+                        'articleable_id'=>$column_id,'title' => '《人类文明来到世间》之二：没有杀戮就没有新帝国',
                         'desc' => '耶酥会士卫匡国( Martin Martini )在《鞑靼战纪》中记述:「他们不论男女老幼一律残酷地杀死，他们不说别的，只说:『杀！杀死这些反叛的蛮子!』」这就是一个新帝国崛起的场景。',
                         'intro' => '耶酥会士卫匡国( Martin Martini )在《鞑靼战纪》中记述:「他们不论男女老幼一律残酷地杀死，他们不说别的，只说:『杀！杀死这些反叛的蛮子!』」这就是一个新帝国崛起的场景。',
                         'author' => '结巢人境（编）',
@@ -1953,7 +1953,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     ],
                     [
                         'slug' => "human-civilizations-come-dripping--every-pore-with-blood-and-dirt-3",
-                        'articleable_id'=>$column_id,'title' => '《人类文明来到世间》之三：领土没有自古以来的',
+                        'articleable_id'=>$column_id,'title' => '《人类文明来到世间》之三：领土没有「自古以来」',
                         'desc' => '越南独立后，持续采取「北守南攻」战略，持续８００年的侵略，使扩张的领土面积达到独立时的四倍，具有古老文明的占城国灭亡、柬埔寨缩小了一半。',
                         'intro' => '越南独立后，持续采取「北守南攻」战略，持续８００年的侵略，使扩张的领土面积达到独立时的四倍，具有古老文明的占城国灭亡、柬埔寨缩小了一半。',
                         'author' => '结巢人境（编）',
@@ -1984,9 +1984,10 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     ],
                     [
                         'slug' => "human-civilizations-come-dripping--every-pore-with-blood-and-dirt-4",
-                        'articleable_id'=>$column_id,'title' => '《人类文明来到世间》之四：有国就有人吗',
+                        'articleable_id'=>$column_id,'title' => '《人类文明来到世间》之四：有国就有家吗',
+                        //todo 美国校园枪击案
                         'intro' => '封疆大吏上书皇帝：英军总是用小恩小惠巴结老百姓，老百姓一点不怕英军，倒是怕咱们官军，跟咱不是一条心啊！',
-                        'desc' => '有国不一定有你，有国不一定有家。有种国家，人什么都不是。',
+                        'desc' => '有国不一定有安全的家，有国不一定有安全的你。',
                         'author' => '结巢人境（编）',
                         'author_id' => 1,
                         'origin' => '',
@@ -2015,7 +2016,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     ],
                     [
                         'slug' => "human-civilizations-come-dripping--every-pore-with-blood-and-dirt-5",
-                        'articleable_id'=>$column_id,'title' => '《人类文明来到世间》续五：人类的新文明',
+                        'articleable_id'=>$column_id,'title' => '《人类文明来到世间》之五：人类进步的起点 是不信奉『存在即合理』',
                         'intro' => '19 世纪末，美国遭遇空前的经济危机，失业人口第一次突破 300 万。为了缓解这场危机，美国决策层发动抢夺殖民地的战争，如果按照这个套路发展，美国可能会成为日本、德国以及亚述、埃及、波斯、罗马、蒙古、奥斯曼、俄罗斯、大金国、越南、日本那般的扩张型国家。',
                         'desc'=>'为什么年轻的美囶停止扩张，不学习亚述、埃及、波斯、罗马、蒙古、奥斯曼、俄罗斯、大金国、越南、日本？',
                         'author' => '结巢人境（编）',
