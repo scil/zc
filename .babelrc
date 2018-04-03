@@ -7,9 +7,10 @@
   //    "bar/**/*.js"
   //  ],
   "presets": [
+
     "@babel/preset-flow",
-    [
-      "@babel/preset-env",
+
+    ["@babel/preset-env",
       {
         "targets": {
           "browsers": [
@@ -24,8 +25,8 @@
         // 可另外在html上引入 如     <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-beta.42/polyfill.min.js"></script>
         "useBuiltIns": "usage",
         "debug": true
-      }
-    ]
+      }]
+
   ],
   "sourceMaps": "both",
   "minified": true,

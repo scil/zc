@@ -188,8 +188,7 @@ function flow_js_app() {
 
 function dist_js_app() {
     return browserify({
-        // entries: './resources/js/entry.js',
-        debug: true
+        debug: true, // To use source maps
     })
         .transform("babelify")
         .require("./resources/js/entry.js", {entry: true})
@@ -200,12 +199,15 @@ function dist_js_app() {
         .pipe(source('zc.js'))  // Set source name
         .pipe(buffer()) // Convert to gulp pipeline
         .pipe(gulp.dest('public/js/babeled'))
-        // .pipe(sourcemaps.init())
-        // // todo: a replacement https://github.com/babel/minify   it has not pkg @babel
-        // .pipe(uglify().on('error', function (err) {
-        //     console.error("Uglify: " + err.toString());
-        // }))
-        // .pipe(sourcemaps.write('./map'))
+        .pipe(sourcemaps.init({
+            loadMaps: true,
+            //compress: false,
+        }))
+        // todo: a replacement https://github.com/babel/minify   it has not pkg @babel
+        .pipe(uglify().on('error', function (err) {
+            console.error("Uglify: " + err.toString());
+        }))
+        .pipe(sourcemaps.write('./map'))
         .pipe(gulp.dest('public/js'));
 }
 
@@ -251,7 +253,7 @@ function dist_js_vendor() {
         pkg_dir + 'vue/dist/vue.min.js',
     ]
         .concat(markdown_editor_res[markdown_editor]['js'])
-        .concat(js_files) )
+        .concat(js_files))
         .pipe(concat('vendor.js'))
         .pipe(uglify())
         .pipe(gulp.dest('public/js'));
