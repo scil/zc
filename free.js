@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
-var process = require('process');
-var minify = require('html-minifier').minify;
-var program = require('commander');
+const fs = require('fs');
+const process = require('process');
+const minify = require('html-minifier').minify;
+const program = require('commander');
+
+const free = require("./resources/js/free");
+const md = require('./resources/js/markdownit.js')();
 
 program
     .version('0.0.1')
@@ -19,8 +22,8 @@ program
 // file is included here:
 // In Node.js, how do I “include” functions from my other files?
 //http://stackoverflow.com/questions/5797852/in-node-js-how-do-i-include-functions-from-my-other-files
-eval(fs.readFileSync('./resources/js/_markdownit.js') + '');
-eval(fs.readFileSync('./resources/js/zc.js') + '');
+// eval(fs.readFileSync('./resources/js/_markdownit.js') + '');
+// eval(fs.readFileSync('./resources/js/zc.js') + '');
 
 
 var sourceFile = program.input_file,
@@ -44,7 +47,6 @@ var outputObj = free.encodeTagedString(sourceText);
 var hasZFreeTag = outputObj.codes ? true : false;
 
 if (htmlFile) {
-    var md = zc.editor.getMarkdownParser();
     // html代码也经过了一次加密，为什么不直接渲染加密过的md代码？因为 z-free会被生成 __
     // 而 markdown-it 会把 __ 理解为 <strong>
     var htmlText = minify(md.render(sourceText));

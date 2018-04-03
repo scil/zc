@@ -1,4 +1,5 @@
 export {elementsSpy}
+import {viewport, viewportTest} from "./viewport";
 import {log as zclog} from "./util";
 
 // 不断定位显示在屏幕最上方的目标元素 对元素或元素的id进行操作

@@ -8,7 +8,7 @@ import {log as zclog} from "./util";
  * - 根据zc网站的需要　只实现了y轴　未考虑x轴
  * - http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
  */
-var viewport = {
+let viewport = {
     partVisibleAbove: function (textRectangle) {
         // 在viewport 上部显示了部分
         return textRectangle.top < 0 && 0 < textRectangle.bottom && textRectangle.bottom < $(window).height();
@@ -44,12 +44,14 @@ var viewport = {
     _notNone: function (textRectangle) {
         return textRectangle.width > 0 && textRectangle.height > 0     // 防止那种　display:none;的元素
     }
-}
+};
 
 function viewportTest(el) {
     if (typeof jQuery !== 'undefined' && el instanceof jQuery) el = el[0];
-    var rect = el.getBoundingClientRect();
-    for (var i in viewport) {
+    const rect = el.getBoundingClientRect();
+    for (let i in viewport) {
         i && zclog(i, viewport[i](rect))
     }
 }
+
+

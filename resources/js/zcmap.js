@@ -1,4 +1,5 @@
 export {ZCMap};
+import {log as zclog} from "./util";
 
 function ZCMap(map, info) {
     var me = this;
@@ -96,7 +97,7 @@ function ZCMap(map, info) {
     me.mapEle.on('afterZoom', function () {
         var level = $(this).data('mapael').zoomData.zoomLevel;
         var b = Math.pow(0.95, level);
-        zc.log('[map] zoom:', level, '; plot size will be ', me.config.plotSize * b);
+        zclog('[map] zoom:', level, '; plot size will be ', me.config.plotSize * b);
         $(this).trigger('update', [{
             mapOptions: {
                 map: {
@@ -124,11 +125,11 @@ ZCMap.log = function () {
 }
 ZCMap.prototype.enterLeft = function () {
     this._mode_status = 'left';
-    zc.log('[map] start special mode', 'left')
+    zclog('[map] start special mode', 'left')
 }
 ZCMap.prototype.enterRight = function () {
     this._mode_status = 'right';
-    zc.log('[map] start special mode', 'right')
+    zclog('[map] start special mode', 'right')
 }
 ZCMap.prototype.exitMode = function () {
     this._mode_status = null;
@@ -151,7 +152,7 @@ ZCMap.prototype._ActiveOrChangePlot = function (opt) {
 
     if (!isNaN(nextActivePlotID)) {
         if (nextActivePlotID == this.lastActivePlot && !change) return;
-        zc.log('[map] to active plot :', nextActivePlotID, '; deactive:', this.lastActivePlot)
+        zclog('[map] to active plot :', nextActivePlotID, '; deactive:', this.lastActivePlot)
 
         if (newPlots && newPlots[nextActivePlotID]) {
             newPlots[nextActivePlotID]['attrs'] = {fill: 'red'}
@@ -229,7 +230,7 @@ ZCMap.prototype._updateInfo = function (id) {
 
     var infoData = this._infoData;
     if (!infoData[id]) {
-        zc.log('[map] info not found id ', id, ' in ', infoData);
+        zclog('[map] info not found id ', id, ' in ', infoData);
         return;
     }
 

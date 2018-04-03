@@ -199,13 +199,13 @@ function dist_js_app() {
         })
         .pipe(source('zc.js'))  // Set source name
         .pipe(buffer()) // Convert to gulp pipeline
-        .pipe(sourcemaps.init())
         .pipe(gulp.dest('public/js/babeled'))
-        // todo: a replacement https://github.com/babel/minify   it has not pkg @babel
-        .pipe(uglify().on('error', function (err) {
-            console.error("Uglify: " + err.toString());
-        }))
-        .pipe(sourcemaps.write('./map'))
+        // .pipe(sourcemaps.init())
+        // // todo: a replacement https://github.com/babel/minify   it has not pkg @babel
+        // .pipe(uglify().on('error', function (err) {
+        //     console.error("Uglify: " + err.toString());
+        // }))
+        // .pipe(sourcemaps.write('./map'))
         .pipe(gulp.dest('public/js'));
 }
 
