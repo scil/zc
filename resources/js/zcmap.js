@@ -1,18 +1,23 @@
 export {ZCMap};
+
 import {log as zclog} from "./util";
 const _ = require('lodash')
 
 function ZCMap(map, info) {
     var me = this;
+
     me.mapEle = null;
     me.addrEle = null;
+    me._infoEle = null;
+
     me.all_plots_ids = map.plotsIDs;
     me.plots = map.plots;
     me.plots_on_map = map.plotsIDs;
-    me._mode_status = null;
+    me.lastActivePlot = null; // 不可设置为-1,-2之类，因为这些数会用来代表slides前面的quote
+
+    me._mode_direction = null; // null, 'left', 'right'
     // todo 切换时的显示模式 目前只支持高亮一个plot而其它不显示
     me.mode = 'single'; // 'stepin'
-    me.lastActivePlot = null; // 不可设置为-1,-2之类，因为这些数会用来代表slides前面的quote
     me.updateTimer = null;
     me.config = {
         plotSize: map.config.plotSize || 10,
@@ -28,10 +33,10 @@ function ZCMap(map, info) {
     if (info) {
         me._infoEle = info.ele;
 
-        var infoKeys = [], infoData = info.data;
-        for (var id1 in infoData) {
+        let infoKeys = [], infoData = info.data;
+        for (let id1 in infoData) {
             if (infoData[id1]['intro']) {
-                for (var id in infoData) {
+                for (let id in infoData) {
                     infoData[id]['intro'] = zc.content.renderMD(infoData[id]['intro'])
                 }
             }
@@ -48,9 +53,9 @@ function ZCMap(map, info) {
         $(info.infoSwipeBox).swipe({
             swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
                 if (direction == 'left') {
-                    me.lightDown();
+                    me.lightRight();
                 } else if (direction == 'right') {
-                    me.lightUp();
+                    me.lightLeft();
                 }
             },
             //Default is 75px,
@@ -98,7 +103,7 @@ function ZCMap(map, info) {
     me.mapEle.on('afterZoom', function () {
         var level = $(this).data('mapael').zoomData.zoomLevel;
         var b = Math.pow(0.95, level);
-        zclog('[map] zoom:', level, '; plot size will be ', me.config.plotSize * b);
+        ZCMap.log('[map] zoom:', level, '; plot size will be ', me.config.plotSize * b);
         $(this).trigger('update', [{
             mapOptions: {
                 map: {
@@ -121,39 +126,38 @@ function ZCMap(map, info) {
 
 ZCMap.debug = false;
 ZCMap.log = function () {
-    if (ZCMap.debug)
-        window['console'] && console.log.apply(null, arguments)
+    ZCMap.debug && zclog.apply(null, arguments)
 }
 ZCMap.prototype.enterLeft = function () {
-    this._mode_status = 'left';
-    zclog('[map] start special mode', 'left')
+    this._mode_direction = 'left';
+    ZCMap.log('[map] start direction left')
 }
 ZCMap.prototype.enterRight = function () {
-    this._mode_status = 'right';
-    zclog('[map] start special mode', 'right')
+    this._mode_direction = 'right';
+    ZCMap.log('[map] start direction right')
 }
-ZCMap.prototype.exitMode = function () {
-    this._mode_status = null;
-    ZCMap.log('end special mode')
+ZCMap.prototype.exitDirection = function () {
+    this._mode_direction = null;
+    ZCMap.log('[map] end direction')
 }
-ZCMap.prototype.inMode = function () {
-    return this._mode_status;
+ZCMap.prototype.inDirection = function () {
+    return this._mode_direction;
 }
 
 // 可高亮某个plot 还可增加、可删除；此函数主要用来高亮，因为增加删除只需要用mapael的update就行
 ZCMap.prototype._ActiveOrChangePlot = function (opt) {
 
-    var nextActivePlotID = isNaN(parseInt(opt.active)) ? NaN : parseInt(opt.active);
-    var change = opt.change || null;
-    var newPlots = change && change.newPlots || {};
-    var deletePlotIDs = change && change.deletePlotIDs || [];
+    const change = opt.change || null;
 
-    var mapOptions = {plots: {}};
+    let newPlots = change && change.newPlots || {};
+    let deletePlotIDs = change && change.deletePlotIDs || [];
+    let mapOptions = {plots: {}};
 
-
+    let nextActivePlotID = parseInt(opt.active);
+    nextActivePlotID = this.plots[nextActivePlotID] ? nextActivePlotID : NaN;
     if (!isNaN(nextActivePlotID)) {
-        if (nextActivePlotID == this.lastActivePlot && !change) return;
-        zclog('[map] to active plot :', nextActivePlotID, '; deactive:', this.lastActivePlot)
+        if (nextActivePlotID === this.lastActivePlot && !change) return;
+        ZCMap.log('[map] to active plot :', nextActivePlotID, '; deactive:', this.lastActivePlot)
 
         if (newPlots && newPlots[nextActivePlotID]) {
             newPlots[nextActivePlotID]['attrs'] = {fill: 'red'}
@@ -173,9 +177,9 @@ ZCMap.prototype._ActiveOrChangePlot = function (opt) {
 //                    };
     this.mapEle.trigger('update', [{mapOptions: mapOptions, newPlots: newPlots, deletePlotKeys: deletePlotIDs}]);
 
-    this.eleAddr && this.eleAddr.html(this.plots[nextActivePlotID] && this.plots[nextActivePlotID]['addr'] || '')
 
     if (!isNaN(nextActivePlotID)) {
+        this.eleAddr && this.eleAddr.html(this.plots[nextActivePlotID]['addr'] || '')
         this.lastActivePlot = nextActivePlotID;
     }
 
@@ -186,25 +190,31 @@ ZCMap.prototype._ActiveOrChangePlot = function (opt) {
 }
 
 
-ZCMap.prototype._lightSinglePlotAndChangeAuto = function (nextPlotID) {
+/**
+ * ligth single plot and auto computer where plots needd to changes
+ * @param nextPlotID
+ * @private
+ */
+ZCMap.prototype._lightSinglePlotAndAutoChange = function (nextPlotID) {
 
-    var all = this.all_plots_ids, to_show_ids, me = this;
+    const all = this.all_plots_ids,  me = this;
+    let to_show_ids;
 
     if (nextPlotID >= 0) {
-        to_show_ids = this._mode_status == 'right' ? all.slice(all.indexOf(nextPlotID)) : all.slice(0, nextPlotID + 1);
+        to_show_ids = this._mode_direction === 'right' ? all.slice(all.indexOf(nextPlotID)) : all.slice(0, nextPlotID + 1);
     }
     else {
         to_show_ids = all;
     }
 
 
-    var to_add_ids = _.difference(to_show_ids, me.plots_on_map),
+    const to_add_ids = _.difference(to_show_ids, me.plots_on_map),
         to_del_ids = _.difference(me.plots_on_map, to_show_ids);
 
     ZCMap.log('[map] on  ', this.plots_on_map)
-    ZCMap.log('[map] to_show ', to_show_ids)
-    ZCMap.log('[map] to_add ', to_add_ids)
-    ZCMap.log('[map] to_del ', to_del_ids)
+    ZCMap.log('      show ', to_show_ids)
+    ZCMap.log('      add ', to_add_ids)
+    ZCMap.log('      del ', to_del_ids)
 
     var to_add = {};
     _.each(to_add_ids, function (id) {
@@ -231,7 +241,7 @@ ZCMap.prototype._updateInfo = function (id) {
 
     var infoData = this._infoData;
     if (!infoData[id]) {
-        zclog('[map] info not found id ', id, ' in ', infoData);
+        ZCMap.log('[map info] not found id ', id, ' in ', infoData);
         return;
     }
 
@@ -253,29 +263,34 @@ ZCMap.prototype._updateInfo = function (id) {
 
 }
 
+/**
+ * update info and light next plot
+ * @param nextActivePlotID
+ */
 ZCMap.prototype.update = function (nextActivePlotID) {
 
     nextActivePlotID = parseInt(nextActivePlotID);
 
     this._updateInfo(nextActivePlotID);
 
-    if (this.inMode()) {
-        if (nextActivePlotID < 0) { // 注意：滑入 quote类的slide，则退出特殊模式
-            this.exitMode();
+    if (this.inDirection()) {
+        if (nextActivePlotID < 0) { // 注意：滑入 quote之类的slide，则退出direction
+            this.exitDirection();
         }
 
-        this._lightSinglePlotAndChangeAuto(nextActivePlotID)
+        this._lightSinglePlotAndAutoChange(nextActivePlotID)
 
     } else {
         this._ActiveOrChangePlot({active: nextActivePlotID})
     }
 }
 
-ZCMap.prototype.lightUp = function () {
+// light: 点燃；点火
+ZCMap.prototype.lightLeft = function () {
     var id = this.all_plots_ids[parseInt(this.all_plots_ids.indexOf(this.lastActivePlot)) - 1];
     this.update(id);
 }
-ZCMap.prototype.lightDown = function () {
+ZCMap.prototype.lightRight = function () {
     var plus = this.all_plots_ids.indexOf(this.lastActivePlot) + 1;
     var id = this.all_plots_ids[plus == this.lastActivePlot.length ? 0 : plus];
     this.update(id);

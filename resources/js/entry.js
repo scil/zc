@@ -300,7 +300,7 @@ var zc = {
             // 根据窗口滚动 map 高亮屏幕上的第一个title
             // update map red plot according to the first article h1 title on screen
             // 显示标准是viewport第一个标题，所以bootstrap的 scrollspy不适合
-            elementsSpy.init(opts.listArea + ' ' + opts.spy.target, opts.spy.targetAttrWithPlotID || 'id')
+            elementsSpy.init(opts.listArea + ' ' + opts.spy.target, opts.spy.getId)
             elementsSpy.addDo(function lightViewTopH1(id: number, ele, lastId: number, lastEle) {
                 zclog('[spy do] try update map for id ', id);
                 zc.list._updateMap(id)
@@ -411,9 +411,10 @@ var zc = {
                 elementsSpy.enable();
             }).mouseover(function (e) {
 
-                var id = parseInt($(e.target).closest(opts.spyItem, this).find(opts.spy.target).attr(opts.spy.targetAttrWithPlotID));
-                // 发现 #L 有两侧padding 进入padding是找不到合适 article的 这时 id 为 undefined
-                if (!id) return
+                const id = opts.spy.getId($(e.target).closest(opts.spy.targetScope, this).find(opts.spy.target)[0]);
+
+                // 发现 #L 有两侧padding 进入padding是找不到合适 article的 这时 id 没有
+                if (isNaN(id)) return
 
                 zc.list._updateMap(id)
             })
@@ -749,3 +750,4 @@ var zc = {
 };
 
 getG().zc = zc;
+getG().zclog = zclog;

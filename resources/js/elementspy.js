@@ -9,7 +9,8 @@ var elementsSpy = {
 
     _H1List: [],
     _H1Query: '',
-    _attrWithID: '',
+    // _attrWithID: '',
+    _getId: null,
     _lastH1: null,
     _lastID: null,
     updateH1s: function (query: string) {
@@ -40,19 +41,19 @@ var elementsSpy = {
         var h1 = this.getFirstVisibleH1();
         if (!h1) {
             zclog('[spy h1] use the first h1 ');
-            h1= this._H1List[0];
+            h1 = this._H1List[0];
         }
 
-        return h1.getAttribute(this._attrWithID)
+        return this._getId(h1);
     }
     ,
-    init: function (query: string, attrWithID?: string) {
+    init: function (query: string, getId: callable) {
 
         if (this._inited) return;
         this._inited = true;
         this._doEnabled = true; // 可能会被这个鼠标事件改变，故宽屏初始化时确定为 true : $(opts.listArea).mouseenter
 
-        this._attrWithID = attrWithID || 'id';
+        this._getId = getId;
 
         this.updateH1s(query);
     }
@@ -75,7 +76,7 @@ var elementsSpy = {
                 var topH1 = me.getFirstVisibleH1();
                 if (topH1) {
 
-                    var topEleID = parseInt(topH1.getAttribute(me._attrWithID));
+                    var topEleID = me._getId(topH1);
                     if (isNaN(topEleID)) return false;
 
                     zclog('[spy] do for id ', topEleID)
@@ -118,11 +119,13 @@ var elementsSpy = {
     }
     ,
     enable: function () {
+        zclog('[spy] enable');
         this._doEnabled = true;
     }
     ,
     disable: function () {
         this._doEnabled = false;
+        zclog('[spy] disable');
         if (this._timer) window.clearTimeout(this._timer)
     }
     ,

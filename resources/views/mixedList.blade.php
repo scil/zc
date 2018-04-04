@@ -7,7 +7,6 @@
         <div class="row" id="column-box">
 
 
-
             <div class="col-sm-5 col-sm-push-7">
                 <div id="side">
                     <div id="LMap-box">
@@ -23,12 +22,12 @@
                             </section>
                         </div>
                         <?php
-                        $mapInfosByID = []; $IDs=[];
+                        $mapInfosByID = []; $IDs = [];
                         ?>
                         @foreach($vols as $vol)
                             @foreach($vol->firstArticlesSimple as $article)
                                 @if($article->places->count()>0)
-                                    <?php $a_place = $article->places[0];$IDs[]= $article->id;  ?>
+                                    <?php $a_place = $article->places[0];$IDs[] = $article->id;  ?>
                                     <?php
                                     $mapInfosByID[$article->id] = [
                                         'addr' => $a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en,
@@ -94,8 +93,6 @@
             </div>
 
 
-
-
         </div>
         @if($quotes)
             <div id="quotes-slide">
@@ -156,23 +153,33 @@
         zc.list.init({
             itemIDs:{!! json_encode($IDs) !!},
             plots: plots,
-            infoSwipeBox: '#LMap-info-swipebox', // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
-            infoEle: '#LMap-info',
-            infoData:{!! json_encode($mapInfosByID) !!},
 
             listArea: '#L', // 列表
-            findItemWay: function (id,offsetBox) {  // 自动把目标元素滚动上来 这里是寻找目标元素的方法 找到.vol就行 不细化到 article
+
+            affix: '#LMap-box',
+
+            info: {
+                ele: '#LMap-info',
+                data:{!! json_encode($mapInfosByID) !!},
+                swipeBox: '#LMap-info-swipebox', // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
+            },
+
+            findItemToUp: function (id) {  // 自动把目标元素滚动上来 这里是寻找目标元素的方法 找到.vol就行 不细化到 article
                 var item = $(document.getElementById(id)).parents('.vol');
-                if(  item.offsetParent()[0]==this._listBox[0]   ){
+                if (item.parent()[0] == $('#L')[0]) {
+                    zclog('[scroll] found vol for id ', id)
                     return item;
                 }
             },
 
-            spyItem: 'article', // 列表上每个元素
-            spyTarget: '.L-item-title', // 在元素里什么地方查找id
-            spyTargetAttrWithPlotID: 'id',
-
-            affix: '#LMap-box',
+            spy: {
+                target: '.L-item-title', // if one of the targets is in viewport
+                getId: function (targetElement) {
+                    // return  a real integer or NaN
+                    return parseInt(targetElement && targetElement.getAttribute('id'));
+                },
+                targetScope: 'article', // mouse over this scope, then use the related target in the scope
+            },
         })
 
         @endif
