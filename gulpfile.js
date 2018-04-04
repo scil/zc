@@ -87,7 +87,7 @@ const markdown_editor_res = {
             // if setting previewCodeHighlight == true
             //pkg_dir + 'editor.md/lib/prettify.min.js',
             // if setting flowchart == true, or sequence-diagram == true
-            // raphael.min.js underscore.min.js sequence-diagram.min.js flowchart.min.js jquery.flowchart.min.js
+            // raphael.min.js sequence-diagram.min.js flowchart.min.js jquery.flowchart.min.js
             pkg_dir + 'editor.md/editormd.min.js',
             //pkg_dir + 'emmet-codemirror/dist/emmet.js', 提前加载无效， editormd所依赖的项目都是动态加载的
         ],
@@ -230,7 +230,6 @@ function dist_js_vendor() {
     }
 
     return gulp.src([
-        pkg_dir + 'underscore/underscore-min.js', // 17k
 
         // pkg_dir + 'formvalidation/dist/js/formValidation.min.js',// 119k
         // pkg_dir + 'formvalidation/dist/js/framework/bootstrap.min.js',

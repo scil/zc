@@ -1,5 +1,6 @@
 export {ZCMap};
 import {log as zclog} from "./util";
+const _ = require('lodash')
 
 function ZCMap(map, info) {
     var me = this;
