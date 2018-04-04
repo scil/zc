@@ -161,7 +161,7 @@
             infoData:{!! json_encode($mapInfosByID) !!},
 
             listArea: '#L', // 列表
-            findItemWay: function (id,offsetBox) {  // 自动把目标元素滚动上来 这里是寻找目标元素的方法 找到.vol就行 不细化到 article
+            findItemToUp: function (id, offsetBox) {  // 自动把目标元素滚动上来 这里是寻找目标元素的方法 找到.vol就行 不细化到 article
                 var item = $(document.getElementById(id)).parents('.vol');
                 if(  item.offsetParent()[0]==this._listBox[0]   ){
                     return item;

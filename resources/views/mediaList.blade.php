@@ -90,7 +90,7 @@
             IDs:{!! json_encode($IDs) !!},
 
             listArea: '#QL',
-            findItemWay: function (id) {
+            findItemToUp: function (id) {
                 var h1 = $(document.getElementById(id)).parents('article');
                 return h1;
             },

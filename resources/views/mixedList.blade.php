@@ -164,9 +164,9 @@
                 swipeBox: '#LMap-info-swipebox', // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
             },
 
-            findItemToUp: function (id) {  // 自动把目标元素滚动上来 这里是寻找目标元素的方法 找到.vol就行 不细化到 article
+            findItemToScollUp: function (id) {  // 操作map, 自动把目标元素滚动上来 这里是寻找目标元素的方法 目前找到.vol就行 不细化到 article
                 var item = $(document.getElementById(id)).parents('.vol');
-                if (item.parent()[0] == $('#L')[0]) {
+                if (item.parent()[0] === $('#L')[0]) {
                     zclog('[scroll] found vol for id ', id)
                     return item;
                 }
@@ -174,13 +174,10 @@
 
             spy: {
                 target: '.L-item-title', // if one of the targets is in viewport
-                getId: function (targetElement) {
-                    // return  a real integer or NaN
-                    return parseInt(targetElement && targetElement.getAttribute('id'));
-                },
+                getId: null,
                 targetScope: 'article', // mouse over this scope, then use the related target in the scope
             },
-        })
+        });
 
         @endif
 
@@ -202,5 +199,6 @@
         })
 
 
+        //# sourceURL=mixedList
     </script>
 @endsection

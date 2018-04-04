@@ -22,19 +22,20 @@
     <!--[if lt IE 9]>
     <!--<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
     {{--<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>--}}
-    <script src="//cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
-    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-beta.42/polyfill.min.js"></script>
 
-    <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="//cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
-    <script src="//cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
+    <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
 
-    <script src="//cdn.bootcss.com/raphael/2.2.7/raphael.min.js"></script>
+    <script src="https://cdn.bootcss.com/raphael/2.2.7/raphael.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery-mapael/2.1.0/js/jquery.mapael.min.js"></script>
 
     <script src="/js/vendor.js"></script>
@@ -44,7 +45,6 @@
     <link rel="shortcut icon" href="/favicon.ico">
 </head>
 <body>
-
 
 <nav class="navbar navbar-inverse" id="navbar">
     <div class="container-fluid">
@@ -66,7 +66,6 @@
             {{--<ul class="navbar-always-show"></ul>--}}
         </div>
 
-
         {{-- .navbar-collapse 小屏幕时收缩的部分 --}}
         <div id="navbar-collapse" class="collapse navbar-collapse">
 
@@ -77,7 +76,7 @@
                 <?php
                 if (empty($user)) {
                     echo <<<N
-                <li><a id="1">山关</a></li>
+                <li><a id="pass-li">山关</a></li>
 N;
                 } else {
                     echo <<<M
@@ -109,14 +108,11 @@ M;
 </nav>
 
 <header>
-
     <div id="header" class="container">
         @yield('header')
         <hr/>
     </div>
-
 </header>
-
 
 <div class="container">
     @yield('content_top')
@@ -124,14 +120,12 @@ M;
 
 @yield('content')
 
-
 <footer id="footer">
     <div class="container">
         <hr>
         <div class="row" id="footer-first-row">
             <div class="col-xs-6">
-                <p class="pull-left heiti" id="me">真城在真诚<ction CloseEditor
-                    /p>
+                <p class="pull-left heiti" id="me">真城在真诚</p>
             </div>
             <div class="col-xs-6">
                 <ul id="contacts" class="nav nav-pills pull-right">
@@ -142,10 +136,10 @@ M;
                         </a>
                     </li>
                     {{--<li>--}}
-                        {{--<a href="javascript:$('#wechatModal').modal();void(0)">--}}
-                            {{--<i class="contact-icon icon-github-circled"></i>--}}
-                            {{--<i class="fa fa-weixin"></i>--}}
-                        {{--</a>--}}
+                    {{--<a href="javascript:$('#wechatModal').modal();void(0)">--}}
+                    {{--<i class="contact-icon icon-github-circled"></i>--}}
+                    {{--<i class="fa fa-weixin"></i>--}}
+                    {{--</a>--}}
                     {{--</li>--}}
 
                     {{--<li>--}}
@@ -165,35 +159,33 @@ M;
 
 <!-- wechat Modal -->
 {{--<div class="modal fade" id="wechatModal" tabindex="-1" role="dialog" aria-labelledby="wechatModalLabel">--}}
-    {{--<div class="modal-dialog" role="document">--}}
-        {{--<div class="modal-content" style="max-width:400px;text-align: center">--}}
-            {{--<div class="modal-header">--}}
-                {{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>--}}
-                {{--</button>--}}
-                {{--<h4 class="modal-title">真城联系微信</h4></div>--}}
-            {{--<div class="modal-body">--}}
-                {{--<div class="">--}}
-                    {{--<img class="center-block" src="/img/org/wechat_结巢人境.jpg" alt="微信号：结巢人境">--}}
-                    {{--<p style="margin-top:1em;">微信号：结巢人境</p>--}}
-                {{--</div>--}}
-            {{--</div>--}}
-            {{--<div class="modal-footer">--}}
-                {{--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
-            {{--</div>--}}
-        {{--</div>--}}
-    {{--</div>--}}
+{{--<div class="modal-dialog" role="document">--}}
+{{--<div class="modal-content" style="max-width:400px;text-align: center">--}}
+{{--<div class="modal-header">--}}
+{{--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>--}}
+{{--</button>--}}
+{{--<h4 class="modal-title">真城联系微信</h4></div>--}}
+{{--<div class="modal-body">--}}
+{{--<div class="">--}}
+{{--<img class="center-block" src="/img/org/wechat_结巢人境.jpg" alt="微信号：结巢人境">--}}
+{{--<p style="margin-top:1em;">微信号：结巢人境</p>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--<div class="modal-footer">--}}
+{{--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--}}
+{{--</div>--}}
+{{--</div>--}}
+{{--</div>--}}
 {{--</div>--}}
 
 @yield('script_b')
 
 <script>
     function open_gate() {
-       return false;
+        return false;
     }
-    if (open_gate())
-        document.getElementById('1').href = '/' + 'pass';
-    else
-        document.getElementById('1').href = '/' + 'ferry';
+
+    document.getElementById('pass-li').href = '/' + ( open_gate() ? 'pass' : 'ferry');
     //# sourceURL=zc_gate
 </script>
 </body>

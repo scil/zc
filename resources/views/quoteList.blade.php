@@ -5,36 +5,35 @@
         <div class="row" id="column-box">
             <div class="col-sm-7">
                 <div id="QL">
-                @foreach($quotes as $quote)
-                    <article class="QL-item">
-                        <header class="L-item-header clearfix">
-                            @if($columnLevel==2)
-                                <span class="prefix-col-name prefix-col-name-{!! $quote->quoteable->css !!}">{!! $quote->quoteable->short_name !!}</span>
-                            @else
-                                <span class="prefix-col-name prefix-col-name-{!! $columnCss !!}">{!! $quote->order !!}</span>
+                    @foreach($quotes as $quote)
+                        <article class="QL-item">
+                            <header class="L-item-header clearfix">
+                                @if($columnLevel==2)
+                                    <span class="prefix-col-name prefix-col-name-{!! $quote->quoteable->css !!}">{!! $quote->quoteable->short_name !!}</span>
+                                @else
+                                    <span class="prefix-col-name prefix-col-name-{!! $columnCss !!}">{!! $quote->order !!}</span>
+                                @endif
+                                <h1 class="L-item-title" id="{!! $quote->id !!}"><a
+                                            href="/{!! $url !!}/{!! $quote->slug !!}">{!! $quote->title !!}</a></h1>
+                            </header>
+                            <div class="QL-item-body">{!! $quote->body !!}</div>
+                            @if($quote->image)
+                                <img src="{!! $quote->image->url !!}"
+                                     alt="{!! $quote->image->alt !!}"
+                                     class="QL-item-img"
+                                        {!! $quote->image->style ? 'style="'.$quote->image->style.'"':'' !!}>
                             @endif
-                            <h1 class="L-item-title" id="{!! $quote->id !!}"><a
-                                        href="/{!! $url !!}/{!! $quote->slug !!}">{!! $quote->title !!}</a></h1>
-                        </header>
-                        <div class="QL-item-body">{!! $quote->body !!}</div>
-                        @if($quote->image)
-                            <img src="{!! $quote->image->url !!}"
-                                 alt="{!! $quote->image->alt !!}"
-                                 class="QL-item-img"
-                                    {!! $quote->image->style ? 'style="'.$quote->image->style.'"':'' !!}>
-                        @endif
-                        @if($quote->body_long)
-                            <div class="QL-read-more-box">
-                                <a class="QL-read-more btn btn-default" href="/{!! $url !!}/{!! $quote->slug !!}"></a>
-                            </div>
-                        @endif
-                    </article>
-                    <hr class="QL-item-hr">
-                @endforeach
+                            @if($quote->body_long)
+                                <div class="QL-read-more-box">
+                                    <a class="QL-read-more btn btn-default"
+                                       href="/{!! $url !!}/{!! $quote->slug !!}"></a>
+                                </div>
+                            @endif
+                        </article>
+                        <hr class="QL-item-hr">
+                    @endforeach
+                </div>
             </div>
-        </div>
-
-
 
 
             <div class="col-sm-5">
@@ -52,11 +51,11 @@
                             </section>
                         </div>
                         <?php
-                        $mapInfosByID = []; $IDs=[];
+                        $mapInfosByID = []; $IDs = [];
                         ?>
                         @foreach($quotes as $quote)
                             @if($quote->places->count()>0)
-                                <?php $a_place = $quote->places[0];$IDs[]= $quote->id;  ?>
+                                <?php $a_place = $quote->places[0];$IDs[] = $quote->id;  ?>
                                 <?php
                                 $mapInfosByID[$quote->id] = [
                                     'addr' => $a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en,
@@ -71,8 +70,6 @@
             </div>
 
 
-
-
         </div>
     </div>
     </div>
@@ -85,7 +82,7 @@
         var plots = {
         @foreach($quotes as $quote)
         @if($quote->places->count()>0)
-        <?php $all_plots_ids[] = $quote->order; $place = $quote->places[0];?>
+        <?php $place = $quote->places[0];?>
         {!! $quote->id !!}:
         {
             latitude: '{!! $place->lat !!}', longitude
@@ -98,33 +95,37 @@
         }
         ;
 
-        @if(isset($all_plots_ids))
+        @if($IDs)
         zc.list.init({
-            all_plots: [<?php echo implode(',', $all_plots_ids)  ?>],
+            itemIDs:{!! json_encode($IDs) !!},
             plots: plots,
-            IDs:{!! json_encode($IDs) !!},
 
             listArea: '#QL',
-            findItemWay: function (id) {
+
+            affix: '#LMap-box',
+
+            findItemToScollUp: function (id) {
                 var h1 = $(document.getElementById(id)).parents('article');
                 return h1;
             },
-            infoSwipeBox: '#LMap-info-swipebox', // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
 
-            infoEle: '#LMap-info',
-            infoData:{!! json_encode($mapInfosByID) !!},
+            info: {
+                ele: '#LMap-info',
+                data:{!! json_encode($mapInfosByID) !!},
+                swipeBox: '#LMap-info-swipebox', // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
+            },
 
-            spyItem: '.QL-item',
-            spyTarget: '.L-item-title',
-            spyTargetAttrWithPlotID: 'id',
+            spy:{
+                target: '.L-item-title',
+                getId: null,
+                targetScope: '.QL-item',
+            },
 
-            affix: '#LMap-box',
-            whoes_width_to_change: '#LMap-info',
-            affix_children_width_to: '#LMap',
         })
 
         @endif
 
+        //# sourceURL=qList
     </script>
 
 @endsection

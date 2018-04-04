@@ -67,6 +67,8 @@
         !function () {
             var ele= $('.row-more-cols') ;
 
+            if(ele.length()==0) return;
+
             var bIsWorking = false;
             scrollColumns = function(ele){
                 // 通过 media query 的 css 提供的 z-index 来判断是否需要滚动 ，手机小屏不需要滚动
@@ -124,6 +126,7 @@
 
         }();
 
+    //# sourceURL=zc_home
     </script>
 
     <div class="container columns text-center heiti" id="zc-map">
