@@ -2,14 +2,16 @@
 
 import {workAccordingScreen} from "./work_according_screen"
 import {viewport, viewportTest} from "./viewport";
-import {elementsSpy} from "./elementspy";
-import {log as zclog, xsScreen,notXsScreen} from "./util";
+import {scrollSpy} from "./scrollspy";
+import {log as zclog, xsScreen, notXsScreen} from "./util";
 import {ZCMap} from "./zcmap";
 import {free} from "./free";
 import getG from "./g"
 
 const getMDParser = require('./markdownit');
 
+const HOW_LANG_SCROLLSPY_RESTORE_AFTER_SCROLL_UP = 800;
+const SCROLL_UP_GAP= 30;
 
 var zc = {
     editor: {
@@ -261,22 +263,23 @@ var zc = {
     },
 
     list: {
-        _zcmap: null,
-        _IDs: null,
-        _lastID: null,
-        _lastScreenIsXs: null,
+        IDs: null,
+        zcmap: null,
 
-        _findItemToUp: null,
-        _affixEle: null,
+        lastID: null,
+        lastScreenIsXs: null,
 
-        _beginAffixPosition: null,
+        findItemToScollUp: null,
+        affixEle: null,
+
+        beginAffixPosition: null,
 
         init: function (opts) {
 
 
-            zc.list._IDs = opts.itemIDs;
+            zc.list.IDs = opts.itemIDs;
 
-            zc.list._zcmap = new ZCMap(
+            zc.list.zcmap = new ZCMap(
                 {
                     ele: $("#LMap"),
                     plotsIDs: opts.itemIDs,
@@ -284,7 +287,7 @@ var zc = {
                     config: {
                         plotSize: 15,
                     },// plotColor:'#8800CC'},
-                    mouseoverCallback: function (e, id, mapElem, textElem, elemOptions) {
+                    mouseoverCallback: (e, id, mapElem, textElem, elemOptions) => {
                     }
                 },
                 {
@@ -292,20 +295,80 @@ var zc = {
                     data: opts.info.data,
                     infoSwipeBox: false, // 不需要ZCMap提供的swipe 自定义swipe
                 }
-            )
+            );
 
-            zc.list._findItemToUp = opts.findItemToUp;
-            zc.list._affixEle = $(opts.affix);
+            zc.list.findItemToScollUp = opts.findItemToScollUp;
+            zc.list.affixEle = $(opts.affix);
+
+            zc.list._setUpdateMap(opts);
+
+            zc.list._setWorkAccordingScreen(opts);
+
+            //todo
+            // if (xsScreen()) {
+            //     // 单纯高亮第一个 h1 但不注册相关spy事件
+            //     zc.list._updateSideMap(elementsSpy.getFirstVisibleH1ID());
+            // }
+
+
+        },
+
+
+        // scroll, mouseover or swipe
+        _setUpdateMap: function (opts) {
 
             // 根据窗口滚动 map 高亮屏幕上的第一个title
             // update map red plot according to the first article h1 title on screen
             // 显示标准是viewport第一个标题，所以bootstrap的 scrollspy不适合
-            elementsSpy.init(opts.listArea + ' ' + opts.spy.target, opts.spy.getId)
-            elementsSpy.addDo(function lightViewTopH1(id: number, ele, lastId: number, lastEle) {
+            scrollSpy.init(
+                opts.listArea + ' ' + opts.spy.target,
+                opts.spy.getId || function (targetElement) {
+                    // return  a real integer or NaN
+                    return parseInt(targetElement && targetElement.getAttribute('id'));
+                }
+            );
+            scrollSpy.addDo(function lightViewTopH1(id: number, ele, lastId: number, lastEle) {
                 zclog('[spy do] try update map for id ', id);
                 zc.list._updateMap(id)
             });
 
+            $(opts.info.swipeBox).swipe({
+                swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
+
+                    scrollSpy.disable();
+
+                    if (direction == 'left') {
+                        zc.list._update2NextAndScroll();
+                    } else if (direction == 'right') {
+                        zc.list._update2PreviousAndScroll();
+                    }
+
+                    scrollSpy.enable();
+                },
+                //Default is 75px,
+                threshold: 40
+            });
+
+
+            // 根据鼠标动作  map 高亮鼠标下的 article
+            // 鼠标进入目标区域后 不停止 scrollSpy
+            $(opts.listArea)
+            // .mouseenter((e)=> {scrollSpy.disable();})
+            // .mouseleave((e)=> {scrollSpy.enable();})
+                .mouseover((e) => {
+
+                    e.preventDefault();
+
+                    const id = scrollSpy.getId($(e.target).closest(opts.spy.targetScope, this).find(opts.spy.target)[0]);
+
+                    // 发现 #L 有两侧padding 进入padding是找不到合适 article的 这时 id 没有
+                    if (isNaN(id)) return
+
+                    zc.list._updateMap(id)
+                })
+        },
+
+        _setWorkAccordingScreen: (opts) => {
 
             workAccordingScreen.init();
 
@@ -345,8 +408,6 @@ var zc = {
                 affixEle: $(opts.affix),
                 contentEle: $('#L'),
 
-                // 为什么小屏幕也做个affix？利用grid实现图片居上很简单 但因为bug affix不能用在pull push的column中
-                // https://getbootstrap.com/docs/3.3/css/#grid-column-ordering
                 enterBigCallback: function (config) {
                     zc.list._destroyAffix(config);
                     zc.list._initSideAffix(config);
@@ -359,110 +420,64 @@ var zc = {
             });
 
             workAccordingScreen.add({
-                name: 'big_spy_h1',
+                name: 'scrollSpy_only_for_big',
                 level: 7,
                 runEnterNow: true,
-
-                enabled: false,
-
                 enterBigCallback: function (config) {
-                    zclog('[spy h1] start')
-                    config.enabled = true;
-                    elementsSpy.enable();
-                    elementsSpy.addEventHandler();
+                    zclog('[spy] start for big')
+                    scrollSpy.enable();
+                    scrollSpy.addEventHandler();
                 },
                 enterXsCallback: function (config) {
-                    if (!config.enabled) return;
-
-                    config.enabled = false;
-                    elementsSpy.disable();
-                    elementsSpy.removeEventHandler();
-                    zclog('[spy h1] stop')
+                    scrollSpy.disable();
+                    scrollSpy.removeEventHandler();
+                    zclog('[spyh1] stop for xs')
                 },
 
             });
-            //todo
-            // if (xsScreen()) {
-            //     // 单纯高亮第一个 h1 但不注册相关spy事件
-            //     zc.list._updateSideMap(elementsSpy.getFirstVisibleH1ID());
-            // }
-
-            $(opts.info.swipeBox).swipe({
-                swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
-
-                    elementsSpy.disable();
-
-                    if (direction == 'left') {
-                        zc.list._update2Next();
-                    } else if (direction == 'right') {
-                        zc.list._update2Previous();
-                    }
-                },
-                //Default is 75px,
-                threshold: 40
-            });
-
-
-            // 根据鼠标动作  map 高亮鼠标下的 article
-            // 鼠标进入目标区域后 即停止 上面的 elementsSpy
-            $(opts.listArea).mouseenter(function (e) {
-                elementsSpy.disable();
-            }).mouseleave(function (e) {
-                elementsSpy.enable();
-            }).mouseover(function (e) {
-
-                const id = opts.spy.getId($(e.target).closest(opts.spy.targetScope, this).find(opts.spy.target)[0]);
-
-                // 发现 #L 有两侧padding 进入padding是找不到合适 article的 这时 id 没有
-                if (isNaN(id)) return
-
-                zc.list._updateMap(id)
-            })
-
-
         },
-        _update2Previous: function () {
-            if (zc.list._lastID === null) {
+        _update2PreviousAndScroll: function () {
+            if (zc.list.lastID === null) {
                 // use the first
-                var id = zc.list._IDs[0];
+                var id = zc.list.IDs[0];
             } else {
-                var lastIndex = zc.list._IDs.indexOf(zc.list._lastID)
+                var lastIndex = zc.list.IDs.indexOf(zc.list.lastID)
                 // use the prevous one or last one
-                var id = zc.list._IDs[lastIndex <= 0 ? zc.list._IDs.length - 1 : lastIndex - 1];
+                var id = zc.list.IDs[lastIndex <= 0 ? zc.list.IDs.length - 1 : lastIndex - 1];
             }
-            zc.list._updateMapAndScroll(id);
+            zc.list.__updateMapAndScroll(id);
         },
-        _update2Next: function () {
-            if (zc.list._lastID === null) {
+        _update2NextAndScroll: function () {
+            if (zc.list.lastID === null) {
                 // use the first
-                var id = zc.list._IDs[0];
+                var id = zc.list.IDs[0];
             } else {
-                var lastIndex = zc.list._IDs.indexOf(zc.list._lastID);
+                var lastIndex = zc.list.IDs.indexOf(zc.list.lastID);
                 // use the next one or the first one
-                var id = zc.list._IDs[lastIndex === zc.list._IDs.length - 1 ? 0 : lastIndex + 1];
+                var id = zc.list.IDs[lastIndex === zc.list.IDs.length - 1 ? 0 : lastIndex + 1];
             }
-            zc.list._updateMapAndScroll(id);
+            zc.list.__updateMapAndScroll(id);
         },
-        _updateMapAndScroll: function (id: number) {
+        __updateMapAndScroll: function (id: number) {
 
             zc.list._updateMap(id);
             zc.list.item2Top(id);
         },
         _updateMap: function (id: number) {
-            if (zc.list._lastID === id) {
+            if (zc.list.lastID === id) {
                 return;
             }
-            zclog('[scroll] last id: ', zc.list._lastID)
-            zc.list._lastID = id;
 
-            zc.list._zcmap.update(id)
+            zc.list.lastID = id;
+
+            zc.list.zcmap.update(id)
 
         },
 
         item2Top: function (id: number) {
 
 
-            var item = zc.list._findItemToUp(id);
+            const item = zc.list.findItemToScollUp(id);
 
             if (!item) {
                 zclog('[scroll] not correct item ', id);
@@ -472,15 +487,26 @@ var zc = {
             zclog('[scroll] try ', item);
 
             if (xsScreen()) {
-                var pos = item.offset().top - zc.list._affixEle.outerHeight(true);
+                var pos = item.offset().top - zc.list.affixEle.outerHeight(true);
                 // if(pos<zc.list._beginAffixPosition) pos=zc.list._beginAffixPosition;
 
-                $('html, body').animate({
-                    scrollTop: pos
-                }, 800);
             } else {
-                window.scrollTo(0, item.offset().top)
+                var pos = item.offset().top - SCROLL_UP_GAP ;
             }
+
+            scrollSpy.addLock();
+
+            // someone said both of 'html' and 'body' are needed
+            //      https://stackoverflow.com/questions/16475198/jquery-scrolltop-animation
+            //$('html, body').animate({
+            //      but that cause `scrollSpy.removeLock();` run twice
+            //
+            // now I test 'html', it works on chrome65 and firefox
+            $('html').animate({
+                scrollTop: pos
+            }, HOW_LANG_SCROLLSPY_RESTORE_AFTER_SCROLL_UP, () => {
+                scrollSpy.removeLock();
+            });
         },
 
 
@@ -539,7 +565,7 @@ var zc = {
             //        页面滚动到离底部距离为 bottom 时，.affix类切换成.affix-bottom
             //        http://blog.tanteng.me/2014/02/bootstrap-affix/
             // 避免地图抖动， jq给的top没计算margin-top,　30 见.affix{top:30px;}
-            var pos = zc.list._beginAffixPosition = $ele.offset().top - parseInt($ele.css('marginTop')) - 30;
+            var pos = zc.list.beginAffixPosition = $ele.offset().top - parseInt($ele.css('marginTop')) - 30;
 
 
             $ele.affix({
@@ -558,7 +584,7 @@ var zc = {
             var $ele = config.affixEle;
 
             // 避免地图抖动， jq给的top没计算margin-top,　30 见.affix{top:30px;}
-            var pos = zc.list._beginAffixPosition = $ele.offset().top - parseInt($ele.css('marginTop')) - 30;
+            var pos = zc.list.beginAffixPosition = $ele.offset().top - parseInt($ele.css('marginTop')) - 30;
 
             $ele.affix({
                 offset: {

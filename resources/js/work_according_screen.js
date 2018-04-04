@@ -1,6 +1,5 @@
-
 export {workAccordingScreen}
-import {log as zclog, xsScreen,notXsScreen} from "./util";
+import {log as zclog, xsScreen, notXsScreen} from "./util";
 
 /**
  // 能力：让各组函数顺序执行 不精深 目前似乎也没啥用处 但不排除日后可能有些函数有先后要求
@@ -13,20 +12,20 @@ import {log as zclog, xsScreen,notXsScreen} from "./util";
  * _timerID 也是为两者分别存储，意味着，resize会覆盖前面的resize，但不覆盖前面的enter.
  *    之前只设了一个id，导致屏幕变 xs 时，enterXsCallback没有执行，被后面的 xsResizeCallback 覆盖了。在chrome上，屏幕变，不知道为什么连续产生了两个resize事件
  */
-var workAccordingScreen= {
+var workAccordingScreen = {
 
-    _lastScreenIsXs: null,
-        _configPool: {},
+    lastScreenIsXs: null,
+    _configPool: {},
     // 按照运行顺序储存 如 ['100 scroll', '90 mouse','  10 affix ']
     _order: [],
-        _inited: false,
-        init: function () {
+    _inited: false,
+    init: function () {
         if (this._inited) return;
         this._inited = true;
 
         zclog('[screen] init ');
         var me = workAccordingScreen;
-        me._lastScreenIsXs = xsScreen();
+        me.lastScreenIsXs = xsScreen();
 
 
         $(window).resize(function () {
@@ -35,7 +34,7 @@ var workAccordingScreen= {
 
 
             // 屏幕未大变
-            if (me._lastScreenIsXs === xsScreen()) {
+            if (me.lastScreenIsXs === xsScreen()) {
                 if (xs) {
                     me._run('xsResizeCallback')
                 } else {
@@ -45,7 +44,7 @@ var workAccordingScreen= {
             }
 
             // 屏幕大变
-            me._lastScreenIsXs = xs;
+            me.lastScreenIsXs = xs;
             if (xs) {
                 me._run('enterXsCallback')
             } else {

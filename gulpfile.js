@@ -187,9 +187,7 @@ function flow_js_app() {
 }
 
 function dist_js_app() {
-    return browserify({
-        debug: true, // To use source maps
-    })
+    return browserify({debug: true,})// enalbe debug To use source maps
         .transform("babelify")
         .require("./resources/js/entry.js", {entry: true})
         .bundle()

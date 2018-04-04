@@ -1,6 +1,6 @@
 export {log,xsScreen,notXsScreen}
 
-var _debug = true && (typeof(console) !== 'undefined');
+var _debug = (typeof(console) !== 'undefined');
 
 function log() {
     _debug && console.log.apply(null, arguments)
@@ -12,7 +12,7 @@ function xsScreen() {
 }
 
 function notXsScreen() {
-    return !this.xsScreen();
+    return !xsScreen();
 }
 
 
