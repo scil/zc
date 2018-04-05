@@ -1,23 +1,25 @@
 export {scrollSpy}
-import {viewport, viewportTest} from "./viewport";
-import {log as zclog} from "./util";
+import {viewport, viewportRef, viewportTest} from "./viewport";
+import {log as zclog, xsScreen, notXsScreen} from "./util";
 
 // 不断定位显示在屏幕最上方的目标元素 对元素进行操作
 class ScrollSpy {
-    constructor(){
+    constructor() {
 
-        this.eventAdded=false;
+        this.eventAdded = false;
 
         let me = this;
-        this.handler = ()=>{
+        this.handler = () => {
             handler(me);
         };
 
 
         // 这类回调4个参数：当前id 当前ele,上回id,上回ele
         this.H1Does = [];
-        this.timer= null;
-        this.getId =null;
+        this.timer = null;
+        this.getId = null;
+
+        this.viewRef=null;
 
         this.H1List = [];
         this.H1Query = '';
@@ -25,18 +27,23 @@ class ScrollSpy {
         this.lastID = null;
 
         // 用处：鼠标起作用时，或者map info swipe时，停用elementSpy
-        // 和注册到 zc.workAccordingScreen.的config里的enabled不同，那个只负责大小屏
-        this.doEnabled = false;
+        this.doEnabled = true;
 
         // like doEnabled, but for asyn
         this.lock = 0;
     }
-    init(query: string, getId: callable) {
+
+    init(query: string, viewRef, getId: callable) {
 
         // a callback return a normal integer or NaN
         this.getId = getId;
 
+        this.H1Query=query;
+        this.viewRef=viewRef;
+
         this.updateH1s(query);
+
+        this.addEventHandler();
     }
 
 
@@ -47,14 +54,27 @@ class ScrollSpy {
     }
 
     getFirstVisibleH1() {
-        var h1;
-        this.H1List.each(function (index, element) {
-            if (viewport.fullyVisible(this.getBoundingClientRect())) {
-                h1 = this;
-                return false;
+        // var h1;
+        // this.H1List.each(function (index, element) {
+        //     if (viewport.fullyVisible(this.getBoundingClientRect())) {
+        //         h1 = this;
+        //         return false;
+        //     }
+        // });
+        let i, ele;
+        for (i = 0; i < this.H1List.length; i++) {
+            ele = this.H1List[i];
+            if (viewport.fullyVisible(ele.getBoundingClientRect())) {
+                if (xsScreen()) {
+                    // in xs screen , the h1 sould be below of affix element containing map and info ele
+                    if (viewportRef.below(ele.getBoundingClientRect(), this.viewRef.getBoundingClientRect())) {
+                        return ele;
+                    }
+                } else {
+                    return ele;
+                }
             }
-        });
-        return h1;
+        }
 
     }
 
@@ -70,7 +90,7 @@ class ScrollSpy {
 
 
     addEventHandler() {
-        if(this.eventAdded) return;
+        if (this.eventAdded) return;
 
         this.eventAdded = true;
 
@@ -84,30 +104,37 @@ class ScrollSpy {
 
         $(window).on('DOMContentLoaded load resize scroll', this.handler);
     }
+
     removeEventHandler() {
         this.eventAdded = false;
         $(window).off('DOMContentLoaded load resize scroll', this.handler);
     }
-    addDo (doWhat)  {
+
+    addDo(doWhat) {
         this.H1Does.push(doWhat);
     }
+
     enable() {
         zclog('[spy] enable');
         this.doEnabled = true;
     }
+
     disable() {
         this.doEnabled = false;
         zclog('[spy] disable');
         if (this.timer) window.clearTimeout(this.timer)
     }
+
     enabled() {
         return this.doEnabled && this.lock === 0;
     }
-    addLock() {
+
+    addOneLock() {
         zclog('[spy] lock +');
         this.lock += 1;
     }
-    removeLock() {
+
+    removeOneLock() {
         zclog('[spy] lock -');
         this.lock -= 1;
     }

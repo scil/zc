@@ -1,18 +1,27 @@
+// @flow
 export {ZCMap};
 
 import {log as zclog} from "./util";
+
 const _ = require('lodash')
 
 function ZCMap(map, info) {
     var me = this;
 
+    /** @type {jQuery} */
     me.mapEle = null;
+    // todo
+    /** @deprecated */
     me.addrEle = null;
-    me._infoEle = null;
+    /** @type {string} */
+    me.infoEle = null;
 
+    /** @type {number[]} */
     me.all_plots_ids = map.plotsIDs;
     me.plots = map.plots;
+    /** @type {number[]} */
     me.plots_on_map = map.plotsIDs;
+    /** @type {number} */
     me.lastActivePlot = null; // 不可设置为-1,-2之类，因为这些数会用来代表slides前面的quote
 
     me._mode_direction = null; // null, 'left', 'right'
@@ -29,9 +38,9 @@ function ZCMap(map, info) {
     me.mapNmae = map.config.mapName;
 
 
-    me._infoVue = null;
+    me.infoVue = null;
     if (info) {
-        me._infoEle = info.ele;
+        me.infoEle = info.ele;
 
         let infoKeys = [], infoData = info.data;
         for (let id1 in infoData) {
@@ -46,8 +55,8 @@ function ZCMap(map, info) {
             // for 循环只需要找出一个元素 确定里面的keys
             break
         }
-        me._infoData = infoData;
-        me._infoKeys = infoKeys;
+        me.infoData = infoData;
+        me.infoKeys = infoKeys;
     }
     if (info.infoSwipeBox) {
         $(info.infoSwipeBox).swipe({
@@ -192,12 +201,12 @@ ZCMap.prototype._ActiveOrChangePlot = function (opt) {
 
 /**
  * ligth single plot and auto computer where plots needd to changes
- * @param nextPlotID
+ * @param {number} nextPlotID it can be <0  representing something like quotes, not in this.all_plots_ids
  * @private
  */
-ZCMap.prototype._lightSinglePlotAndAutoChange = function (nextPlotID) {
+ZCMap.prototype._lightSinglePlotAndAutoChange = function (nextPlotID: number) {
 
-    const all = this.all_plots_ids,  me = this;
+    const all = this.all_plots_ids, me = this;
     let to_show_ids;
 
     if (nextPlotID >= 0) {
@@ -234,30 +243,35 @@ ZCMap.prototype._lightSinglePlotAndAutoChange = function (nextPlotID) {
 
 }
 
-ZCMap.prototype._updateInfo = function (id) {
-    if (!this._infoEle) {
+/**
+ *
+ * @param {number} id  can be <0
+ * @private
+ */
+ZCMap.prototype._updateInfo = function (id: number) {
+    if (!this.infoEle) {
         return;
     }
 
-    var infoData = this._infoData;
+    var infoData = this.infoData;
     if (!infoData[id]) {
         ZCMap.log('[map info] not found id ', id, ' in ', infoData);
         return;
     }
 
-    if (!this._infoVue) {
+    if (!this.infoVue) {
         var data = {};
 
-        for (var ki in this._infoKeys) {
-            data[this._infoKeys[ki]] = infoData[id][this._infoKeys[ki]];
+        for (var ki in this.infoKeys) {
+            data[this.infoKeys[ki]] = infoData[id][this.infoKeys[ki]];
         }
-        this._infoVue = new Vue({
-            el: this._infoEle,
+        this.infoVue = new Vue({
+            el: this.infoEle,
             data: data,
         })
     } else {
-        for (var ki in this._infoKeys) {
-            this._infoVue[this._infoKeys[ki]] = infoData[id][this._infoKeys[ki]];
+        for (var ki in this.infoKeys) {
+            this.infoVue[this.infoKeys[ki]] = infoData[id][this.infoKeys[ki]];
         }
     }
 
@@ -267,9 +281,11 @@ ZCMap.prototype._updateInfo = function (id) {
  * update info and light next plot
  * @param nextActivePlotID
  */
-ZCMap.prototype.update = function (nextActivePlotID) {
+ZCMap.prototype.update = function (nextActivePlotID: number | string) {
 
     nextActivePlotID = parseInt(nextActivePlotID);
+
+    if (isNaN(nextActivePlotID)) return;
 
     this._updateInfo(nextActivePlotID);
 

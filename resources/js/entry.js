@@ -1,7 +1,7 @@
 // @flow
 
 import {workAccordingScreen} from "./work_according_screen"
-import {viewport, viewportTest} from "./viewport";
+import {viewport, viewportRef, viewportTest} from "./viewport";
 import {scrollSpy} from "./scrollspy";
 import {log as zclog, xsScreen, notXsScreen} from "./util";
 import {ZCMap} from "./zcmap";
@@ -10,8 +10,8 @@ import getG from "./g"
 
 const getMDParser = require('./markdownit');
 
-const HOW_LANG_SCROLLSPY_RESTORE_AFTER_SCROLL_UP = 800;
-const SCROLL_UP_GAP= 30;
+const HOW_LANG_SCROLLSPY_RESTORE_AFTER_SCROLL_UP = 100;
+const SCROLL_UP_GAP = 30;
 
 var zc = {
     editor: {
@@ -269,6 +269,15 @@ var zc = {
         lastID: null,
         lastScreenIsXs: null,
 
+        in_up: false,
+
+        // /**
+        //  * @callback findItem
+        //  * @param {number}
+        //  * @return {jQuery|undefined}
+        //  */
+        // /** @type {findItem} */
+        /** @type {function(number):jQuery|undefined} */
         findItemToScollUp: null,
         affixEle: null,
 
@@ -298,7 +307,7 @@ var zc = {
             );
 
             zc.list.findItemToScollUp = opts.findItemToScollUp;
-            zc.list.affixEle = $(opts.affix);
+            zc.list.affixEle = opts.affixEle;
 
             zc.list._setUpdateMap(opts);
 
@@ -314,7 +323,8 @@ var zc = {
         },
 
 
-        // scroll, mouseover or swipe
+        // scrollspy, mouseover and swipe
+        // mouseover not work in xs screen
         _setUpdateMap: function (opts) {
 
             // 根据窗口滚动 map 高亮屏幕上的第一个title
@@ -322,13 +332,14 @@ var zc = {
             // 显示标准是viewport第一个标题，所以bootstrap的 scrollspy不适合
             scrollSpy.init(
                 opts.listArea + ' ' + opts.spy.target,
+                opts.affixEle[0],
                 opts.spy.getId || function (targetElement) {
                     // return  a real integer or NaN
                     return parseInt(targetElement && targetElement.getAttribute('id'));
                 }
             );
             scrollSpy.addDo(function lightViewTopH1(id: number, ele, lastId: number, lastEle) {
-                zclog('[spy do] try update map for id ', id);
+                // zclog('[spy do] try update map for id ', id);
                 zc.list._updateMap(id)
             });
 
@@ -338,9 +349,9 @@ var zc = {
                     scrollSpy.disable();
 
                     if (direction == 'left') {
-                        zc.list._update2NextAndScroll();
+                        zc.list._2Adjacent(false);
                     } else if (direction == 'right') {
-                        zc.list._update2PreviousAndScroll();
+                        zc.list._2Adjacent(true);
                     }
 
                     scrollSpy.enable();
@@ -356,6 +367,8 @@ var zc = {
             // .mouseenter((e)=> {scrollSpy.disable();})
             // .mouseleave((e)=> {scrollSpy.enable();})
                 .mouseover((e) => {
+
+                    if (xsScreen()) return false;
 
                     e.preventDefault();
 
@@ -393,7 +406,7 @@ var zc = {
                 runEnterNow: true,
 
                 sideEle: $('#side'),
-                elements: [$(opts.affix), $('#LMap-info-swipebox')],
+                elements: [opts.affixEle, $('#LMap-info-swipebox')],
 
                 bigResizeCallback: zc.list._affixChildren,
                 enterBigCallback: zc.list._affixChildren,
@@ -405,8 +418,8 @@ var zc = {
                 level: 6,
                 runEnterNow: true,
 
-                affixEle: $(opts.affix),
-                contentEle: $('#L'),
+                affixEle: $(opts.affixEle),
+                listArea: $(opts.listArea),
 
                 enterBigCallback: function (config) {
                     zc.list._destroyAffix(config);
@@ -419,96 +432,112 @@ var zc = {
 
             });
 
-            workAccordingScreen.add({
-                name: 'scrollSpy_only_for_big',
-                level: 7,
-                runEnterNow: true,
-                enterBigCallback: function (config) {
-                    zclog('[spy] start for big')
-                    scrollSpy.enable();
-                    scrollSpy.addEventHandler();
-                },
-                enterXsCallback: function (config) {
-                    scrollSpy.disable();
-                    scrollSpy.removeEventHandler();
-                    zclog('[spyh1] stop for xs')
-                },
-
-            });
+            // workAccordingScreen.add({
+            //     name: 'scrollSpy_only_for_big',
+            //     level: 7,
+            //     runEnterNow: true,
+            //     enterBigCallback: function (config) {
+            //         zclog('[spy] start for big')
+            //         scrollSpy.enable();
+            //         scrollSpy.addEventHandler();
+            //     },
+            //     enterXsCallback: function (config) {
+            //         scrollSpy.disable();
+            //         scrollSpy.removeEventHandler();
+            //         zclog('[spyh1] stop for xs')
+            //     },
+            //
+            // });
         },
-        _update2PreviousAndScroll: function () {
+        _2Adjacent: function (previous: boolean) {
+
+            if (this.in_up) return;
+
+            let id;
             if (zc.list.lastID === null) {
                 // use the first
-                var id = zc.list.IDs[0];
+                id = zc.list.IDs[0];
             } else {
-                var lastIndex = zc.list.IDs.indexOf(zc.list.lastID)
-                // use the prevous one or last one
-                var id = zc.list.IDs[lastIndex <= 0 ? zc.list.IDs.length - 1 : lastIndex - 1];
-            }
-            zc.list.__updateMapAndScroll(id);
-        },
-        _update2NextAndScroll: function () {
-            if (zc.list.lastID === null) {
-                // use the first
-                var id = zc.list.IDs[0];
-            } else {
-                var lastIndex = zc.list.IDs.indexOf(zc.list.lastID);
-                // use the next one or the first one
-                var id = zc.list.IDs[lastIndex === zc.list.IDs.length - 1 ? 0 : lastIndex + 1];
-            }
-            zc.list.__updateMapAndScroll(id);
-        },
-        __updateMapAndScroll: function (id: number) {
+                let lastIndex = zc.list.IDs.indexOf(zc.list.lastID)
+                if (previous) {
+                    // use the prevous one or last one
+                    id = zc.list.IDs[lastIndex <= 0 ? zc.list.IDs.length - 1 : lastIndex - 1];
+                }
+                else {
+                    // use the next one or the first one
+                    id = zc.list.IDs[lastIndex === zc.list.IDs.length - 1 ? 0 : lastIndex + 1];
+                }
 
-            zc.list._updateMap(id);
-            zc.list.item2Top(id);
+            }
+            zc.list.__updateMapAndUp(id);
+        },
+        __updateMapAndUp: function (id: number) {
+
+            if (this.in_up) return;
+
+            /** @type {jQuery|undefined} */
+            const item = this.findItemToScollUp(id);
+            if (!item) {
+                zclog('[up] not correct item ', id);
+            }
+            zclog('[up] in_up and try ', item.get(0));
+
+            this.in_up = true;
+            scrollSpy.addOneLock();
+
+            this._updateMap(id);
+
+            let me=this;
+
+            // why setTimeout 200ms, give `this._updateMap(id);` enough time to redraw the map info, so
+            // `me.affixEle.outerHeight(true)` return the height with the new info
+            setTimeout(()=>{
+
+                let pos;
+
+                if (xsScreen()) {
+                    // zclog('[up] affix height: ', me.affixEle.outerHeight(true))
+                    pos = item.offset().top - me.affixEle.outerHeight(true) - 30; // 30 合适，我觉得道理是 .affix{top:30px}
+
+                    if(pos<zc.list.beginAffixPosition) pos=zc.list.beginAffixPosition;
+
+                    zclog('[up] pos: ',pos);
+
+                } else {
+                    pos = item.offset().top - SCROLL_UP_GAP;
+                }
+
+
+                // someone said both of 'html' and 'body' are needed
+                //      https://stackoverflow.com/questions/16475198/jquery-scrolltop-animation
+                //$('html, body').animate({
+                //      but that cause `scrollSpy.removeLock();` run twice
+                //
+                // now I test 'html', it works on chrome65 and firefox
+                $('html').animate({
+                    scrollTop: pos
+                }, 700, () => {
+                    zc.list.in_up=false;
+                    zclog('[up] in_up stop');
+                    setTimeout(() => {
+                        scrollSpy.removeOneLock();
+                    }, HOW_LANG_SCROLLSPY_RESTORE_AFTER_SCROLL_UP)
+                });
+            },200);
+
         },
         _updateMap: function (id: number) {
             if (zc.list.lastID === id) {
                 return;
             }
 
+            zclog('[list] update map for id ', id);
+
             zc.list.lastID = id;
 
             zc.list.zcmap.update(id)
 
         },
-
-        item2Top: function (id: number) {
-
-
-            const item = zc.list.findItemToScollUp(id);
-
-            if (!item) {
-                zclog('[scroll] not correct item ', id);
-                return;
-            }
-
-            zclog('[scroll] try ', item);
-
-            if (xsScreen()) {
-                var pos = item.offset().top - zc.list.affixEle.outerHeight(true);
-                // if(pos<zc.list._beginAffixPosition) pos=zc.list._beginAffixPosition;
-
-            } else {
-                var pos = item.offset().top - SCROLL_UP_GAP ;
-            }
-
-            scrollSpy.addLock();
-
-            // someone said both of 'html' and 'body' are needed
-            //      https://stackoverflow.com/questions/16475198/jquery-scrolltop-animation
-            //$('html, body').animate({
-            //      but that cause `scrollSpy.removeLock();` run twice
-            //
-            // now I test 'html', it works on chrome65 and firefox
-            $('html').animate({
-                scrollTop: pos
-            }, HOW_LANG_SCROLLSPY_RESTORE_AFTER_SCROLL_UP, () => {
-                scrollSpy.removeLock();
-            });
-        },
-
 
         _side400: function (config) {
             // if (xsScreen()) return;
@@ -572,27 +601,36 @@ var zc = {
                 offset: {
                     top: pos,
                     bottom: function () {
-                        return ($('#footer').outerHeight(true) + $('#quotes-slide').outerHeight(true) + 100); // 100 只是个概数
+                        return ($('#footer').outerHeight(true) + $('#quotes-slide').outerHeight(true) - 100); // 100 只是个概数
                     }
                 }
             });
 
-
         },
         _initTopAffix: function (config) {
             zclog('[affix] top set')
-            var $ele = config.affixEle;
+            var $affixEle = config.affixEle;
 
             // 避免地图抖动， jq给的top没计算margin-top,　30 见.affix{top:30px;}
-            var pos = zc.list.beginAffixPosition = $ele.offset().top - parseInt($ele.css('marginTop')) - 30;
+            var pos = zc.list.beginAffixPosition = $affixEle.offset().top - parseInt($affixEle.css('marginTop')) - 30;
 
-            $ele.affix({
+            $affixEle.affix({
                 offset: {
                     top: pos,
                     bottom: function () {
                         return ($('#footer').outerHeight(true) + $('#quotes-slide').outerHeight(true) + 100); // 100 只是个概数
                     }
                 }
+            });
+
+            // why set margin-top, because position:fix on $affixEle would drive the listArea go up
+            $affixEle.on('affixed.bs.affix',()=>{
+                zclog('[affix] list margin-top')
+                config.listArea.css('margin-top',$affixEle.outerHeight(true));
+            });
+            $affixEle.on('affix-top.bs.affix',()=>{
+                zclog('[affix] list margin-top 0')
+                config.listArea.css('margin-top',0);
             });
 
 

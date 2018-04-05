@@ -1,4 +1,4 @@
-export {viewport,viewportTest};
+export {viewport, viewportRef, viewportTest};
 
 import {log as zclog} from "./util";
 
@@ -9,41 +9,50 @@ import {log as zclog} from "./util";
  * - http://stackoverflow.com/questions/123999/how-to-tell-if-a-dom-element-is-visible-in-the-current-viewport/7557433#7557433
  */
 let viewport = {
-    partVisibleAbove: function (textRectangle) {
+    partVisibleAbove: function (rec) {
         // 在viewport 上部显示了部分
-        return textRectangle.top < 0 && 0 < textRectangle.bottom && textRectangle.bottom < $(window).height();
+        return rec.top < 0 && 0 < rec.bottom && rec.bottom < $(window).height();
     },
-    partVisibleBelow: function (textRectangle) {
+    partVisibleBelow: function (rec) {
         // 在viewport 下部显示了部分
-        return 0 < textRectangle.top && textRectangle.top < $(window).height() && textRectangle.bottom > $(window).height();
+        return 0 < rec.top && rec.top < $(window).height() && rec.bottom > $(window).height();
     },
-    visibleTopToBottom: function (textRectangle) {
+    visibleTopToBottom: function (rec) {
         // viewport从上到下　都是这个元素　但可能没有显示完全 也可能恰好显示完全了
-        return textRectangle.top <= 0 && textRectangle.bottom >= $(window).height();
+        return rec.top <= 0 && rec.bottom >= $(window).height();
     },
-    outAbove: function (textRectangle) {
-        return textRectangle.bottom <= 0;
+    outAbove: function (rec) {
+        return rec.bottom <= 0;
     },
-    outBelow: function (textRectangle) {
-        return textRectangle.top >= $(window).height();
+    outBelow: function (rec) {
+        return rec.top >= $(window).height();
     },
-    out: function (textRectangle) {
-        return this.outAbove(textRectangle) || this.outBelow(textRectangle)
+    out: function (rec) {
+        return this.outAbove(rec) || this.outBelow(textRectangle)
     },
-    anyVisible: function (textRectangle) {
+    anyVisible: function (rec) {
         // 任意部分显示出来
-        return this._notNone(textRectangle)
-            && !this.out(textRectangle); // 利用 out 比较简便
+        return this._notNone(rec)
+            && !this.out(rec); // 利用 out 比较简便
     },
-    fullyVisible: function (textRectangle) {
+    fullyVisible: function (rec) {
         // 元素完全显示出来
-        return this._notNone(textRectangle)
-            && textRectangle.top >= 0 && textRectangle.bottom <= $(window).height();
+        return this._notNone(rec)
+            && rec.top >= 0 && rec.bottom <= $(window).height();
 
     },
-    _notNone: function (textRectangle) {
-        return textRectangle.width > 0 && textRectangle.height > 0     // 防止那种　display:none;的元素
-    }
+    _notNone: function (rec) {
+        return rec.width > 0 && rec.height > 0     // 防止那种　display:none;的元素
+    },
+
+};
+
+let viewportRef = {
+
+    below: (rec, refRec) => {
+
+        return rec.top >= refRec.top + refRec.height;
+    },
 };
 
 function viewportTest(el) {
