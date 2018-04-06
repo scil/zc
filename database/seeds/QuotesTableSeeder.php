@@ -17,10 +17,9 @@ class QuotesTableSeeder extends Seeder
         File::cleanDirectory($this->freeDir);
         DB::table('quotes')->truncate();
 
-        $zhi_ren_ye_id = MENU_ITEMS["green"]['id']; //5;
-        $shan_qin_id = $zhi_ren_ye_id + 0;
-        $shells_id = $shan_qin_id + 1;
-        $book_id = $shells_id + 1;
+        $book_id = MENU_ITEMS["writing"]['id']; //;
+        $zhi_ren_ye_id = MENU_ITEMS["green"]['id'];
+        $melody_id = MENU_ITEMS["melody"]['id']; //
 //        $si_id=MENU_ITEMS["zhen/think"]; // 15;
 
         $ren_id = MENU_ITEMS["human/road"]['id'];
@@ -35,7 +34,7 @@ class QuotesTableSeeder extends Seeder
         ];
 
         $column_no_start = 0;
-        $column_id = $shells_id;
+        $column_id = $melody_id;
         $items = array_merge($items, [
 
             [

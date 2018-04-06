@@ -30,12 +30,12 @@ class Seeder extends BaseSeeder
             if (!isset($article[$field]))
                 continue;
             if (false !== strpos($article[$field], '<z-free>')) {
-                echo PHP_EOL, 'SYS nodejs free independently.js for ', $field, PHP_EOL;
+                echo PHP_EOL, 'SYS nodejs ./resources/jsbin/encode_content.js independently.js for ', $field, PHP_EOL;
                 $sourceFile = $this->sourceDir . " $uniqName _ $field  .src";
                 $outputFile = $this->sourceDir . " $uniqName _ $field  .out";
                 file_put_contents($sourceFile, $outputFile);
-                $cmd = "nodejs free.js -I -i $sourceFile -o $outputFile";
-                sys($cmd);
+                $cmd = "nodejs ./resources/jsbin/encode_content.js -I -i $sourceFile -o $outputFile";
+                system($cmd);
                 $article[$field] = file_get_contents($outputFile);
 //                echo "cmd is : $cmd \n";
             }
@@ -47,7 +47,7 @@ class Seeder extends BaseSeeder
     {
 
 
-        if(key_exists($field, $article)){
+        if(array_key_exists($field, $article)){
             $sourceFile = $this->freeDir.'src/' . $uniqName . ($field == 'body' ? '' : '_' . $field) . '.src';
         }else{
             // 必须存在源
@@ -59,7 +59,7 @@ class Seeder extends BaseSeeder
 
         // 如果不用md 且没有z-free 就不需要调用free.js
         if (!$parseMD) {
-            $sourceText = key_exists($field, $article) ? $article[$field] : file_get_contents($sourceFile);
+            $sourceText = array_key_exists($field, $article) ? $article[$field] : file_get_contents($sourceFile);
             if (empty($sourceText) || strpos($sourceText, '<z-free>') === false) {
                 $article[$field] = $sourceText;
                 $article['codes'] = null;
@@ -83,17 +83,17 @@ class Seeder extends BaseSeeder
         ) {
             echo  'EXEC nodejs free.js for ', $uniqName, $field, PHP_EOL;
             chdir(base_path());
-            $cmd = "nodejs free.js -i $sourceFile -o $outputFile -c $codesFile -h $htmlFile ";
+            $cmd = "nodejs ./resources/jsbin/encode_content.js -i $sourceFile -o $outputFile -c $codesFile -h $htmlFile ";
 //            echo "cmd is : $cmd \n";
             $a = exec($cmd, $out, $status);
 
 //            var_dump( $a, $out,$status);
             if ($status != 0) {
                 var_dump($out);
-                throw new \Exception("exec nodejs free.js $_file  wrong  ");
+                throw new \Exception("exec wrong: $cmd");
             }
         } else {
-            echo  'SKIP exec nodejs free.js for ', $uniqName, $field, PHP_EOL;
+            echo  'SKIP exec nodejs encode_content.js for ', $uniqName, $field, PHP_EOL;
         }
 
 

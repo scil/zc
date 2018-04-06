@@ -21,10 +21,8 @@ class ArticlesTableSeeder extends Seeder
 //        $article_ids = require __DIR__ . '/article_ID.php';
         $person_ids = require __DIR__ . '/person_ID.php';
 
-        $qing_id = MENU_ITEMS["green"]['id']; //9;
-        $shan_qin_id = $qing_id;
-
-        $book_id = $shan_qin_id + 2;
+        $book_id =MENU_ITEMS["writing"]['id'];
+        $qing_id = MENU_ITEMS["green"]['id'];
 
         $ren_nature_id = MENU_ITEMS["human/nature"]['id'];
         $ren_id = MENU_ITEMS["human/road"]['id'];
@@ -52,7 +50,7 @@ class ArticlesTableSeeder extends Seeder
                 'comment' => '合并了电子版。电子版篇幅少，但有一点点自己的内容： //epaper.bjnews.com.cn/html/2015-11/11/content_607391.htm?div=0',
                 '_vol' => [
                     'title' => '资中筠',
-                    'column_id' => $shan_qin_id,
+                    'column_id' => $qing_id,
                     'no' => ++$qing_vol_no,
                     'person_id' => $person_ids['Zi'],
                 ],
@@ -343,7 +341,7 @@ class ArticlesTableSeeder extends Seeder
                 'comment' => '',
                 '_vol' => [
                     'title' => 'Richard Feynman',
-                    'column_id' => $shan_qin_id,
+                    'column_id' => $qing_id,
                     'no' => ++$qing_vol_no,
                     'person_id' => $person_ids['F'],
                 ],
@@ -447,9 +445,9 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 'slug' => 'Carlo-Urbani-SARS',
                 'articleable_id'=>$column_id,
                 'title' => '瘟疫袭来 他奔走呼吁 冲在前方',
-                'sub_title' => '记抵御 SARS 病毒的意大利天主教医生 Urbani',
+                'sub_title' => '记抵御 SARS 病毒的天主教医生 Urbani',
                 'desc'=>'Urbani 因为 SARS 而广为人知，是他的专业和尽心尽力遏制了病毒，而他的博爱胸怀，更让我们怀念。 ',
-                'intro' => '一场起于青萍之末的疫情，在当地人的“低调处理”中越变越大，携带病毒的医生堂而皇之闯入国际大都市香港，引爆大传染之后，香港当地官员依然麻木不仁。直到病毒闯入越南，是乌尔巴尼（Urbani），一个外囶人，向世界发出了警讯；在人们四散奔逃、风声鹤唳的紧张气氛中，身在异乡的他仍然坚守在那里。回顾他的生平，Urbani 好像同样来自意大利的传教士利玛窦，带着文明的火种，奔走在世界的洼地。',
+                'intro' => '一场起于青萍之末的疫情，在事发地的“低调处理”中越变越大，染病的专业医生，携带着病毒，堂而皇之进入国际大都市，引爆了世界性传染，而本地官员依然麻木不仁。直到病毒闯入越南，是乌尔巴尼（Urbani），一名从意大利半岛来到印度支那的医生，向世界发出了警讯；人们风声鹤唳、四散奔逃，身在异乡的他，仍然坚守在那里，尽自己的最大努力，广泛联系各方力量，建立起抵御病毒的防线。回顾他的半生，Urbani 好像同样来自意大利岛的天主教徒利玛窦，带着文明的火种，奔走在世界的洼地。',
                 'author' => '结巢人境（编）',
                 'author_id' => 1,
                 'origin' => '',
