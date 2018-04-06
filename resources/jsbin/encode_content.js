@@ -5,7 +5,7 @@ const process = require('process');
 const minify = require('html-minifier').minify;
 const program = require('commander');
 
-const free = require("./resources/js/free");
+const free = require("./resources/jsbin/free.js");
 const md = require('./resources/js/markdownit.js')();
 
 program

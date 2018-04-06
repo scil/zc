@@ -1,7 +1,5 @@
 // @flow
 
-export {free}
-
 
 /*
  *
@@ -10,6 +8,7 @@ export {free}
  * 每个z-free独立保存自己的code：
  * free.decodeTagedHtmlStringByDom( free.encodeTagedHtmlStringByDom( md.render(editor.value()), true ), true  )
  * */
+
 var free = {
     e: '\u771f'.charCodeAt(0), // 30495
     _encodeCharCode: function (code: number): string {
@@ -221,3 +220,5 @@ var free = {
 
 
 free.tag = free.decodeTextCode("-91119-60900-91179-91143-60788-60788"); //  'z-free'
+
+module.exports = free;

@@ -10,6 +10,9 @@ function ZCMap(map, info) {
 
     /** @type {jQuery} */
     me.mapEle = null;
+    /** @type {Raphael} */
+    me.paper = null;
+
     // todo
     /** @deprecated */
     me.addrEle = null;
@@ -85,6 +88,9 @@ function ZCMap(map, info) {
                     zoomOutCssClass: 'hidden',
                 },
                 //tooltip: {target:'#person-map-tooltip'},
+                afterInit: function ($self, paper, areas, plots, options) {
+                    me.paper = paper;
+                },
                 defaultArea: {
                     // 通过格式消灭国界
                     attrs: {

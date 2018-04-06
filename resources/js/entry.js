@@ -5,9 +5,9 @@ import {viewport, viewportRef, viewportTest} from "./viewport";
 import {scrollSpy} from "./scrollspy";
 import {log as zclog, xsScreen, notXsScreen} from "./util";
 import {ZCMap} from "./zcmap";
-import {free} from "./free";
 import getG from "./g"
 
+const free = require('./free');
 const getMDParser = require('./markdownit');
 
 const HOW_LANG_SCROLLSPY_RESTORE_AFTER_SCROLL_UP = 100;
@@ -263,12 +263,17 @@ var zc = {
     },
 
     list: {
+        /** @type {number[]} */
         IDs: null,
+
+        /** @type {ZCMap} */
         zcmap: null,
 
+        /** @type {number} */
         lastID: null,
-        lastScreenIsXs: null,
 
+        // only one scroll up action allowed at a time
+        /** @type {boolean} */
         in_up: false,
 
         // /**
@@ -279,8 +284,11 @@ var zc = {
         // /** @type {findItem} */
         /** @type {function(number):jQuery|undefined} */
         findItemToScollUp: null,
+
+        /** @type {jQuery} */
         affixEle: null,
 
+        /** @type {number} */
         beginAffixPosition: null,
 
         init: function (opts) {
@@ -297,12 +305,13 @@ var zc = {
                         plotSize: 15,
                     },// plotColor:'#8800CC'},
                     mouseoverCallback: (e, id, mapElem, textElem, elemOptions) => {
+                        zc.list._updateMapAndUp(id);
                     }
                 },
                 {
                     ele: opts.info.ele,
                     data: opts.info.data,
-                    infoSwipeBox: false, // 不需要ZCMap提供的swipe 自定义swipe
+                    infoSwipeBox: false, // 不需要ZCMap提供的swipe 自定义swipe 来scrollUp内容
                 }
             );
 
@@ -312,13 +321,6 @@ var zc = {
             zc.list._setUpdateMap(opts);
 
             zc.list._setWorkAccordingScreen(opts);
-
-            //todo
-            // if (xsScreen()) {
-            //     // 单纯高亮第一个 h1 但不注册相关spy事件
-            //     zc.list._updateSideMap(elementsSpy.getFirstVisibleH1ID());
-            // }
-
 
         },
 
@@ -340,19 +342,16 @@ var zc = {
             );
             scrollSpy.addDo(function lightViewTopH1(id: number, ele, lastId: number, lastEle) {
                 // zclog('[spy do] try update map for id ', id);
-                zc.list._updateMap(id)
+                zc.list._updateMap(id, 300)
             });
 
             $(opts.info.swipeBox).swipe({
                 swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
 
+                    // just disable scrollSpy for a little while, the key to stop scrollSpy is using addOneLock in zc.list._2Ajacent
                     scrollSpy.disable();
 
-                    if (direction == 'left') {
-                        zc.list._2Adjacent(false);
-                    } else if (direction == 'right') {
-                        zc.list._2Adjacent(true);
-                    }
+                    zc.list._2Adjacent(direction === 'right');
 
                     scrollSpy.enable();
                 },
@@ -364,8 +363,6 @@ var zc = {
             // 根据鼠标动作  map 高亮鼠标下的 article
             // 鼠标进入目标区域后 不停止 scrollSpy
             $(opts.listArea)
-            // .mouseenter((e)=> {scrollSpy.disable();})
-            // .mouseleave((e)=> {scrollSpy.enable();})
                 .mouseover((e) => {
 
                     if (xsScreen()) return false;
@@ -377,7 +374,7 @@ var zc = {
                     // 发现 #L 有两侧padding 进入padding是找不到合适 article的 这时 id 没有
                     if (isNaN(id)) return
 
-                    zc.list._updateMap(id)
+                    zc.list._updateMap(id, 300)
                 })
         },
 
@@ -397,20 +394,23 @@ var zc = {
                 enterXsCallback: zc.list._sideLess400,
             });
 
+
             // 在 chrome 59 中发现 ，被 .affix 的元素 如果其中的子元素没有确定width 会导致这些元素被长内容撑得非常长；
             // 在firefox 53 中也有类似问题，但撑得不太长
+            // 这说明一个元素被ffixed 就脱离了原来容器的控制
             // 解决：给定一个width, 根据元素 #side 的长度而变化
             workAccordingScreen.add({
-                name: 'affix_child',
+                name: 'affix_width',
                 level: 6, // it must be after 'side_400px' because the children width depends #side
                 runEnterNow: true,
 
                 sideEle: $('#side'),
                 elements: [opts.affixEle, $('#LMap-info-swipebox')],
 
-                bigResizeCallback: zc.list._affixChildren,
-                enterBigCallback: zc.list._affixChildren,
-                enterXsCallback: zc.list._quitAffixChildren,
+                bigResizeCallback: zc.list._affixWidth,
+                enterBigCallback: zc.list._affixWidth,
+                enterXsCallback: zc.list._affixWidth,
+                xsResizeCallback: zc.list._affixWidth,
             });
 
             workAccordingScreen.add({
@@ -432,22 +432,6 @@ var zc = {
 
             });
 
-            // workAccordingScreen.add({
-            //     name: 'scrollSpy_only_for_big',
-            //     level: 7,
-            //     runEnterNow: true,
-            //     enterBigCallback: function (config) {
-            //         zclog('[spy] start for big')
-            //         scrollSpy.enable();
-            //         scrollSpy.addEventHandler();
-            //     },
-            //     enterXsCallback: function (config) {
-            //         scrollSpy.disable();
-            //         scrollSpy.removeEventHandler();
-            //         zclog('[spyh1] stop for xs')
-            //     },
-            //
-            // });
         },
         _2Adjacent: function (previous: boolean) {
 
@@ -469,9 +453,9 @@ var zc = {
                 }
 
             }
-            zc.list.__updateMapAndUp(id);
+            zc.list._updateMapAndUp(id);
         },
-        __updateMapAndUp: function (id: number) {
+        _updateMapAndUp: function (id: number) {
 
             if (this.in_up) return;
 
@@ -485,13 +469,13 @@ var zc = {
             this.in_up = true;
             scrollSpy.addOneLock();
 
-            this._updateMap(id);
+            this._updateMap(id, 0);
 
-            let me=this;
+            let me = this;
 
             // why setTimeout 200ms, give `this._updateMap(id);` enough time to redraw the map info, so
             // `me.affixEle.outerHeight(true)` return the height with the new info
-            setTimeout(()=>{
+            setTimeout(() => {
 
                 let pos;
 
@@ -499,9 +483,9 @@ var zc = {
                     // zclog('[up] affix height: ', me.affixEle.outerHeight(true))
                     pos = item.offset().top - me.affixEle.outerHeight(true) - 30; // 30 合适，我觉得道理是 .affix{top:30px}
 
-                    if(pos<zc.list.beginAffixPosition) pos=zc.list.beginAffixPosition;
+                    if (pos < zc.list.beginAffixPosition) pos = zc.list.beginAffixPosition;
 
-                    zclog('[up] pos: ',pos);
+                    zclog('[up] pos: ', pos);
 
                 } else {
                     pos = item.offset().top - SCROLL_UP_GAP;
@@ -516,26 +500,33 @@ var zc = {
                 // now I test 'html', it works on chrome65 and firefox
                 $('html').animate({
                     scrollTop: pos
-                }, 700, () => {
-                    zc.list.in_up=false;
+                }, 500, () => {
+                    zc.list.in_up = false;
                     zclog('[up] in_up stop');
                     setTimeout(() => {
                         scrollSpy.removeOneLock();
                     }, HOW_LANG_SCROLLSPY_RESTORE_AFTER_SCROLL_UP)
                 });
-            },200);
+            }, 200);
 
         },
-        _updateMap: function (id: number) {
+        updateMapTimer: null,
+        _updateMap: function (id: number, timeout: number) {
             if (zc.list.lastID === id) {
                 return;
             }
 
-            zclog('[list] update map for id ', id);
+            if (this.updateMapTimer) clearTimeout(this.updateMapTimer);
 
-            zc.list.lastID = id;
+            this.updateMapTimer = setTimeout(() => {
+                zclog('[list] update map for id ', id);
 
-            zc.list.zcmap.update(id)
+                zc.list.lastID = id;
+
+                zc.list.zcmap.update(id)
+
+            }, timeout || 0)
+
 
         },
 
@@ -557,23 +548,21 @@ var zc = {
             if (parseFloat(config.sideEle.css('margin-left')) > 0) {
 
                 config.sideEle.css('margin-left', '');
-                zclog('[side] margein left quit');
+                // zclog('[side] margein left quit');
 
             }
         },
-        _affixChildren: function (config) {
+        _affixWidth: function (config) {
             var sideWidth = config.sideEle.width() + 'px';
 
             for (var ele in config.elements) {
                 config.elements[ele].width(sideWidth);
             }
-            zclog('[affix child] width ' + sideWidth);
 
-        },
-        _quitAffixChildren: function (config) {
-            for (var ele in config.elements) {
-                config.elements[ele].width('');
-            }
+            zc.list.zcmap.paper.setSize('100%','100%');
+
+            zclog('[affix width] re-width and svg resized');
+
         },
 
         _destroyAffix: function (config) {
@@ -581,12 +570,18 @@ var zc = {
             $(window).off('.affix');
             $(config.affixEle).removeData('bs.affix').removeClass('affix affix-top affix-bottom');
 
+
+            // 实践证明，removeData不能去掉绑定的事件函数 需手动
+            $(config.affixEle).off('affixed.bs.affix');
+            $(config.affixEle).off('affix-top.bs.affix');
+            config.listArea.css('margin-top', '');
+
             zclog('[affix] clear');
         },
         _initSideAffix: function (config) {
 
             zclog('[affix] side set')
-            var $ele = config.affixEle;
+            var $affixEle = config.affixEle;
 
 
             //        bootstrap侧边固定导航
@@ -594,10 +589,10 @@ var zc = {
             //        页面滚动到离底部距离为 bottom 时，.affix类切换成.affix-bottom
             //        http://blog.tanteng.me/2014/02/bootstrap-affix/
             // 避免地图抖动， jq给的top没计算margin-top,　30 见.affix{top:30px;}
-            var pos = zc.list.beginAffixPosition = $ele.offset().top - parseInt($ele.css('marginTop')) - 30;
+            var pos = zc.list.beginAffixPosition = $affixEle.offset().top - parseInt($affixEle.css('marginTop')) - 30;
 
 
-            $ele.affix({
+            $affixEle.affix({
                 offset: {
                     top: pos,
                     bottom: function () {
@@ -605,6 +600,7 @@ var zc = {
                     }
                 }
             });
+
 
         },
         _initTopAffix: function (config) {
@@ -624,13 +620,13 @@ var zc = {
             });
 
             // why set margin-top, because position:fix on $affixEle would drive the listArea go up
-            $affixEle.on('affixed.bs.affix',()=>{
+            $affixEle.on('affixed.bs.affix', () => {
                 zclog('[affix] list margin-top')
-                config.listArea.css('margin-top',$affixEle.outerHeight(true));
+                config.listArea.css('margin-top', $affixEle.outerHeight(true));
             });
-            $affixEle.on('affix-top.bs.affix',()=>{
-                zclog('[affix] list margin-top 0')
-                config.listArea.css('margin-top',0);
+            $affixEle.on('affix-top.bs.affix', () => {
+                config.listArea.css('margin-top', '');
+                zclog('[affix] list margin-top removed')
             });
 
 

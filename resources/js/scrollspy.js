@@ -30,6 +30,8 @@ class ScrollSpy {
         this.doEnabled = true;
 
         // like doEnabled, but for asyn
+        // 多个异步操作如果禁用scrollspy，那用数字比较好。
+        //      譬如连续两个异步动作，开始前disable(),结束时enable()。第二个还没结束时，可能就被第一个的结束改写了doEnalbed变量
         this.lock = 0;
     }
 

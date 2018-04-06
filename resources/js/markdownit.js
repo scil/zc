@@ -28,19 +28,20 @@ var getMDParser = function() {
 
             render: function (tokens, idx) {
                 var m = tokens[idx].info.trim().match(/^(z-deep|div|section)?(.*)$/);
-console.log(m)
-                console.log(tokens)
+// console.log(m)
+//                 console.log(tokens)
+
                 var tag=m[1]||'div', attr=m[2];
 
                 if (tokens[idx].nesting === 1) {
                     // opening tag
-                    var fake=zc.editor.getMarkdownParser().render('TMP_FOR_CONTAINER<!-- {'+ attr +'} -->')
+                    var fake=md.render('TMP_FOR_CONTAINER<!-- {'+ attr +'} -->')
 // console.log('fake:',fake)
                     return '<' + tag  + fake.substring(2,  fake.indexOf('>'))+'>\n';
 
                 } else {
                     // closing tag
-                    console.log('tag ',tag)
+                    // console.log('tag ',tag)
                     return '</'+tag+'>\n';
                 }
             }
