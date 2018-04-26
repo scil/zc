@@ -17,7 +17,6 @@ class CreateMediaQuotesTable extends Migration
             $table->increments('id');
             $table->string('body',3000);
             $table->string('md',3000)->nullable();
-            $table->string('codes',100)->nullable();
             $table->string('origin',300)->nullable();
             $table->boolean('spoiler')->default(true);
             $table->enum('quoteable_type',['App\\\\Video','App\\\\Book']);

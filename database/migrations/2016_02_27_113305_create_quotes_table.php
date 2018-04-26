@@ -25,7 +25,6 @@ class CreateQuotesTable extends Migration
             $table->text('body_long')->nullable();
             $table->text('md_long')->nullable();
             // 目前附属于文章的内容不解析md 如果未来要解析　记得用行内解析　不生成<p>
-            $table->string('codes',100)->nullable();
 
             $table->string('author')->nullable(); //来源，注意这是给读者看的，如果没用的(如没多大用的作者信息)就不需要显示在这里，显示在tip
             $table->integer('author_id')->unsigned()->nullable();

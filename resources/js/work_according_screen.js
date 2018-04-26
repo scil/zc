@@ -1,5 +1,5 @@
 export {workAccordingScreen}
-import {log as zclog, xsScreen, notXsScreen} from "./util";
+import {log as zclog, smScreen, notSmScreen} from "./util";
 
 /**
  // 能力：让各组函数顺序执行 不精深 目前似乎也没啥用处 但不排除日后可能有些函数有先后要求
@@ -14,7 +14,7 @@ import {log as zclog, xsScreen, notXsScreen} from "./util";
  */
 var workAccordingScreen = {
 
-    lastScreenIsXs: null,
+    lastScreenIsSm: null,
     _configPool: {},
     // 按照运行顺序储存 如 ['100 scroll', '90 mouse','  10 affix ']
     _order: [],
@@ -25,16 +25,16 @@ var workAccordingScreen = {
 
         zclog('[screen] init ');
         var me = workAccordingScreen;
-        me.lastScreenIsXs = xsScreen();
+        me.lastScreenIsSm = smScreen();
 
 
         $(window).resize(function () {
             var i;
-            var xs = xsScreen();
+            var xs = smScreen();
 
 
             // 屏幕未大变
-            if (me.lastScreenIsXs === xsScreen()) {
+            if (me.lastScreenIsSm === smScreen()) {
                 if (xs) {
                     me._run('xsResizeCallback')
                 } else {
@@ -44,7 +44,7 @@ var workAccordingScreen = {
             }
 
             // 屏幕大变
-            me.lastScreenIsXs = xs;
+            me.lastScreenIsSm = xs;
             if (xs) {
                 me._run('enterXsCallback')
             } else {
@@ -107,7 +107,7 @@ var workAccordingScreen = {
         zclog('[screen] add: ' + key);
         if (config.runEnterNow) {
             var i;
-            if (xsScreen()) {
+            if (smScreen()) {
                 config.enterXsCallback && config.enterXsCallback(config);
             } else {
                 config.enterBigCallback && config.enterBigCallback(config);
@@ -115,7 +115,7 @@ var workAccordingScreen = {
 
         }
         if (config.runResizeNow) {
-            if (xsScreen()) {
+            if (smScreen()) {
                 config.xsResizeCallback && config.xsResizeCallback(config);
             } else {
                 config.bigResizeCallback && config.bigResizeCallback(config);
@@ -124,3 +124,5 @@ var workAccordingScreen = {
         }
     },
 };
+
+workAccordingScreen.init();

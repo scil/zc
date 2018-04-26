@@ -1,6 +1,6 @@
 export {scrollSpy}
 import {viewport, viewportRef, viewportTest} from "./viewport";
-import {log as zclog, xsScreen, notXsScreen} from "./util";
+import {log as zclog, smScreen, notSmScreen} from "./util";
 
 // 不断定位显示在屏幕最上方的目标元素 对元素进行操作
 class ScrollSpy {
@@ -19,7 +19,8 @@ class ScrollSpy {
         this.timer = null;
         this.getId = null;
 
-        this.viewRef=null;
+        // xs screen 时，会有h1虽然在屏幕上，但被 viewRef 盖住，这时，需要使用 viewRef 找到不怕覆盖的h1
+        this.viewRef = null;
 
         this.H1List = [];
         this.H1Query = '';
@@ -35,13 +36,13 @@ class ScrollSpy {
         this.lock = 0;
     }
 
-    init(query: string, viewRef, getId: callable) {
+    init(query: string, getId: callable, viewRef: ?Element) {
 
         // a callback return a normal integer or NaN
         this.getId = getId;
 
-        this.H1Query=query;
-        this.viewRef=viewRef;
+        this.H1Query = query;
+        this.viewRef = viewRef;
 
         this.updateH1s(query);
 
@@ -67,7 +68,7 @@ class ScrollSpy {
         for (i = 0; i < this.H1List.length; i++) {
             ele = this.H1List[i];
             if (viewport.fullyVisible(ele.getBoundingClientRect())) {
-                if (xsScreen()) {
+                if (this.viewRef && smScreen()) {
                     // in xs screen , the h1 sould be below of affix element containing map and info ele
                     if (viewportRef.below(ele.getBoundingClientRect(), this.viewRef.getBoundingClientRect())) {
                         return ele;

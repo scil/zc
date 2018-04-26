@@ -36,3 +36,10 @@ $input-color-placeholder: lighten($text-color, 30%);
 
 // Panels
 $panel-default-heading-bg: #fff;
+
+//== Forms
+//
+//##
+
+//** Disabled cursor for form controls and buttons.
+$cursor-disabled:                default;

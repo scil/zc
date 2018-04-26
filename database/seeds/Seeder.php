@@ -25,31 +25,19 @@ class Seeder extends BaseSeeder
      */
     function encodeFieldsIndependently(&$article, $uniqName, $fields)
     {
-        chdir(base_path());
-        foreach ($fields as $field) {
-            if (!isset($article[$field]))
-                continue;
-            if (false !== strpos($article[$field], '<z-free>')) {
-                echo PHP_EOL, 'SYS nodejs ./resources/jsbin/encode_content.js independently.js for ', $field, PHP_EOL;
-                $sourceFile = $this->sourceDir . " $uniqName _ $field  .src";
-                $outputFile = $this->sourceDir . " $uniqName _ $field  .out";
-                file_put_contents($sourceFile, $outputFile);
-                $cmd = "nodejs ./resources/jsbin/encode_content.js -I -i $sourceFile -o $outputFile";
-                system($cmd);
-                $article[$field] = file_get_contents($outputFile);
-//                echo "cmd is : $cmd \n";
-            }
-        }
-
+        return;
     }
 
     function encodeBody(&$article, $uniqName, $field, $md_field, $parseMD = false)
     {
 
+        if (!$parseMD) {
+            return;
+        }
 
-        if(array_key_exists($field, $article)){
-            $sourceFile = $this->freeDir.'src/' . $uniqName . ($field == 'body' ? '' : '_' . $field) . '.src';
-        }else{
+        if (array_key_exists($field, $article)) {
+            $sourceFile = $this->freeDir . 'src/' . $uniqName . ($field == 'body' ? '' : '_' . $field) . '.src';
+        } else {
             // 必须存在源
             $sourceFile = $this->sourceDir . $uniqName . ($field == 'body' ? '' : '_' . $field) . '.src';
             if (!is_file($sourceFile)) {
@@ -57,33 +45,17 @@ class Seeder extends BaseSeeder
             }
         }
 
-        // 如果不用md 且没有z-free 就不需要调用free.js
-        if (!$parseMD) {
-            $sourceText = array_key_exists($field, $article) ? $article[$field] : file_get_contents($sourceFile);
-            if (empty($sourceText) || strpos($sourceText, '<z-free>') === false) {
-                $article[$field] = $sourceText;
-                $article['codes'] = null;
-                return;
-            }
-        }
-
-        @mkdir($this->freeDir.'src/', 0777, true);
+        @mkdir($this->freeDir . 'src/', 0777, true);
         $_file = $this->freeDir . $uniqName . $field;
-        $outputFile = $_file . '.out';
-        $codesFile = $_file . '.c';
-        $htmlFile = $parseMD ? $_file . '.html' : '';
-
+        $htmlFile = $_file . '.html';
 
         if (isset($article[$field]))
             file_put_contents($sourceFile, $article[$field]);
 
-        if (!(
-            ($parseMD ? is_file($htmlFile) : true)
-            && is_file($codesFile) && filectime($sourceFile) < filectime($codesFile)) // 即使源中不存在z-free 也会生成一个codesFile 所以可用它来判断
-        ) {
-            echo  'EXEC nodejs free.js for ', $uniqName, $field, PHP_EOL;
+        if (!(is_file($htmlFile) && filectime($sourceFile) < filectime($htmlFile))) {
+            echo 'EXEC nodejs free.js for ', $uniqName, $field, PHP_EOL;
             chdir(base_path());
-            $cmd = "nodejs ./resources/jsbin/encode_content.js -i $sourceFile -o $outputFile -c $codesFile -h $htmlFile ";
+            $cmd = "nodejs ./resources/jsbin/encode_content.js -i $sourceFile -h $htmlFile ";
 //            echo "cmd is : $cmd \n";
             $a = exec($cmd, $out, $status);
 
@@ -93,24 +65,20 @@ class Seeder extends BaseSeeder
                 throw new \Exception("exec wrong: $cmd");
             }
         } else {
-            echo  'SKIP exec nodejs encode_content.js for ', $uniqName, $field, PHP_EOL;
+            echo 'SKIP exec nodejs encode_content.js for ', $uniqName, $field, PHP_EOL;
         }
 
 
-        $codes = file_get_contents($codesFile);
-        $article['codes'] = $codes ?: null;
-
         $article[$field] = file_get_contents($htmlFile);
+        $article[$md_field] = file_get_contents($sourceFile);
 
-        if ($parseMD)
-            $article[$md_field] = file_get_contents($outputFile);
     }
 
     function addQuotes($items, $quoteable_id = null, $quoteable_type = null, $data = [])
     {
         foreach ($items as &$item) {
-            $key = str_replace("'",'',$item['slug']??$item['_slug']);
-            $this->encodeFieldsIndependently($item,$key, ['author', 'comment']);
+            $key = str_replace("'", '', $item['slug'] ?? $item['_slug']);
+            $this->encodeFieldsIndependently($item, $key, ['author', 'comment']);
 
             if ($quoteable_id) {
                 $item['quoteable_id'] = $quoteable_id;
@@ -119,16 +87,13 @@ class Seeder extends BaseSeeder
                 $item['quoteable_type'] = $quoteable_type;
             }
 
-            if (isset($item['quoteable_type']) && $item['quoteable_type'] == 'App\Article' && $item['type'] == 'top') {
-                // 不作为 markdown 格式
-                $this->encodeBody($item,$key, 'body', 'md', false);
-            } else {
-                $this->encodeBody($item, $key, 'body', 'md', true);
-                if (isset($item['body_long'])) {
-                    if ($item['body_long'] == '_') unset($item['body_long']); // 使用文件
-                    $this->encodeBody($item,$key, 'body_long', 'md_long', true);
-                }
+
+            $this->encodeBody($item, $key, 'body', 'md', true);
+            if (isset($item['body_long'])) {
+                if ($item['body_long'] == '_') unset($item['body_long']); // 使用文件
+                $this->encodeBody($item, $key, 'body_long', 'md_long', true);
             }
+
 
             $place_infos = [];
             if (isset($item['_place'])) {
@@ -156,13 +121,13 @@ class Seeder extends BaseSeeder
 
         }
 
-        return $qID??null; // return the last quote id
+        return $qID ?? null; // return the last quote id
 
     }
 
     function insertPlaces($places, $type = 'App\Article')
     {
-        if(!$places) return [];
+        if (!$places) return [];
 
         $place_infos = [];
         foreach ($places as $order => $place) {
@@ -173,7 +138,7 @@ class Seeder extends BaseSeeder
             if (isset($place['_id'])) {
                 $id = $place['_id'];
             } else {
-                if ( !($place['name']??null) && isset($place['name_en'])) {
+                if (!($place['name'] ?? null) && isset($place['name_en'])) {
                     $place['name'] = $place['name_en'];
                 }
 
@@ -204,7 +169,7 @@ class Seeder extends BaseSeeder
         }
     }
 
-    function addArticles($articles,$default_type = 'first', $default_articleable_id=null , $articleable_type = 'App\Column',$default_volume_id=null)
+    function addArticles($articles, $default_type = 'first', $default_articleable_id = null, $articleable_type = 'App\Column', $default_volume_id = null)
     {
         foreach ($articles as &$article) {
 
@@ -216,20 +181,20 @@ class Seeder extends BaseSeeder
 
             $article['type'] = $article['type'] ?? $default_type;
 
-            $volume_id=$default_volume_id;
+            $volume_id = $default_volume_id;
             if ($articleable_type == 'App\Column') {
-                if ( !$default_volume_id &&  isset($article['_vol'])) {
+                if (!$default_volume_id && isset($article['_vol'])) {
 
                     if (isset($article['created_at']))
                         $article['_vol']['created_at'] = $article['created_at'];
 
-                    $volume_id= DB::table('volumes')->insertGetId($article['_vol']);
+                    $volume_id = DB::table('volumes')->insertGetId($article['_vol']);
 
                 }
-                $article['volume_id']=$volume_id;
+                $article['volume_id'] = $volume_id;
 
             }
-            $articleable_id=$article['articleable_id'] = $article['articleable_id'] ??  $default_articleable_id;
+            $articleable_id = $article['articleable_id'] = $article['articleable_id'] ?? $default_articleable_id;
             $article['articleable_type'] = $article['articleable_type'] ?? $articleable_type;
 
             $place_infos = [];
@@ -252,10 +217,10 @@ class Seeder extends BaseSeeder
             $articleID = DB::table('articles')->insertGetId($article);
 
             if ($notes) {
-                $this->addArticles($notes,'note', $articleable_id,$articleable_type,$volume_id);
+                $this->addArticles($notes, 'note', $articleable_id, $articleable_type, $volume_id);
             }
             if ($brothers) {
-                $this->addArticles($brothers, 'normal',$articleable_id,$articleable_type,$volume_id);
+                $this->addArticles($brothers, 'normal', $articleable_id, $articleable_type, $volume_id);
             }
 
             if ($quotes) {

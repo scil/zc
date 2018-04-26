@@ -1,5 +1,5 @@
 // @flow
-export {log,xsScreen,notXsScreen}
+export {log,smScreen,notSmScreen}
 
 /** @type {boolean} */
 var _debug = (typeof(console) !== 'undefined');
@@ -9,12 +9,12 @@ function log() {
 }
 
 
-function xsScreen():boolean {
+function smScreen():boolean {
     return $('#me').css('opacity') === "0.99";
 }
 
-function notXsScreen():boolean {
-    return !xsScreen();
+function notSmScreen():boolean {
+    return !smScreen();
 }
 
 
