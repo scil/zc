@@ -39,6 +39,10 @@ class CmsController extends Controller
                 'slug', $slug
             )->first();
 
+        if($article->topQuotes->count()>0){
+            $article->topQuote = $article->topQuotes[0];
+        }
+
         $person = $article->volume->person;
         $experiences = $person ? $person->experiences : null;
 
@@ -161,7 +165,7 @@ class CmsController extends Controller
     function viewShanShuiQuote($prefix, $slug)
     {
         $quote = Quote::
-        with(['quoteable' => function ($query) {
+        with(['places','image','quoteable' => function ($query) {
             $query->select('id');
         }])->
         where([
@@ -180,7 +184,7 @@ class CmsController extends Controller
     {
         $columnInfo = MENU_ITEMS[$url];
         $desc = $columnInfo['desc'];
-        if ($url == 'two-rivers') {
+        if ($url == 'sailing') {
             $title = $columnInfo['title'];
             $columnLevel = 2;
             $columnID = $columnInfo['id'];
@@ -207,8 +211,8 @@ class CmsController extends Controller
             $title = $columnInfo['title'];
 
             if (substr($url, 0, 3) == 'two') {
-                $url = 'two-rivers';
-//                $title = MENU_ITEMS['two-rivers']['title'];
+                $url = 'sailing';
+//                $title = MENU_ITEMS['sailing']['title'];
             }
 
 
@@ -225,12 +229,10 @@ class CmsController extends Controller
         $desc = $columnInfo['desc'];
         $title = $columnInfo['title'];
 
-        if (isset($columnInfo['a'])) {
+        if (isset($columnInfo['a'])) { // has child columns with articles
             $columnLevel = 2;
 
             $vols = Volume::with(['column', 'firstArticlesSimple.places'])->whereIn('column_id', $columnInfo['a'])->orderBy('created_at', 'desc')->get();
-
-            $quotes = [];
 
 
         } else {
@@ -239,15 +241,9 @@ class CmsController extends Controller
 
             $vols = Volume::with(['column','firstArticlesSimple.places'])->where('column_id', $columnInfo['id'])->orderBy('no', 'desc')->get();
 
-            $quotes = Quote::with('places')->where([
-                ['quoteable_type', '=', 'App\Column'],
-                ['quoteable_id', '=', $columnInfo['id']],
-            ])->orderBy('order', 'desc')->get();
-
-
         }
 
-        return view('mixedList', compact('columnInfo', 'vols', 'quotes', 'columnLevel', 'desc', 'title'));
+        return view('articleList', compact('columnInfo', 'vols', 'columnLevel', 'desc', 'title'));
 
     }
     public function testdb(){

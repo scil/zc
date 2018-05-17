@@ -88,9 +88,9 @@ union
                         $level3 = $allById[$child_id];
                         $level3_key = substr($level3->url, 1);
 
-                        if ($level3->type == 'mix' || $level3->type == 'article')
+                        if ($level3->type == 'article')
                             array_push(self::$menuItemsInfo[$menuId][$key]['a'], $level3->id);
-                        if ($level3->type == 'mix' || $level3->type == 'quote')
+                        if ($level3->type == 'quote')
                             array_push(self::$menuItemsInfo[$menuId][$key]['q'], $level3->id);
                     }
                 }

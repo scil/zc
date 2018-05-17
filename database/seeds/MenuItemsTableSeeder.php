@@ -25,25 +25,27 @@ class MenuItemsTableSeeder extends Seeder
 
                     ['name' => '真山', 'show'=>true,'short_name' => null, 'css' => null, 'type' => 'box', 'level' => 2, 'order' => 1, 'url' => '/zhen', 'ctitle'=>'','title'=>'真山 &nbsp;|&nbsp; 真城', 'desc' => '人真如山', 'pic' => '', '_children' => [
 
-                        ['name' => '山书', 'show'=>true,'short_name' => '书', 'css' => '1', 'type' => 'mix', 'level' => 3, 'order' => 1, 'url' => '/writing', 'ctitle'=>'山书 &nbsp;|&nbsp; 真城','title'=>'山书 &nbsp;|&nbsp; 真城', 'desc' => '岭上多白云', 'pic' => 'book.jpg',],
+                        ['name' => '山书', 'show'=>true,'short_name' => '书', 'css' => '1', 'type' => 'article', 'level' => 3, 'order' => 1, 'url' => '/writing', 'ctitle'=>'山书 &nbsp;|&nbsp; 真城','title'=>'山书 &nbsp;|&nbsp; 真城', 'desc' => '岭上多白云', 'pic' => 'book.jpg',],
                         ['name' => '山青', 'show'=>true,'short_name' => '人', 'css' => '2', 'type' => 'article', 'level' => 3, 'order' => 2, 'url' => '/green', 'ctitle'=>'山青 &nbsp;|&nbsp; 真城','title'=>'山青 &nbsp;|&nbsp; 真城', 'desc' => '青泉到海流不息', 'pic' => 'qing.jpg'],
-                        ['name' => '山琴', 'show'=>true,'short_name' => '琴', 'css' => '3', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/melody', 'ctitle'=>'','title'=>'', 'desc' => '山月照弹琴', 'pic' => 'aboutme.jpg'],
+                        ['name' => '山意', 'show'=>true,'short_name' => '意', 'css' => '3', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/spirit',  'ctitle'=>'山意 &nbsp;|&nbsp; 真城','title'=>'山意 &nbsp;|&nbsp; 真城', 'desc' => '峰回山意旷', 'pic' => 'aboutme.jpg'],
 //                        ['name' => '海贝', 'show'=>true,'short_name' => '海', 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/shells', 'ctitle'=>'海贝 &nbsp;|&nbsp; 真城','title'=>'海贝 &nbsp;|&nbsp; 真城', 'desc' => '明月共潮生', 'pic' => 'seashell.jpg'],
                     ]],
                     ['name' => '人山', 'show'=>true,'short_name' => null, 'css' => null, 'type' => 'box', 'level' => 2, 'order' => 2, 'url' => '/human', 'ctitle'=>'','title'=>'人山 &nbsp;|&nbsp; 真城', 'desc' => '人如山立', 'pic' => '', '_children' => [
 
                         ['name' => '天性', 'show'=>true,'short_name' => '人', 'css' => '2', 'type' => 'article', 'level' => 3, 'order' => 1, 'url' => '/human/nature', 'ctitle'=>'天性 &nbsp;|&nbsp; 真城','title'=>'天性 &nbsp;|&nbsp; 真城', 'desc' => '人性，物性，神性', 'pic' => 'nature.jpg'],
-                        ['name' => '人之路', 'show'=>true,'short_name' => '路', 'css' => '1', 'type' => 'mix', 'level' => 3, 'order' => 2, 'url' => '/human/road', 'ctitle'=>'人也 &nbsp;|&nbsp; 真城','title'=>'人也 &nbsp;|&nbsp; 真城', 'desc' => '成为人，身为人', 'pic' => 'road.jpg'],
-                        ['name' => '天地', 'show'=>true,'short_name' => '地', 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/human/country', 'ctitle'=>'天地 &nbsp;|&nbsp; 真城','title'=>'天地 &nbsp;|&nbsp; 真城', 'desc' => '天地人，你我他', 'pic' => 'disaster.jpg'],
+                        ['name' => '人之路', 'show'=>true,'short_name' => '路', 'css' => '1', 'type' => 'article', 'level' => 3, 'order' => 2, 'url' => '/human/road', 'ctitle'=>'人也 &nbsp;|&nbsp; 真城','title'=>'人也 &nbsp;|&nbsp; 真城', 'desc' => '身为人，成为人', 'pic' => 'road.jpg'],
+                        ['name' => '雨滴', 'show'=>true,'short_name' => '地', 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/human/raindrops', 'ctitle'=>'天地 &nbsp;|&nbsp; 真城','title'=>'雨滴 &nbsp;|&nbsp; 真城', 'desc' => '天地人', 'pic' => 'disaster.jpg'],
 //                ['name' => '人难',  'show'=>true,'short_name'=>null,'css'=>null,'type'=>'quote','level' => 3, 'order' => 5,  'url' => '/human/disaster', 'ctitle'=>'','title'=>'', 'desc' => '不敢遗忘', 'pic' => 'disaster.jpg',],
                     ]],
-                    ['name' => '两河', 'show'=>true,'short_name' => null, 'css' => null, 'type' => 'box', 'level' => 2, 'order' => 4, 'url' => '/two-rivers', 'ctitle'=>'两河 &nbsp;|&nbsp; 真城','title'=>'两河 &nbsp;|&nbsp; 真城', 'desc' => '人类文明发端于两河，人类也如河流一般奔腾、交汇', 'pic' => '', '_children' => [
+                    // 人类文明发端于两河，人类也如河流一般奔腾、交汇
+                    // 远行 远帆 蹈海 渡海
+                    ['name' => '越海', 'show'=>true,'short_name' => null, 'css' => null, 'type' => 'box', 'level' => 2, 'order' => 4, 'url' => '/sailing', 'ctitle'=>'越海 &nbsp;|&nbsp; 真城','title'=>'越海 &nbsp;|&nbsp; 真城', 'desc' => '记录人类之路，记录人类之路的开路人、领路者', 'pic' => '', '_children' => [
 
-                        ['name' => '行者', 'show'=>true,'short_name' => '人', 'css' => '1', 'type' => 'quote', 'level' => 3, 'order' => 1, 'url' => '/two-rivers/walkers', 'ctitle'=>'','title'=>'行者 &nbsp;|&nbsp; 两河', 'desc' => '人是动的，从非洲走遍世界，从地球走向太空。', 'pic' => null],
-                        ['name' => '财艺', 'show'=>true,'short_name' => '财', 'css' => '2', 'type' => 'quote', 'level' => 3, 'order' => 2, 'url' => '/two-rivers/assets', 'ctitle'=>'','title'=>'财艺 &nbsp;|&nbsp; 两河', 'desc' => '我们坐享着几千年的财富，后人将坐享着几万年的财富。', 'pic' => null],
-                        ['name' => '知道', 'show'=>true,'short_name' => '道', 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/two-rivers/dao', 'ctitle'=>'','title'=>'知道 &nbsp;|&nbsp; 两河', 'desc' => '人之知，行之道，其来有自。', 'pic' => null],
+                        ['name' => '行者', 'show'=>true,'short_name' => '人', 'css' => '1', 'type' => 'quote', 'level' => 3, 'order' => 1, 'url' => '/sailing/walkers', 'ctitle'=>'','title'=>'行者 &nbsp;|&nbsp; 越海', 'desc' => '从远方而来，向远方而去', 'pic' => null],
+                        ['name' => '财艺', 'show'=>true,'short_name' => '财', 'css' => '2', 'type' => 'quote', 'level' => 3, 'order' => 2, 'url' => '/sailing/assets', 'ctitle'=>'','title'=>'财艺 &nbsp;|&nbsp; 越海', 'desc' => '我们坐享着几千年的财富，后人坐享几万年的财富。', 'pic' => null],
+                        ['name' => '知道', 'show'=>true,'short_name' => '道', 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/sailing/dao', 'ctitle'=>'','title'=>'知道 &nbsp;|&nbsp; 越海', 'desc' => '人之知，行之道，其来有自。', 'pic' => null],
                         // 治变 治权 治化 辖治
-//            ['name' => '辖治',  'show'=>true,'short_name'=>null,'css'=>null,'type'=>'quote','level' => 3, 'order' => 4,  'url' => '/two-rivers/zhi', 'ctitle'=>'','title'=>'', 'desc' => '', 'pic' => null],
+//            ['name' => '辖治',  'show'=>true,'short_name'=>null,'css'=>null,'type'=>'quote','level' => 3, 'order' => 4,  'url' => '/sailing/zhi', 'ctitle'=>'','title'=>'', 'desc' => '', 'pic' => null],
                     ]],
                     // url: with or one
 //            ['id' => $ID['gong_he'],  'name' => '共河',  'show'=>true,'short_name'=>null,'css'=>null,'type'=>'quote','level' => 2, 'order' => 4,  'url' => '/gong', 'ctitle'=>'','title'=>'', 'desc' => '', 'pic' => ''],

@@ -8,6 +8,7 @@
 
 
             <div class="col-sm-5 col-sm-push-7">
+
                 <div id="side">
                     <div id="LMap-box">
                         <div id="side-first-page">
@@ -27,6 +28,7 @@
                         @foreach($vols as $vol)
                             @foreach($vol->firstArticlesSimple as $article)
                                 @if($article->places->count()>0)
+                                    {{-- only get the first place  --}}
                                     <?php $a_place = $article->places[0];$IDs[] = $article->id;  ?>
                                     <?php
                                     $mapInfosByID[$article->id] = [
@@ -129,6 +131,7 @@
 
 @section('script_b')
     <script>
+
         var plots = {
         @foreach($vols as $vol)
         @foreach($vol->firstArticlesSimple as $article)
@@ -150,32 +153,31 @@
 
         @if($IDs)
 
-        zc.list.init({
+        zc.sideMap.init({
             itemIDs:{!! json_encode($IDs) !!},
             plots: plots,
 
-            listArea: '#L', // 列表
-
-            affix: '#LMap-box',
-
-            info: {
-                ele: '#LMap-info',
-                data:{!! json_encode($mapInfosByID) !!},
-                swipeBox: '#LMap-info-swipebox', // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
+            side: {
+                ele: $('#side'),
+                affixEle: $('#LMap-box'), // also used by scrollspy as a viewRef
+                swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
+                infoEle: '#LMap-info',
+                infoData:{!! json_encode($mapInfosByID) !!},
             },
 
-            findItemToScollUp: function (id) {  // 操作map, 自动把目标元素滚动上来 这里是寻找目标元素的方法 目前找到.vol就行 不细化到 article
+            contentArea: '#L', // 列表
+            findItemByPlotID: function (id) {  // 操作map, 自动把目标元素滚动上来 这里是寻找目标元素的方法 目前找到.vol就行 不细化到 article
                 var item = $(document.getElementById(id)).parents('.vol');
                 if (item.parent()[0] === $('#L')[0]) {
-                    zclog('[scroll] found vol for id ', id)
+                    //zclog('[up] found vol for id ', id)
                     return item;
                 }
             },
-
             spy: {
+                field: '#L',
                 target: '.L-item-title', // if one of the targets is in viewport
                 getId: null,
-                targetScope: 'article', // mouse over this scope, then use the related target in the scope
+                targetItemScope: 'article', // mouse over this scope, then use the related target in the scope
             },
         });
 
