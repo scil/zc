@@ -18,12 +18,11 @@
     'a' => 
     array (
       0 => 4,
-      1 => 6,
+      1 => 5,
     ),
     'q' => 
     array (
-      0 => 5,
-      1 => 6,
+      0 => 6,
     ),
   ),
   'human' => 
@@ -39,17 +38,16 @@
     ),
     'q' => 
     array (
-      0 => 9,
-      1 => 10,
+      0 => 10,
     ),
   ),
-  'two-rivers' => 
+  'sailing' => 
   array (
     'id' => 11,
-    'name' => '两河',
-    'desc' => '人类文明发端于两河，人类也如河流一般奔腾、交汇',
-    'title' => '两河 &nbsp;|&nbsp; 真城',
-    'ctitle' => '两河 &nbsp;|&nbsp; 真城',
+    'name' => '越海',
+    'desc' => '记录人类之路，记录人类之路的开路人、领路者',
+    'title' => '越海 &nbsp;|&nbsp; 真城',
+    'ctitle' => '越海 &nbsp;|&nbsp; 真城',
     'a' => 
     array (
     ),
@@ -76,35 +74,35 @@
     'name' => '山关',
     'title' => '真城山关',
   ),
-  'green' => 
+  'writing' => 
   array (
     'id' => 4,
+    'name' => '山书',
+    'short_name' => '书',
+    'css' => '1',
+    'desc' => '岭上多白云',
+    'title' => '山书 &nbsp;|&nbsp; 真城',
+    'ctitle' => '山书 &nbsp;|&nbsp; 真城',
+  ),
+  'green' => 
+  array (
+    'id' => 5,
     'name' => '山青',
     'short_name' => '人',
-    'css' => '1',
+    'css' => '2',
     'desc' => '青泉到海流不息',
     'title' => '山青 &nbsp;|&nbsp; 真城',
     'ctitle' => '山青 &nbsp;|&nbsp; 真城',
   ),
-  'shells' => 
-  array (
-    'id' => 5,
-    'name' => '海贝',
-    'short_name' => '海',
-    'css' => 'q',
-    'desc' => '明月共潮生',
-    'title' => '海贝 &nbsp;|&nbsp; 真城',
-    'ctitle' => '海贝 &nbsp;|&nbsp; 真城',
-  ),
-  'texts' => 
+  'spirit' => 
   array (
     'id' => 6,
-    'name' => '山书',
-    'short_name' => '书',
+    'name' => '山意',
+    'short_name' => '意',
     'css' => '3',
-    'desc' => '岭上多白云',
-    'title' => '山书 &nbsp;|&nbsp; 真城',
-    'ctitle' => '山书 &nbsp;|&nbsp; 真城',
+    'desc' => '峰回山意旷',
+    'title' => '山意 &nbsp;|&nbsp; 真城',
+    'ctitle' => '山意 &nbsp;|&nbsp; 真城',
   ),
   'human/nature' => 
   array (
@@ -122,46 +120,46 @@
     'name' => '人之路',
     'short_name' => '路',
     'css' => '1',
-    'desc' => '成为人，身为人',
+    'desc' => '身为人，成为人',
     'title' => '人也 &nbsp;|&nbsp; 真城',
     'ctitle' => '人也 &nbsp;|&nbsp; 真城',
   ),
-  'human/country' => 
+  'human/raindrops' => 
   array (
     'id' => 10,
-    'name' => '天地',
+    'name' => '雨滴',
     'short_name' => '地',
     'css' => 'q',
-    'desc' => '天地人，你我他',
-    'title' => '天地 &nbsp;|&nbsp; 真城',
+    'desc' => '天地人',
+    'title' => '雨滴 &nbsp;|&nbsp; 真城',
     'ctitle' => '天地 &nbsp;|&nbsp; 真城',
   ),
-  'two-rivers/walkers' => 
+  'sailing/walkers' => 
   array (
     'id' => 12,
     'name' => '行者',
     'short_name' => '人',
     'css' => '1',
-    'desc' => '人是动的，从非洲走遍世界，从地球走向太空。',
-    'title' => '行者 &nbsp;|&nbsp; 两河',
+    'desc' => '从远方而来，向远方而去',
+    'title' => '行者 &nbsp;|&nbsp; 越海',
   ),
-  'two-rivers/assets' => 
+  'sailing/assets' => 
   array (
     'id' => 13,
     'name' => '财艺',
     'short_name' => '财',
     'css' => '2',
-    'desc' => '我们坐享着几千年的财富，后人将坐享着几万年的财富。',
-    'title' => '财艺 &nbsp;|&nbsp; 两河',
+    'desc' => '我们坐享着几千年的财富，后人坐享几万年的财富。',
+    'title' => '财艺 &nbsp;|&nbsp; 越海',
   ),
-  'two-rivers/dao' => 
+  'sailing/dao' => 
   array (
     'id' => 14,
     'name' => '知道',
     'short_name' => '道',
     'css' => 'q',
     'desc' => '人之知，行之道，其来有自。',
-    'title' => '知道 &nbsp;|&nbsp; 两河',
+    'title' => '知道 &nbsp;|&nbsp; 越海',
   ),
   'book' => 
   array (

@@ -43,6 +43,17 @@
 
     <link rel="apple-touch-icon" href="/apple-icon.png">
     <link rel="shortcut icon" href="/favicon.ico">
+    <script>
+        // I think safari 10 should works fine with afffix because:
+        // https://github.com/twbs/bootstrap/issues/16814 and
+        // https://en.wikipedia.org/wiki/Safari_version_history#Safari_10
+        sideLeft =
+            navigator.userAgent.indexOf('Safari') != -1
+            && navigator.userAgent.indexOf('Chrome') == -1
+            && navigator.userAgent.indexOf('Android') == -1
+            && /Version\/(\d+)\./.exec(navigator.userAgent)[1] < 10 ?
+                true : false;
+    </script>
 </head>
 <body>
 
@@ -125,7 +136,7 @@ M;
         <hr>
         <div class="row" id="footer-first-row">
             <div class="col-xs-6">
-                <p class="pull-left heiti" id="me">真城在真诚</p>
+                <p class="pull-left heiti" id="me">真城</p>
             </div>
             <div class="col-xs-6">
                 <ul id="contacts" class="nav nav-pills pull-right">
@@ -185,7 +196,7 @@ M;
         return false;
     }
 
-    document.getElementById('pass-li').href = '/' + ( open_gate() ? 'pass' : 'ferry');
+    document.getElementById('pass-li').href = '/' + (open_gate() ? 'pass' : 'ferry');
     //# sourceURL=zc_gate
 </script>
 </body>

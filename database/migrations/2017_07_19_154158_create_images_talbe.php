@@ -15,9 +15,9 @@ class CreateImagesTalbe extends Migration
     {
         Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('url');
             // local url
             $table->string('local')->nullable();
+            $table->string('url')->nullable();
             // other urls
             $table->string('alter',1000)->nullable();
             $table->string('style')->nullable();

@@ -84,7 +84,7 @@
         ;
 
         @if(isset($all_plots_ids))
-        zc.list.init({
+        zc.sideMap.init({
             all_plots: [<?php echo implode(',', $all_plots_ids)  ?>],
             plots: plots,
             IDs:{!! json_encode($IDs) !!},

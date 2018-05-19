@@ -5,6 +5,21 @@ import {log as zclog} from "./util";
 
 const _ = require('lodash')
 
+
+/**
+ *
+ * @param map
+ * @param info
+ * @return {ZCMap}
+ * @constructor
+ *
+ *
+ * event 'zcmap.active'
+     zcmap.mapEle.on('zcmap.active', function (e, id, last_id) {
+            eleAddr.html(this.plots[id]['addr'] || '')
+     }
+ */
+
 function ZCMap(map, info) {
     var me = this;
 
@@ -16,8 +31,6 @@ function ZCMap(map, info) {
     // todo
     /** @deprecated */
     me.addrEle = null;
-    /** @type {string} */
-    me.infoEle = null;
 
     /** @type {number[]} */
     me.all_plots_ids = map.plotsIDs;
@@ -41,7 +54,12 @@ function ZCMap(map, info) {
     me.mapNmae = map.config.mapName;
 
 
+    /** @type {string} */
+    me.infoEle = null;
     me.infoVue = null;
+    me.infoData = null;
+    me.infoKeys = null;
+
     if (info) {
         me.infoEle = info.ele;
 
@@ -194,7 +212,9 @@ ZCMap.prototype._ActiveOrChangePlot = function (opt) {
 
 
     if (!isNaN(nextActivePlotID)) {
-        this.eleAddr && this.eleAddr.html(this.plots[nextActivePlotID]['addr'] || '')
+
+        this.mapEle.trigger('zcmap.active', [nextActivePlotID, this.lastActivePlot]);
+
         this.lastActivePlot = nextActivePlotID;
     }
 
@@ -213,13 +233,18 @@ ZCMap.prototype._ActiveOrChangePlot = function (opt) {
 ZCMap.prototype._lightSinglePlotAndAutoChange = function (nextPlotID: number) {
 
     const all = this.all_plots_ids, me = this;
-    let to_show_ids;
+    let to_show_ids, index;
 
+    to_show_ids = all;
     if (nextPlotID >= 0) {
-        to_show_ids = this._mode_direction === 'right' ? all.slice(all.indexOf(nextPlotID)) : all.slice(0, nextPlotID + 1);
-    }
-    else {
-        to_show_ids = all;
+        index = all.indexOf(nextPlotID);
+        if (index >= 0) {
+            // todo: this.mode
+            to_show_ids = this._mode_direction === 'right' ? all.slice(index) : all.slice(0, index + 1);
+        }else{
+            // a valid plot id  must >=0
+            nextPlotID=null;
+        }
     }
 
 
@@ -230,6 +255,7 @@ ZCMap.prototype._lightSinglePlotAndAutoChange = function (nextPlotID: number) {
     ZCMap.log('      show ', to_show_ids)
     ZCMap.log('      add ', to_add_ids)
     ZCMap.log('      del ', to_del_ids)
+    ZCMap.log('      active ', nextPlotID)
 
     var to_add = {};
     _.each(to_add_ids, function (id) {

@@ -19,7 +19,7 @@
             <ul class="nav nav-pills pull-right" id="header-nav">
                 <li role="presentation"><a href="/green">山青</a></li>
                 <li role="presentation"><a href="/human/road">人之路</a></li>
-                <li role="presentation"><a href="/two-rivers">两河</a></li>
+                <li role="presentation"><a href="/sailing">越海</a></li>
             </ul>
 
         </div>

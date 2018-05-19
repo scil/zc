@@ -3,40 +3,8 @@
 @section('content')
     <div class="container">
         <div class="row" id="column-box">
-            <div class="col-sm-7">
-                <div id="QL">
-                    @foreach($quotes as $quote)
-                        <article class="QL-item">
-                            <header class="L-item-header clearfix">
-                                @if($columnLevel==2)
-                                    <span class="prefix-col-name prefix-col-name-{!! $quote->quoteable->css !!}">{!! $quote->quoteable->short_name !!}</span>
-                                @else
-                                    <span class="prefix-col-name prefix-col-name-{!! $columnCss !!}">{!! $quote->order !!}</span>
-                                @endif
-                                <h1 class="L-item-title" id="{!! $quote->id !!}"><a
-                                            href="/{!! $url !!}/{!! $quote->slug !!}">{!! $quote->title !!}</a></h1>
-                            </header>
-                            <div class="QL-item-body">{!! $quote->body !!}</div>
-                            @if($quote->image)
-                                <img src="{!! $quote->image->url !!}"
-                                     alt="{!! $quote->image->alt !!}"
-                                     class="QL-item-img"
-                                        {!! $quote->image->style ? 'style="'.$quote->image->style.'"':'' !!}>
-                            @endif
-                            @if($quote->body_long)
-                                <div class="QL-read-more-box">
-                                    <a class="QL-read-more btn btn-default"
-                                       href="/{!! $url !!}/{!! $quote->slug !!}"></a>
-                                </div>
-                            @endif
-                        </article>
-                        <hr class="QL-item-hr">
-                    @endforeach
-                </div>
-            </div>
 
-
-            <div class="col-sm-5">
+            <div class="col-sm-5 col-sm-push-7">
                 <div id="side">
                     <div id="LMap-box">
                         <div id="side-first-page">
@@ -70,6 +38,43 @@
             </div>
 
 
+            <div class="col-sm-7 col-sm-pull-5">
+                <div id="QL">
+                    @foreach($quotes as $quote)
+                        <article class="QL-item">
+                            <header class="L-item-header clearfix">
+                                @if($columnLevel==2)
+                                    <span class="prefix-col-name prefix-col-name-{!! $quote->quoteable->css !!}">{!! $quote->quoteable->short_name !!}</span>
+                                @else
+                                    <span class="prefix-col-name prefix-col-name-{!! $columnCss !!}">{!! $quote->order !!}</span>
+                                @endif
+                                <h1 class="L-item-title" id="{!! $quote->id !!}"><a
+                                            href="/{!! $url !!}/{!! $quote->slug !!}">{!! $quote->title !!}</a></h1>
+                            </header>
+                            <div class="QL-item-body">{!! $quote->body !!}</div>
+                            @if($quote->image)
+                                <img src="{!! $quote->image->url?:$quote->image->local !!}"
+                                     alt="{!! $quote->image->alt !!}"
+                                     class="QL-item-img"
+                                        {!! $quote->image->style ? 'style="'.$quote->image->style.'"':'' !!}>
+                                @if($quote->image->intro)
+                                    <p class="kaiti">
+                                        {!! $quote->image->intro !!}
+                                    </p>
+                                @endif
+                            @endif
+                            @if($quote->body_long)
+                                <div class="QL-read-more-box">
+                                    <a class="QL-read-more btn btn-default"
+                                       href="/{!! $url !!}/{!! $quote->slug !!}"></a>
+                                </div>
+                            @endif
+                        </article>
+                        <hr class="QL-item-hr">
+                    @endforeach
+                </div>
+            </div>
+
         </div>
     </div>
     </div>
@@ -96,29 +101,28 @@
         ;
 
         @if($IDs)
-        zc.list.init({
+        zc.sideMap.init({
             itemIDs:{!! json_encode($IDs) !!},
             plots: plots,
 
-            listArea: '#QL',
+            side: {
+                ele:$('#side'),
+                affixEle: $('#LMap-box'),
+                swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
+                infoEle: '#LMap-info',
+                infoData:{!! json_encode($mapInfosByID) !!},
+            },
 
-            affix: '#LMap-box',
-
-            findItemToScollUp: function (id) {
+            contentArea: '#QL',
+            findItemByPlotID: function (id) {
                 var h1 = $(document.getElementById(id)).parents('article');
                 return h1;
             },
-
-            info: {
-                ele: '#LMap-info',
-                data:{!! json_encode($mapInfosByID) !!},
-                swipeBox: '#LMap-info-swipebox', // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
-            },
-
-            spy:{
+            spy: {
+                field:'#QL',
                 target: '.L-item-title',
                 getId: null,
-                targetScope: '.QL-item',
+                targetItemScope: '.QL-item',
             },
 
         })

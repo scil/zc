@@ -22,7 +22,7 @@ return [
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
-        LaravelFly\Providers\PublishServiceProvider::class,
+        LaravelFly\Providers\CommandsServiceProvider::class,
         'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
     ],
 
@@ -35,7 +35,7 @@ return [
     ],
 
     /**
-     * providers to reg and boot on worker, before any request. only for Hash mode
+     * providers to reg and boot on worker, before any request. only for Map mode
      *
      * format:
      *      proverder_name => [],

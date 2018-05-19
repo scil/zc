@@ -15,11 +15,12 @@ class CreateTaggablesTables extends Migration
         Schema::create('taggables', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('tag_id')->unsigned();
-            $table->enum('taggable_type',['App\\\\Article','App\\\\Column','App\\\\Quote','App\\\\Book','App\\\\Video']);
+            $table->enum('taggable_type',['App\\\\Article',
+//                'App\\\\Column',
+                'App\\\\Quote','App\\\\Book','App\\\\Video']);
             $table->integer('taggable_id')->unsigned();
-            $table->string('intro')->nullable();
+//            $table->string('intro')->nullable();
             $table->tinyInteger('order')->nullable();
-            $table->tinyInteger('level')->nullable();
         });
     }
 

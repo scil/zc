@@ -60,3 +60,12 @@ $affix-top: 30px;
   opacity: 0.8;
 }
 
+
+////////////////
+//  top quotes
+////////////////
+.top-quote-box{
+  +.top-quote-box{
+    display: none;
+  }
+}

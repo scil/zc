@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Simple, Hash, FpmLike or Greedy
+ * Simple, Map, FpmLike or Greedy
  *
  * FpmLike: like php-fpm, objects are made in each request.
  * Greedy: only for study
@@ -74,25 +74,58 @@ return [
     /**
      * true if you use eval(tinker())
      */
-//    'tinker' => true,
+    'tinker' => true,
     'dispatch_by_query' => false,
 
-    // 'listen_ip' => '0.0.0.0',// listen to any address
-    'listen_ip' => '127.0.0.1',// listen only to localhost
+    'listen_ip' => '0.0.0.0',// listen to any address
+    //'listen_ip' => '127.0.0.1',// listen only to localhost
 
     'listen_port' => 9501,
 
-    'worker_num' => 1,
+    'worker_num' => 2,
 
     'max_coro_num' => 3000,
 
-   'daemonize' => true,
-//    'daemonize' => false,
+//    'daemonize' => true,
+    'daemonize' => false,
 
-    'user' => 'www-data',
-    'group' => 'www-data',
+    'watch' => [
+        '/home/vagrant/.fly-watch',
+    ],
+    'watch_delay' => 3500,
+
+    /**
+     * compile laravel's core files into a single file to get better performance.
+     *
+     * It's from artican optimize command from Laravel 5.4.Laravel droped it because 'improvements to PHP op-code caching'
+     * LaravelFly pick it up because LaravelFly uses opcache_reset().
+     *
+     * The core files will not support reload because they are included before workers start.
+     *
+     * The compiled file only recreated when its mtime < the mtime of composer.lock except 'force'
+     *
+     * options:
+     *      false
+     *      true
+     *      'force'
+     */
+//    'compile' =>'force',
+    'compile' => true,
+
+    /**
+     * Add more files to be compiled
+     * note:
+     * 1. order is important
+     * 2. The files will not support reload
+     */
+    'compile_files' => [
+    ],
+
+//    'user' => 'www-data', 'group' => 'www-data',
 
     'log_file' => __DIR__ . '/storage/logs/swoole.log',
+
+    'log_cache' => 3,
 
     'kernel' => \App\Http\Kernel::class,
 

@@ -96,36 +96,6 @@
 
 
         </div>
-        @if($quotes)
-            <div id="quotes-slide">
-                {{--@foreach($quotes as $quote)--}}
-                {{--<article>--}}
-                {{--<blockquote class="bottom-quote">--}}
-                {{--<header><span class="bottom-quote-no">{!! $quote->no !!}</span>--}}
-                {{--<h1 class="bottom-quote-title" id="{!! $quote->no !!}"><a--}}
-                {{--href="{!! '/q/'.$quote->slug !!}">{!! $quote->title !!}</a>--}}
-                {{--</h1>--}}
-                {{--</header>--}}
-                {{--<div class="bottom-quote-body">{!! $quote->body !!}</div>--}}
-                {{--<cite class="cite-tail-right"><a--}}
-                {{--href="{!! $quote->origin_url !!}">{!! $quote->author !!}</a></cite>--}}
-                {{--</blockquote>--}}
-                {{--</article>--}}
-                {{--@endforeach--}}
-            </div>
-            <script>
-                var quoteSlick = $('#quotes-slide').slick({
-                    autoplay: true,
-                    autoplaySpeed: 9000,
-                    dots: true,
-//                variableWidth: true, // 自定义每个幻灯片的宽度 .slick-slide{ width: ...px; }
-//                    slidesToShow: 2,
-//                    slidesToScroll: 2,
-                    arrows: false,
-                    mobileFirst: false,
-                })
-            </script>
-        @endif
     </div>
 @endsection
 

@@ -14,12 +14,16 @@ class BooksTableSeeder extends Seeder
 
         $bookColID = MENU_ITEMS["book"]['id'];
         foreach (['小说'] as $tagName){
-            $tag = App\Tag::firstOrCreate(['name' => $tagName]);
-           DB::table('taggables')->insert([
-              'tag_id'=>$tag->id,
-              'taggable_type'=>'App\\Column',
-               'taggable_id'=>$bookColID,
-           ]);
+            $tag = App\Tag::firstOrCreate(
+                [
+                    'name' => $tagName,
+                    'official'=> $bookColID,
+                    ]);
+//           DB::table('taggables')->insert([
+//              'tag_id'=>$tag->id,
+//              'taggable_type'=>'App\\Column',
+//               'taggable_id'=>$bookColID,
+//           ]);
         }
 
         $v_col_id = MENU_ITEMS["book"]['id']; //9;
@@ -118,7 +122,7 @@ class BooksTableSeeder extends Seeder
 
 翻译是一种再创作，很难做到“信、达、雅”，不妨参考网络上的英文原版。
 ',
-                        'author' => '结巢人境（编）',
+                        'author' => 'scil（编）',
                         'origin' => '',
                         'origin_date' => '2017/07/10',
                         'show_date' => false,
@@ -246,7 +250,7 @@ Part Sever Chapter 3. 作者说 Isabel 很招人爱，就是差一点，“温�
 > 拉里找到了安身立命之道
 原文是 "Larry happiness"，应译为幸福、快乐。
 ',
-                                    'author' => '结巢人境（编）',
+                                    'author' => 'scil（编）',
                                     'origin' => '',
                                     'origin_date' => '2017/07/10',
                                     'show_date' => false,
@@ -286,7 +290,7 @@ Part Sever Chapter 3. 作者说 Isabel 很招人爱，就是差一点，“温�
 //                                    'slug' => 'The-Razor\'s-Edge-Zi-Pei-errata',
                                     'body'=> '对比英文版翻了两页 译得不当的乃至完全译错的居然有三处。颇震惊。（[秭佩（新译本）的错译管窥](https://www.douban.com/review/7934769/)）
 ',
-                                    'author' => '结巢人境（编）',
+                                    'author' => 'scil（编）',
                                     'origin' => '',
                                     'origin_date' => '2017/07/10',
                                     'show_date' => false,
@@ -302,7 +306,7 @@ Part Sever Chapter 3. 作者说 Isabel 很招人爱，就是差一点，“温�
                                     'quoteable_id' => 1,
 //                                    'slug' => 'The-Razor\'s-Edge-Zi-Pei-tip',
                                     'body'=> '新版的序言[《刀锋上的行者》](/article/Larry-faquir-on-the-razors-edge)，剧透严重：「句句箴言，回味原作，受益良多。只是不明白为何这般实在，加之本人之前已读过本书，不然洋洋二十几页文字所透露的信息，必将抚平阅读带来的所有波澜。」',
-                                    'author' => '结巢人境（编）',
+                                    'author' => 'scil（编）',
                                     'origin' => '',
                                     'origin_date' => '2017/07/10',
                                     'show_date' => false,
@@ -483,7 +487,7 @@ Part Sever Chapter 3. 作者说 Isabel 很招人爱，就是差一点，“温�
                             'slug' => 'comments-about-Lary-on-the-razors-edge',
                             'title' => '拉里：其实队友的死并没有改变拉里',
                             'intro' => '上帝用一把斧子从中劈开，男男和女女分成了男和女，灵魂也跟着劈成了两半。于是，人世间的善男信女们必须生而苦苦寻找自己的另一半。而我相信还有另外一种人，他相信还有比寻找失去的灵魂更重要的事情，那就是寻找终极真理。',
-                            'author' => '结巢人境（编）',
+                            'author' => 'scil（编）',
                             'author_id' => 1,
                             'origin' => null,
                             'origin_date' => '2017/01/11',
@@ -497,7 +501,7 @@ Part Sever Chapter 3. 作者说 Isabel 很招人爱，就是差一点，“温�
                             'slug' => 'comments-about-life-on-the-razors-edge',
                             'title' => '人生：我们活着是为什么呢？',
                             'intro' => '最近也进入低谷期，以前秉持的及时行乐的思想几乎不起作用了，觉得这样的自己在世上可有可无，并没有存在的意义——除非找到真正热爱的、可以为之舍弃一切的事物，这样才能有勇气活下去',
-                            'author' => '结巢人境（编）',
+                            'author' => 'scil（编）',
                             'author_id' => 1,
                             'origin' => null,
                             'origin_date' => '2017/01/11',
@@ -511,7 +515,7 @@ Part Sever Chapter 3. 作者说 Isabel 很招人爱，就是差一点，“温�
                             'slug' => 'the-razors-edge-and-me',
                             'title' => '书缘：总会遇到那么几本书能够直接击中你的内心',
                             'intro' => '每个人都会碰上一两本特别的书，不是那书特别，而是那书对那人特别，书和人有缘。至于什么书，则因人而异 。我的红宝书是《刀锋》。不过如果对主人公没有共鸣，文笔再好也是其次。',
-                            'author' => '结巢人境（编）',
+                            'author' => 'scil（编）',
                             'author_id' => 1,
                             'origin' => null,
                             'origin_date' => '2017/01/11',
@@ -525,7 +529,7 @@ Part Sever Chapter 3. 作者说 Isabel 很招人爱，就是差一点，“温�
                             'slug' => 'comments-on-the-razors-edge',
                             'title' => '其它：《奥义书》是印度最经典的古老著作之一',
                             'intro' => '毛姆的作品总能激起人对知识与艺术之强烈渴望，这是他令人无法自拔地喜爱着的魅力之一。',
-                            'author' => '结巢人境（编）',
+                            'author' => 'scil（编）',
                             'author_id' => 1,
                             'origin' => null,
                             'origin_date' => '2017/01/11',
@@ -626,7 +630,7 @@ Part Sever Chapter 3. 作者说 Isabel 很招人爱，就是差一点，“温�
 https://mp.weixin.qq.com/s/uGfHyuo1pwqQdlp4vofGdQ
 
                 ',
-                        'author' => '结巢人境（编）',
+                        'author' => 'scil（编）',
                         'origin' => '',
                         'origin_date' => '2017/07/10',
                         'show_date' => false,
@@ -652,7 +656,7 @@ https://mp.weixin.qq.com/s/uGfHyuo1pwqQdlp4vofGdQ
 //                                    'slug' => 'good-mom-v2-tip',
                                     'body'=> '第二版主要变化：第一章增加《给孩子犯错误权》（两篇文章的合集：<a href="//mp.weixin.qq.com/s/Z6F61r8eFSd-k7Oim3YBbA">《童年需要“试误”和“不听话”》</a>、<a href="//www.360doc.com/content/16/0120/19/29942582_529372320.shtml">《你真的给孩子“自由”和“尊重”了吗？》</a> ）；第六章增加<a href="//blog.sina.com.cn/s/blog_54377c2a0100zcoi.html">《永远正确的家长最失败》</a>、<a href=" //mp.weixin.qq.com/s/NVsIkc7_pA-A1zN9vtUzKA">《开提意见会》</a>和<a href="//mp.weixin.qq.com/s/4oQDtk87jnDuO_jmWTuctw">《让孩子成长得更安全些》</a>（替代了第一版中的《上海遇骗记》），删除了《小小独行侠》（适时放手让孩子独立做事、独立出行，避免大包大揽）；共计新增 4 篇新文章，去除 2 篇文章。
                 ',
-                                    'author' => '结巢人境（编）',
+                                    'author' => 'scil（编）',
                                     'origin' => '',
                                     'origin_date' => '2017/07/10',
                                     'show_date' => false,
@@ -941,17 +945,7 @@ http://weibo.com/1642088277/DygKCcK2V
         }
 
         if($relations['tags']??null){
-            foreach ($relations['tags'] as $tagInfo){
-                $tag = App\Tag::firstOrCreate(['name' => $tagInfo['name']]);
-                DB::table('taggables')->insert([
-                    'tag_id'=>$tag->id,
-                    'taggable_type'=>'App\\Book',
-                    'taggable_id'=>$bookID,
-                    'intro'=> $tagInfo['intro']??null,
-                    'order'=> $tagInfo['order']??null,
-                    'level'=> $tagInfo['level']??null,
-                ]);
-            }
+            $this->insertTags($relations['tags'],'App\\Book',$bookID);
         }
 
         if ($relations['places']??null) {

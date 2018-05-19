@@ -292,21 +292,29 @@ var zc = {
                 {
                     ele: opts.side.infoEle,
                     data: opts.side.infoData,
-                    infoSwipeBox: false, // 不需要ZCMap提供的swipe 自定义swipe 来scrollUp内容
+                    infoSwipeBox: false, // 不需要ZCMap提供的swipe 自定义swipe 动作，增加 scrollUp
                 }
             );
 
-            // 实现靠右，用动态的 margin-left，而非浮动、绝对定位，是因为 affix
-            workAccordingScreen.add({
-                name: 'side_400px',
-                level: 5,
-                runEnterNow: true,
+            //sideLeft=true;
+            if (typeof(sideLeft) !== "undefined" && sideLeft) {
+                var cc = $('#column-box').children();
+                cc.first().removeClass('col-sm-push-7')
+                cc.last().removeClass('col-sm-pull-5')
+            }
+            else {
+                // 实现靠右，用动态的 margin-left，而非浮动、绝对定位，是因为 affix
+                workAccordingScreen.add({
+                    name: 'side_400px',
+                    level: 5,
+                    runEnterNow: true,
 
-                sideEle: opts.side.ele,
-                bigResizeCallback: zc.sideMap._side400,
-                enterBigCallback: zc.sideMap._side400,
-                enterXsCallback: zc.sideMap._sideLess400,
-            });
+                    sideEle: opts.side.ele,
+                    bigResizeCallback: zc.sideMap._side400,
+                    enterBigCallback: zc.sideMap._side400,
+                    enterXsCallback: zc.sideMap._sideLess400,
+                });
+            }
 
             zc.sideMap._initAffix(opts);
 

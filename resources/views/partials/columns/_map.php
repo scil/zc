@@ -3,7 +3,7 @@
         <ul class="nav nav-pills nav-stacked zc-map h4">
                                             <li><a href="/zhen">真山</a></li>
                                             <li><a href="/human">人山</a></li>
-                                            <li><a href="/two-rivers">两河</a></li>
+                                            <li><a href="/sailing">越海</a></li>
                     </ul>
     </div>
         <div class="col-xs-4">

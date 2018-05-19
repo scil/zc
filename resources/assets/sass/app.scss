@@ -1,40 +1,12 @@
-//== Scaffolding
-
-$link-hover-decoration: none; //underline !default;
-$link-color: #333; //         $brand-primary !default;
-
-//== Typography
-
-$font-family-sans-serif: Arial, SimSun, sans-serif;
-$font-size-h1: 30px; /* 30px */
-$font-size-h2: 25px; /* 30px */
-$font-size-h3: 22px; /* 24px */
-$font-size-h4: 19px; /* 18px */
-//h5 15px
-//h6 12px
-$font-size-base: 16px !default;
-$font-size-h45: 17px;
-
-$line-height-base: 1.8; //   1.428571429 !default; // 20/14
-
-$blockquote-font-size: 18.5px; //       ($font-size-base * 1.25) !default;
-
-//== Navbar
-//
-//$navbar-inverse-bg:                       #2f4f4f !default; //  #222 !default;
-//$navbar-inverse-color:                      lighten($gray-light, 15%) !default;
-$navbar-inverse-link-hover-color: #ddd;
 
 //== zc Layout
 $footer_margin_top: 350px;
 $footer_margin_top_small: 70px;
 
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss";
 
-// overwrite 覆盖bootstap
-a {
-  color: inherit;
-}
+@import "re-variables";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss";
+@import "re-css";
 
 @import 'mix.scss';
 
@@ -45,6 +17,7 @@ a {
 @import 'layout_common/first-page-and-quote.scss';
 //@import 'layout_common/level4column.scss';
 @import 'layout_common/footer.scss';
+@import 'layout_common/side.scss';
 
 @import 'common/slick.scss';
 
@@ -53,16 +26,15 @@ a {
 @import 'item/0.scss';
 @import 'item/1.header.scss';
 @import 'item/2.body.scss';
+@import 'item/2.body_tail.scss';
 @import 'item/2.select-body.scss';
 @import 'item/2.quote.scss';
-@import 'item/2.note.scss';
 @import 'item/3.form.scss';
 @import 'item/5.supplement.vol.scss';
 @import 'item/suggest.scss';
 
 @import 'list/list.scss';
 @import 'list/list.quote.scss';
-@import 'list/side.scss';
 @import 'list/bottom.scss';
 
 @import 'common/mce.scss';

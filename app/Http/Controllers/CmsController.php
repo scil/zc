@@ -210,7 +210,7 @@ class CmsController extends Controller
 
             $title = $columnInfo['title'];
 
-            if (substr($url, 0, 3) == 'two') {
+            if (substr($url, 0, 3) == 'sai') {
                 $url = 'sailing';
 //                $title = MENU_ITEMS['sailing']['title'];
             }
@@ -222,7 +222,7 @@ class CmsController extends Controller
 
     }
 
-    function mixedColumn($url)
+    function viewArticleColumn($url)
     {
 
         $columnInfo = MENU_ITEMS["$url"];

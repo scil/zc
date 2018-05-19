@@ -166,7 +166,7 @@ js_files.push(pkg_dir + 'slick-carousel/slick/slick.min.js');
 
 /* 41k*/
 
-function dist_css() {
+function dist_vendor_css() {
     return gulp.src(css_files.concat(
         markdown_editor_res[markdown_editor]['css']
     ))
@@ -175,7 +175,7 @@ function dist_css() {
         .pipe(gulp.dest('public/css'));
 }
 
-function flow_js_app() {
+function flowcheck_app_js() {
     return gulp.src(['resources/js/*.js'])
         .pipe(flow({
             all: false,
@@ -186,7 +186,23 @@ function flow_js_app() {
         }));
 }
 
-function dist_js_app() {
+function jsbin_free() {
+
+    return gulp.src(['resources/js/free.js'])
+        .pipe(flow({
+            all: false,
+            weak: false,
+            killFlow: false,
+            beep: true,
+            abort: false
+        }))
+        .pipe(babel({
+            presets: ['@babel/preset-flow'] }))
+        .pipe(gulp.dest('resources/jsbin'));
+
+}
+
+function dist_app_js() {
     return browserify({debug: true,})// enalbe debug To use source maps
         .transform("babelify")
         .require("./resources/js/entry.js", {entry: true})
@@ -209,7 +225,7 @@ function dist_js_app() {
         .pipe(gulp.dest('public/js'));
 }
 
-function dist_js_vendor() {
+function dist_vendor_js() {
 
     // google maps in a dependent file
     gulp.src([
@@ -306,14 +322,14 @@ function column_data() {
 
 function watch() {
 
-    gulp.watch('./resources/js/zc.js',
+    gulp.watch('./resources/js/entry.js',
         {
             ignoreInitial: false,
             delay: 600,
             // Usually necessary when watching files on a network mount or on a VMs file system.
             usePolling: true,
         },
-        dist_js_app)
+        dist_app_js)
 
     gulp.watch(
         './resources/assets/sass/**/*.scss',
@@ -345,7 +361,6 @@ function watch() {
     );
     gulp.watch(
         './resources/views/layouts/base.blade.php',
-        './resources/views/mixedList.blade.php',
         {
             delay: 500,
             usePolling: true,
@@ -376,10 +391,11 @@ function watch_seed() {
 };
 
 exports.clean = clean;
-exports.dist_css = dist_css;
-exports.dist_js = dist_js_vendor;
-exports.dist_js_app = dist_js_app;
-exports.flow_js_app = flow_js_app;
+exports.dist_vendor_css = dist_vendor_css;
+exports.dist_vendor_js = dist_vendor_js;
+exports.dist_app_js = dist_app_js;
+exports.flowcheck_app_js = flowcheck_app_js;
+exports.jsbin_free=jsbin_free
 
 // sass
 exports.sass_app = sass_app;
@@ -395,9 +411,9 @@ exports.watch_seed = watch_seed;
 var build = gulp.series(
     clean,
     gulp.parallel(
-        dist_css,
-        gulp.series(flow_js_app, dist_js_app),
-        dist_js_vendor,
+        dist_vendor_css,
+        gulp.series(flowcheck_app_js, dist_app_js),
+        dist_vendor_js,
     ),
     sass_app,
     sass_ferry

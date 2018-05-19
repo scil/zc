@@ -9,29 +9,20 @@ use App\Volume;
 
 Route::get('/', 'CmsController@home');
 
-
-Route::get('/human/being', function () {
-    return redirect('/human/road');
-});
-Route::get('/human/being/{slug}', function ($slug) {
-    return redirect("/human/road/$slug");
-});
-
-
 //todo
-//quote 必须在 article 前面，否则 human/country不正常
+//quote 必须在 article 前面，否则 human/raindrops 不正常
 // column
 Route::get('/{qlist_url}', 'CmsController@viewQuoteColumn')
-    ->where('qlist_url', 'shells|human/country|two-rivers|two-rivers/(walkers|assets|dao)');
+    ->where('qlist_url', 'spirit|human/raindrops|sailing|sailing/(walkers|assets|dao)');
 //item
 Route::get('/{qprefix_url}/{slug}', 'CmsController@viewShanShuiQuote')
-    ->where('qprefix_url', 'shells|human/country|two-rivers');
+    ->where('qprefix_url', 'spirit|human/raindrops|sailing');
 
 //article
 // column
-Route::get('/{mlist_url}', 'CmsController@mixedColumn')->where('mlist_url', 'green|texts|human|human/road|human/nature|zhen');
+Route::get('/{mlist_url}', 'CmsController@viewArticleColumn')->where('mlist_url', 'green|writing|human|human/road|human/nature|zhen');
 //item
-Route::get('/{prefix_url}/{slug}', 'CmsController@viewColumnArticle')->where('prefix_url', 'green|texts|human|human/road|human/nature|zhen');
+Route::get('/{prefix_url}/{slug}', 'CmsController@viewColumnArticle')->where('prefix_url', 'green|writing|human|human/road|human/nature|zhen');
 
 Route::get('/article/{slug}', 'CmsController@viewColumnArticle');
 Route::get('/article/{slug}/edit', 'CmsController@editArticle');
@@ -69,15 +60,6 @@ Route::get('/people/{slug}', function ($slug) {
 });
 
 
-Route::get('/{river}', function ($river) {
-    return redirect("/" . strtolower($river), 301);
-})->where('river', 'Two-Rivers|Two-Rivers/(walkers|assets|dai)');
-Route::get('/{river_prefix_url}/{slug}', function ($prefix, $slug) {
-    return redirect('/' . strtolower($prefix) . '/' . $slug, 301);
-})
-    ->where('river_prefix_url', 'Two-Rivers|Two-Rivers/(walkers|assets|dai)');
-
-
 Route::get('/php', function () {
     ob_start();
     phpinfo();
@@ -85,7 +67,7 @@ Route::get('/php', function () {
 });
 
 
-Route::get('opcache', function () {
+Route::get('/opcache', function () {
     $request = app()->make('request');
 
     if ($request->query('clear')) {
@@ -105,16 +87,16 @@ Event::listen('x', function (\Illuminate\Http\Request $request) {
     echo PHP_EOL, PHP_EOL, 'cid:', \Swoole\Coroutine::getuid();
     echo PHP_EOL, $request->getRequestUri(), PHP_EOL;
 });
-Route::get('test', function () {
-    $u= app('url')->full();
+Route::get('/test', function () {
+    $u = app('url')->full();
     Event::listen('x', function (\Illuminate\Http\Request $request) {
         echo '111', PHP_EOL;
     });
     \Swoole\Coroutine::sleep(6);
 //    event('x', [app('request')]);
-    return $u ."\n". app('url')->full();
+    return $u . "\n" . app('url')->full();
 });
-Route::get('test2', function () {
+Route::get('/test2', function () {
     Event::listen('x', function (\Illuminate\Http\Request $request) {
         echo '2222', PHP_EOL;
     });
@@ -123,10 +105,41 @@ Route::get('test2', function () {
 
 });
 
+Route::get('/fly', function () {
+
+//    file_put_contents(storage_path('framework/down'), json_encode([
+//                'time' => Carbon::now()->getTimestamp(),
+//                'message' => Request::get('message',null),
+//                'retry' => Request::get('retry',null),
+//            ], JSON_PRETTY_PRINT)
+//    );
+    Artisan::call('down');
+    app()->getServer()->setMemory('isDown', Request::get('down', 0));
+    return 0;
+
+
+    $file = storage_path('cofifle');
+    $file = '/home/vagrant/mmap';
+    //file_put_contents($file,'abc');
+//    $n = \Co::writeFile($file, 'abc');
+    $size = 8192;
+    if (!is_file($file)) {
+        file_put_contents($file, str_repeat("\0", $size));
+    }
+    $fp = \swoole\mmap::open($file, 8192);
+
+    fwrite($fp, "hello world\n");
+    fwrite($fp, "hello swoole\n");
+
+    fflush($fp);
+    fclose($fp);
+
+    echo ':', getmypid(), "\n";
+});
 
 Route::get('/dbc', 'CmsController@testdb');
 
-Route::get('db', function () {
+Route::get('/db', function () {
     $d = app()->make('db');
 //    $names = $d->table('menu_items')->select('url','id')->where('id', '>', 12)->get();
 

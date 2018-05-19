@@ -8,25 +8,27 @@
   }
 }
 
-#quote-item-first-page {
-  margin-top: 80px;
-  min-height: 150px;
+#QItem {
+  //margin-top: 80px;
+  //min-height: 150px;
   border-left-width: 0;
-  padding: 0 0 60px;
-  border-bottom: 5px solid #eee;
+  padding: 0;
+  //border-bottom: 1px solid #eee;
   font-size:17px;
-  @media (max-width: 800px){
-    width:100%;
-    padding: 25px 25px;
-  }
   >p{
-    >img{
-      display: none;
-    }
     >.footnote-ref{
       display: none;
     }
   }
+}
+
+#QItem-hr{
+  margin-bottom: 38px;
+}
+
+#QItem-img {
+    display: block;
+    max-width: 100%;
 }
 
 .quote-item-cite{

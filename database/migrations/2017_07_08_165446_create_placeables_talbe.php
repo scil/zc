@@ -25,6 +25,10 @@ class CreatePlaceablesTalbe extends Migration
             $table->string('title',100)->nullable(); // markdown
             $table->string('intro',800)->nullable(); // markdown
             $table->boolean('relation')->default(true); // 是否和内容严格相关
+            // 'open': 打开道路
+            $table->enum('fromto',['from','to','open'])->nullable();
+
+
             $table->enum('deep',['open','friend','member','deep'])->nullable();
 
             // list 出现在列表上

@@ -1,9 +1,5 @@
 
-#V{
-  border: 1px solid lightblue;
-  padding: 10px 25px 20px;
-}
-#V-title{
+.supplement-title{
   font-size:20px;
   font-weight: bold;
   color: darkcyan;
@@ -12,6 +8,19 @@
   letter-spacing: 3px;
   text-align: center;
   margin-bottom:7%;
+}
+
+.supplement{
+  margin-top: 150px;
+}
+
+// ******
+// *** V
+// ******
+
+#V{
+  border: 1px solid lightblue;
+  padding: 10px 25px 20px;
 }
 #V-no{
   font-size:105%;
@@ -22,8 +31,10 @@
   margin:15px 0;
 }
 
-
-
+.V-item-title {
+  @extend .L-item-title;
+  line-height:1.8 !important;
+}
 .note-item-title{
   &:before{
     content: '后记：';
@@ -31,13 +42,12 @@
   }
 }
 
+// ******
+// *** quotes
+// ******
 
-#comment {
-  margin: 20px 0 30px;
-}
 
-
-#quotes-body {
+#QSup-body {
   > blockquote {
     padding: 0;
     border-left: 0;
@@ -46,7 +56,21 @@
   }
 }
 
-#suggests-body {
+// ******
+// *** comment
+// ******
+
+#comment {
+  margin: 20px 0 30px;
+}
+
+
+
+// ******
+// *** suggests
+// ******
+
+#SSup-body {
   > ol {
     padding-left: 1.5em;
     > li {

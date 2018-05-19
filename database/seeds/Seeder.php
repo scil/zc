@@ -107,7 +107,9 @@ class Seeder extends BaseSeeder
                 $item['image_id'] = $imgID;
             }
 
-            unset($item['_slug'], $item['_image'], $item['_places'], $item['_place']);
+            $tags = $item['_tags'] ?? [];
+
+            unset($item['_slug'], $item['_image'], $item['_places'], $item['_place'], $item['_tags']);
 
 
             foreach ($data as $k => $v) {
@@ -119,10 +121,28 @@ class Seeder extends BaseSeeder
 
             $this->insertPlaceInfos($place_infos, $qID);
 
+            $this->insertTags($tags, 'App\Quote', $qID);
+
         }
 
         return $qID ?? null; // return the last quote id
 
+    }
+
+    function insertTags($tags, $taggable_type = null, $taggable_id = null)
+    {
+        foreach ($tags as $index => $oneTag) {
+            $objTag = \App\Tag::firstOrCreate($oneTag);
+            if ($taggable_type){
+
+                DB::table('taggables')->insert([
+                    'tag_id' => $objTag->id,
+                    'taggable_type' => $taggable_type,
+                    'taggable_id' => $taggable_id,
+                    'order' => $index,
+                ]);
+            }
+        }
     }
 
     function insertPlaces($places, $type = 'App\Article')

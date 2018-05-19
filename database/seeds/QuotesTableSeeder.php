@@ -19,22 +19,22 @@ class QuotesTableSeeder extends Seeder
 
         $book_id = MENU_ITEMS["writing"]['id']; //;
         $zhi_ren_ye_id = MENU_ITEMS["green"]['id'];
-        $melody_id = MENU_ITEMS["melody"]['id']; //
+        $rain_id = MENU_ITEMS["spirit"]['id']; //
 //        $si_id=MENU_ITEMS["zhen/think"]; // 15;
 
         $ren_id = MENU_ITEMS["human/road"]['id'];
-        $ren_home = MENU_ITEMS["human/country"]['id'];
+        $ren_home = MENU_ITEMS["human/raindrops"]['id'];
 
-        $fan_ren = MENU_ITEMS['two-rivers/walkers']['id'];
-        $fan_cai = MENU_ITEMS['two-rivers/assets']['id'];
-        $fan_dao = MENU_ITEMS['two-rivers/dao']['id'];
+        $fan_ren = MENU_ITEMS['sailing/walkers']['id'];
+        $fan_cai = MENU_ITEMS['sailing/assets']['id'];
+        $fan_dao = MENU_ITEMS['sailing/dao']['id'];
 //        $fan_zhi=MENU_ITEMS['/sail/zhi'];
 
         $items = [
         ];
 
         $column_no_start = 0;
-        $column_id = $melody_id;
+        $column_id = $rain_id;
         $items = array_merge($items, [
 
             [
@@ -49,8 +49,8 @@ class QuotesTableSeeder extends Seeder
                     'lng' => -73.9844157,
                 ],
                 '_image' => [
+                    'local' => '/img/2016/Divine-Comedy.jpg',
                     'url' => '//www.fotosay.com/userimages/blogimages/2011/0516/lixiaozhun/04122640093b.jpg',
-                    'local' => null,
                     'alter' => null,
                     'style' => null,
                     'alt' => '但丁之舟 by Eugène Delacroix',
@@ -59,7 +59,7 @@ class QuotesTableSeeder extends Seeder
                 'order' => $column_no_start,
                 'title' => '《神曲》',
                 'slug' => 'Divine-Comedy',
-                'body' => '有一门课是《神曲》，结果来了个老头子，这个老头子教了一辈子《神曲》，将近40年。他会讲<z-la title="维吉尔"> Virgil </z-la>带<z-lang title="但丁"> Dante </z-lang>游地狱，游完以后要到天堂了， Virgil 就消失了。老头子每次讲到这里都会泣不成声，在课堂上大哭起来，这就是我说的善良。咱们今天有这样的老师吗？他讲了40年，重复了上千遍，可每次讲课还会受不了，眼泪喷出来。',
+                'body' => '有一门课是《神曲》，结果来了个老头子，这个老头子教了一辈子《神曲》，将近40年。他会讲<z-la title="维吉尔"> Virgil </z-la>带<z-lang title="但丁"> Dante </z-lang>游地狱，游完以后要到天堂了， Virgil 就消失了。老头子每次讲到这里都会泣不成声，在课堂上大哭起来，这就是我说的善良。他讲了40年，重复了上千遍，可每次讲课还会受不了，眼泪喷出来。',
                 'author' => '陈丹青',
                 'origin' => '教育与囶运',
                 'origin_date' => '2014/12/10',
@@ -125,8 +125,8 @@ class QuotesTableSeeder extends Seeder
 //                    ]
 //                ],
 //                '_image' => [
+//            'local' => '/img/2016/yangliping.jpg',
 //                    'url' => '//www.ccln.gov.cn/uploadImage/dangshidagjian/dangshi/dswk/1358147569530.jpg',
-//                    'local' => null,
 //                    'alter' => null,
 //                    'style' => null,
 //                    'alt' => 'Snow visits China 1970',
@@ -152,157 +152,87 @@ class QuotesTableSeeder extends Seeder
 //                'status' => 1, 'deep' => 'open',
 //                'comment' => '',
 //            ],
+
+
+
+//            [
+//                '_slug' => 'book_' . (++$column_no_start),
+//                'quoteable_type' => 'App\Column',
+//                'quoteable_id' => $column_id,
+//
+//                'order' => $column_no_start,
+//                'title' => '“蚁族”这词不成立',
+//                'slug' => '蚁族这词不成立',
+//                'body' => '“蚁族”实际上是一个不成立的词，它带着旁观者居高临下的傲慢，充斥着一元成功学的庸俗价值观。我的朋友王力，一个毕业没多久的大学生，曾如此表达对这个词的不屑：「每次看到蚁族这种词我都由衷感到愤怒，这个词大张旗鼓的宣传了这样一种价值：一个刚毕业没多久的大学生住在一个狭小的租来的房间里，就是可悲的。去他妈的，我09年毕业的时候，住在办公室里，一个月伙食费300块钱，我从来没觉得自己过得可悲」。
+//',
+//                'author' => '宋石男',
+//                'origin' => '',
+//                'origin_date' => '2010/07/02',
+//                'show_date' => false,
+//                'origin_url' => 'http://ssnly100.blog.163.com/blog/static/115633920106274815168/',
+//                'origin_tip' => null,
+//                'editor_id' => 1,
+//                'copyright' => '<img src="//mp.weixin.qq.com/mp/qrcode?scene=10000004&size=102&__biz=MzAxNjU2MzA2OQ==">',
+//
+//                'status' => 1, 'deep' => 'open',
+//                'comment' => '',
+//            ],
+//            [
+//                '_slug' => 'book_' . (++$column_no_start),
+//                'quoteable_type' => 'App\Column',
+//                'quoteable_id' => $column_id,
+//
+//                'order' => $column_no_start,
+//                'title' => '不愿再说天明宽慰的话',
+//                'slug' => '不愿再说天明宽慰的话',
+//                'body' => '在新年寄语里曾提到，不祝大家富贵，但祝躲过<z-deep cite="//tieba.baidu.com/p/2615860862">特权与不公</z-deep>。这过于乐观的话放在近日不免让人耻笑。不愿再说天明宽慰的话。长夜才刚开始，黑暗中请记得太阳的模样，沉默中不要为魔鬼歌唱。',
+//                'author' => '网易新闻客户端',
+//                'origin' => '',
+//                'origin_date' => '2013/09/26',
+//                'show_date' => false,
+//                'origin_url' => '//weibo.com/1974808274/AbbCZaiBp',
+//                'origin_tip' => null,
+//                'editor_id' => 1,
+//                'copyright' => '<img src="//mp.weixin.qq.com/mp/qrcode?scene=10000004&size=102&__biz=MzAxNjU2MzA2OQ==">',
+//
+//                'status' => 1, 'deep' => 'open',
+//                'comment' => '',
+//            ],
+
+//            [
+//                '_slug' => 'book_' . (++$column_no_start),
+//                'quoteable_type' => 'App\Column',
+//                'quoteable_id' => $column_id,
+//
+//                'order' => $column_no_start,
+//                'title' => '不是五毛',
+//                'slug' => '不是五毛',
+//                'body' => '我在给某届毕业生上最后一课时，曾掏出五毛钱，撕成两半，扔地上，问同学们要吗？没人要。我又掏出一百元，撕成两半扔地下，说你们要吗？ 一大群人举手。我就说，你们都是那一百元，即使被撕烂，即使被猥琐的教育制度所伤害，要记得你们仍是那一百元。一百元就是一百元，不是五毛。
+//',
+//                'author' => '宋石男',
+//                'origin' => '',
+//                'origin_date' => '2010/07/02',
+//                'show_date' => false,
+//                'origin_url' => 'http://ssnly100.blog.163.com/blog/static/115633920106274815168/',
+//                'origin_tip' => null,
+//                'editor_id' => 1,
+//                'copyright' => '<z-wechat title="四一哥">songshinan41</z-wechat>',
+//
+//                'status' => 1, 'deep' => 'open',
+//                'comment' => '',
+//            ],
         ]);
 
         /*  book */
         $column_no_start = 0;
         $column_id = $book_id;
         $items = array_merge($items, [
-            [
-                '_slug' => 'book_' . (++$column_no_start),
-                'quoteable_type' => 'App\Column',
-                'quoteable_id' => $column_id,
-
-                'order' => $column_no_start,
-                'title' => '“蚁族”这词不成立',
-                'slug' => '蚁族这词不成立',
-                'body' => '“蚁族”实际上是一个不成立的词，它带着旁观者居高临下的傲慢，充斥着一元成功学的庸俗价值观。我的朋友王力，一个毕业没多久的大学生，曾如此表达对这个词的不屑：「每次看到蚁族这种词我都由衷感到愤怒，这个词大张旗鼓的宣传了这样一种价值：一个刚毕业没多久的大学生住在一个狭小的租来的房间里，就是可悲的。去他妈的，我09年毕业的时候，住在办公室里，一个月伙食费300块钱，我从来没觉得自己过得可悲」。
-',
-                'author' => '宋石男',
-                'origin' => '',
-                'origin_date' => '2010/07/02',
-                'show_date' => false,
-                'origin_url' => 'http://ssnly100.blog.163.com/blog/static/115633920106274815168/',
-                'origin_tip' => null,
-                'editor_id' => 1,
-                'copyright' => '<img src="//mp.weixin.qq.com/mp/qrcode?scene=10000004&size=102&__biz=MzAxNjU2MzA2OQ==">',
-
-                'status' => 1, 'deep' => 'open',
-                'comment' => '',
-            ],
-            [
-                '_slug' => 'book_' . (++$column_no_start),
-                'quoteable_type' => 'App\Column',
-                'quoteable_id' => $column_id,
-
-                'order' => $column_no_start,
-                'title' => '不愿再说天明宽慰的话',
-                'slug' => '不愿再说天明宽慰的话',
-                'body' => '在新年寄语里曾提到，不祝大家富贵，但祝躲过<z-deep cite="//tieba.baidu.com/p/2615860862">特权与不公</z-deep>。这过于乐观的话放在近日不免让人耻笑。不愿再说天明宽慰的话。长夜才刚开始，黑暗中请记得太阳的模样，沉默中不要为魔鬼歌唱。',
-                'author' => '网易新闻客户端',
-                'origin' => '',
-                'origin_date' => '2013/09/26',
-                'show_date' => false,
-                'origin_url' => '//weibo.com/1974808274/AbbCZaiBp',
-                'origin_tip' => null,
-                'editor_id' => 1,
-                'copyright' => '<img src="//mp.weixin.qq.com/mp/qrcode?scene=10000004&size=102&__biz=MzAxNjU2MzA2OQ==">',
-
-                'status' => 1, 'deep' => 'open',
-                'comment' => '',
-            ],
-
-            [
-                '_slug' => 'book_' . (++$column_no_start),
-                'quoteable_type' => 'App\Column',
-                'quoteable_id' => $column_id,
-
-                'order' => $column_no_start,
-                'title' => '不是五毛',
-                'slug' => '不是五毛',
-                'body' => '我在给某届毕业生上最后一课时，曾掏出五毛钱，撕成两半，扔地上，问同学们要吗？没人要。我又掏出一百元，撕成两半扔地下，说你们要吗？ 一大群人举手。我就说，你们都是那一百元，即使被撕烂，即使被猥琐的教育制度所伤害，要记得你们仍是那一百元。一百元就是一百元，不是五毛。
-',
-                'author' => '宋石男',
-                'origin' => '',
-                'origin_date' => '2010/07/02',
-                'show_date' => false,
-                'origin_url' => 'http://ssnly100.blog.163.com/blog/static/115633920106274815168/',
-                'origin_tip' => null,
-                'editor_id' => 1,
-                'copyright' => '<z-wechat title="四一哥">songshinan41</z-wechat>',
-
-                'status' => 1, 'deep' => 'open',
-                'comment' => '',
-            ],
         ]);
+
         /*  si */
 //        $column_no_start =0;
 //        $column_id=$si_id;
         $items = array_merge($items, [
-            [
-                '_slug' => 'si_' . (++$column_no_start),
-                'quoteable_type' => 'App\Column',
-                'quoteable_id' => $column_id,
-
-                'order' => $column_no_start,
-                'title' => '我应该谢谢你',
-                'slug' => '我应该谢谢你',
-                'body' => '大学 4 年<ins>（1979 - 1982）</ins>~~中~~，我有 3 年半~~的时间~~与留学生住在一起。
-                
-一次~~是~~我在足球比赛中受伤，~~撕裂了大腿肌肉，~~疼痛难忍，夜不能寐。大约后半夜两点~~左右~~，我的房门被轻轻叩响，一位瘦削斯文的英国同学出现在门口，手中拿着一个精致的小木盒。他用还不熟练的汉语对我说：「很对不起，这么晚来打搅你。我刚从外面回来，听说你受了伤，我想你现在一定很难受。这里有一盒我从英囶带来的专治肌肉撕裂的药，效果不错，请你试试吧。」
-
-尽管他的发音不准，讲的也并不流利，可在我听来，却是世界上最美妙最动人的表达。我不知如何表达内心的感受，只是机械地重复着「谢谢！谢谢！」不想这位英国“绅士”在感动之上又给了我新的感动，他说：「其实，我应该谢谢你。」
-
-「为什么？」我万分不解。
-
-他似乎有些激动地说：「因为，你是第一个不问价钱接受我帮助的中囶人。」
-
-说完，便带着十足英囶式的自豪与满足转身走了，留给我一个全新的“致谢观”和对人生、金钱、社会的深深思考。',
-                'author' => '朱铁志',
-                'origin' => '《杂文选刊》2007 年 02 期（上）.本土“留学”散记',
-                'origin_date' => '2007/02/01',
-                'show_date' => false,
-                'origin_url' => 'http://blog.sina.com.cn/s/blog_62c5cbd50100jp9m.html',
-                'origin_tip' => null,
-                'editor_id' => 1,
-                'copyright' => '',
-
-                'status' => 1, 'deep' => 'open',
-                'comment' => '',
-            ],
-            [
-                '_slug' => 'si_' . (++$column_no_start),
-                'quoteable_type' => 'App\Column',
-                'quoteable_id' => $column_id,
-
-                'order' => $column_no_start,
-                'title' => '命运交给别人',
-                'slug' => '命运交给别人',
-                'body' => '相信好人也罢，相信长官也罢，二者其实是一样。总之，把自己的命运交给别人，甚至交给某一个两个人，自己一点也不动脑筋，只是相信别人，那太危险了。碰巧这一两个人是林彪、江青之类，那就更糟了。好人做好事，不错；好人做错事，怎么办？至于坏人呢？坏人做起坏事来，不只是一件、两件啊！',
-                'author' => '巴金',
-                'origin' => '《随想录》',
-                'origin_date' => null,
-                'show_date' => false,
-                'origin_url' => '',
-                'origin_tip' => null,
-                'editor_id' => 1,
-                'copyright' => '',
-
-                'status' => 1, 'deep' => 'open',
-                'comment' => '',
-            ],
-            [
-                '_slug' => 'si_' . (++$column_no_start),
-                'quoteable_type' => 'App\Column',
-                'quoteable_id' => $column_id,
-
-                'order' => $column_no_start,
-                'title' => '忍受？',
-                'slug' => '忍受？',
-                'body' => '<z-lang title="It is easy enough to say that man is immortal simply because he will endure: that when the last dingdong of doom has clanged and faded from the last worthless rock hanging tideless in the last red and dying evening, that even then there will still be one more sound: that of his puny inexhaustible voice, still talking.">有一种再容易不过的说法：人反正会一代代存活下去，因为他会忍耐；最后的末日钟声响起，最后一次的黄昏垂死残红，最后的一块无用岩石已没有潮水拍身，钟声从岩石上消逝，万声不在，这时人类微弱的声音仍在不断言说。</z-lang>
-<z-lang title="I refuse to accept this. ">这样的说法我是绝对不能接受的。</z-lang><z-lang title="I believe that man will not merely endure: he will prevail. ">我相信人不仅仅会存活，他还会越活越好。</z-lang><z-lang title="He is immortal, not because he alone among creatures has an inexhaustible voice, but because he has a soul, a spirit capable of compassion and sacrifice and endurance. ">他是不朽的，并不是因为生物中只有他嗓音不倦，而是因为他有灵魂，有能够同情、牺牲和忍耐的精神。</z-lang>…… <z-lang title=" the courage and honor and hope and pride and compassion and pity and sacrifice which have been the glory of his past">勇敢、荣誉、希望、尊严和同情，这些是人类历史上的荣光</z-lang>。',
-                'author' => '福克纳（William Faulkner）',
-                'origin' => '《福克纳演说词》.诺贝尔文学奖致辞',
-                'origin_date' => '1950/12/10',
-                'show_date' => false,
-                'origin_url' => 'http://www.24en.com/subject/speech/2012-07-25/147355.html',
-                'origin_tip' => null,
-                'editor_id' => 1,
-                'copyright' => '',
-
-                'status' => 1, 'deep' => 'open',
-                'comment' => '',
-            ],
         ]);
 
         /*  ren */
@@ -361,6 +291,48 @@ class QuotesTableSeeder extends Seeder
         $column_id = $ren_home;
         $items = array_merge($items, [
             [
+                '_slug' => 'home_' . (++$column_no_start),
+                'quoteable_type' => 'App\Column',
+                'quoteable_id' => $column_id,
+
+                'order' => $column_no_start,
+                'title' => '为了自由，以生命做注',
+                'slug' => 'Tubman-liberty-or-death',
+                'body' =>
+                    '人生只能被摆布吗？ 自由北方的存在告诉 Tubman ,人生还有其它选择，但她需要以生命做注。1849 年，眼看要被女主人卖出偿债，Tubman 拒绝了丈夫的劝阻，只身逃亡，因为她要掌握自己的人生。路上遇到废奴主义者和贵格会教徒，她成功逃到北方。Tubman 说："[T]here was one of two things I had a right to, liberty or death; if I could not have one, I would have the other." 此后，她加入北方的救助奴隶组织，多次潜回南方，带领奴隶投奔北方的自由。',
+                'author' => '方柏林',
+                'origin' => '',
+                'origin_date' => '2015/09/08',
+                'show_date' => false,
+                'origin_url' => '//weibo.com/1894493187/CzD5VkcTt',
+                'origin_tip' => null,
+                'editor_id' => 1,
+                'copyright' => '',
+                '_image' => [
+                    'url' => 'https://image.syracuse.com/home/syr-media/width328/img/news/photo/2017/02/18/originaltubman-0218jpg-ba206cd20d656f99.jpg',
+                    'local' => '/img/2016/Harriet-Tubman.jpg',
+                    'alter' => null,
+                    'style' => null,
+                    'alt' => 'Harriet Tubman',
+                    'intro' => null,
+                ],
+                '_place' => [
+                    'name' => '哈丽特·塔布曼童年的家',
+                    'name_en' => 'Harriet Tubman Childhood Home',
+                    'addr' => 'Dorchester County, Maryland',
+                    'lat' => 38.4089125,
+                    'lng' => -76.3014093,
+                    'info' => [
+                        'place_name' => 'Harriet Tubman 在这里长大',
+                        'intro' => '她一出生就是奴隶，有吃有喝有穿，但她要另外一种生活，一种命运不被人摆布的生活，宁愿以生命为代价。',
+                        'relation' => true,
+                    ]
+                ],
+
+                'status' => 1, 'deep' => 'open',
+                'comment' => '',
+            ],
+            [
                 '_slug' => 'child_' . (++$column_no_start),
                 'quoteable_type' => 'App\Column',
                 'quoteable_id' => $column_id,
@@ -381,14 +353,22 @@ class QuotesTableSeeder extends Seeder
                 'editor_id' => 1,
                 'copyright' => '',
 
+                '_image' => [
+//                    'url' => 'http://s2.sinaimg.cn/middle/6e13c0fegba7982584671&690',
+                    'local' => '/img/2016/《弟子规》父母教-须敬听-父母责-须顺承.jpg',
+                    'alter' => null,
+                    'style' => null,
+                    'alt' => '《弟子规》：父母教,须敬听;父母责,须顺承',
+                    'intro' => '《弟子规》成书于满清时期，在同一时代的《爱弥儿》中，作者卢梭说「包括他的父亲在内，没有人有权利支使孩子去做对他毫无用处的事情。」',
+                ],
                 '_place' => [
                     'name' => '克拉玛依友谊馆',
                     'lat' => 45.600785,
                     'lng' => 84.865811,
                     'info' => [
-                        'place_name' => '「我呢就没有管，我说，走，走人」',
+                        'place_name' => '「我呢 就没有管」',
                         'deep' => 'member',
-                        'intro' => '[徐辛紀錄片截图](http://wx2.sinaimg.cn/bmiddle/643c6f05ly1fe647zd1g4j20go2chn5e.jpg)里的女教师說當時「一下子全场就站起来」，「穿着皮衣的这个同志就说『坐下，讓領導先走』。我呢就没有管，我说，走，走人，我们的学生马上就站起来了」她带学生逃走，她儿子葬身火海。',
+                        'intro' => '[徐辛紀錄片截图](http://wx2.sinaimg.cn/bmiddle/643c6f05ly1fe647zd1g4j20go2chn5e.jpg)中女教师說：當時「一下子全场就站起来」，「穿着皮衣的这个同志就说『坐下，讓領導先走』。我呢就没有管，我说，走，走人，我们的学生马上就站起来了」。这位教师的学生们得救了，她儿子葬身在火海。',
                         'relation' => false,
                     ]
                 ],
@@ -401,11 +381,42 @@ class QuotesTableSeeder extends Seeder
                 'quoteable_id' => $column_id,
 
                 'order' => $column_no_start,
-                'title' => 'Forever a fighter, not a victim',
-                'slug' => 'Forever-a-fighter-not-a-victim',
+                'title' => '我应该谢谢你',
+                'slug' => 'I-should-thank-you',
+                'body' => '大学 4 年<ins>（1979 - 1982）</ins>~~中~~，我有 3 年半~~的时间~~与留学生住在一起。
+                
+一次~~是~~我在足球比赛中受伤，~~撕裂了大腿肌肉，~~疼痛难忍，夜不能寐。大约后半夜两点~~左右~~，我的房门被轻轻叩响，一位瘦削斯文的英囶同学出现在门口，手中拿着一个精致的小木盒。他用还不熟练的汉语对我说：「很对不起，这么晚来打搅你。我刚从外面回来，听说你受了伤，我想你现在一定很难受。这里有一盒我从英囶带来的专治肌肉撕裂的药，效果不错，请你试试吧。」
+
+尽管他的发音不准，讲的也并不流利，可在我听来，却是世界上最美妙最动人的表达。我不知如何表达内心的感受，只是机械地重复着「谢谢！谢谢！」不想这位英国“绅士”在感动之上又给了我新的感动，他说：「其实，我应该谢谢你。」
+
+「为什么？」我万分不解。
+
+他似乎有些激动地说：「因为，你是第一个不问价钱接受我帮助的中囶人。」
+
+说完，便带着十足英囶式的自豪与满足转身走了，留给我一个全新的「致谢观」和对人生、金钱、社会的深深思考。',
+                'author' => '朱铁志',
+                'origin' => '《杂文选刊》2007 年 02 期（上）.本土“留学”散记',
+                'origin_date' => '2007/02/01',
+                'show_date' => false,
+                'origin_url' => 'http://blog.sina.com.cn/s/blog_62c5cbd50100jp9m.html',
+                'origin_tip' => null,
+                'editor_id' => 1,
+                'copyright' => '',
+
+                'status' => 1, 'deep' => 'open',
+                'comment' => '',
+            ],
+            [
+                '_slug' => 'home_' . (++$column_no_start),
+                'quoteable_type' => 'App\Column',
+                'quoteable_id' => $column_id,
+
+                'order' => $column_no_start,
+                'title' => 'Forever a fighter, never a victim',
+                'slug' => 'Forever-a-fighter-never-a-victim',
                 'body' =>
-                    '看到一女孩肩后纹身写着：“宁做战士，不做受害人。”（ Forever a fighter, not a victim ).   
-Don\'t be a victim 已成美囶人共识。它的意思不是要人去和人争和人斗，而是在任何关系里面，不老是把自己放在“受害人”的角色之下。它相信人每一步皆有个体选择的自由，而不是等着他人来改变、解救自己。',
+                    '看到一女孩肩后纹身写着：「宁做战士，不做受害人。」（ Forever a fighter, never a victim ).   
+Don\'t be a victim 已成美囶人共识。它的意思不是要人去和人争和人斗，而是在任何关系里面，不老是把自己放在「受害人」的角色之下。它相信人每一步皆有个体选择的自由，而不是等着他人来改变、解救自己。',
                 'author' => '方柏林',
                 'origin' => '',
                 'origin_date' => '2015/09/08',
@@ -414,15 +425,23 @@ Don\'t be a victim 已成美囶人共识。它的意思不是要人去和人争�
                 'origin_tip' => null,
                 'editor_id' => 1,
                 'copyright' => '',
+                '_image' => [
+                    'url' => null,
+                    'local' => '/img/2016/Manila_Headstones_Sunset.JPG',
+                    'alter' => null,
+                    'style' => null,
+                    'alt' => 'Sunset at Manila American Cemetery in the Philippines',
+                    'intro' => null,
+                ],
                 '_place' => [
-                    'name' => '哈丽特·塔布曼童年的家',
-                    'name_en' => 'Harriet Tubman Childhood Home',
-                    'addr' => 'Dorchester County, Maryland',
-                    'lat' => 38.4089125,
-                    'lng' => -76.3014093,
+                    'name' => '马尼拉美囶烈士陵园和战争纪念馆',
+                    'name_en' => 'Manila American Cemetery and Memorial',
+                    'addr' => 'Taguig City, Philippines',
+                    'lat' => 14.5409179,
+                    'lng' => 121.0481073,
+                    'url' => 'https://www.abmc.gov',
                     'info' => [
-                        'place_name' => '哈丽特·塔布曼一出生就是奴隶',
-                        'intro' => '1849年，面对被主人卖出的命运，奴隶塔布曼拒绝丈夫的劝阻，只身逃亡。她说："[T]here was one of two things I had a right to, liberty or death; if I could not have one, I would have the other."',
+                        'intro' => '这里有二十五张特制地图，再现了美军在太平洋、中囶、印度以及缅甸斗智斗勇驱逐军国主义的历程。',
                         'relation' => false,
                     ]
                 ],
@@ -436,14 +455,15 @@ Don\'t be a victim 已成美囶人共识。它的意思不是要人去和人争�
                 'quoteable_id' => $column_id,
 
                 'order' => $column_no_start,
-                'title' => '在中囶人梦里最牛逼的人是什么人呢？',
+                'title' => '中囶梦里最牛的人',
+                '_tags' => [[
+                    'name' => '硫酸雨',
+                    'official' => $column_id,
+                ],
+                ],
                 'slug' => 'American-style-values',
                 'body' =>
-                    '美囶梦对等级是没有很强的、发自内心的尊重。但是中囶人的梦呢，对既定的等级有一种敬畏。~~我们~~++中囶人++吹牛说看到哪个官怎么摆谱，谈得非常津津有味，都是仰视。梦里想的是“取而代之”，而对怎么**奋斗、创新**，其实~~大家~~++中囶人++是不太关心的。比如说在美囶，小孩子跟家长聊天，说我崇拜一个人，那要说是**因为这个人做了什么东西**。但中囶家庭，在同样的话题下，我的感觉是很少有人会注意到“**贡献**”这个问题。~~大家~~++中囶人++更多讲那个人买了什么车，买了什么房子，家长也是这样。在中囶人梦里最牛逼的人是什么人呢？是不付出努力而能够得到很多的人，这是最高目标。
-
-其实很多大学生、搞研究的也是这样。都说这个大学、那个学者厉害，但是如果我们问他，这些大学、学者到底做了工作，有什么贡献，和你现在要做的事情有什么实质关系，不一定能讲清楚。都是抱着五颜六色的泡泡在飘，都想挤到~~大家~~++中囶人++认可的泡泡里来。而不是去想这个系统是不是合理，该怎么去**改变**。
-
-当然，~~大家~~++中囶人++这么想，首先是因为觉得改变++中国++系统太难了。',
+                    '美囶梦对等级是没有很强的、发自内心的尊重。但是中囶人的梦呢，**对既定的等级有一种敬畏**。~~我们~~++中囶人++吹牛说**看到哪个官怎么摆谱，谈得非常津津有味，都是仰视。梦里想的是「取而代之」，而对怎么奋斗、创新，其实~~大家~~++中囶人++是不太关心的**。比如说在美囶，小孩子跟家长聊天，说我崇拜一个人，那要说是因为这个人做了什么东西。但中囶家庭，在同样的话题下，我的感觉是**很少有人会注意到“贡献”这个问题**。~~大家~~++中囶人++更多讲那个人买了什么车，买了什么房子，家长也是这样。在中囶梦里最牛的人是什么人呢？是不付出努力而能够得到很多的人，这是最高目标。',
                 'author' => '项飙',
                 'origin' => '',
                 'origin_date' => '2017/05/07',
@@ -452,14 +472,23 @@ Don\'t be a victim 已成美囶人共识。它的意思不是要人去和人争�
                 'origin_tip' => null,
                 'editor_id' => 1,
                 'copyright' => '',
+                '_image' => [
+                    'local' => '/img/2016/第一任协和董事会.jpg',
+                    'url' => 'http://tc.sinaimg.cn/maxwidth.800/tc.service.weibo.com/mmbiz_qpic_cn/376fc2177d9307535353102606418d22.jpg',
+                    'alter' => null,
+                    'style' => null,
+                    'alt' => '第一任协和董事会',
+                    'title' => '',
+                    'intro' => '<b>Peking Union Medical College 第一任董事会 右起第三人为小洛克菲勒</b>。<br>1912 年夏天，老洛克菲勒在老家的树荫下，举办了一场中囶问题分享会，450 位宾客挤满庭院，洛克菲勒夫人为这些滔滔不绝的客人们准备了冰水。小洛克菲勒领导了次年成立的洛克菲勒基金会，使命是「为了全人类的幸福和健康」。基金会在中囶创办了北京协和医学院，三十多年总计投入 4800 万美元。1951 年医院主人更换，新协和「专门设立外宾和高干门诊部，开设专门的高干、外宾、特需病区」。',
+                ],
                 '_place' => [
                     'name' => '',
                     'name_en' => 'Pocantico Hills, New York',
                     'lat' => 41.0945388,
                     'lng' => -73.8534774,
                     'info' => [
-                        'place_name' => '2017 年，D·洛克菲勒辞世',
-                        'intro' => 'D·洛克菲勒14 岁时，父亲与他制定零用钱处理细则，规定：双方同意至少20%的零用钱将用于公益事业',
+                        'place_name' => '2017 年，约翰·D·洛克菲勒辞世（1915-2017）',
+                        'intro' => '洛克菲勒 14 岁时，父亲小约翰和他制定了零用钱处理细则，其中规定：双方同意至少20%的零用钱将用于公益事业',
                         'relation' => false,
                     ]
                 ],
@@ -475,6 +504,49 @@ Don\'t be a victim 已成美囶人共识。它的意思不是要人去和人争�
 //        $items =
         array_merge($items, [
 
+            [
+                '_slug' => 'si_' . (++$column_no_start),
+                'quoteable_type' => 'App\Column',
+                'quoteable_id' => $column_id,
+
+                'order' => $column_no_start,
+                'title' => '忍受？',
+                'slug' => '忍受？',
+                'body' => '<z-lang title="It is easy enough to say that man is immortal simply because he will endure: that when the last dingdong of doom has clanged and faded from the last worthless rock hanging tideless in the last red and dying evening, that even then there will still be one more sound: that of his puny inexhaustible voice, still talking.">有一种再容易不过的说法：人反正会一代代存活下去，因为他会忍耐；最后的末日钟声响起，最后一次的黄昏垂死残红，最后的一块无用岩石已没有潮水拍身，钟声从岩石上消逝，万声不在，这时人类微弱的声音仍在不断言说。</z-lang>
+<z-lang title="I refuse to accept this. ">这样的说法我是绝对不能接受的。</z-lang><z-lang title="I believe that man will not merely endure: he will prevail. ">我相信人不仅仅会存活，他还会越活越好。</z-lang><z-lang title="He is immortal, not because he alone among creatures has an inexhaustible voice, but because he has a soul, a spirit capable of compassion and sacrifice and endurance. ">他是不朽的，并不是因为生物中只有他嗓音不倦，而是因为他有灵魂，有能够同情、牺牲和忍耐的精神。</z-lang>…… <z-lang title=" the courage and honor and hope and pride and compassion and pity and sacrifice which have been the glory of his past">勇敢、荣誉、希望、尊严和同情，这些是人类历史上的荣光</z-lang>。',
+                'author' => '福克纳（William Faulkner）',
+                'origin' => '《福克纳演说词》.诺贝尔文学奖致辞',
+                'origin_date' => '1950/12/10',
+                'show_date' => false,
+                'origin_url' => 'http://www.24en.com/subject/speech/2012-07-25/147355.html',
+                'origin_tip' => null,
+                'editor_id' => 1,
+                'copyright' => '',
+
+                'status' => 1, 'deep' => 'open',
+                'comment' => '',
+            ],
+            [
+                '_slug' => 'si_' . (++$column_no_start),
+                'quoteable_type' => 'App\Column',
+                'quoteable_id' => $column_id,
+
+                'order' => $column_no_start,
+                'title' => '命运交给别人',
+                'slug' => '命运交给别人',
+                'body' => '相信好人也罢，相信长官也罢，二者其实是一样。总之，把自己的命运交给别人，甚至交给某一个两个人，自己一点也不动脑筋，只是相信别人，那太危险了。好人做好事，不错；好人做错事，怎么办？',
+                'author' => '巴金',
+                'origin' => '《随想录》',
+                'origin_date' => null,
+                'show_date' => false,
+                'origin_url' => '',
+                'origin_tip' => null,
+                'editor_id' => 1,
+                'copyright' => '',
+
+                'status' => 1, 'deep' => 'open',
+                'comment' => '',
+            ],
             [
                 '_slug' => 'xianxiajiaoyi' . (++$column_no_start),
                 'quoteable_type' => 'App\Column',
@@ -590,8 +662,8 @@ Don\'t be a victim 已成美囶人共识。它的意思不是要人去和人争�
                 'origin_tip' => null,
 
                 '_image' => [
+                    'local' => '/img/2016/aung-san-suu-kyi-house.jpg',
                     'url' => 'http://ccm.ddcdn.com/ext/photo-s/07/71/b1/88/aung-san-suu-kyi-house.jpg',
-                    'local' => null,
                     'alter' => null,
                     'style' => 'object-fit: cover;max-height: 240px;',
                     'alt' => 'Aung San Suu Kyi\'s house',
@@ -791,8 +863,10 @@ Don\'t be a victim 已成美囶人共识。它的意思不是要人去和人争�
                 'order' => $column_no_start,
                 'title' => '先人们的足迹 —— 闯荡亚欧非的 M168',
                 'slug' => 'M168',
+                'year' => -120000,
+                'sig' => 2,
                 'desc' => '如果问华人的祖先是谁？有人会说，北京人。但是，北京人在晚期智人还没有走出非洲时就已经灭绝了。',
-                'body' => '如果问华人的祖先是谁？有人会说，北京人。但是，北京人在晚期智人还没有走出非洲时就已经灭绝了。几百万年以来，一批一批的非洲人走出故乡，但全都灭绝了，除了现代人类这只奇葩。人类分子学证明，现代人类无论黄白黑人种，其实是完完全全的一个物种，有着共同的祖先。男性染色体 XY，Y 随男性代代相传。通过分析全球人类染色体的突变节点和节点的产生时间，可以看出整个人类的大致演变过程。12 万年前，Y 染色体突变产生 M168 ，携带者是绝大多数欧亚人的祖先，所以也叫作“欧亚亚当”。相对于元谋人、北京直立人来说，今天的所有东亚人是后来的殖民者，没有什么「自古以来」。',
+                'body' => '如果问华人的祖先是谁？有人会说，北京人。但是，北京人在晚期智人还没有走出非洲时就已经灭绝了。几百万年以来，一批一批的非洲人走出故乡，但全都灭绝了，除了现代人类这只奇葩。人类分子学证明，现代人类无论黄白黑人种，其实是完完全全的一个物种，有着共同的祖先。男性染色体 XY，Y 随男性代代相传。通过分析全球人类染色体的突变节点和节点的产生时间，可以看出整个人类的大致演变过程。十万多年以前，Y 染色体突变产生 M168 ，携带者是绝大多数欧亚人的祖先，所以也叫作“欧亚亚当”。相对于元谋人、北京直立人来说，今天的所有东亚人是后来的殖民者，没有什么「自古以来」。',
                 'body_long' => '_',
                 'author' => '安森垚、超级无敌摩托车',
                 'origin' => '知乎 2016',
@@ -805,13 +879,16 @@ Don\'t be a victim 已成美囶人共识。它的意思不是要人去和人争�
                 'copyright' => '',
 
                 '_place' => [
-                    'name' => 'M168 起源于 East Africa',
+                    'name' => '现代人起源于 East Africa',
                     'name_en' => '',
                     'lat' => 4.963217,
                     'lng' => 36.422387,
+                    'info' => [
+                        'fromto' => 'from',
+                    ]
                 ],
                 '_image' => [
-                    'url' => 'http://ngm.nationalgeographic.com/ngm/0603/feature2/images/mp_full.2.jpg',
+//                    'url' => 'http://ngm.nationalgeographic.com/ngm/0603/feature2/images/mp_full.2.jpg',
                     'local' => '/img/2016/Human Migration.jpg',
                     'alter' => null,
                     'style' => null,
@@ -829,9 +906,11 @@ Don\'t be a victim 已成美囶人共识。它的意思不是要人去和人争�
 
                 'order' => $column_no_start,
                 'title' => '鉴真偷渡弘法',
+                'year' => 753,
+                'sig' => -1,
                 'slug' => 'Jianzhen-smuggle',
                 'desc' => '「沸浪一透如上高山，怒涛再至，似入低谷」历经千难万险，鉴真(がんじん)终于到了日本，使戒律正式在日本扎根。',
-                'body' => '鉴真(がんじん)到日本后第十年，圆寂于招提寺讲经堂，春秋七十又七，一年后，日本遣使到扬州报丧。扬州僧众皆着丧服三日，以纪念这位不畏艰难东渡弘法的伟人。鉴真是一个精通戒律的“律师”，遵循的根本典籍是印度戒律书之一《四分律》，此书是东晋时，由婆罗门出身的佛陀耶舍在长安与人合作译出。鉴真不惧「沧海淼漫，百无一至」，接受日本僧人的邀请，几次冒险偷渡，终于在 753 年成功，使戒律正式在日本扎根。',
+                'body' => '鉴真是一个精通戒律的“律师”，遵循的根本典籍是印度戒律书之一《四分律》，此书是东晋时，由婆罗门出身的佛陀耶舍在长安与人合作译出。鉴真不惧「沧海淼漫，百无一至」，接受日本僧人的邀请，几次冒险偷渡，终于在 753 年成功，使戒律正式在日本扎根。鉴真(がんじん)到日本后第十年，圆寂于招提寺讲经堂，春秋七十又七，一年后，日本遣使到扬州报丧。扬州僧众皆着丧服三日，以纪念这位不畏艰难东渡弘法的伟人。',
                 'body_long' =>
                     '鉴真大和尚(がんじん)，俗姓淳于，武则天垂拱四年（688 年）生于广陵（今扬州）江都县。年十四，随父到大云寺游览，看见宏大的佛像，深受感动，于是出家。「开元二十一年（732 年），时大和尚年满四十六，淮南江左净持戒者，唯大和尚独秀无轮，道俗归心，仰为受戒之大师。」
 
@@ -873,6 +952,9 @@ Don\'t be a victim 已成美囶人共识。它的意思不是要人去和人争�
                     'url' => '//www.toshodaiji.jp',
                     'lat' => 34.675561,
                     'lng' => 135.7826393,
+                    'info' => [
+                        'fromto' => 'to',
+                    ]
                 ],
                 '_image' => [
                     'url' => 'http://stat.ameba.jp/user_images/20141005/16/giovanni-gbb5/3a/d5/j/o0510031113088357451.jpg',
@@ -892,6 +974,8 @@ Don\'t be a victim 已成美囶人共识。它的意思不是要人去和人争�
                 'order' => $column_no_start,
                 'title' => 'Joseph Pierce',
                 'slug' => 'Joseph-Pierce',
+                'year' => 1852,
+                'sig' => -1,
                 'body' => 'Joseph Pierce，1842 年生于中囶广东。10 岁时，他被一位船长带到美囶抚养(或是其家人把他卖给了船长)，是年咸丰二年、太平天国二年，。
 
 南北战争爆发后，20 岁的 Pierce 入伍。1863 年 7 月参与葛底斯堡遭遇战后，他志愿参加了第二天的新一场战斗，因此役战功任职士官，是为数不多且事迹可查的早期美囶华裔军人之一。随后，他被派往 New Haven 从事招兵工作，1864 年 9 月归队（东亚太平天国都城刚刚陷落，此时他去祖囶 22 年）。
@@ -907,8 +991,8 @@ Pierce 退伍后定居 Meriden, Connecticut，与 Martha Morgan 女士结婚，�
                 'created_at' => '2017/05/12',
                 'copyright' => '',
                 '_image' => [
-                    'url' => '/img/2016/Corporal_Joseph_Pierce.jpg',
-                    'local' => null,
+                    'local' => '/img/2016/Corporal_Joseph_Pierce.jpg',
+                    'url' => null,
                     'alter' => null,
                     'style' => "width:240px",
                     'alt' => '约瑟夫·皮尔斯下士戎装照',
@@ -919,6 +1003,9 @@ Pierce 退伍后定居 Meriden, Connecticut，与 Martha Morgan 女士结婚，�
                     'name_en' => 'Meriden, Connecticut',
                     'lat' => 41.5371748,
                     'lng' => -72.8719198,
+                    'info' => [
+                        'fromto' => 'to',
+                    ]
                 ],
 
                 'status' => 1, 'deep' => 'open',
@@ -954,6 +1041,49 @@ Pierce 退伍后定居 Meriden, Connecticut，与 Martha Morgan 女士结婚，�
 //                'status' => 1, 'deep' => 'open',
 //                'comment' => '',
 //            ],
+//            [
+//                'slug' => 'Zhu-Zhiyu',
+//                'quoteable_type' => 'App\Column',
+//                'quoteable_id' => $column_id,
+//
+//                'order' => $column_no_start,
+//                'body' => '朱之瑜，生于 1600 年（明万历二十八）。长兄任南京神武营总兵，随长兄寄籍松江府，研究古学，尤擅长《诗》、《书》。
+//
+//明亡后为光复华夏奔波日本、安南等地求援。1660 年，郑成功、张煌言领导的北伐军收复瓜州，攻克镇江，朱之瑜亲历行阵。北伐军兵威震动东南，落败在南京城外。郑成功最后趋兵台湾，张煌言数年后被捕遇害。朱之瑜鉴于复明无望，又誓死不剃发，「乃次蹈海全节之志」，学鲁仲连不帝秦，再次渡日，永不回到故囶了。这年冬，最后一次东渡日本，未能获准登岸，困守舟中。当时日本施行锁国政策、「三四十年不留一唐人」。日本学者安东守约，以手书向朱之瑜问学，执弟子礼。朱之瑜为安东守约「执礼过谦」的恭敬、「见解超卓」的学问所动，复信安东守约。信中，朱氏悲喜交集，悲则囶破家亡，故囶「学术之不明、师道之废坏亦已久矣」；喜则「岂孔颜之独在中华，而尧舜之不绝于异域」，表达了他有意将圣贤践履之学传于这位异囶弟子的心情。正如梁启超所说，此「为先生讲学之发轫」。 安东守约等人为其在日定居奔走。最后得日本政府批准，破 40 年来日本幕府之国禁，让他在长崎租屋定居下来，朱之瑜就此结束了十多年的海上漂泊生活。
+//
+//日本副将军德川光国礼聘朱氏讲学，并欲为建新居，朱以「耻逆虏之末灭，痛祭祀之有阙，若丰屋而安居，非我志」力辞。
+//
+//朱舜水 83 岁辞世，留下遗言：「予不得再履汉土，一睹恢复事业。予死矣，奔赴海外数十年，未求得一师与满虏战，亦无颜报明社稷。自今以往，区区对皇汉之心，绝于瞑目。见予葬地者，呼曰『故明人朱之瑜墓』，则幸甚。」东京大学农学院内至今立有「朱舜水先生终焉之地」（临终之地）的石碑。
+//
+//明崇祯时，朱之瑜曾以「文武全才第一」荐于礼部，但见「世道日坏、国是日非」、「官为钱得，政以贿成」，遂放弃仕途，专注于学问。他不求功名利禄，而热衷於关心社会民生，常对人讲：「世俗之人以加官进禄为悦，贤人君子以得行其言为悦。言行，道自行也。盖世俗之情，智周一身及其子孙。官高则身荣，禄厚则为子孙数世之利，其愿如是止矣。大人君子包天下以为量。在天下则忧天下，在一邦则忧一邦，惟恐民生之不遂。至於一身之荣瘁，禄食之厚薄，则漠不关心，故惟以得行其道为悦。」 ',
+//                'author' => '',
+//                'origin' => '浙江余姚四先贤 之 朱之瑜',
+//                'origin_date' => '2011-07-14',
+//                'show_date' => true,
+//                'origin_url' => 'http://mren.bytravel.cn/history/2/zhuzhi658189.html',
+//                'origin_tip' => null,
+//                'editor_id' => 1,
+//
+//                'created_at' => '2017/05/12',
+//                'copyright' => '',
+//                '_image' => [
+//                    'local' => '/img/2016/Corporal_Joseph_Pierce.jpg',
+//                    'url' => null,
+//                    'alter' => null,
+//                    'style' => "width:240px",
+//                    'alt' => '约瑟夫·皮尔斯下士戎装照',
+//                ],
+//
+//                '_place' => [
+//                    'name' => '梅里登',
+//                    'name_en' => 'Meriden, Connecticut',
+//                    'lat' => 41.5371748,
+//                    'lng' => -72.8719198,
+//                ],
+//
+//                'status' => 1, 'deep' => 'open',
+//                'comment' => '',
+//            ],
         ]);
 
 
@@ -967,8 +1097,59 @@ Pierce 退伍后定居 Meriden, Connecticut，与 Martha Morgan 女士结婚，�
                 'quoteable_id' => $column_id,
 
                 'order' => $column_no_start,
+                'title' => '汉语的起源地',
+                'slug' => 'Chinese-origin',
+                'year' => -50000,
+                'sig' => 0,
+                'desc' => '汉语形成于叶尼塞河流域。',
+                'body' => '汉语形成于叶尼塞河流域。叶尼塞河发于贝加尔湖，流入北冰洋最大的河流。这一流域是西西伯利亚平原和中西伯利亚高原的结合部，算是亚欧的分界地带，二战时德日计划到此汇合。在蛮荒年代，一些叶尼塞河居民的后裔进入中原，带来了汉语，而原住民逐渐接受了拓殖者的语言，和原有发音融合，形成了不同的方言。
+
+上古汉语听起来像俄语，因为它与高加索语系有关联，同属于“德内-高加索语系（[Dené–Caucasian languages](https://en.wikipedia.org/wiki/Den%C3%A9%E2%80%93Caucasian_languages)）。
+
+「蒹葭苍苍，白露为霜，所谓伊人，在水一方」，[上古汉语朗读《诗经·蒹葭》](https://weibo.com/5339555851/FehPSsDmL)别有一番韵味。
+',
+                'author' => '史前人类A',
+                'origin' => '',
+                'origin_date' => '2018/01/09',
+                'show_date' => false,
+                'origin_url' => '//weibo.com/1412922410/CxBZGBphT',
+                'origin_tip' => null,
+                'editor_id' => 1,
+                'created_at' => '2017/05/03',
+                'copyright' => '',
+                '_place' => [
+                    'name' => '克孜勒',
+                    'name_en' => 'Kyzyl',
+                    'lat' =>51.6813237,
+                    'lng' =>93.8812952,
+                    'info' => [
+                        'place_name' => 'Кызы́л（俄语、图瓦语）',
+                        'intro' => '位于大小叶尼塞河汇合处，清时属唐努乌梁海地区，今为图瓦共和国首府。',
+                        'fromto' => 'from',
+                    ]
+                ],
+                '_image' => [
+                    // todo https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Yenisei_basin_7.png/450px-Yenisei_basin_7.png
+                    'url' => 'https://wx4.sinaimg.cn/mw690/437cab1cly1fn9z7g5d1pj20ha0be40z.jpg',
+                    'local' => '/img/2016/叶尼塞河流域.png',
+                    'alter' => null,
+                    'style' => null,
+                    'alt' => null,
+                ],
+
+                'status' => 1, 'deep' => 'open',
+                'comment' => '',
+            ],
+            [
+                '_slug' => 'fan_cai_' . (++$column_no_start),
+                'quoteable_type' => 'App\Column',
+                'quoteable_id' => $column_id,
+
+                'order' => $column_no_start,
                 'title' => '秦囶客栈',
                 'slug' => 'Qin-inn',
+                'year' => -300,
+                'sig' => 0,
 //                'limit_height'=>true,
                 'body' => '-「来碗西红柿鸡蛋面。」<br>-「抱歉，客官，面条要到宋朝才能成形呢。西红柿现在南美洲才有，明朝末年才传入中土。小店目前只有鸡蛋，要不您点一个？」',
                 'body_long' => '_',
@@ -1004,10 +1185,12 @@ Pierce 退伍后定居 Meriden, Connecticut，与 Martha Morgan 女士结婚，�
                 'quoteable_id' => $column_id,
 
                 'order' => $column_no_start,
-                'title' => '造纸术：四处传播 多地发展',
-                'slug' => 'papermaking-spread-development',
-                'desc' => '纸，生在东亚，走在全世界。',
-                'body' => '1764 年，法囶经济学家 Turgot 遇到留学的北京人高类思和杨德望，拜托他们回囶后搜集一些资料，其中有部分造纸之类的制造工艺问题。1788 年，美囶 78 岁的富兰克林发表论文，比较中欧制作单面平滑大纸张的方法。他年长乾隆五岁，时任宾夕法尼亚总统，两年后去世。',
+                'title' => '造纸技术：基于地缘缓慢传播 直到乾隆时期才迎来新时代',
+                'slug' => 'papermaking-spread',
+                'year' => 1788,
+                'sig' => -1,
+                'desc' => '纸，生在东亚，长在全世界。',
+                'body' => '古中囶的书写材料不如莎草纸、羊皮纸、贝叶那样方便易得，所以肯定会迎来突破。前所未有的造纸技术发明后，大约用了 1500 年才通过战争等方式传遍亚欧大陆，而欧洲技术革命贡献的现代造纸技术，不到 100 年就从欧洲来到了东亚。乾隆时期是传统造纸技术衰落前的最后阶段：1764 年，法囶经济学家 Turgot 遇到留学的北京人高类思和杨德望，拜托他们回囶后搜集经济资料，还有几个造纸之类的制造工艺问题；1783 年造纸商人孟格菲兄弟实现了人类上天零的突破，他们的热气球使用的一种材料就是纸，而这一年很多清国纸张在乾隆的命令下用来编纂《逆臣传》；1788 年，长乾隆五岁、时任宾夕法尼亚总统的 78 岁老人富兰克林发表论文，比较中欧制作单面平滑大纸张的方法，这时距离人类进入现代造纸时代已不到十年。',
                 'body_long' => '_',
                 'author' => '',
                 'origin' => '',
@@ -1023,10 +1206,10 @@ Pierce 退伍后定居 Meriden, Connecticut，与 Martha Morgan 女士结婚，�
                     'name_en' => 'Benjamin Franklin National Memorial',
                     'lat' => 39.9582195,
                     'lng' => -75.1751463,
-//                    'info' => [
-//                        'place_name'=>'富兰克林国家纪念堂（费城）',
-//                        'intro' => '',
-//                    ]
+                    'info' => [
+                        'place_name' => '富兰克林国家纪念堂（费城）',
+                        'fromto' => 'to',
+                    ]
                 ],
                 '_image' => [
                     'url' => 'http://pic.baike.soso.com/ugc/baikepic2/10443/cut-20150216121024-754037731.jpg/0',
@@ -1045,12 +1228,14 @@ Pierce 退伍后定居 Meriden, Connecticut，与 Martha Morgan 女士结婚，�
                 'quoteable_id' => $column_id,
 
                 'order' => $column_no_start,
-                'title' => '人类医学的源头',
+                'title' => '天下医学 本是一家',
                 'slug' => 'origin-of-human-medicine',
-                'desc'=>'苏美尔医学演化出众多分支：欧洲西医、南亚印医、中亚波医、东亚中医……',
-                'body' => '人类文明的源头是两河流域的苏美尔，人类的医学也最早出现在苏美尔。两河连接东西两端，西边是希腊，东边是印度。生理学上，东西两边都有“气”、“血”这样类似中医的理论，印医还有类似中医“脉”、“穴”之类的概念。西医的重要人物希波克拉底讲究“燥、湿、寒、热”的平衡，主张微调病人整体的生理平衡，充分信任身体的自愈机能，思维方式颇与中医相通，不知两者是否与传播乃至传承关系。
+                'year' => -50000,
+                'sig' => 0,
+                'desc' => '苏美尔医学演化出众多分支：欧洲西医、南亚印医、中亚波医、东亚中医……',
+                'body' => '人类的医学和人类文明一样，源头是两河流域的苏美尔。而两河连接东西两端，西边诞生了希腊医学，东边诞生了印度医学。生理学上，东西两边都有“气”、“血”这样的玄虚理论，印医还有类似中医“脉”、“穴”之类的概念。西医的重要人物希波克拉底讲究“燥、湿、寒、热”的平衡，主张微调病人整体的生理平衡，充分信任身体的自愈机能，思维方式与中医相通。
 
-西医、印医，或是民间验方，采用的药物都来自天然的草药、动物、矿物，而且它们在不同地区一直有着传播交流，如《黄帝内经》提到药物「自西方来」，波斯医学哺育了后世的《本草纲目》。治疗疟疾的灵药金鸡纳，由进取的欧洲人从美洲带到欧洲，又带到亚洲，治好了康熙，生动展示了药物传播的大景象。 ',
+药物方面，西医、印医，都使用天然的草药、动物、矿物，而且药物药方一直在不同地区有着传播交流，如《黄帝内经》提到药物「自西方来」，波斯医学的长期东传哺育了后世的《本草纲目》。治疗疟疾的灵药金鸡纳，由进取的欧洲人从美洲带到欧洲，又带到亚洲，治好了康熙，生动展示了药物传播的大图景。',
                 'body_long' => '_',
                 'author' => '结巢人境（编）',
                 'origin' => '',
@@ -1083,76 +1268,19 @@ Pierce 退伍后定居 Meriden, Connecticut，与 Martha Morgan 女士结婚，�
                         'name_en' => 'Nippur',
                         'comment' => 'Nippur was located in modern Nuffar in Afak, Al-Qādisiyyah Governorate, Iraq',
                     ],
-//                    'info' => [
+                    'info' => [
+                        'fromto' => 'from',
 //                        'place_name'=>'富兰克林国家纪念堂（费城）',
 //                        'intro' => '',
-//                    ],
-                ],
-                '_image' => [
-                    'url' => 'http://pic.baike.soso.com/ugc/baikepic2/10443/cut-20150216121024-754037731.jpg/0',
-                    'local' => '/img/2016/zhu.jpg',
-                    'alter' => null,
-                    'style' => null,
-                    'alt' => null,
-                ],
-
-                'status' => 1, 'deep' => 'open',
-                'comment' => '',
-                // todo
-                // 今天听了1件3观炸裂的事，我1个好 http://weibo.com/5874683697/FjXHPzhNn?from=page_1005055874683697_profile&wvr=6&mod=weibotime
-                // 我觉得很有意思，说到替代疗法    http://weibo.com/5874683697/Fk3Vpu0r7?ref=home&rid=14_0_8_2669680907410231991&type=comment
-            ],
-            [
-                '_slug' => 'fan_cai_' . (++$column_no_start),
-                'quoteable_type' => 'App\Column',
-                'quoteable_id' => $column_id,
-
-                'order' => $column_no_start,
-                'title' => '把西医拉下神坛——人类医学从古医到新医',
-                'slug' => 'modernization-of-human-medicine',
-                'desc'=>'新医（现代医学）打败西医，造福人类。',
-                'body' => '哥白尼天文学颠覆了西方天文学，西方医学的没落则是由维萨留斯和帕拉塞尔萨斯两个革新的人物开始的。维萨留斯的解剖学著作，和哥白尼发表日心说，同在 1543 年发表，从最根本处拔起了千多年的西方医学的权威。帕拉塞尔萨斯，是一个博学而具原创精神的药物学家和化学家．被后世奉为药物学之父．他性情热烈狂傲，公开焚烧古代医学家的著作，以示与传统决裂。
-
-今天，我们能了解艾叶、雄黄、柴胡……这些天然植物的毒性，也知道溺水后控水这样的前现代医术，实际上有害无益，全拜学者在现代医学上的研究。今天的现代医学作为一门科学，重视证据，没有教条，不怕质疑，在创新和否定中不断前进，
-
-没有人类的现代医学，甚至也没有人类的前现代医学，老鼠照样活到现在，但人类总是想办法，让同胞活得更好。',
-                'body_long' => '_',
-                'author' => '结巢人境（编）',
-                'origin' => '',
-                'origin_date' => '2017/08/28',
-                'show_date' => false,
-                'origin_url' => '',
-                'origin_tip' => null,
-                'editor_id' => 1,
-                'created_at' => '2017/05/03',
-                'copyright' => '',
-//                '_place' => [
-//                    'name' => '科斯岛',
-//                    'name_en' => 'Kos',
-//                    'addr'=>'Greece',
-//                    'lat' =>36.8912598,
-//                    'lng' =>27.2595204,
-//                    'info' => [
-//                        'intro' => '希波克拉底是西医的重要代表',
-//                    ],
-//                ],
-                '_place' => [
-                    'name' => '巴塞尔',
-                    'name_en' => 'Basel',
-                    'addr' => '',
-                    'lat' => 32.0612026,
-                    'lng' => 45.2098982,
-                    'info' => [
-                        'title' => '1527 年，Paracelsus 在巴塞尔做医师和大学老师',
-                        'intro' => '他把 Galen 和 Avicenna 的著作扔到圣约翰节上的篝火里，以显示对传统医学的蔑视。那些著作之于西医，相当于《黄帝内经》《伤寒杂病论》《神农本草经》之于中医。Paracelsus 提出人体本质上是一个化学系统的学说，疾病可能是因为元素之间的不平衡。他反对旧时的万灵药而主张用单一物质作药剂，这样一个转变促进了对于专科疾病的研究，并有助于把有益和有害的药物加以区别。',
                     ],
                 ],
                 '_image' => [
-                    'url' => 'http://pic.baike.soso.com/ugc/baikepic2/10443/cut-20150216121024-754037731.jpg/0',
-                    'local' => '/img/2016/zhu.jpg',
+                    'url' => 'http://www.ancientpages.com/wp-content/uploads/2017/11/medicinemesopotam19.jpg',
+                    'local' => '/img/2016/Medical clay tablet from Nippur.jpg',
                     'alter' => null,
                     'style' => null,
                     'alt' => null,
+                    'intro'=>'左侧是一份苏美尔医学泥板，出土于古城邦 Nippur（尼普尔）',
                 ],
 
                 'status' => 1, 'deep' => 'open',
@@ -1161,6 +1289,56 @@ Pierce 退伍后定居 Meriden, Connecticut，与 Martha Morgan 女士结婚，�
                 // 今天听了1件3观炸裂的事，我1个好 http://weibo.com/5874683697/FjXHPzhNn?from=page_1005055874683697_profile&wvr=6&mod=weibotime
                 // 我觉得很有意思，说到替代疗法    http://weibo.com/5874683697/Fk3Vpu0r7?ref=home&rid=14_0_8_2669680907410231991&type=comment
             ],
+//            [
+//                '_slug' => 'fan_cai_' . (++$column_no_start),
+//                'quoteable_type' => 'App\Column',
+//                'quoteable_id' => $column_id,
+//
+//                'order' => $column_no_start,
+//                'title' => '告别西医——人类医学从旧医到新医',
+//                'slug' => 'modernization-of-human-medicine',
+//                'desc' => '新医（现代医学）打败西医，造福人类。',
+//                'body' => '
+//
+//没有人类的现代医学，甚至也没有人类的前现代医学，老鼠照样活到现在，但人类总是想办法，让同胞活得更好。',
+//                'body_long' => '_',
+//                'author' => '结巢人境（编）',
+//                'origin' => '',
+//                'origin_date' => '2017/08/28',
+//                'show_date' => false,
+//                'origin_url' => '',
+//                'origin_tip' => null,
+//                'editor_id' => 1,
+//                'created_at' => '2017/05/03',
+//                'copyright' => '',
+////                '_place' => [
+////                    'name' => '科斯岛',
+////                    'name_en' => 'Kos',
+////                    'addr'=>'Greece',
+////                    'lat' =>36.8912598,
+////                    'lng' =>27.2595204,
+////                    'info' => [
+////                        'intro' => '希波克拉底是西医的重要代表',
+////                    ],
+////                ],
+//                ],
+//                '_image' => [
+//                    'url' => 'http://pic.baike.soso.com/ugc/baikepic2/10443/cut-20150216121024-754037731.jpg/0',
+//                    'local' => '/img/2016/zhu.jpg',
+//                    'alter' => null,
+//                    'style' => null,
+//                    'alt' => null,
+//                ],
+//
+//                'status' => 1, 'deep' => 'open',
+//                'comment' => '',
+//                // todo
+//                // 今天听了1件3观炸裂的事，我1个好 http://weibo.com/5874683697/FjXHPzhNn?from=page_1005055874683697_profile&wvr=6&mod=weibotime
+//                // 我觉得很有意思，说到替代疗法    http://weibo.com/5874683697/Fk3Vpu0r7?ref=home&rid=14_0_8_2669680907410231991&type=comment
+//            ],
+        ]);
+//            $items =
+        array_merge($items, [
             [
                 '_slug' => 'fan_cai_' . (++$column_no_start),
                 'quoteable_type' => 'App\Column',
@@ -1185,7 +1363,12 @@ Pierce 退伍后定居 Meriden, Connecticut，与 Martha Morgan 女士结婚，�
                     'name' => '迪斯尼乐园',
                     'name_en' => 'Disneyland Park',
                     'lat' => 33.8120918,
-                    'lng' => -117.9189742
+                    'lng' => -117.9189742,
+                    'info' => [
+                        'fromto' => 'from',
+//                        'place_name'=>'富兰克林国家纪念堂（费城）',
+//                        'intro' => '',
+                    ],
                 ],
                 '_image' => [
                     'url' => 'http://www.southcn.com/travel/lyxw/200505080603_1007192.jpg',
@@ -1204,12 +1387,12 @@ Pierce 退伍后定居 Meriden, Connecticut，与 Martha Morgan 女士结婚，�
                 'quoteable_id' => $column_id,
 
                 'order' => $column_no_start,
-                'title' => '加密技术为什么能从美囶传向世界',
+                'title' => '美囶加密术走向世界',
                 'slug' => 'encryption-spreads-from-America',
                 'body' =>
-                    '<ins>加密技术是互联网的重要基石。</ins>曾经，加密技术是被美国 government 禁止出口的，其他囶家的人，想要使用这些加密算法，就像要从美国买导弹一样，是不可能的。转机发生在 1995 年，这一年，<z-lang title="加州伯克利大学" lang="en"> University of California, Berkeley </z-lang>研究生 Bernstein 在组织 Electronic Frontier Foundation（电子前线基金会）帮助下，起诉 government。他的主张是发表加密算法，属于 freedom of speech 的一部分，从而受<z-lang title="第一修正案" lang="en"> First Amendment </z-lang>保护，史称 Bernstein v. United States。这个案子进行了 4 年，到 1999 年，<z-lang title="联邦第九巡回上诉法院" lang="en">Ninth Circuit Court of Appeals </z-lang>出了判决，依据<z-lang title="第一修正案" lang="en"> First Amendment</z-lang>，判决 government 禁止公开密码算法违宪。在这之后，各种密码协议和开源算法才从美囶流传出来，被自由使用。
+                    '<ins>加密术是信息时代的一大基石，是欧美对人类文明的重大贡献之一。</ins>曾经，这种技术被美国 government 禁止出口，其他囶家的人，想要使用这些加密算法，就像要从美国买导弹一样，是不可能的。转机发生在 1995 年，这一年，<z-lang title="加州伯克利大学" lang="en"> University of California, Berkeley </z-lang>研究生 Bernstein 在组织 Electronic Frontier Foundation（电子前线基金会）帮助下，起诉 government。他的主张是发表加密算法，属于 freedom of speech 的一部分，从而受<z-lang title="第一修正案" lang="en"> First Amendment </z-lang>保护。这个案子史称 Bernstein v. United States，进行了 4 年。到 1999 年，<z-lang title="联邦第九巡回上诉法院" lang="en">Ninth Circuit Court of Appeals </z-lang>做出判决，依据<z-lang title="第一修正案" lang="en"> First Amendment</z-lang>，判决 government 禁止公开密码算法违宪。在这之后，各种密码协议和开源算法从美囶流传出来，供世人自由使用。
 
-EFF 创建于 1990 年，<ins cite="https://www.eff.org/about">是一个在数字世界保护 civil liberties 的非盈利组织。他们通过 impact litigation, policy analysis, grassroots activism, 和技术发展捍卫 user privacy, free expression, and innovation</ins>。EFF 创始人之一是 Lotus 公司创始人卡普尔，曾经是和比尔盖茨齐名的软件天才。1990 年，当时商业互联网尚未成型，而前瞻的卡普尔意识到未来技术、隐私、法律和政治的冲突，自己出资创建了 EFF。',
+EFF 创建于 1990 年，<ins cite="https://www.eff.org/about">是一个在数字世界保护 civil liberties 的非盈利组织。他们通过 impact litigation, policy analysis, grassroots activism, 和技术发展，捍卫用户隐私、自由表达以及创新</ins>。EFF 创始人之一是 Lotus 公司创始人卡普尔，曾经是和比尔盖茨齐名的软件天才。1990 年，当时商业互联网尚未成型，而前瞻的卡普尔意识到未来技术、隐私、法律和政治的冲突，出资创建了 EFF。',
                 'author' => '霍炬',
                 'origin' => '开源中国社区',
                 'origin_date' => '2015/08/26',
@@ -1224,14 +1407,16 @@ EFF 创建于 1990 年，<ins cite="https://www.eff.org/about">是一个在数�
                     'url' => '//www.eff.org',
                     'lat' => 38.9069913,
                     'lng' => -77.0451461,
+                    'info' => [
+                        'fromto' => 'open',
+//                        'place_name'=>'富兰克林国家纪念堂（费城）',
+//                        'intro' => '',
+                    ],
                 ],
 
                 'status' => 1, 'deep' => 'open',
                 'comment' => '',
             ],
-        ]);
-//            $items =
-        array_merge($items, [
             [
                 '_slug' => 'fan_cai_' . (++$column_no_start),
                 'quoteable_type' => 'App\Column',
@@ -1289,6 +1474,7 @@ EFF 创建于 1990 年，<ins cite="https://www.eff.org/about">是一个在数�
                     'lng' => 116.307801,
                     'info' => [
                         'intro' => '清据北京一百年后，皇帝乾隆开始营建欧洲建筑。',
+                        'fromto' => 'to',
                     ]
                 ],
                 'status' => 1, 'deep' => 'open',
@@ -1383,10 +1569,63 @@ EFF 创建于 1990 年，<ins cite="https://www.eff.org/about">是一个在数�
                 'quoteable_id' => $column_id,
 
                 'order' => $column_no_start,
-                'title' => '儒学和朝鲜半岛',
+                'title' => '改革开放夭折前 伊朗女性不用戴黑纱',
+                'year' => 1963,
+                'sig' => -1,
+                'slug' => 'Iranian-power-and-Iranian-women',
+                'desc' => '伊朗，两次转折，女性摘掉黑纱，又被迫戴起，不戴就是反革命。',
+                'body' => '从1963年起，伊朗国王巴列维推行了被称为“白色革命”的一揽子改革计划。巴列维国王改变婚姻法，规定女孩子18岁结婚（以前是9岁就嫁人），还赋予妇女选举权，取消神学教育和伊斯兰教法，提倡妇女去掉黑色面纱，废除男性头巾，突出伊朗历史上雅利安人的作用以淡化伊斯兰教影响。在此背景下，伊朗的社会风气相当开放。
+
+巴列维改革使伊朗经济飞速发展，1968 年 - 1978 年，平均年增长速度为 16─17%，但贫富分化严重，腐败猖獗，连补贴到老少边穷的慈善救助金都有人贪腐。巴列维拒绝权力改革，「自我评价的办法比西方国家必须依靠“忠诚反对派”的办法更加可靠、更加公正」，「为了实现真正的帝国民主，就需要有一个君主从上边进行统一」（[《“白”与“黑”——伊朗的两种“革命”》](http://www.360doc.com/content/15/0808/00/17132703_490226807.shtml)）。1978 年革命爆发，当时所有的西方知识分子都说，这是赶走了一个暴君。美国放弃支持巴列维，霍梅尼搭乘法航专机回到德黑兰掌握了权力。1979年3月7日，霍梅尼违背承诺[^伊朗女性反对]，要求妇女必须带上面纱。次日三八妇女节，德黑兰市区的妇女上街反对这项决定，「因为前一夜政府在报纸上公布女性上班必须佩戴头巾。于是，没人去上班」，「当时的伊朗人民充满了热情和希望，人们还相信能够改变些什么」[^伊朗女性反对]，结果被军队驱散。这年7月起，所有妇女都必须在公开场合带上面纱，否则即被视作反革命行为。电影、戏剧、舞蹈、绘画、雕刻中的女性形象被剔除，不得不出现的女性形象也必须按照伊斯兰教规定加以处置。
+
+Feminists 被装在麻袋里面乱石砸死（[《宗教立法后的伊朗的女性》](http://cul.qq.com/a/20150912/017525.htm)）。
+
+伊朗女性总失业率由 1976 的 6.9% 上升到 1986 年的 25.2%，这期间女性就业总数减少了 86.12 万人。（[《伊朗伊斯兰革命以来女性失业问题简析》](https://wenku.baidu.com/view/09375dc2581b6bd97e19eaac.html)）
+
+[^伊朗女性反对]: [《1979年3月8日，伊朗女性反对佩戴头巾》](https://zhuanlan.zhihu.com/p/25711318)
+',
+                'author' => '把历史说给你听',
+                'origin' => '',
+                'origin_date' => '2017-04-06',
+                'show_date' => true,
+                'origin_url' => 'http://www.sohu.com/a/132286180_620985',
+                'origin_tip' => null,
+                'editor_id' => 1,
+                'created_at' => '2017/08/05',
+                'copyright' => '',
+
+                '_image' => [
+                    'url' => 'https://pic2.zhimg.com/v2-6b87554d550bf91f0c6f2ee3f37df2ed_1200x500.jpg',
+                    'local' => '/img/2016/1979年3月8日，伊朗女性反对佩戴头巾.jpg',
+                    'alter' => null,
+                    'style' => null,
+                    'alt' => '',
+                ],
+                '_place' => [
+                    'name' => '德黑兰大学',
+                    'name_en' => 'University of Tehran',
+                    'lat' => 35.702324,
+                    'lng' => 51.393528,
+                    'info' => [
+                        'intro' => '1979 年 3 月 8 日，人们从德黑兰大学开始',
+                        'fromto' => 'to',
+                    ]
+                ],
+                'status' => 1, 'deep' => 'open',
+                'comment' => '',
+            ],
+            [
+                '_slug' => 'fan_dao_' . (++$column_no_start),
+                'quoteable_type' => 'App\Column',
+                'quoteable_id' => $column_id,
+                'year' => '1300',
+                'sig' => 2,
+
+                'order' => $column_no_start,
+                'title' => '儒学在朝鲜：陪伴佛陀一千年 然后取而代之成为新国教',
                 'slug' => 'Confucianism-Korean-Peninsula',
                 'desc' => '朝鲜半岛，从佛教到儒学。',
-                'body' => ' 高丽王朝以佛教为国教。高丽末年发生了朱子学取代佛教的百年革命，儒学独尊。巧合的是，这期间，在南宋末年，迎来了朱熹曾孙朱潜，在元末时，又迎来大批文人官宦。这段时间里朱子学逐渐兴盛（主导者是高丽本土人），羽翼丰满后开始向佛教叫板。',
+                'body' => '朝鲜半岛的统治者面对同时新来的佛教和儒家，选择了前者作为国教。但在 1000 多年后的高丽王朝末年，不满者以新生的朱子学为武器叫板佛教，最终取而代之，史称百年革命。这段时间，朝鲜半岛接收了南宋末年和元朝末年大批逃亡的文人官宦，其中的知名人物之一是朱熹曾孙朱潜，家族繁衍到今天已有十几万人后裔。',
                 'body_long' => '_',
                 'author' => '结巢人境（编）',
                 'author_id' => 1,
@@ -1417,6 +1656,7 @@ EFF 创建于 1990 年，<ins cite="https://www.eff.org/about">是一个在数�
                         'type' => 'point',
                         'name' => '朝鲜王朝成均馆',
                     ],
+                    'info' => ['fromto' => 'to'],
                 ],
                 'status' => 1, 'deep' => 'open',
                 'comment' => '',
@@ -1429,7 +1669,9 @@ EFF 创建于 1990 年，<ins cite="https://www.eff.org/about">是一个在数�
                 'order' => $column_no_start,
                 'title' => '八国联军“暴行”：天津、北京全城禁止随地大小便',
                 'slug' => 'Eight-Nation-Alliance-Commit-No-Nuisance',
-                'desc'=>'过去的中囶，「满街都是屎尿」，直到八国联军到北京，终于有了干净的街巷。',
+                'year' => 1900,
+                'sig' => -1,
+                'desc' => '过去的中囶，「满街都是屎尿」，直到八国联军到北京，终于有了干净的街巷。',
                 'body' => '戏曲家齐如山说：「除小商棚摊之外，其余都是大小便的地方，满街都是屎尿。」1900 年，管理北京 256 年的满清人把城市丢给新的入侵者。「在街上出恭，一经洋人撞见，百般毒打，近日受此凌辱者，不可计数」。次年春夏之际，联军陆续撤离。北京市民再度获得随地大小便、随处堆放垃圾的自由。',
                 'body_long' =>
                     '戏曲家齐如山说清末北平：「除小商棚摊之外，其余都是大小便的地方，满街都是屎尿。」名妓赛金花：「北京的街道，那时太腌臢了，满街屎尿无人管。」 1898 年王锡彤见天津「道路之污秽，街巷之狭隘，殊出情理外。沿河两面居民便溺，所萃不能张目。」郑观应 1890 年代所见上海：「余见上海租界街道宽阔平整而洁净，一入中国地界则污秽不堪，非牛溲马勃即垃圾臭泥，甚至老幼随处可以便溺，疮毒恶疾之人无处不有，虽呻吟仆地皆置不理，惟掩鼻而过之而已。可见有司之失政，富室之无良，何怪乎外人轻侮也。」
@@ -1478,54 +1720,7 @@ EFF 创建于 1990 年，<ins cite="https://www.eff.org/about">是一个在数�
                     ],
                     'info' => [
                         'intro' => '一位居住在宣武城南椿树二巷“丛桂山房”的读书人，在日记中载有颇多联军强迫北京市民改变随地大小便陋习的情形',
-                    ]
-                ],
-                'status' => 1, 'deep' => 'open',
-                'comment' => '',
-            ],
-            [
-                '_slug' => 'fan_dao_' . (++$column_no_start),
-                'quoteable_type' => 'App\Column',
-                'quoteable_id' => $column_id,
-
-                'order' => $column_no_start,
-                'title' => '有十几年，伊朗女性不用戴黑纱',
-                'slug' => 'Iranian-power-and-Iranian-women',
-                'desc'=>'伊朗，两次转折，女性摘掉黑纱，又被迫戴起，不戴就是反革命。',
-                'body' => '从1963年起，伊朗国王巴列维推行了被称为“白色革命”的一揽子改革计划。巴列维国王改变婚姻法，规定女孩子18岁结婚（以前是9岁就嫁人），还赋予妇女选举权，取消神学教育和伊斯兰教法，提倡妇女去掉黑色面纱，废除男性头巾，突出伊朗历史上雅利安人的作用以淡化伊斯兰教影响。在此背景下，伊朗的社会风气相当开放。
-
-巴列维改革使伊朗经济飞速发展，1968 年 - 1978 年，平均年增长速度为 16─17%，但贫富分化严重，腐败猖獗，连补贴到老少边穷的慈善救助金都有人贪腐。巴列维拒绝权力改革，「自我评价的办法比西方国家必须依靠“忠诚反对派”的办法更加可靠、更加公正」，「为了实现真正的帝国民主，就需要有一个君主从上边进行统一」（[《“白”与“黑”——伊朗的两种“革命”》](http://www.360doc.com/content/15/0808/00/17132703_490226807.shtml)）。1978 年革命爆发，当时所有的西方知识分子都说，这是赶走了一个暴君。美国放弃支持巴列维，霍梅尼搭乘法航专机回到德黑兰掌握了权力。1979年3月7日，霍梅尼违背承诺[^伊朗女性反对]，要求妇女必须带上面纱。次日三八妇女节，德黑兰市区的妇女上街反对这项决定，「因为前一夜政府在报纸上公布女性上班必须佩戴头巾。于是，没人去上班」，「当时的伊朗人民充满了热情和希望，人们还相信能够改变些什么」[^伊朗女性反对]，结果被军队驱散。这年7月起，所有妇女都必须在公开场合带上面纱，否则即被视作反革命行为。电影、戏剧、舞蹈、绘画、雕刻中的女性形象被剔除，不得不出现的女性形象也必须按照伊斯兰教规定加以处置。
-
-Feminists 被装在麻袋里面乱石砸死（[《宗教立法后的伊朗的女性》](http://cul.qq.com/a/20150912/017525.htm)）。
-
-伊朗女性总失业率由 1976 的 6.9% 上升到 1986 年的 25.2%，这期间女性就业总数减少了 86.12 万人。到1996年，伊朗女性就业情况有所好转，但是仍然不及革命前的水平。2011 年，伊朗女性占据了全国总人口的 49.6%，却只有 12.6% 的伊朗女性活跃在劳动力市场，女性失业状况依然堪忧。（[《伊朗伊斯兰革命以来女性失业问题简析》](https://wenku.baidu.com/view/09375dc2581b6bd97e19eaac.html)）
-
-[^伊朗女性反对]: [《1979年3月8日，伊朗女性反对佩戴头巾》](https://zhuanlan.zhihu.com/p/25711318)
-',
-                'author' => '把历史说给你听',
-                'origin' => '',
-                'origin_date' => '2017-04-06',
-                'show_date' => true,
-                'origin_url' => 'http://www.sohu.com/a/132286180_620985',
-                'origin_tip' => null,
-                'editor_id' => 1,
-                'created_at' => '2017/08/05',
-                'copyright' => '',
-
-                '_image' => [
-                    'url' => 'http://image.tuku.china.com/tuku.culture.china.com/culture/pic/2009-05-04/50d3f235-c1e7-4d8f-954c-48dd6abadfac.jpg',
-                    'local' => null,
-                    'alter' => null,
-                    'style' => null,
-                    'alt' => '',
-                ],
-                '_place' => [
-                    'name' => '德黑兰大学',
-                    'name_en' => 'University of Tehran',
-                    'lat' => 35.702324,
-                    'lng' => 51.393528,
-                    'info' => [
-                        'intro' => '1979 年 3 月 8 日，人们从德黑兰大学开始',
+                        'fromto' => 'to',
                     ]
                 ],
                 'status' => 1, 'deep' => 'open',

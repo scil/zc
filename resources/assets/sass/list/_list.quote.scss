@@ -34,10 +34,10 @@ quote
 .QL-item-img {
   display: block;
   margin-top: 1.5em;
-  max-width:60%;
-  @media(max-width: $screen-md){
-    max-width:100%;
-  }
+  max-width:100%;
+  //@media(max-width: $screen-md){
+  //  max-width:100%;
+  //}
 }
 
 .QL-read-more-box{

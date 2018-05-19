@@ -153,7 +153,7 @@
 
         @if($IDs)
 
-        zc.list.init({
+        zc.sideMap.init({
             itemIDs:{!! json_encode($IDs) !!},
             plots: plots,
             infoSwipeBox: '#LMap-info-swipebox', // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏

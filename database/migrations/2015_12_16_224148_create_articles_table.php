@@ -59,7 +59,9 @@ class CreateArticlesTable extends Migration
             $table->integer('articleable_id')->unsigned();
             $table->tinyInteger('order')->unsigned()->default(0);
             $table->enum('type',[
-                'first','normal','note',
+                'first','normal',
+                // 'note', del
+
                 // dispute book or video 的争议
                 // quote 书籍长篇文章的quote
                 // script 视频的文字或剧本
