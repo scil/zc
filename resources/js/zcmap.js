@@ -15,7 +15,7 @@ const _ = require('lodash')
  *
  *
  * event 'zcmap.active'
-     zcmap.mapEle.on('zcmap.active', function (e, id, last_id) {
+ zcmap.mapEle.on('zcmap.active', function (e, id, last_id) {
             eleAddr.html(this.plots[id]['addr'] || '')
      }
  */
@@ -35,14 +35,22 @@ function ZCMap(map, info) {
     /** @type {number[]} */
     me.all_plots_ids = map.plotsIDs;
     me.plots = map.plots;
-    /** @type {number[]} */
-    me.plots_on_map = map.plotsIDs;
     /** @type {number} */
-    me.lastActivePlot = null; // 不可设置为-1,-2之类，因为这些数会用来代表slides前面的quote
+    me.lastActivePlotID = null; // 不可设置为-1,-2之类，因为这些数会用来代表slides前面的quote
 
-    me._mode_direction = null; // null, 'left', 'right'
+    me.mode = map.mode || 'all'; // 'single' 'cumulative', or 'all_not_inited' (初次进入all，需要先进入all_not_inited，确保所有plots显示到地图上)
+    me._direction = map.direction || 'ltr'; // 'ltr', 'rtl'
+
+    if (me.mode === 'all') {
+        /** @type {number[]} */
+        me.plot_ids_on_map = map.plotsIDs;
+        var plotsFirstShow = me.plots;
+    } else {
+        me.plot_ids_on_map = me._direction === 'ltr' ? map.plotsIDs[0] : map.plotsIDs[-1];
+        me.plotsFirstShow = me._direction === 'ltr' ? map.plots[0] : map.plots[-1];
+    }
+
     // todo 切换时的显示模式 目前只支持高亮一个plot而其它不显示
-    me.mode = 'single'; // 'stepin'
     me.updateTimer = null;
     me.config = {
         plotSize: map.config.plotSize || 10,
@@ -61,37 +69,7 @@ function ZCMap(map, info) {
     me.infoKeys = null;
 
     if (info) {
-        me.infoEle = info.ele;
-
-        let infoKeys = [], infoData = info.data;
-        for (let id1 in infoData) {
-            if (infoData[id1]['intro']) {
-                for (let id in infoData) {
-                    infoData[id]['intro'] = zc.content.renderMD(infoData[id]['intro'])
-                }
-            }
-            for (var k in infoData[id1]) {
-                infoKeys.push(k);
-            }
-            // for 循环只需要找出一个元素 确定里面的keys
-            break
-        }
-        me.infoData = infoData;
-        me.infoKeys = infoKeys;
-    }
-    if (info.infoSwipeBox) {
-        $(info.infoSwipeBox).swipe({
-            swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
-                if (direction == 'left') {
-                    me.lightRight();
-                } else if (direction == 'right') {
-                    me.lightLeft();
-                }
-            },
-            //Default is 75px,
-            threshold: 40
-        });
-
+        me._initInfo(info);
     }
 
     me.mapEle = $(map.ele).mapael(
@@ -128,7 +106,7 @@ function ZCMap(map, info) {
                     attrs: me.config.plotDefaultStyle,
                 },
             },
-            plots: me.plots,
+            plots: plotsFirstShow,
         }
     );
 
@@ -157,24 +135,60 @@ function ZCMap(map, info) {
 
 }
 
+ZCMap.prototype._initInfo = function (info) {
+    var me=this;
+
+    me.infoEle = info.ele;
+
+    let infoKeys = [], infoData = info.data;
+    for (let id1 in infoData) {
+        if (infoData[id1]['intro']) {
+            for (let id in infoData) {
+                infoData[id]['intro'] = zc.content.renderMD(infoData[id]['intro'])
+            }
+        }
+        for (var k in infoData[id1]) {
+            infoKeys.push(k);
+        }
+        // for 循环只需要找出一个元素 确定里面的keys
+        break
+    }
+    me.infoData = infoData;
+    me.infoKeys = infoKeys;
+    if (info.infoSwipeBox) {
+        $(info.infoSwipeBox).swipe({
+            swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
+                if (direction == 'ltr') {
+                    me.lightRight();
+                } else if (direction == 'rtl') {
+                    me.lightLeft();
+                }
+            },
+            //Default is 75px,
+            threshold: 40
+        });
+
+    }
+
+}
+
 ZCMap.debug = false;
 ZCMap.log = function () {
     ZCMap.debug && zclog.apply(null, arguments)
 }
 ZCMap.prototype.enterLeft = function () {
-    this._mode_direction = 'left';
-    ZCMap.log('[map] start direction left')
+    this._direction = 'ltr';
+    ZCMap.log('[map] start direction ltr')
 }
 ZCMap.prototype.enterRight = function () {
-    this._mode_direction = 'right';
-    ZCMap.log('[map] start direction right')
+    this._direction = 'rtl';
+    ZCMap.log('[map] start direction rtl')
 }
-ZCMap.prototype.exitDirection = function () {
-    this._mode_direction = null;
-    ZCMap.log('[map] end direction')
-}
-ZCMap.prototype.inDirection = function () {
-    return this._mode_direction;
+ZCMap.prototype.enterMode = function (mode) {
+    if (mode === 'all')
+        this.mode = 'all_not_inited';
+    else if (mode === 'single' || mode === 'cumulative')
+        this.mode = mode;
 }
 
 // 可高亮某个plot 还可增加、可删除；此函数主要用来高亮，因为增加删除只需要用mapael的update就行
@@ -189,8 +203,8 @@ ZCMap.prototype._ActiveOrChangePlot = function (opt) {
     let nextActivePlotID = parseInt(opt.active);
     nextActivePlotID = this.plots[nextActivePlotID] ? nextActivePlotID : NaN;
     if (!isNaN(nextActivePlotID)) {
-        if (nextActivePlotID === this.lastActivePlot && !change) return;
-        ZCMap.log('[map] to active plot :', nextActivePlotID, '; deactive:', this.lastActivePlot)
+        if (nextActivePlotID === this.lastActivePlotID && !change) return;
+        ZCMap.log('[map] to active plot :', nextActivePlotID, '; deactive:', this.lastActivePlotID)
 
         if (newPlots && newPlots[nextActivePlotID]) {
             newPlots[nextActivePlotID]['attrs'] = {fill: 'red'}
@@ -198,7 +212,7 @@ ZCMap.prototype._ActiveOrChangePlot = function (opt) {
             mapOptions.plots[nextActivePlotID] = {attrs: {fill: "red"},};
         }
 
-        mapOptions.plots[this.lastActivePlot] = {attrs: this.config.plotDefaultStyle};
+        mapOptions.plots[this.lastActivePlotID] = {attrs: this.config.plotDefaultStyle};
     }
 
 
@@ -213,13 +227,13 @@ ZCMap.prototype._ActiveOrChangePlot = function (opt) {
 
     if (!isNaN(nextActivePlotID)) {
 
-        this.mapEle.trigger('zcmap.active', [nextActivePlotID, this.lastActivePlot]);
+        this.mapEle.trigger('zcmap.active', [nextActivePlotID, this.lastActivePlotID]);
 
-        this.lastActivePlot = nextActivePlotID;
+        this.lastActivePlotID = nextActivePlotID;
     }
 
     if (change) {
-        this.plots_on_map = change.toShowIDs;
+        this.plot_ids_on_map = change.toShowIDs;
     }
 
 }
@@ -235,24 +249,30 @@ ZCMap.prototype._lightSinglePlotAndAutoChange = function (nextPlotID: number) {
     const all = this.all_plots_ids, me = this;
     let to_show_ids, index;
 
-    to_show_ids = all;
-    if (nextPlotID >= 0) {
-        index = all.indexOf(nextPlotID);
-        if (index >= 0) {
-            // todo: this.mode
-            to_show_ids = this._mode_direction === 'right' ? all.slice(index) : all.slice(0, index + 1);
-        }else{
-            // a valid plot id  must >=0
-            nextPlotID=null;
-        }
+    index = all.indexOf(nextPlotID);
+    if (index < 0) {
+        return;
+    }
+
+    switch (this.mode) {
+        case  'cumulative':
+            to_show_ids = this._direction === 'rtl' ? all.slice(index) : all.slice(0, index + 1);
+            break;
+        case 'single':
+            to_show_ids = [nextPlotID];
+            break;
+        case 'all_not_inited':
+            this.mode = 'all';
+            to_show_ids = all;
+            break;
     }
 
 
-    const to_add_ids = _.difference(to_show_ids, me.plots_on_map),
-        to_del_ids = _.difference(me.plots_on_map, to_show_ids);
+    const to_add_ids = _.difference(to_show_ids, me.plot_ids_on_map),
+        to_del_ids = _.difference(me.plot_ids_on_map, to_show_ids);
 
-    ZCMap.log('[map] on  ', this.plots_on_map)
-    ZCMap.log('      show ', to_show_ids)
+    ZCMap.log('[map] from: ', this.plot_ids_on_map)
+    ZCMap.log('      to ', to_show_ids)
     ZCMap.log('      add ', to_add_ids)
     ZCMap.log('      del ', to_del_ids)
     ZCMap.log('      active ', nextPlotID)
@@ -321,25 +341,24 @@ ZCMap.prototype.update = function (nextActivePlotID: number | string) {
 
     this._updateInfo(nextActivePlotID);
 
-    if (this.inDirection()) {
-        if (nextActivePlotID < 0) { // 注意：滑入 quote之类的slide，则退出direction
-            this.exitDirection();
-        }
+    if (this.mode == 'all') {
+
+        this._ActiveOrChangePlot({active: nextActivePlotID})
+
+    } else {
 
         this._lightSinglePlotAndAutoChange(nextActivePlotID)
 
-    } else {
-        this._ActiveOrChangePlot({active: nextActivePlotID})
     }
 }
 
 // light: 点燃；点火
 ZCMap.prototype.lightLeft = function () {
-    var id = this.all_plots_ids[parseInt(this.all_plots_ids.indexOf(this.lastActivePlot)) - 1];
+    var id = this.all_plots_ids[parseInt(this.all_plots_ids.indexOf(this.lastActivePlotID)) - 1];
     this.update(id);
 }
 ZCMap.prototype.lightRight = function () {
-    var plus = this.all_plots_ids.indexOf(this.lastActivePlot) + 1;
-    var id = this.all_plots_ids[plus == this.lastActivePlot.length ? 0 : plus];
+    var plus = this.all_plots_ids.indexOf(this.lastActivePlotID) + 1;
+    var id = this.all_plots_ids[plus == this.lastActivePlotID.length ? 0 : plus];
     this.update(id);
 }

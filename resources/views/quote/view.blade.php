@@ -137,7 +137,7 @@
         }
         ;
 
-        @if(!empty($IDs))
+        @if($IDs)
         zc.sideMap.init({
             itemIDs:{!! json_encode($IDs) !!},
             plots: plots,

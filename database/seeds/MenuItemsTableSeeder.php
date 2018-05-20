@@ -27,7 +27,7 @@ class MenuItemsTableSeeder extends Seeder
 
                         ['name' => '山书', 'show'=>true,'short_name' => '书', 'css' => '1', 'type' => 'article', 'level' => 3, 'order' => 1, 'url' => '/writing', 'ctitle'=>'山书 &nbsp;|&nbsp; 真城','title'=>'山书 &nbsp;|&nbsp; 真城', 'desc' => '岭上多白云', 'pic' => 'book.jpg',],
                         ['name' => '山青', 'show'=>true,'short_name' => '人', 'css' => '2', 'type' => 'article', 'level' => 3, 'order' => 2, 'url' => '/green', 'ctitle'=>'山青 &nbsp;|&nbsp; 真城','title'=>'山青 &nbsp;|&nbsp; 真城', 'desc' => '青泉到海流不息', 'pic' => 'qing.jpg'],
-                        ['name' => '山意', 'show'=>true,'short_name' => '意', 'css' => '3', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/spirit',  'ctitle'=>'山意 &nbsp;|&nbsp; 真城','title'=>'山意 &nbsp;|&nbsp; 真城', 'desc' => '峰回山意旷', 'pic' => 'aboutme.jpg'],
+                        ['name' => '山意', 'show'=>true,'short_name' => '意', 'css' => '3', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/spirit',  'ctitle'=>'山意 &nbsp;|&nbsp; 真城','title'=>'山意 &nbsp;|&nbsp; 真城', 'desc' => '峰回山意深', 'pic' => 'aboutme.jpg'],
 //                        ['name' => '海贝', 'show'=>true,'short_name' => '海', 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/shells', 'ctitle'=>'海贝 &nbsp;|&nbsp; 真城','title'=>'海贝 &nbsp;|&nbsp; 真城', 'desc' => '明月共潮生', 'pic' => 'seashell.jpg'],
                     ]],
                     ['name' => '人山', 'show'=>true,'short_name' => null, 'css' => null, 'type' => 'box', 'level' => 2, 'order' => 2, 'url' => '/human', 'ctitle'=>'','title'=>'人山 &nbsp;|&nbsp; 真城', 'desc' => '人如山立', 'pic' => '', '_children' => [

@@ -282,6 +282,8 @@ var zc = {
                     ele: $("#LMap"),
                     plotsIDs: opts.itemIDs,
                     plots: plots,
+                    mode:'all',
+                    direction :'ltr',
                     config: {
                         plotSize: 15,
                     },// plotColor:'#8800CC'},
@@ -296,11 +298,18 @@ var zc = {
                 }
             );
 
-            //sideLeft=true;
-            if (typeof(sideLeft) !== "undefined" && sideLeft) {
+            // I think safari 10 should works fine with afffix because:
+            // https://github.com/twbs/bootstrap/issues/16814 and
+            // https://en.wikipedia.org/wiki/Safari_version_history#Safari_10
+            if (navigator.userAgent.indexOf('Safari') != -1
+                && navigator.userAgent.indexOf('Chrome') == -1
+                && navigator.userAgent.indexOf('Android') == -1
+                && /Version\/(\d+)\./.exec(navigator.userAgent)[1] < 10
+            ) {
                 var cc = $('#column-box').children();
                 cc.first().removeClass('col-sm-push-7')
                 cc.last().removeClass('col-sm-pull-5')
+                console & console.warn('col classes changed for old Safari browsers.')
             }
             else {
                 // 实现靠右，用动态的 margin-left，而非浮动、绝对定位，是因为 affix
