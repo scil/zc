@@ -46,8 +46,6 @@ quote
   margin-top: -5px;
 }
 .QL-read-more{
-  bottom: 7px;
-  right: 10px;
   padding: 2px 12px 3px 20px;
   opacity: 0.8;
   background-color: #efefef;
@@ -56,5 +54,18 @@ quote
     content: 'read more ...';
   }
  }
+.QL-item-info-box{
+    font-size: 12px;
+    margin-top: 14px;
+  .QL-read-more+&{
+    margin-top: 10px;
 
+  }
+}
 
+.QL-item-info{
+  color: #aaa;
+  &:hover{
+    color: #555;
+  }
+}

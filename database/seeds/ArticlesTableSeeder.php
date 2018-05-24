@@ -36,7 +36,9 @@ class ArticlesTableSeeder extends Seeder
             [
 //                'id' => $article_ids['Zi'],
                 'slug' => 'Zi-ZhongYun',
-                'articleable_id' => $column_id, 'title' => '最值得珍惜的是独立人格',
+                'articleable_id' => $column_id,
+                'title' => '最珍惜独立人格',
+                'sub_title' => '一位 80 岁学者的升华人生',
                 'desc' => '少年时，她徜徉于文学和音乐，无心于世事；80 岁时，恬淡优雅的她常常感时忧世，「欲罢不能」。曾经，她天真愚善、「坦白一切」；后来，「能瞒就瞒」。走过上世纪阵阵风雨的资中筠，最珍惜的，是独立之人格。',
                 'intro' => '少年时，她徜徉于文学和音乐，无心于世事；80 岁时，恬淡优雅的她常常感时忧世，「欲罢不能」。曾经，她天真愚善、「坦白一切」；后来，「能瞒就瞒」。走过上世纪阵阵风雨的资中筠，最珍惜的，是独立之人格。',
                 'author' => '萧辉',
@@ -162,7 +164,9 @@ class ArticlesTableSeeder extends Seeder
             [
 //                'id' => $article_ids['Thomas_More'],
                 'slug' => 'Thomas-More',
-                'articleable_id' => $column_id, 'title' => '与信念同行 —— 小记《乌托邦》作者莫尔',
+                'articleable_id' => $column_id,
+                'title' => '与信念同行',
+                'sub_title' => '小记《乌托邦》作者莫尔',
                 'desc' => '莫尔（More）和王阳明是同代人，小六岁，在英格兰为官，专业、正直，被称为「穷人的庇护者」；他也是信仰虔诚，身居高位，一如既往磨炼精神，鞭笞苦修；和王阳明的心学不同，他面向现实，渴望改革，虽然在历史转折的节点上，人们会认为他是守旧的顽固派。',
                 'intro' => '莫尔（More）和王阳明是同代人，小六岁，在英格兰为官，专业、正直，被称为「穷人的庇护者」；他也是信仰虔诚，身居高位，一如既往磨炼精神，鞭笞苦修；和王阳明的心学不同，他面向现实，渴望改革，虽然在历史转折的节点上，人们会认为他是守旧的顽固派。',
                 'author' => 'scil',
@@ -239,7 +243,9 @@ class ArticlesTableSeeder extends Seeder
             [
 //                'id' => $article_ids['Huang_Yu'],
                 'slug' => 'Huang-Yu-goodbye',
-                'articleable_id' => $column_id, 'title' => '送别黄渝',
+                'articleable_id' => $column_id,
+                'title' => '送别黄渝',
+                'sub_title' => '他一定还在天囶研究数学',
                 'desc' => '我问他的近况，他说还在业余从事数学研究。我当时很想帮他在我们公司找一份正式工作，他表示了一定的兴趣，但似乎还是放不下他的数学梦。那天晚上，我和黄渝握手告别，当时自然是做梦也想不到这就是永别。',
                 'intro' => '我问他的近况，他说还在业余从事数学研究。我当时很想帮他在我们公司找一份正式工作，就再次提到来<z-lang lang="en" title="亚特兰大"> Atlanta </z-lang>工作定居的可能性。他表示了一定的兴趣，但似乎还是放不下他的数学梦。那天晚上，我和黄渝握手告别，当时自然是做梦也想不到这就是永别。',
                 'author' => '李尚靖(中国科技大学数学系 81 级)',
@@ -321,8 +327,9 @@ class ArticlesTableSeeder extends Seeder
 
             [
 //                'id' => $article_ids['F'],
-                'slug' => 'Richard-Feynman-enjoy-physics-world',
-                'articleable_id' => $column_id, 'title' => '在彩虹中嬉戏的费曼',
+                'slug' => 'Richard-Feynman-1-enjoy-physics-world',
+                'articleable_id' => $column_id,
+                'title' => '在万物中游乐 在人群中嬉戏',
                 'desc' => '费曼趴在地上学猎狗，他是在干什么呢？在大自然和科学的世界中自由自在、乐此不疲。那么当现实袭来，当职位的压力走来，这个奔放的心灵，又会如何自处呢？',
                 'intro' => '费曼趴在地上学猎狗，他是在干什么呢？在大自然和科学的世界中自由自在、乐此不疲。那么当现实袭来，当职位的压力走来，这个奔放的心灵，又会如何自处呢？',
                 'author' => '费曼（Richard Feynman）',
@@ -342,10 +349,11 @@ class ArticlesTableSeeder extends Seeder
                 ],
                 '_brothers' => [
                     [
-                        'slug' => 'individualistic-Richard-Feynman',
-                        'articleable_id' => $column_id, 'title' => '个体主义的费曼、「虚荣」的费曼',
-                        'intro' => '「不负责任」是费曼的人生哲学，如果他活在我们身边，难免会和这些词汇挂钩：自私自利、不通人情、玩世不恭、老不正经。。。',
-                        'desc' => '「不负责任」是费曼的人生哲学，如果他活在我们身边，难免会和这些词汇挂钩：自私自利、不通人情、玩世不恭、老不正经。。。',
+                        'slug' => 'Richard-Feynman-2-individualistic',
+                        'articleable_id' => $column_id,
+                        'title' => '在万物中游乐 在人群中嬉戏 （二）',
+                        'intro' => '费曼是个体主义者（individualist），「不负责任」是他的人生哲学，恶作剧和虚荣是他在人群中的嬉戏。',
+                        'desc' => '费曼是个体主义者（individualist），「不负责任」是他的人生哲学，恶作剧和虚荣是他在人群中的嬉戏。',
                         'author' => 'scil',
                         'author_id' => 1,
                         'origin_date' => '2016/08/18',
@@ -403,7 +411,9 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
             [
 //                'id' => $article_ids['Liu_Zhenxi'],
                 'slug' => 'Liu-Zhenxi',
-                'articleable_id' => $column_id, 'title' => '「畸人」刘镇西',
+                'articleable_id' => $column_id,
+                'title' => '畸于人而侔于天',
+                'sub_title' => '「畸人」刘镇西',
                 'desc' => '他独自像明眼人一样横行于闹市通衢，而且总要高唱着自己所谱的歌曲，旁若无人地行走在他的江湖生涯中。',
                 'intro' => '他利器在手，口中念念有词曰——幸有嘉宾至，何妨破门入。手起刀落，门锁已被他砍成两截。就这样，我们在他不足十平米的暗室，杯茶订交，成了今生头颅相许的朋友。《庄子·内篇·大宗师》：「子贡曰：『敢问畸人？』曰：『畸人者，畸於人而侔於天。』」「畸于人而侔于天」，也就是说「畸人」在人世间孤独无匹，却与天道完美契合。',
                 'author' => '野夫',
@@ -443,17 +453,17 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                'id' => $article_ids['Urbani'],
                 'slug' => 'Carlo-Urbani-SARS',
                 'articleable_id' => $column_id,
-                'title' => '瘟疫袭来 他奔走呼吁 冲在前方',
-                'sub_title' => '记抵御 SARS 病毒的天主教医生 Urbani',
+                'title' => '他是利玛窦的教友和精神传人',
+                'sub_title' => '记抵御 SARS 病毒的医生 Urbani',
                 'desc' => 'Urbani 因为 SARS 而广为人知，是他的专业和尽心尽力遏制了病毒，而他的博爱胸怀，更让我们怀念。 ',
-                'intro' => '一场起于青萍之末的疫情，在“低调处理”中越变越大，染病的专业医生，携带着病毒，堂而皇之进入国际大都市，引爆了世界性传染。直到病毒闯入越南，是乌尔巴尼（Urbani），一名从意大利半岛来到印度支那的医生，向世界发出了警讯；人们风声鹤唳、四散奔逃，身在异乡的他，仍然坚守在那里，尽自己的最大努力，联系各方，建立起抵御病毒的防线。回顾他的半生，Urbani 好像同样来自意大利岛的天主教徒利玛窦，带着文明的火种，奔走在世界的洼地。',
+                'intro' => '一场起于青萍之末的疫情，在“低调处理”中越变越大，染病的专业医生，携带着病毒，堂而皇之进入国际大都市，引爆了世界性传染。病毒闯入越南，一名从意大利半岛来到印度支那的医生，向世界发出了警讯；周围人风声鹤唳、四散奔逃，身在异乡的他，仍然坚守在那里，尽自己的最大努力，联系各方，建立起抵御病毒的防线。回顾他的一生，Urbani 好像同样来自意大利岛的天主教徒利玛窦，带着火种，送往文明的洼地。',
                 'author' => 'scil（编）',
                 'author_id' => 1,
                 'origin' => '',
                 'origin_date' => '2017-12-05',
                 'created_at' => '2017-12-07',
                 'show_date' => false,
-                'origin_url' => 'http://www.eywedu.com/Bolanqunshu/blqs2003/blqs20030902.html',
+                'origin_url' => null,
                 'origin_tip' => null,
 
                 'editor_id' => 1, 'status' => 1, 'deep' => 'open',
@@ -527,104 +537,111 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                    ],
                 ],
             ],
-            [
-                'slug' => 'Lu-Zuofu-microbe',
-                'articleable_id' => $column_id, 'title' => '「微生物」之路：从文人到官员，从官员到商人',
-                'desc' => '如何发展中囶？卢作孚的探索之路。',
-                'intro' => '如何发展中囶？追述卢作孚的探索之路。',
-                'author' => 'scil（编）',
-                'author_id' => 1,
-                'origin' => '',
-                'origin_date' => '2017-12-05',
-                'created_at' => '2017-12-05',
-                'show_date' => false,
-                'origin_url' => 'http://www.eywedu.com/Bolanqunshu/blqs2003/blqs20030902.html',
-                'origin_tip' => null,
 
-                'editor_id' => 1, 'status' => 1, 'deep' => 'open',
-                'comment' => null,
-                '_vol' => [
-                    'title' => '卢作孚',
-                    'column_id' => $qing_id,
-                    'no' => ++$qing_vol_no,
-                    'person_id' => $person_ids['Lu_Zuofu'],
-                ],
-                '_quotes' => [
 
-                    [
-                        '_slug' => 'Huang_Yu_self',
-                        'type' => 'top',
-                        'order' => 1,
+        ];
 
-                        'body' => '最好的报酬是求仁得仁——建筑一个美好的公园，便报酬你一个美好的公园；建设一个完整的囶家，便报酬你一个完整的囶家。',
-                        'author' => '卢作孚《工作的报酬》',
-                        'origin' => null,
-                        'origin_date' => null,
-                        'show_date' => false,
-                        'origin_url' => '',
-                        'origin_tip' => null,
-                        'editor_id' => 1, 'status' => 1, 'deep' => 'open',
-                        'comment' => '',
+//        $articles =
+            array_merge($articles,[
+
+                [
+                    'slug' => 'Lu-Zuofu-microbe',
+                    'articleable_id' => $column_id, 'title' => '「微生物」之路：文人，官员，商人',
+                    'desc' => '如何发展中囶？卢作孚的探索之路。',
+                    'intro' => '如何发展中囶？追述卢作孚的探索之路。',
+                    'author' => 'scil（编）',
+                    'author_id' => 1,
+                    'origin' => '',
+                    'origin_date' => '2017-12-05',
+                    'created_at' => '2017-12-05',
+                    'show_date' => false,
+                    'origin_url' => 'http://www.eywedu.com/Bolanqunshu/blqs2003/blqs20030902.html',
+                    'origin_tip' => null,
+
+                    'editor_id' => 1, 'status' => 1, 'deep' => 'open',
+                    'comment' => null,
+                    '_vol' => [
+                        'title' => '卢作孚',
+                        'column_id' => $qing_id,
+                        'no' => ++$qing_vol_no,
+                        'person_id' => $person_ids['Lu_Zuofu'],
                     ],
-                ],
-                '_place' => [
-                    'name' => '北碚卢作孚纪念馆',
-                    'name_en' => '',
-                    'addr' => '重庆市北碚区',
-                    'lat' => 29.8332376,
-                    'lng' => 106.4371439,
-                    'oldOrPoint' => [
-                        'type' => 'old',
-                        'name' => '江巴璧合特组峡防局',
-                    ],
-                    'info' => [
-                        'intro' => '1927 年，作孚任峡防局局长，他在剿匪同时，进行乡村建设实验，成就斐然。当时“峡防局”一直是北碚行政中心，卢作孚、卢子英兄弟有关乡村建设的大部分决策都在此制定实施。',
-                    ],
-                ],
-                '_brothers' => [
-                    [
-                        'slug' => 'miss-Lu-Zuofu',
-                        'articleable_id' => $column_id, 'title' => '石壁上，凿刻着「敬怀至友作孚兄」',
-                        'desc' => '卢作孚一生走过许多地方，但他最爱此地。这是他的亲爱的北碚，花园一样的北碚，举世闻名的北碚。他开发建设了北碚，他生前却决不允许用他的名字命名这里的任何一座建筑任何一个地方',
-                        'intro' => '卢作孚一生走过许多地方，但他最爱此地。这是他的亲爱的北碚[bèi]，花园一样的北碚，举世闻名的北碚。他开发建设了北碚，他生前却决不允许用他的名字命名这里的任何一座建筑任何一个地方',
-                        'author' => '赵晓铃',
-                        'origin' => '《卢作孚的选择》',
-                        'origin_date' => '2008/07/01',
-                        'show_date' => false,
-                        'origin_url' => '',
-                        'copyright' => '',
-                        'editor_id' => 1, 'status' => 1, 'deep' => 'open',
-                        'comment' => '',
-                        '_place' => [
-                            'name' => '国际乡村改造学院',
-                            'name_en' => 'International Institute of Rural Reconstruction',
-                            'addr' => 'Philippines',
-                            'lat' => 14.2615652,
-                            'lng' => 120.9674159,
-                            'info' => [
-                                'intro' => '1982 年，89 岁高龄的晏阳初撰文怀念阔别半生的至友卢作孚，30 多年前，他劝卢乘桴浮于海，但卢听信了他人，从此天人永隔。',
-                            ],
+                    '_quotes' => [
+
+                        [
+                            '_slug' => 'Huang_Yu_self',
+                            'type' => 'top',
+                            'order' => 1,
+
+                            'body' => '最好的报酬是求仁得仁——建筑一个美好的公园，便报酬你一个美好的公园；建设一个完整的囶家，便报酬你一个完整的囶家。',
+                            'author' => '卢作孚《工作的报酬》',
+                            'origin' => null,
+                            'origin_date' => null,
+                            'show_date' => false,
+                            'origin_url' => '',
+                            'origin_tip' => null,
+                            'editor_id' => 1, 'status' => 1, 'deep' => 'open',
+                            'comment' => '',
                         ],
-                        '_quotes' => [
-
-                            [
-                                '_slug' => 'Huang_Yu_ta',
-                                'type' => 'top',
-                                'order' => 2,
-
-                                'body' => '一个没有受过学校教育的学者，一个没有现代个人享受要求的现代企业家，一个没有钱的大亨。',
-                                'author' => '',
-                                'origin' => '《卢作孚与他的长江船队》（美《亚洲与美洲》杂志）',
-                                'origin_date' => '2005/01/07',
-                                'show_date' => false,
-                                'origin_url' => '',
-                                'origin_tip' => null,
-                                'editor_id' => 1, 'status' => 1, 'deep' => 'open',
-                                'comment' => '',
-                            ],
-                        ],
-
                     ],
+                    '_place' => [
+                        'name' => '北碚卢作孚纪念馆',
+                        'name_en' => '',
+                        'addr' => '重庆市北碚区',
+                        'lat' => 29.8332376,
+                        'lng' => 106.4371439,
+                        'oldOrPoint' => [
+                            'type' => 'old',
+                            'name' => '江巴璧合特组峡防局',
+                        ],
+                        'info' => [
+                            'intro' => '1927 年，作孚任峡防局局长，他在剿匪同时，进行乡村建设实验，成就斐然。当时“峡防局”一直是北碚行政中心，卢作孚、卢子英兄弟有关乡村建设的大部分决策都在此制定实施。',
+                        ],
+                    ],
+                    '_brothers' => [
+                        [
+                            'slug' => 'miss-Lu-Zuofu',
+                            'articleable_id' => $column_id, 'title' => '石壁上，凿刻着「敬怀至友作孚兄」',
+                            'desc' => '卢作孚一生走过许多地方，但他最爱此地。这是他的亲爱的北碚，花园一样的北碚，举世闻名的北碚。他开发建设了北碚，他生前却决不允许用他的名字命名这里的任何一座建筑任何一个地方',
+                            'intro' => '卢作孚一生走过许多地方，但他最爱此地。这是他的亲爱的北碚[bèi]，花园一样的北碚，举世闻名的北碚。他开发建设了北碚，他生前却决不允许用他的名字命名这里的任何一座建筑任何一个地方',
+                            'author' => '赵晓铃',
+                            'origin' => '《卢作孚的选择》',
+                            'origin_date' => '2008/07/01',
+                            'show_date' => false,
+                            'origin_url' => '',
+                            'copyright' => '',
+                            'editor_id' => 1, 'status' => 1, 'deep' => 'open',
+                            'comment' => '',
+                            '_place' => [
+                                'name' => '国际乡村改造学院',
+                                'name_en' => 'International Institute of Rural Reconstruction',
+                                'addr' => 'Philippines',
+                                'lat' => 14.2615652,
+                                'lng' => 120.9674159,
+                                'info' => [
+                                    'intro' => '1982 年，89 岁高龄的晏阳初撰文怀念阔别半生的至友卢作孚，30 多年前，他劝卢乘桴浮于海，但卢听信了他人，从此天人永隔。',
+                                ],
+                            ],
+                            '_quotes' => [
+
+                                [
+                                    '_slug' => 'Huang_Yu_ta',
+                                    'type' => 'top',
+                                    'order' => 2,
+
+                                    'body' => '一个没有受过学校教育的学者，一个没有现代个人享受要求的现代企业家，一个没有钱的大亨。',
+                                    'author' => '',
+                                    'origin' => '《卢作孚与他的长江船队》（美《亚洲与美洲》杂志）',
+                                    'origin_date' => '2005/01/07',
+                                    'show_date' => false,
+                                    'origin_url' => '',
+                                    'origin_tip' => null,
+                                    'editor_id' => 1, 'status' => 1, 'deep' => 'open',
+                                    'comment' => '',
+                                ],
+                            ],
+
+                        ],
 //                    [
 //                        'slug' => '',
 //                        'articleable_id'=>$column_id,'title' => '孩子没有责任感，只会打游戏怎么办？
@@ -656,11 +673,9 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 ////                    'comment'=>'',
 ////                ],
 //                    ],
+                    ],
                 ],
-            ],
-
-
-        ];
+            ]);
 
 
         $create_time = time() - 100000;
@@ -670,7 +685,9 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
         $articles = array_merge($articles, [
             [
                 'slug' => 'Self-Actualization',
-                'articleable_id' => $column_id, 'title' => '一个作曲家必须作曲——自我实现与心理健康',
+                'articleable_id' => $column_id,
+                'title' => '一个作曲家必须作曲',
+                'sub_title' => '自我实现与心理健康',
                 'desc' => '自我实现者通常有一些人生的使命，一些有待完成的任务，一些他们自身以外、召集他们大部分精力的问题。',
                 'intro' => 'Maslow 有两位非常崇敬的老师，人类学家 Ruth Benedict 和心理学家韦特海默，两人的思想和品格对 Maslow 产生了深刻影响。Maslow 渴望了解是什么使两位学者如此卓尔不群，展开了对人类优秀人物的研究。马斯洛把这个研究称为「关于心理健康的研究」，在思考和论述中，他都把自我实现与心理健康高度绑定在了一起，甚至是把两者视为一个概念。',
                 'author' => '马斯洛( Abraham Maslow )',
@@ -703,18 +720,19 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
                 '_brothers' => [
                     [
-                    'slug' => 'Self-Actualization-is-a-continual-process',
-                    'articleable_id' => $column_id,
-                    'title' => '在我们的身上存在着一种内在的精神生命 ——  有关「自我实现」概念的笔记',
-                    'intro' => '有些人会为高阶需求牺牲更多的东西，愿意忍受低级满足的匮乏，「山东辱母案」在网络上的义愤发酵，就体现了人在低阶的安全面临威胁时，仍然努力追求和捍卫高阶价值。',
-                    'desc' => '自我实现不是终点，。',
-                    'author' => 'scil',
-                    'author_id' => 1,
-                    'created_at' => '2016/09/03',
+                        'slug' => 'Self-Actualization-is-a-continual-process',
+                        'articleable_id' => $column_id,
+                        'title' => '在我们的身上存在着一种内在的精神生命',
+                        'sub_title' => '有关「自我实现」概念的笔记',
+                        'intro' => '有些人会为高阶需求牺牲更多的东西，愿意忍受低级满足的匮乏，「山东辱母案」在网络上的义愤发酵，就体现了人在低阶的安全面临威胁时，仍然努力追求和捍卫高阶价值。',
+                        'desc' => '自我实现不是终点，。',
+                        'author' => 'scil',
+                        'author_id' => 1,
+                        'created_at' => '2016/09/03',
 
-                    'status' => 1, 'deep' => 'open',
-                    'comment' => '',
-                ]
+                        'status' => 1, 'deep' => 'open',
+                        'comment' => '',
+                    ]
                 ],
 //                '_quotes' => [
 //                    [
@@ -737,7 +755,9 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 
             [
                 'slug' => 'idealistic-lifestyle-friends-love-teaching',
-                'articleable_id' => $column_id, 'title' => '一种接近理想主义的活法 —— 我那些热爱教书的朋友们',
+                'articleable_id' => $column_id,
+                'title' => '一种接近理想主义的活法',
+                'sub_title' => '我那些热爱教书的朋友们',
                 'desc' => '他完全可以留在广州，但他对“分配”没做什么努力，说，在哪里都是教书。他特别热爱教书，动辄声称要在这里「从教而终」。刚开始我觉得他被洗脑了，对教师一职怀有浪漫想象。',
                 'intro' => '他完全可以留在广州，但他对“分配”没做什么努力，说，在哪里都是教书。他特别热爱教书，动辄声称要在这里「从教而终」。刚开始我觉得他被洗脑了，对教师一职怀有浪漫想象。',
                 'author' => '陈思呈',
@@ -1904,6 +1924,24 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                            ]
 //                        ],
                         '_quotes' => [
+                            [
+                                '_slug' => 'blood_self',
+                                'quoteable_type' => 'Article',
+                                'type' => 'tail',
+                                'order' => 1,
+
+                                'body' => '俄使馆在评论中与网友的互动  
+网友：「按照《中俄北京条约》规定，应该在图们江入海口左岸设置乌字界碑。俄罗斯应该归还中国图们江入海口的土地。」   
+俄罗斯驻华大使馆：「想得美呀你」',
+                                'author' => '美利坚07',
+                                'origin' => '俄罗斯驻华大使馆微博',
+                                'origin_date' => '2018-5-18',
+                                'show_date' => true,
+                                'origin_url' => 'https://weibo.com/2503806417/GhbdWp8GF',
+                                'origin_tip' => null,
+                                'editor_id' => 1, 'status' => 1, 'deep' => 'open',
+                                'comment' => '',
+                            ],
 
                         ],
 //                '_tags'=>['孝'],
@@ -2145,7 +2183,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'lng' => 10.4099575,
                     'comment' => '',
                     'info' => [
-                        'intro'=>'前 450 年，在平民压力下形成的《十二表法》经会议批准后，公布于罗马广场，是现今成文法的始祖。',
+                        'intro' => '前 450 年，在平民压力下形成的《十二表法》经会议批准后，公布于罗马广场，是现今成文法的始祖。',
                         'relation' => false,
                     ]
                 ],
@@ -2174,8 +2212,8 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'name' => '巴塞尔',
                     'name_en' => 'Basel',
                     'addr' => '',
-                    'lat' => 32.0612026,
-                    'lng' => 45.2098982,
+                    'lat' =>47.5546492,
+                    'lng' =>7.5594405,
                     'info' => [
                         'title' => '1527 年，Paracelsus 在巴塞尔做医师和大学老师',
                         'intro' => '他把祖宗的医书扔到圣约翰节上的篝火里，以显示对传统医学的蔑视。这些著作之于西医，相当于《黄帝内经》《伤寒杂病论》《神农本草经》之于中医。',
@@ -2256,7 +2294,9 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //            ],
             [
                 'slug' => 'xiaoshun-westerner',
-                'articleable_id' => $column_id, 'title' => '不讲孝顺的西方人 —— 与三个洋人的舌战',
+                'articleable_id' => $column_id,
+                'title' => '不讲孝顺的西方人',
+                'sub_title' => '与三个洋人的舌战',
                 'intro' => '他们常常拿中囶人取乐。我常常通宵做功课，就为了第 2 天去和这些洋人打嘴仗。有一天我兴奋地想到“孝”，这帮忘恩负义，浑身毛还没有煺干净的洋猴子，根本就没有任何孝的概念。',
                 'desc' => '在西方人看来，我们博大精深的孝文化居然完全没有逻辑，也缺乏道德。',
                 'author' => '翁维民',

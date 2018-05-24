@@ -1,4 +1,4 @@
-@extends('layouts.columns._'.$column_id,['title'=> $title ,'desc'=>$article->desc])
+@extends('layouts.base',['desc'=>$article->desc])
 
 @section('content_top')
     @if($article_type=='book'||$article_type=='video')
@@ -92,6 +92,7 @@
                                 margin: 60px 0 0 10px;
 
                             }
+
                             .top-quote {
                                 border-left-width: 0px;
                                 font-size: 15px;
@@ -101,11 +102,11 @@
 
                         </style>
                         <section id="top-quote-box">
-                                    <blockquote class="top-quote">
-                                        {!! $article->topQuote->body !!}
-                                        <cite class="cite-tail-right"><a
-                                                    href="{!! $article->topQuote->origin_url !!}">{!! $article->topQuote->author !!}</a></cite>
-                                    </blockquote>
+                            <blockquote class="top-quote">
+                                {!! $article->topQuote->body !!}
+                                <cite class="cite-tail-right"><a
+                                            href="{!! $article->topQuote->origin_url !!}">{!! $article->topQuote->author !!}</a></cite>
+                            </blockquote>
                         </section>
                     @endif
                 </div>
@@ -119,27 +120,33 @@
                     <header>
                         @if($article_type=='vol')
 
-                            <h1 id="item-title">{!!  $article->title !!}</h1>
+                            @if($article->sub_title)
+                                <h1 id="item-title">{!!  $article->title !!}
+                                    <small> —— {!! $article->sub_title !!}</small>
+                                </h1>
+                            @else
+                                <h1 id="item-title">{!!  $article->title !!}</h1>
+                            @endif
 
-                            <div class="item-info" {!! $article->origin_url?'data-url="'.$article->origin_url.'"':'' !!} >
-                                <span>文：{!! $article->author?:$article->origin !!}</span>
-                                @if($article->show_date)
-                                    <time pubdate
-                                          datetime="{!! $article->origin_date !!}">{!! $article->origin_date !!}</time>
-                                @endif
-                            </div>
                         @else
                             <h1 id="note-item-title"><span id="item-title-prefix">{!! ['review'=>'评论','select'=>'评集',][$article->type] !!}
                                     ：</span>{!!  $article->title !!}</h1>
 
-                            <div class="item-info right" {!! $article->origin_url?'data-url="'.$article->origin_url.'"':'' !!} >
-                                <span>文：{!! $article->author !!}</span>
-                                @if($article->show_date)
-                                    <time pubdate
-                                          datetime="{!! $article->origin_date !!}">{!! $article->origin_date !!}</time>
-                                @endif
-                            </div>
                         @endif
+
+                        <div class="item-info truncate">
+                            @if($article->origin_url)
+                                <span>文：<a href="{!! $article->origin_url !!}" target="_blank">
+                                            {!! ($article->author?$article->author .' . ':''). $article->origin !!}</a>
+                                    </span>
+                            @else
+                                <span>文：{!! ($article->author?$article->author .' . ':''). $article->origin !!}</span>
+                            @endif
+                            @if($article->show_date)
+                                <time pubdate
+                                      datetime="{!! $article->origin_date !!}">{!! $article->origin_date !!}</time>
+                            @endif
+                        </div>
                     </header>
 
 
@@ -160,7 +167,8 @@
                                 <article>
                                     <header>
                                         <h1 class="V-item-title">
-                                            <a disabled href="{!! $a_article->slug !!}">{!! $a_article->title !!}</a>
+                                            <a disabled href="{!! $a_article->slug !!}">
+                                                {!! $a_article->title !!}{!! $a_article->sub_title?' —— '. $a_article->sub_title :'' !!}</a>
                                         </h1>
                                     </header>
                                     <p class="V-item-body">{!! $a_article->intro !!}</p>
@@ -172,7 +180,8 @@
                                 <article class="Big-Href">
                                     <header>
                                         <h1 class="V-item-title">
-                                            <a href="{!! $a_article->slug !!}">{!! $a_article->title !!}</a>
+                                            <a href="{!! $a_article->slug !!}">
+                                                {!! $a_article->title !!}{!! $a_article->sub_title?' —— '. $a_article->sub_title :'' !!}</a>
                                         </h1>
                                     </header>
                                     <p class="V-item-body">{!! $a_article->intro !!}</p>

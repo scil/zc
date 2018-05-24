@@ -32,23 +32,10 @@ function ZCMap(map, info) {
     /** @deprecated */
     me.addrEle = null;
 
-    /** @type {number[]} */
-    me.all_plots_ids = map.plotsIDs;
-    me.plots = map.plots;
-    /** @type {number} */
-    me.lastActivePlotID = null; // 不可设置为-1,-2之类，因为这些数会用来代表slides前面的quote
 
     me.mode = map.mode || 'all'; // 'single' 'cumulative', or 'all_not_inited' (初次进入all，需要先进入all_not_inited，确保所有plots显示到地图上)
     me._direction = map.direction || 'ltr'; // 'ltr', 'rtl'
-
-    if (me.mode === 'all') {
-        /** @type {number[]} */
-        me.plot_ids_on_map = map.plotsIDs;
-        var plotsFirstShow = me.plots;
-    } else {
-        me.plot_ids_on_map = me._direction === 'ltr' ? map.plotsIDs[0] : map.plotsIDs[-1];
-        me.plotsFirstShow = me._direction === 'ltr' ? map.plots[0] : map.plots[-1];
-    }
+    const plotsFirstShow = me._resetData(map);
 
     // todo 切换时的显示模式 目前只支持高亮一个plot而其它不显示
     me.updateTimer = null;
@@ -59,7 +46,7 @@ function ZCMap(map, info) {
             fill: map.config.plotColor || "#004a9b",
         },
     };
-    me.mapNmae = map.config.mapName;
+    me.mapName = map.config.mapName;
 
 
     /** @type {string} */
@@ -100,6 +87,7 @@ function ZCMap(map, info) {
                 // Set default plots and areas style
                 defaultPlot: {
                     size: me.config.plotSize,
+                    target: '_blank',
                     eventHandlers: {
                         mouseover: map.mouseoverCallback
                     },
@@ -135,8 +123,45 @@ function ZCMap(map, info) {
 
 }
 
+ZCMap.prototype.resetDataAndShow = function (mapData) {
+    const to_del_ids = this.plot_ids_on_map;
+    const newPlots = this._resetData(mapData);
+    this._ActiveOrChangePlot({
+            active: null,
+            change: {
+                toShowIDs: this.plot_ids_on_map,
+                newPlots: newPlots,
+                deletePlotIDs: to_del_ids
+            }
+        }
+    )
+}
+ZCMap.prototype._resetData = function (mapData) {
+    /** @type {number[]} */
+    this.all_plots_ids = mapData.plotsIDs;
+    this.plots = mapData.plots;
+    /** @type {number} */
+    this.lastActivePlotID = null;
+
+    let plotsFirstShow;
+
+    if (this.mode === 'all') {
+        /** @type {number[]} */
+        this.plot_ids_on_map = mapData.plotsIDs;
+        plotsFirstShow = this.plots;
+    } else {
+        this.plot_ids_on_map = [
+            this._direction === 'ltr' ? mapData.plotsIDs[0] : mapData.plotsIDs[-1]
+        ];
+        plotsFirstShow = mapData.plots[this.plot_ids_on_map[0]];
+    }
+
+    return plotsFirstShow;
+
+}
+
 ZCMap.prototype._initInfo = function (info) {
-    var me=this;
+    var me = this;
 
     me.infoEle = info.ele;
 

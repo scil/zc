@@ -27,12 +27,12 @@
 
                                                         
                                             <li class="dropdown-submenu">
-                            <a href="/sailing" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            <a href="/sail" class="dropdown-toggle" data-toggle="dropdown" role="button"
                aria-expanded="false">越海</a>
                             <ul class="dropdown-menu" role="menu">
-                                                                                                        <li><a href="/sailing/walkers">行者</a></li>
-                                                                                                        <li><a href="/sailing/assets">财艺</a></li>
-                                                                                                        <li><a href="/sailing/dao">知道</a></li>
+                                                                                                        <li><a href="/sail/walkers">行者</a></li>
+                                                                                                        <li><a href="/sail/assets">财艺</a></li>
+                                                                                                        <li><a href="/sail/dao">知道</a></li>
                                                             </ul>
                         </li>
 

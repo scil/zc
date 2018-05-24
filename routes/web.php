@@ -13,10 +13,10 @@ Route::get('/', 'CmsController@home');
 //quote 必须在 article 前面，否则 human/raindrops 不正常
 // column
 Route::get('/{qlist_url}', 'CmsController@viewQuoteColumn')
-    ->where('qlist_url', 'spirit|human/raindrops|sailing|sailing/(walkers|assets|dao)');
+    ->where('qlist_url', 'spirit|human/raindrops|sail|sail/(walkers|assets|dao)');
 //item
 Route::get('/{qprefix_url}/{slug}', 'CmsController@viewShanShuiQuote')
-    ->where('qprefix_url', 'spirit|human/raindrops|sailing');
+    ->where('qprefix_url', 'spirit|human/raindrops|sail');
 
 //article
 // column

@@ -1,6 +1,4 @@
-@extends('layouts.columns._'.$columnInfo['id'])
-
-
+@extends('layouts.base')
 
 @section('content')
     <div class="container">
@@ -55,7 +53,8 @@
                                         <header class="L-item-header clearfix">
                                             <span class="prefix-col-name prefix-col-name-{!! $vol->column->css !!}">{!! $vol->column->short_name !!}</span>
                                             <h1 class="L-item-title" id="{!! $article->id !!}">
-                                                <a href="{!! $vol->column->url !!}/{!!  $article->slug !!}">{!! $article->title !!}</a>
+                                                <a href="{!! $vol->column->url !!}/{!!  $article->slug !!}">
+                                                    {!! $article->title !!}{!! $article->sub_title?' —— '. $article->sub_title :'' !!}</a>
                                             </h1>
                                         </header>
                                         <p>{!! $article->intro !!}</p>
@@ -76,7 +75,8 @@
                                                 <span class="no-in-vol">{!! $loop->index + 1 !!}</span>
                                             @endif
                                             <h1 class="L-item-title" id="{!! $article->id !!}"><a
-                                                        href="{!! $vol->column->url !!}/{!!  $article->slug !!}">{!! $article->title !!}</a>
+                                                        href="{!! $vol->column->url !!}/{!!  $article->slug !!}">
+                                                    {!! $article->title !!}{!! $article->sub_title?' —— '. $article->sub_title :'' !!}</a>
                                             </h1>
                                         </header>
                                         <p>{!! $article->intro !!}</p>

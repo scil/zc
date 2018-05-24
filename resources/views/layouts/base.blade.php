@@ -8,10 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    @section('title')
-    @show
-    @section('desc')
-    @show
+    <title>{!! $title !!}</title>
+    <meta name="description" content="{!! $desc !!}" />
 
 <!-- Bootstrap -->
     <link href="/css/app.css" rel="stylesheet">
@@ -43,17 +41,6 @@
 
     <link rel="apple-touch-icon" href="/apple-icon.png">
     <link rel="shortcut icon" href="/favicon.ico">
-    <script>
-        // I think safari 10 should works fine with afffix because:
-        // https://github.com/twbs/bootstrap/issues/16814 and
-        // https://en.wikipedia.org/wiki/Safari_version_history#Safari_10
-        sideLeft =
-            navigator.userAgent.indexOf('Safari') != -1
-            && navigator.userAgent.indexOf('Chrome') == -1
-            && navigator.userAgent.indexOf('Android') == -1
-            && /Version\/(\d+)\./.exec(navigator.userAgent)[1] < 10 ?
-                true : false;
-    </script>
 </head>
 <body>
 
@@ -120,7 +107,7 @@ M;
 
 <header>
     <div id="header" class="container">
-        @yield('header')
+        {!! ZC_HEADERS[$columnID] !!}
         <hr/>
     </div>
 </header>
@@ -197,6 +184,10 @@ M;
     }
 
     document.getElementById('pass-li').href = '/' + (open_gate() ? 'pass' : 'ferry');
+
+    if(location.pathname.substr(1,4)==='sail' || location.host.substr(0,4)==='sail'){
+        document.getElementById('me').innerHTML='真城 · 越海';
+    }
     //# sourceURL=zc_gate
 </script>
 </body>

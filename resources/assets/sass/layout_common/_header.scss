@@ -17,10 +17,19 @@
     padding: 10px 15px;
     font-size: 24px;
     color: #222;
-    display: block;
+    display: inline-block;
     &:hover, &:active {
       text-decoration: none;
     }
+  }
+}
+
+#header-intro {
+  font-size: 45%;
+  display: inline-block;
+  margin-left: -5px;
+  @media (max-width: $screen-sm-min) {
+    margin-left: 15px;
   }
 }
 
@@ -34,8 +43,8 @@
         background-color: #fff;
       }
     }
-    &:last-child>a{
-      padding-right:0;
+    &:last-child > a {
+      padding-right: 0;
     }
   }
   > li.active > a {
@@ -43,6 +52,7 @@
     background-color: #fff;
   }
 }
+
 //
 //.nav-item-fan,.nav-item-fan2{
 //  padding: 10px 20px 5px !important;

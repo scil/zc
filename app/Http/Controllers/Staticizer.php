@@ -17,6 +17,51 @@ class Staticizer
     var $topItemId = [];
     var $columns;
 
+    function __construct()
+    {
+        foreach ($this->menuId as $name => $id) {
+            $this->topItemId[$name] = MenuItemHelper::getTopItemId($id);
+        }
+
+        $this->columns = view()->share('columns', MenuItemHelper::getAllItems());
+
+        view()->share('topId', $this->topItemId['main']);
+
+        if (isset($this->topItemId['game']))
+            view()->share('gameTopId', $this->topItemId['game']);
+
+    }
+
+    /**
+     *
+     * php artisan column:cache
+     * php artisan column:blade
+     *
+     * or
+     * open tinker and run:
+     * ( new \App\Http\Controllers\Staticizer)->useColumnsData();
+     */
+    function useColumnsData($method = null, ...$params)
+    {
+
+        if ($method) {
+            $this->$method(...$params);
+            return;
+        }
+
+        $this->_makeColumnsCache();
+
+        \File::deleteDirectory(base_path() . '/resources/views/partials/columns');
+        \File::deleteDirectory(base_path() . '/resources/views/layouts/columns');
+
+        $this->partial('columns.navbar-nav-left', [], 'columns._navbar-nav-left');
+        $this->partial('columns.map', [], 'columns._map');
+        $this->_columnsSelect(2); // 2 is the id of shanshui column
+        $this->_columnsHome();
+
+
+    }
+
     protected function viewFromTo($viewName, $data = array(), $newName = null, $echoBlade = false)
     {
         $oView = view('_s.' . $viewName, $data);
@@ -40,10 +85,34 @@ class Staticizer
         return $this->viewFromTo('partials.' . $viewName, $data, is_null($newName) ? null : 'partials.' . $newName, $echoBlade);
     }
 
-    protected function layout($viewName, $data = array(), $newName = null)
+    protected function header($data = array())
     {
-        return $this->viewFromTo('layouts.' . $viewName, $data, is_null($newName) ? null : 'layouts.' . $newName, true);
+        return $this->sanitize_output(
+            $this->viewFromTo('partials.columns.header', $data,null, true));
     }
+
+    function sanitize_output($buffer)
+    {
+
+        $search = array(
+            '/\>[^\S ]+/s',     // strip whitespaces after tags, except space
+            '/[^\S ]+\</s',     // strip whitespaces before tags, except space
+            '/(\s)+/s',         // shorten multiple whitespace sequences
+            '/<!--(.|\s)*?-->/' // Remove HTML comments
+        );
+
+        $replace = array(
+            '>',
+            '<',
+            '\\1',
+            ''
+        );
+
+        $buffer = preg_replace($search, $replace, $buffer);
+
+        return $buffer;
+    }
+
 
     /**
      * open tinker and run:
@@ -55,68 +124,34 @@ class Staticizer
         $this->partial('country.finance', $data, 'country._finance');
     }
 
-    /**
-     *
-     * php artisan column:cache
-     * php artisan column:blade
-     *
-     * or
-     * open tinker and run:
-     * ( new \App\Http\Controllers\Staticizer)->useColumnsData();
-     */
-    function useColumnsData($method = null, ...$params)
-    {
-        $this->_initColumnsData();
-
-        if ($method) {
-            $this->$method(...$params);
-            return;
-        }
-
-        $this->_makeColumnsCache();
-
-        \File::deleteDirectory(base_path() . '/resources/views/partials/columns');
-        \File::deleteDirectory(base_path() . '/resources/views/layouts/columns');
-
-        $this->partial('columns.navbar-nav-left', [], 'columns._navbar-nav-left');
-        $this->partial('columns.map', [], 'columns._map');
-        $this->_columnsSelect(2); // 2 is the id of shanshui column
-        $this->_columnsHome();
-        $this->_columnsLayouts($this->topItemId['main']);
-        $this->_columnsOne();
-//        $this->_columnsGame();
-
-    }
-
-    protected function _initColumnsData()
-    {
-        foreach ($this->menuId as $name => $id) {
-            $this->topItemId[$name] = MenuItemHelper::getTopItemId($id);
-        }
-
-        $this->columns = view()->share('columns', MenuItemHelper::getAllItems());
-
-        view()->share('topId', $this->topItemId['main']);
-
-        if (isset($this->topItemId['game']))
-            view()->share('gameTopId', $this->topItemId['game']);
-
-    }
 
     protected function _makeColumnsCache()
     {
-        $file = storage_path() . '/staticizer/columns.php';
+        $file = storage_path() . '/cache/columns.php';
         file_put_contents($file, '<?'
             . 'php const MENU_ITEMS = '
             . var_export(MenuItemHelper::getMenuItemsInfo(0), true)
             . '   ; ?>'
         );
+
+        $headers = $this->_columnsOthers('pass')
+            + $this->_columnsLayouts($this->topItemId['main'])//        + $this->_columnsOthers('game')
+        ;
+
+        $headers[0] = <<<HOMEPAGE
+<div class="row" id="header-row"><div class="col-xs-4"><h1 id="header-name"><a href="/">真城</a></h1></div>
+<div class="col-xs-8"><ul class="nav nav-pills pull-right" id="header-nav"><li role="presentation"><a href="/green">山青</a></li><li role="presentation"><a href="/human/road">人之路</a></li><li role="presentation"><a href="/sail">越海</a></li></ul></div></div>
+HOMEPAGE;
+
+
+        $file = storage_path() . '/cache/headers.php';
+        file_put_contents($file, '<?'
+            . 'php const ZC_HEADERS = '
+            . var_export($headers, true)
+            . '   ; ?>'
+        );
+
     }
-//                var_export([
-//                MenuItemHelper::getUrlIdMap(),
-//                MenuItemHelper::getMenuItemsInfo(0),
-////                MenuItemHelper::getParentChildren(0),
-//            ], true)
 
     // html select : <select></select>
     protected function _columnsSelect($level1id)
@@ -137,6 +172,8 @@ class Staticizer
     {
         echo "### start main menu header\n";
 
+        $header = [];
+
         $columns = $this->columns;
 
         foreach ($columns[$topId]->children as $level1id) {
@@ -146,21 +183,23 @@ class Staticizer
                 foreach ($level1->children as $level2id) {
                     $level2 = $columns[$level2id];
 
+                    $header_intro = $level2->name === '越海' ? '开拓人类之路' : null;
+
                     echo "    level-2 {$level2->name}  $level2id:\n";
-                    $this->layout('column', ['leftColumn' => $level2, 'title' => ($level2->name) . ' &nbsp;|&nbsp; 真城'], 'columns._' . $level2id);
+                    $header[$level2id] = $this->header(['leftColumn' => $level2, 'title' => ($level2->name) . ' &nbsp;|&nbsp; 真城', 'header_intro' => $header_intro]);
 
                     // a simple title for article
-                    if($level2->name=='书架'||$level2->name=='视窗'){
-                        $this->layout('column', ['leftColumn' => $level2, 'title' => '真城'.($level2->name)], 'columns.__' . $level2id);
-
+                    if ($level2->name == '书架' || $level2->name == '视窗') {
+                        $header[$level2id] = $this->header(['leftColumn' => $level2, 'title' => '真城' . ($level2->name)]);
                     }
+
 
                     if ($level2->children) {
                         foreach ($level2->children as $level3id) {
                             $level3 = $columns[$level3id];
                             echo "      level-3 {$level3->name } $level3id\n";
                             // title 显示$level2的名字
-                            $this->layout('column', ['leftColumn' => $level2, 'activeId' => $level3id, 'title' => ($level3->name) . ' &nbsp;|&nbsp; 真城'.$level2->name], 'columns._' . $level3id);
+                            $header[$level3id] = $this->header(['leftColumn' => $level2, 'activeId' => $level3id, 'title' => ($level3->name) . ' &nbsp;|&nbsp; 真城' . $level2->name, 'header_intro' => $header_intro]);
 
 
                         }
@@ -168,19 +207,11 @@ class Staticizer
                 }
             }
         }
+
+        return $header;
     }
 
-    protected function _columnsOne()
-    {
-        $this->__columnsOthers('pass');
-    }
-
-    protected function _columnsGame()
-    {
-        $this->__columnsOthers('game');
-    }
-
-    protected function __columnsOthers($menuUrlPrefix)
+    protected function _columnsOthers($menuUrlPrefix)
     {
         if (!isset($this->menuId[$menuUrlPrefix])) {
             echo 'wrong for  menu url-prefix : ', $menuUrlPrefix;
@@ -189,15 +220,19 @@ class Staticizer
 
         echo "### start $menuUrlPrefix header\n";
 
+        $header = [];
+
         $leftColumnId = $this->topItemId[$menuUrlPrefix];
         $leftColumn = $this->columns[$leftColumnId];
         $title = $leftColumn->name;
-        $this->layout('column', compact('leftColumn', 'title'), 'columns._' . $menuUrlPrefix);
+        $header[$leftColumnId] = $this->header(compact('leftColumn', 'title'));
         foreach ($leftColumn->children as $activeId) {
             $activeColumn = $this->columns[$activeId];
             $title = $activeColumn->name;
-            $this->layout('column', compact('leftColumn', 'activeId', 'title'), 'columns.' . str_replace('/', '_', $activeColumn->url));
+            $header[$activeId] = $this->header(compact('leftColumn', 'activeId', 'title'));
         }
+
+        return $header;
     }
 
 

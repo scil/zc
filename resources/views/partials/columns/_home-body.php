@@ -48,7 +48,7 @@
                         <h3 class="column-name"><a href="/spirit">山意</a></h3>
 
                         <p class="hover-show column-intro">
-                            峰回山意旷
+                            峰回山意深
                         </p>
                 </div>
                 </div>

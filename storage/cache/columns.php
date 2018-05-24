@@ -41,11 +41,11 @@
       0 => 10,
     ),
   ),
-  'sailing' => 
+  'sail' => 
   array (
     'id' => 11,
     'name' => '越海',
-    'desc' => '记录人类之路，记录人类之路的开路人、领路者',
+    'desc' => '人类之路，人类之路的开路人、领路者',
     'title' => '越海 &nbsp;|&nbsp; 真城',
     'ctitle' => '越海 &nbsp;|&nbsp; 真城',
     'a' => 
@@ -72,6 +72,7 @@
   array (
     'id' => 20,
     'name' => '山关',
+    'desc' => '真城山关',
     'title' => '真城山关',
   ),
   'writing' => 
@@ -100,7 +101,7 @@
     'name' => '山意',
     'short_name' => '意',
     'css' => '3',
-    'desc' => '峰回山意旷',
+    'desc' => '峰回山意深',
     'title' => '山意 &nbsp;|&nbsp; 真城',
     'ctitle' => '山意 &nbsp;|&nbsp; 真城',
   ),
@@ -134,7 +135,7 @@
     'title' => '雨滴 &nbsp;|&nbsp; 真城',
     'ctitle' => '天地 &nbsp;|&nbsp; 真城',
   ),
-  'sailing/walkers' => 
+  'sail/walkers' => 
   array (
     'id' => 12,
     'name' => '行者',
@@ -143,22 +144,22 @@
     'desc' => '从远方而来，向远方而去',
     'title' => '行者 &nbsp;|&nbsp; 越海',
   ),
-  'sailing/assets' => 
+  'sail/assets' => 
   array (
     'id' => 13,
     'name' => '财艺',
     'short_name' => '财',
     'css' => '2',
-    'desc' => '我们坐享着几千年的财富，后人坐享几万年的财富。',
+    'desc' => '我们坐享着几千年的财富。',
     'title' => '财艺 &nbsp;|&nbsp; 越海',
   ),
-  'sailing/dao' => 
+  'sail/dao' => 
   array (
     'id' => 14,
     'name' => '知道',
     'short_name' => '道',
     'css' => 'q',
-    'desc' => '人之知，行之道，其来有自。',
+    'desc' => '人之知，行之道。',
     'title' => '知道 &nbsp;|&nbsp; 越海',
   ),
   'book' => 
@@ -188,6 +189,7 @@
   array (
     'id' => 21,
     'name' => '渡口',
+    'desc' => '从这里，到真城',
     'title' => '真城渡口',
   ),
 )   ; ?>

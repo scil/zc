@@ -1,4 +1,3 @@
-
 // http://www.ruanyifeng.com/blog/2014/07/chinese_fonts.html
 .kaiti {
   font-family: Sylfaen, Arial, STKaiti, KaiTi, sans-serif !important;
@@ -12,8 +11,6 @@
 .heiti {
   font-family: Georgia, "Times New Roman", STXihei, "华文细黑", "Microsoft YaHei", "微软雅黑", serif !important;
 }
-
-
 
 .oneline-label {
   width: 100%;
@@ -30,7 +27,7 @@
   @extend .heiti;
 }
 
-.Big-Href{
+.Big-Href {
   cursor: pointer;
 }
 
@@ -41,12 +38,31 @@ cite {
 .cite-tail {
   display: block;
   text-align: right;
-    &:before {
-      content: "—— ";
-    }
+  &:before {
+    content: "—— ";
+  }
 }
+
 .cite-tail-right {
   letter-spacing: 2px;
   text-align: right;
   @extend .cite-tail;
+}
+
+#QItem, #body, .QL-item-body {
+  > p > a {
+    padding-bottom: 4px;
+    border-bottom: 1px solid chocolate;
+  }
+}
+
+.truncate {
+  display: inline-block;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &:hover{
+    width: auto;
+  }
 }

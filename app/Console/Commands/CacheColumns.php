@@ -18,7 +18,7 @@ class CacheColumns extends Command
      *
      * @var string
      */
-    protected $description = 'generate ./staticizer/columns.php';
+    protected $description = 'generate columns.php and headers.php located ./staticizer/';
 
     /**
      * Create a new command instance.

@@ -1,5 +1,5 @@
 {{--@ extends('layout._base')--}}
-@extends('layouts.columns._pass')
+@extends('layouts.base')
 
 @section('content')
     <div class="container make-footer-margin-top-smaller">

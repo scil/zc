@@ -11,6 +11,12 @@
   margin: 0;
   font-weight: bold;
   line-height:1.4;
+  >small{
+    display: block;
+    text-align: right;
+    margin-top: 0.7em;
+    font-size: 70%;
+  }
 }
 
 .item-info {

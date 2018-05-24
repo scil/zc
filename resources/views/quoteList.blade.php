@@ -1,4 +1,4 @@
-@extends('layouts.columns._'.$columnID)
+@extends('layouts.base')
 
 @section('content')
     <div class="container">
@@ -49,7 +49,8 @@
                                     <span class="prefix-col-name prefix-col-name-{!! $columnCss !!}">{!! $quote->order !!}</span>
                                 @endif
                                 <h1 class="L-item-title" id="{!! $quote->id !!}"><a
-                                            href="/{!! $url !!}/{!! $quote->slug !!}">{!! $quote->title !!}</a></h1>
+                                            href="/{!! $url !!}/{!! $quote->slug !!}">
+                                        {!! $quote->title !!}{!! $quote->sub_title?' —— '. $quote->sub_title :'' !!}</a>
                             </header>
                             <div class="QL-item-body">{!! $quote->body !!}</div>
                             @if($quote->image)
@@ -63,12 +64,21 @@
                                     </p>
                                 @endif
                             @endif
-                            @if($quote->body_long)
-                                <div class="QL-read-more-box">
+                            <div class="QL-read-more-box">
+                                @if($quote->body_long)
                                     <a class="QL-read-more btn btn-default"
                                        href="/{!! $url !!}/{!! $quote->slug !!}"></a>
+                                @endif
+                                <div class="QL-item-info-box">
+                                    @if($quote->origin_url)
+                                        <a href="{!! $quote->origin_url !!}" target="_blank">
+                                            <span class="truncate QL-item-info">By：{!! ($quote->author?$quote->author .' . ':''). $quote->origin !!}</span>
+                                        </a>
+                                    @else
+                                        <span class="truncate QL-item-info">By：{!! ($quote->author?$quote->author .' . ':''). $quote->origin !!}</span>
+                                    @endif
                                 </div>
-                            @endif
+                            </div>
                         </article>
                         <hr class="QL-item-hr">
                     @endforeach
@@ -106,7 +116,7 @@
             plots: plots,
 
             side: {
-                ele:$('#side'),
+                ele: $('#side'),
                 affixEle: $('#LMap-box'),
                 swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
                 infoEle: '#LMap-info',
@@ -119,7 +129,7 @@
                 return h1;
             },
             spy: {
-                field:'#QL',
+                field: '#QL',
                 target: '.L-item-title',
                 getId: null,
                 targetItemScope: '.QL-item',

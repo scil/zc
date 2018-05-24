@@ -1,4 +1,4 @@
-@extends('layouts.columns._'.$column_id)
+@extends('layouts.base')
 
 
 @section('content')
@@ -10,19 +10,21 @@
 
                     <div>
                         <div class="quote-img">
-                            <img id="thankyou" src="/img/org/flower.jpg">
+                            <img id="thankyou" src="/img/org/throw.png">
                             <script>
-                                var thankyou_img=['/img/org/throw.png','/img/org/flower.jpg'], index=0;
-                                setInterval(function () {
-                                    document.getElementById('thankyou').src= thankyou_img[index];
-                                    index = 1 -index;
-                                },3500)
+                                // var thankyou_img=['/img/org/throw.png',
+                                //     '/img/org/flower.jpg'
+                                // ], index=0;
+                                // setInterval(function () {
+                                //     document.getElementById('thankyou').src= thankyou_img[index];
+                                //     index = 1 -index;
+                                // },3500)
                             </script>
                         </div>
 
                         <div class="quote-text">
                             <div>
-                                <p>人塑造城</p>
+                                <p>欢迎投球</p>
                             </div>
                         </div>
                         <a class="pure-kaiti quote-src btn btn-warning btn-primary-outline btn-sm">真城</a>

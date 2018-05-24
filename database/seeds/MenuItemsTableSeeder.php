@@ -39,13 +39,13 @@ class MenuItemsTableSeeder extends Seeder
                     ]],
                     // 人类文明发端于两河，人类也如河流一般奔腾、交汇
                     // 远行 远帆 蹈海 渡海
-                    ['name' => '越海', 'show'=>true,'short_name' => null, 'css' => null, 'type' => 'box', 'level' => 2, 'order' => 4, 'url' => '/sailing', 'ctitle'=>'越海 &nbsp;|&nbsp; 真城','title'=>'越海 &nbsp;|&nbsp; 真城', 'desc' => '记录人类之路，记录人类之路的开路人、领路者', 'pic' => '', '_children' => [
+                    ['name' => '越海', 'show'=>true,'short_name' => null, 'css' => null, 'type' => 'box', 'level' => 2, 'order' => 4, 'url' => '/sail', 'ctitle'=>'越海 &nbsp;|&nbsp; 真城','title'=>'越海 &nbsp;|&nbsp; 真城', 'desc' => '人类之路，人类之路的开路人、领路者', 'pic' => '', '_children' => [
 
-                        ['name' => '行者', 'show'=>true,'short_name' => '人', 'css' => '1', 'type' => 'quote', 'level' => 3, 'order' => 1, 'url' => '/sailing/walkers', 'ctitle'=>'','title'=>'行者 &nbsp;|&nbsp; 越海', 'desc' => '从远方而来，向远方而去', 'pic' => null],
-                        ['name' => '财艺', 'show'=>true,'short_name' => '财', 'css' => '2', 'type' => 'quote', 'level' => 3, 'order' => 2, 'url' => '/sailing/assets', 'ctitle'=>'','title'=>'财艺 &nbsp;|&nbsp; 越海', 'desc' => '我们坐享着几千年的财富，后人坐享几万年的财富。', 'pic' => null],
-                        ['name' => '知道', 'show'=>true,'short_name' => '道', 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/sailing/dao', 'ctitle'=>'','title'=>'知道 &nbsp;|&nbsp; 越海', 'desc' => '人之知，行之道，其来有自。', 'pic' => null],
+                        ['name' => '行者', 'show'=>true,'short_name' => '人', 'css' => '1', 'type' => 'quote', 'level' => 3, 'order' => 1, 'url' => '/sail/walkers', 'ctitle'=>'','title'=>'行者 &nbsp;|&nbsp; 越海', 'desc' => '从远方而来，向远方而去', 'pic' => null],
+                        ['name' => '财艺', 'show'=>true,'short_name' => '财', 'css' => '2', 'type' => 'quote', 'level' => 3, 'order' => 2, 'url' => '/sail/assets', 'ctitle'=>'','title'=>'财艺 &nbsp;|&nbsp; 越海', 'desc' => '我们坐享着几千年的财富。', 'pic' => null],
+                        ['name' => '知道', 'show'=>true,'short_name' => '道', 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/sail/dao', 'ctitle'=>'','title'=>'知道 &nbsp;|&nbsp; 越海', 'desc' => '人之知，行之道。', 'pic' => null],
                         // 治变 治权 治化 辖治
-//            ['name' => '辖治',  'show'=>true,'short_name'=>null,'css'=>null,'type'=>'quote','level' => 3, 'order' => 4,  'url' => '/sailing/zhi', 'ctitle'=>'','title'=>'', 'desc' => '', 'pic' => null],
+//            ['name' => '辖治',  'show'=>true,'short_name'=>null,'css'=>null,'type'=>'quote','level' => 3, 'order' => 4,  'url' => '/sail/zhi', 'ctitle'=>'','title'=>'', 'desc' => '', 'pic' => null],
                     ]],
                     // url: with or one
 //            ['id' => $ID['gong_he'],  'name' => '共河',  'show'=>true,'short_name'=>null,'css'=>null,'type'=>'quote','level' => 2, 'order' => 4,  'url' => '/gong', 'ctitle'=>'','title'=>'', 'desc' => '', 'pic' => ''],
@@ -88,10 +88,10 @@ class MenuItemsTableSeeder extends Seeder
         $yilu_menu = [
             // mountain pass
             ['menu_id' => $yilu_menu_id, 'name' => '山关', 'show'=>true,'short_name' => null, 'css' => null, 'type' => null, 'level' => 0, 'order' => 1, 'url' => '/pass',
-                'ctitle'=>'','title'=>'真城山关',
+                'ctitle'=>'','title'=>'真城山关','desc'=>'真城山关',
                 '_children' => [
                     ['menu_id' => $yilu_menu_id, 'name' => '渡口', 'show'=>true,'short_name' => null, 'css' => null, 'type' => null, 'level' => 1, 'order' => 2, 'url' => '/ferry'
-                ,'ctitle'=>'','title'=>'真城渡口',
+                ,'ctitle'=>'','title'=>'真城渡口','desc'=>'从这里，到真城',
                     ],
                     // newspeak town 新话镇
 //                    ['menu_id' => $yilu_menu_id, 'name' => '假雨村', 'show'=>true,'short_name' => null,  'css' => null, 'type' => null, 'level' => 1, 'order' => 2, 'url' => '/newspeak'],

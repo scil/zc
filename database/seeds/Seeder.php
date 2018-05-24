@@ -98,7 +98,7 @@ class Seeder extends BaseSeeder
             $place_infos = [];
             if (isset($item['_place'])) {
                 $place_infos = $this->insertPlaces([$item['_place']], 'App\Quote');
-            } elseif (isset($article['_places'])) {
+            } elseif (isset($item['_places'])) {
                 $place_infos = $this->insertPlaces($item['_places'], 'App\Quote');
             }
 

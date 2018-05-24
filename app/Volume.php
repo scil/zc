@@ -55,15 +55,6 @@ class Volume extends Model
         return  $this->articles()->select(['id','slug','title','intro',])->where('type','=','first');
         return  $this->firstArticles()->select(['id','slug','title','intro',]);
     }
-//    public function normalArticles()
-//    {
-//        return  $this->articles()->where('type','=','normal');
-//    }
-//    public function notes()
-//    {
-//        return  $this->articles()->where('type','=','note');
-//    }
-
 
     public function person()
     {

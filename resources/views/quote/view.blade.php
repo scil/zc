@@ -1,4 +1,4 @@
-@extends('layouts.columns._'.$column_id,['title'=>$title,'desc'=>$quote->desc])
+@extends('layouts.base',['desc'=>$quote->desc])
 
 @section('content')
 
@@ -27,16 +27,16 @@
                         <?php
                         $mapInfosByID = []; $IDs = [];
                         ?>
-                        @if($quote->places->count()>0)
+                        @foreach($quote->places as $place)
                             {{-- only get the first place  --}}
-                            <?php $a_place = $quote->places[0];$IDs[] = $quote->id;  ?>
+                            <?php $IDs[] = $place->id ;  ?>
                             <?php
-                            $mapInfosByID[$quote->id] = [
-                                'addr' => $a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en,
-                                'intro' => $a_place->pivot->intro];
+                            $mapInfosByID[$place->id] = [
+                                'addr' => $place->pivot->place_name ?? $place->name ?? $place->name_en,
+                                'intro' => $place->pivot->intro];
                             ?>
 
-                        @endif
+                        @endforeach
 
                     </div>
                 </div>
@@ -47,10 +47,20 @@
                 <article>
                     @if($quote->title)
                         <header>
-                            <h1 id="item-title">{!!  $quote->title !!}</h1>
+                            @if($quote->sub_title)
+                                <h1 id="item-title">{!!  $quote->title !!}<small> —— {!! $quote->sub_title !!}</small></h1>
+                            @else
+                                <h1 id="item-title">{!!  $quote->title !!}</h1>
+                            @endif
                         </header>
-                        <div class="item-info" {!! $quote->origin_url?'data-url="'.$quote->origin_url.'"':'' !!} >
-                            <span>文：{!! $quote->author?:$quote->origin !!}</span>
+                        <div class="truncate item-info">
+                            @if($quote->origin_url)
+                                <span>文：<a href="{!! $quote->origin_url !!}" target="_blank">
+                                            {!! ($quote->author?$quote->author .' . ':''). $quote->origin !!}</a>
+                                    </span>
+                            @else
+                                <span>文：{!! ($quote->author?$quote->author .' . ':''). $quote->origin !!}</span>
+                            @endif
                             @if($quote->show_date)
                                 <time pubdate
                                       datetime="{!! $quote->origin_date !!}">{!! $quote->origin_date !!}</time>
@@ -122,17 +132,16 @@
 
         var plots = {
 
-        @if($quote->places->count()>0)
+        @foreach($quote->places as $place)
         {{-- only get the first place  --}}
-        <?php $place = $quote->places[0];?>
-        {!! $quote->id !!}:
+        {!! $place->id !!}:
         {
             latitude: '{!! $place->lat !!}', longitude
         :
             '{!! $place->lng !!}',
         }
         ,
-        @endif
+        @endforeach
 
         }
         ;

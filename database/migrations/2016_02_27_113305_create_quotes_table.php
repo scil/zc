@@ -18,9 +18,11 @@ class CreateQuotesTable extends Migration
             $table->increments('id');
 
             $table->string('title', 50)->nullable();
+            $table->string('sub_title',50)->nullable();
 
+            // todo 如果以后需要表示月、日，那可把类型改为小数 如92.0321 sig仍然只针对年数
             $table->integer('year')->nullable();
-            // 有效数字，但 -1: extact
+            // 有效数字，但 -1表示: extact
             $table->tinyInteger('sig')->default(-1);
 
             $table->string('desc', 200)->nullable();
