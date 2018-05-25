@@ -1566,12 +1566,14 @@ EFF 创建于 1990 年，<ins cite="https://www.eff.org/about">是一个在数�
 
                 'order' => $column_no_start,
                 'title' => '伊朗回头后 女性空间少',
-                'tags'=>[
+                '_tags'=>[
                     [
-                        'name'=>'好景不常在',
+                        'name'=>'昙花一现',
                         'official'=>true,
                     ]
                 ],
+                //todo
+                // 'data'=>'昙花一现:15y;',
                 'year' => 1963,
                 'sig' => -1,
                 'slug' => 'Iranian-power-and-Iranian-women',

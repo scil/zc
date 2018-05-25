@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder as BaseSeeder;
 
 if (!defined('MENU_ITEMS'))
-    include storage_path() . '/staticizer/columns.php';
+    include storage_path() . '/cache/columns.php';
 
 class Seeder extends BaseSeeder
 {
