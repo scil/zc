@@ -101,8 +101,6 @@ const markdown_editor_res = {
             // use cdn instead
             //pkg_dir + 'simplemde/dist/simplemde.min.js',  // 263k
 
-            'public/js/browserify_md.js',
-
             // pkg_dir + 'emmet-codemirror/dist/emmet.js', // thy it so big? contain codemirror?
         ],
     }
@@ -152,22 +150,24 @@ function clean() {
     ]);
 }
 
-let css_files = [];
-let js_files = [];
+let form_js_files = [];
+let vendor_js_files = [];
+let vendor_css_files = [];
 
-// select2
-css_files.push(pkg_dir + 'select2/dist/css/select2.min.css');
-js_files.push(pkg_dir + 'select2/dist/js/select2.min.js'); // 66k
+// use cdn
+// // select2
+// vendor_css_files.push(pkg_dir + 'select2/dist/css/select2.min.css');
+// form_js_files.push(pkg_dir + 'select2/dist/js/select2.min.js'); // 66k
 
 // slick
-css_files.push(pkg_dir + 'slick-carousel/slick/slick.css');
-//css_files.push(pkg_dir + 'slick-carousel/slick/slick-theme.css');
-js_files.push(pkg_dir + 'slick-carousel/slick/slick.min.js');
+vendor_css_files.push(pkg_dir + 'slick-carousel/slick/slick.css');
+//vendor_css_files.push(pkg_dir + 'slick-carousel/slick/slick-theme.css');
+vendor_js_files.push(pkg_dir + 'slick-carousel/slick/slick.min.js'); // 42k
 
 /* 41k*/
 
 function css_vendor() {
-    return gulp.src(css_files.concat(
+    return gulp.src(vendor_css_files.concat(
         markdown_editor_res[markdown_editor]['css']
     ))
         .pipe(concat('vendor.css'))
@@ -215,7 +215,7 @@ function js_app() {
         .pipe(buffer()) // Convert to gulp pipeline
         .pipe(gulp.dest('public/js/babeled'))
         .pipe(sourcemaps.init({
-            loadMaps: true,
+            // loadMaps: true,
             //compress: false,
         }))
         // todo: a replacement https://github.com/babel/minify   it has not pkg @babel
@@ -223,6 +223,14 @@ function js_app() {
             console.error("Uglify: " + err.toString());
         }))
         .pipe(sourcemaps.write('./map'))
+        .pipe(gulp.dest('public/js'));
+}
+
+function js_form() {
+    gulp.src([])
+        .concat(form_js_files)
+        .pipe(concat('form.js'))
+        .pipe(uglify())
         .pipe(gulp.dest('public/js'));
 }
 
@@ -254,9 +262,9 @@ function js_vendor() {
         pkg_dir + 'jQuery-autoGrowInput/jquery.auto-grow-input.min.js',
         pkg_dir + 'vanilla-masker/build/vanilla-masker.min.js',
 
-        pkg_dir + 'jquery-mousewheel/jquery.mousewheel.js',
-        pkg_dir + 'jquery-visible/jquery.visible.min.js',
-        pkg_dir + 'perfect-scrollbar/dist/js/perfect-scrollbar.jquery.min.js',
+        // only used in homepage, so use cdn
+        // pkg_dir + 'jquery-mousewheel/jquery.mousewheel.js',
+
         pkg_dir + 'jquery-touchswipe/jquery.touchSwipe.min.js',
 
         // use cdn instead
@@ -264,10 +272,9 @@ function js_vendor() {
         // pkg_dir + 'jquery-mapael/js/maps/world_countries.js',
         'resources/js/world.js',
 
-        pkg_dir + 'vue/dist/vue.min.js',
     ]
         .concat(markdown_editor_res[markdown_editor]['js'])
-        .concat(js_files))
+        .concat(vendor_js_files))
         .pipe(concat('vendor.js'))
         .pipe(uglify())
         .pipe(gulp.dest('public/js'));
@@ -392,8 +399,9 @@ function watch_seed() {
 };
 
 exports.clean = clean;
-exports.css_vendor = css_vendor;
+exports.js_form = js_form;
 exports.js_vendor = js_vendor;
+exports.css_vendor = css_vendor;
 exports.js_app = js_app;
 exports.flowcheck_app = flowcheck_app;
 exports.jsbin_free = jsbin_free
@@ -414,7 +422,7 @@ var build = gulp.series(
     gulp.parallel(
         css_vendor,
         gulp.series(flowcheck_app, js_app),
-        js_vendor,
+        gulp.series(js_form, js_vendor)
     ),
     sass_app,
     sass_ferry

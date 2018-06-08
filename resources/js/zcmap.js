@@ -45,11 +45,10 @@ function ZCMap(map, info) {
     me.mapName = map.config.mapName;
 
 
-    /** @type {jQuery} */
-    me.addrEle = null;
+    /** @type [jQuery] */
+    me.infoElements=[];
     /** @type {string} */
     me.infoEle = null;
-    me.infoVue = null;
     me.infoData = null;
     me.infoKeys = null;
 
@@ -162,7 +161,7 @@ ZCMap.prototype._initInfo = function (info) {
     var me = this;
 
     me.infoEle = info.ele;
-    me.addrEle = $(info.addrEle);
+    me.infoElements = info.infoElements;
 
     let infoData = info.data;
     for (let id in infoData) {
@@ -329,26 +328,10 @@ ZCMap.prototype._updateInfo = function (id: number) {
         return;
     }
 
-    this.addrEle.html(infoData[id]['addr']);
-
-    if (!this.infoVue) {
-
-
-        var data = {};
-
-        for (var ki in this.infoKeys) {
-            data[this.infoKeys[ki]] = infoData[id][this.infoKeys[ki]];
-        }
-        this.infoVue = new Vue({
-            el: this.infoEle,
-            data: data,
-        })
-    } else {
-
-        for (var ki in this.infoKeys) {
-            this.infoVue[this.infoKeys[ki]] = infoData[id][this.infoKeys[ki]];
-        }
+    for(let field in this.infoElements){ // addr title intro
+       this.infoElements[field].html(infoData[id][field] || '')
     }
+
 
 }
 

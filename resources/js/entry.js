@@ -303,7 +303,7 @@ var zc = {
                 },
                 {
                     ele: opts.side.infoEle,
-                    addrEle: opts.side.addrEle,
+                    infoElements: opts.side.infoElements,
                     data: opts.side.infoData,
                     keys:opts.side.infoKeys || ['title','intro'],
                     infoSwipeBox: false, // 不需要ZCMap提供的swipe 自定义swipe 动作，增加 scrollUp

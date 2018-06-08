@@ -59,32 +59,18 @@
                     $mapDataByPlaceID = []; $IDs = [];
                     ?>
                     @if($article->places->count()>0)
-                        <div id="LMap-box">
-                            <div id="side-first-page">
-                                <div id="LMap">
-                                    <div class="map"></div>
-                                </div>
-                                <span id="LMap-addr"></span>
-                            </div>
-                            <div id="LMap-info-swipebox">
-                                <section id="LMap-info">
-                                    <p id="LMap-info-addr" v-html="title"></p>
-                                    <div id="LMap-info-intro" v-html="intro"></div>
-                                </section>
-                            </div>
+                        @include('partials.LMap')
+                        @foreach($article->places as $place)
+                            <?php $IDs[] = $place->id;  ?>
+                            <?php
+                            $mapDataByPlaceID[$place->id] = [
+                                'addr' => $place->pivot->place_name ?? $place->name ?? $place->name_en,
+                                'title' => $place->pivot->title,
+                                'intro' => $place->pivot->intro];
+                            ?>
 
-                            @foreach($article->places as $place)
-                                <?php $IDs[] = $place->id;  ?>
-                                <?php
-                                $mapDataByPlaceID[$place->id] = [
-                                    'addr' => $place->pivot->place_name ?? $place->name ?? $place->name_en,
-                                    'title' => $place->pivot->title,
-                                    'intro' => $place->pivot->intro];
-                                ?>
+                        @endforeach
 
-                            @endforeach
-
-                        </div>
                     @endif
 
                     @if($article->topQuote)
@@ -166,7 +152,7 @@
                         </div>
                         @foreach($article->volume->articles as $a_article)
                             @if($article->id ==$a_article->id)
-                                <article>
+                                <article class="weak-opacity">
                                     <header>
                                         <h1 class="V-item-title">
                                             <a disabled href="{!! $a_article->slug !!}">
@@ -312,7 +298,7 @@
                 ele: $('#side'),
                 //affixEle: $('#LMap-box'),
                 //swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
-                addrEle:$('#LMap-addr'),
+                infoElements:{'addr':$('#LMap-addr'),'title':$('#LMap-info-title'),'intro':$('#LMap-info-intro')},
                 infoEle: '#LMap-info',
                 infoData:{!! json_encode($mapDataByPlaceID) !!},
             },
@@ -321,7 +307,7 @@
             findItemByPlotID: function (id) {
                 return null;
             },
-            getPrevious:null,
+            getPrevious: null,
             lightID:{!! $IDs[0] !!},
             spy: {
                 field: '#QL',

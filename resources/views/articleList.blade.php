@@ -8,39 +8,27 @@
             <div class="col-sm-5 col-sm-push-7">
 
                 <div id="side">
-                    <div id="LMap-box">
-                        <div id="side-first-page">
-                            <div id="LMap">
-                                <div class="map"></div>
-                            </div>
-                            <span id="LMap-addr"></span>
-                        </div>
-                        <div id="LMap-info-swipebox">
-                            <section id="LMap-info">
-                                <p id="LMap-info-addr" v-html="title"></p>
-                                <div id="LMap-info-intro" v-html="intro"></div>
-                            </section>
-                        </div>
-                        <?php
-                        $mapInfosByItemID = []; $IDs = [];
-                        ?>
-                        @foreach($vols as $vol)
-                            @foreach($vol->firstArticlesSimple as $article)
-                                @if($article->places->count()>0)
-                                    {{-- only get the first place  --}}
-                                    <?php $a_place = $article->places[0];$IDs[] = $article->id;  ?>
-                                    <?php
-                                    $mapInfosByItemID[$article->id] = [
-                                        'addr' => $a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en,
-                                        'title' => $a_place->pivot->title,
-                                        'intro' => $a_place->pivot->intro]
-                                    ?>
+                    @include('partials.LMap')
 
-                                @endif
-                            @endforeach
+                    <?php
+                    $mapInfosByItemID = []; $IDs = [];
+                    ?>
+                    @foreach($vols as $vol)
+                        @foreach($vol->firstArticlesSimple as $article)
+                            @if($article->places->count()>0)
+                                {{-- only get the first place  --}}
+                                <?php $a_place = $article->places[0];$IDs[] = $article->id;  ?>
+                                <?php
+                                $mapInfosByItemID[$article->id] = [
+                                    'addr' => $a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en,
+                                    'title' => $a_place->pivot->title,
+                                    'intro' => $a_place->pivot->intro]
+                                ?>
+
+                            @endif
                         @endforeach
+                    @endforeach
 
-                    </div>
                 </div>
             </div>
 
@@ -133,8 +121,8 @@
                 ele: $('#side'),
                 affixEle: $('#LMap-box'), // also used by scrollspy as a viewRef
                 swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
-                addrEle:$('#LMap-addr'),
                 infoEle: '#LMap-info',
+                infoElements:{'addr':$('#LMap-addr'),'title':$('#LMap-info-title'),'intro':$('#LMap-info-intro')},
                 infoData:{!! json_encode($mapInfosByItemID) !!},
             },
 

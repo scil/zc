@@ -31,6 +31,13 @@
   cursor: pointer;
 }
 
+.weak-opacity{
+  opacity: 0.7;
+  &:hover{
+    opacity: 1;
+  }
+}
+
 cite {
   font-style: normal;
 }

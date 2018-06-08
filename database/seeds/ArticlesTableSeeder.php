@@ -1398,7 +1398,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'desc' => '我们允许她在同一件事上犯两次甚至更多次错误，我们坚信，没有哪一次错误是白犯的，即使相同的错误，每一次的收获也是不一样的。圆圆从小就显得非常懂事，很有主见。',
                         'author' => '尹建莉',
                         'type' => 'first',
-                        'origin' => '<z-wechat data-id="yinjianligongzuoshi">父母学堂</z-wechat>',
+                        'origin' => '父母学堂',
                         'origin_date' => '2016-01-14',
                         'show_date' => true,
                         'origin_url' => '//mp.weixin.qq.com/s/Z6F61r8eFSd-k7Oim3YBbA',

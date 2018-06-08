@@ -12,35 +12,22 @@
 
             <div class="col-sm-5 col-sm-push-7">
                 <div id="side">
-                    <div id="LMap-box">
-                        <div id="side-first-page">
-                            <div id="LMap">
-                                <div class="map"></div>
-                            </div>
-                            <span id="LMap-addr"></span>
-                        </div>
-                        <div id="LMap-info-swipebox">
-                            <section id="LMap-info">
-                                <p id="LMap-info-addr" v-html="title"></p>
-                                <div id="LMap-info-intro" v-html="intro"></div>
-                            </section>
-                        </div>
+                    @include('partials.LMap')
+                    <?php
+                    $mapInfosByPlaceID = []; $IDs = [];
+                    ?>
+                    @foreach($quote->places as $place)
+                        {{-- only get the first place  --}}
+                        <?php $IDs[] = $place->id ;  ?>
                         <?php
-                        $mapInfosByPlaceID = []; $IDs = [];
+                        $mapInfosByPlaceID[$place->id] = [
+                            'addr' => $place->pivot->place_name ?? $place->name ?? $place->name_en,
+                            'title' => $place->pivot->title,
+                            'intro' => $place->pivot->intro];
                         ?>
-                        @foreach($quote->places as $place)
-                            {{-- only get the first place  --}}
-                            <?php $IDs[] = $place->id ;  ?>
-                            <?php
-                            $mapInfosByPlaceID[$place->id] = [
-                                'addr' => $place->pivot->place_name ?? $place->name ?? $place->name_en,
-                                'title' => $place->pivot->title,
-                                'intro' => $place->pivot->intro];
-                            ?>
 
-                        @endforeach
+                    @endforeach
 
-                    </div>
                 </div>
             </div>
 
@@ -159,7 +146,7 @@
                 ele: $('#side'),
                 //affixEle: $('#LMap-box'),
                 //swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
-                addrEle:$('#LMap-addr'),
+                infoElements:{'addr':$('#LMap-addr'),'title':$('#LMap-info-title'),'intro':$('#LMap-info-intro')},
                 infoEle: '#LMap-info',
                 infoData:{!! json_encode($mapInfosByPlaceID) !!},
             },

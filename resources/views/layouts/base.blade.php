@@ -11,27 +11,24 @@
     <title>{!! $title !!}</title>
     <meta name="description" content="{!! $desc !!}" />
 
-<!-- Bootstrap -->
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/vendor.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <!--<script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->
-    {{--<script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>--}}
     <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-beta.49/polyfill.min.js"></script>
+
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-beta.42/polyfill.min.js"></script>
 
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.js"></script>
 
     <script src="https://cdn.bootcss.com/raphael/2.2.7/raphael.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery-mapael/2.1.0/js/jquery.mapael.min.js"></script>

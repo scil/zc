@@ -42,7 +42,6 @@
     "jquery-mapael": "^2.1.0",
     "jquery-mousewheel": "~3.1.13",
     "jquery-touchswipe": "^1.6.15",
-    "jquery-visible": "^1.2.0",
     "markdown-it": "~8.3.1",
     "markdown-it-container": "~2.0.0",
     "markdown-it-decorate": "~1.2.2",
@@ -55,8 +54,7 @@
     "select2": "^4.0.3",
     "simplemde": "^1.11.2",
     "slick-carousel": "^1.6.0",
-    "vanilla-masker": "^1.2.0",
-    "vue": "^2.3.4"
+    "vanilla-masker": "^1.2.0"
   },
   "scripts": {
     "babel": "babel resources/babel -d public/js"

@@ -6,37 +6,24 @@
 
             <div class="col-sm-5 col-sm-push-7">
                 <div id="side">
-                    <div id="LMap-box">
-                        <div id="side-first-page">
-                            <div id="LMap">
-                                <div class="map"></div>
-                            </div>
-                            <span id="LMap-addr"></span>
-                        </div>
-                        <div id="LMap-info-swipebox">
-                            <section id="LMap-info">
-                                <p id="LMap-info-addr" v-html="title"></p>
-                                <div id="LMap-info-intro" v-html="intro"></div>
-                            </section>
-                        </div>
-                        <?php
-                        $mapInfosByItemID = []; $IDs = [];
-                        ?>
-                        @foreach($quotes as $quote)
-                            @if($quote->places->count()>0)
-                                <?php $a_place = $quote->places[0];$IDs[] = $quote->id;  ?>
-                                <?php
-                                $mapInfosByItemID[$quote->id] = [
-                                    'addr' => $a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en,
-                                    'title' => $a_place->pivot->title,
-                                    'intro' => $a_place->pivot->intro
-                                    ];
-                                ?>
+                    @include('partials.LMap')
 
-                            @endif
-                        @endforeach
+                    <?php
+                    $mapInfosByItemID = []; $IDs = [];
+                    ?>
+                    @foreach($quotes as $quote)
+                        @if($quote->places->count()>0)
+                            <?php $a_place = $quote->places[0];$IDs[] = $quote->id;  ?>
+                            <?php
+                            $mapInfosByItemID[$quote->id] = [
+                                'addr' => $a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en,
+                                'title' => $a_place->pivot->title,
+                                'intro' => $a_place->pivot->intro
+                            ];
+                            ?>
 
-                    </div>
+                        @endif
+                    @endforeach
                 </div>
             </div>
 
@@ -53,7 +40,8 @@
                                 @endif
                                 <h1 class="L-item-title" id="{!! $quote->id !!}"><a
                                             href="/{!! $url !!}/{!! $quote->slug !!}">
-                                        {!! $quote->title !!}{!! $quote->sub_title?' —— '. $quote->sub_title :'' !!}</a></h1>
+                                        {!! $quote->title !!}{!! $quote->sub_title?' —— '. $quote->sub_title :'' !!}</a>
+                                </h1>
                             </header>
                             <div class="QL-item-body">{!! $quote->body !!}</div>
                             @if($quote->image)
@@ -124,10 +112,10 @@
                 ele: $('#side'),
                 affixEle: $('#LMap-box'),
                 swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
-                addrEle:$('#LMap-addr'),
+                infoElements:{'addr':$('#LMap-addr'),'title':$('#LMap-info-title'),'intro':$('#LMap-info-intro')},
                 infoEle: '#LMap-info',
                 infoData:{!! json_encode($mapInfosByItemID) !!},
-                infoKeys:['title','intro'],
+                infoKeys: ['title', 'intro'],
             },
 
             contentArea: '#QL',
@@ -135,10 +123,10 @@
                 var h1 = $(document.getElementById(id)).parents('article');
                 return h1;
             },
-            getPrevious:function(id){
+            getPrevious: function (id) {
                 return prevVol = $('#' + id).parents('article').prevUntil('article').prev();
             },
-            lightID:null,
+            lightID: null,
             spy: {
                 field: '#QL',
                 target: '.L-item-title',
