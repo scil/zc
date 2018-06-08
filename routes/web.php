@@ -10,19 +10,19 @@ use App\Volume;
 Route::get('/', 'CmsController@home');
 
 //todo
-//quote 必须在 article 前面，否则 human/raindrops 不正常
+//quote 必须在 article 前面，否则 human/so 不正常
 // column
 Route::get('/{qlist_url}', 'CmsController@viewQuoteColumn')
-    ->where('qlist_url', 'spirit|human/raindrops|sail|sail/(walkers|assets|dao)');
+    ->where('qlist_url', 'spirit|human/(so|indiv)|sail|sail/(walkers|assets|road)');
 //item
 Route::get('/{qprefix_url}/{slug}', 'CmsController@viewShanShuiQuote')
-    ->where('qprefix_url', 'spirit|human/raindrops|sail');
+    ->where('qprefix_url', 'spirit|human/(so|indiv)|sail');
 
 //article
 // column
-Route::get('/{mlist_url}', 'CmsController@viewArticleColumn')->where('mlist_url', 'green|writing|human|human/road|human/nature|zhen');
+Route::get('/{mlist_url}', 'CmsController@viewArticleColumn')->where('mlist_url', 'green|paper|human|human/road|human/nature|zhen');
 //item
-Route::get('/{prefix_url}/{slug}', 'CmsController@viewColumnArticle')->where('prefix_url', 'green|writing|human|human/road|human/nature|zhen');
+Route::get('/{prefix_url}/{slug}', 'CmsController@viewColumnArticle')->where('prefix_url', 'green|paper|human|human/road|human/nature|zhen');
 
 Route::get('/article/{slug}', 'CmsController@viewColumnArticle');
 Route::get('/article/{slug}/edit', 'CmsController@editArticle');
@@ -32,10 +32,8 @@ Route::delete('/article/{id}', 'CmsController@deleteArticle');
 Route::get('/q/{slug}', 'CmsController@viewQuote');
 
 
-Route::get('/book/{slug}/a/{a_slug}', 'CmsController@viewBookArticle');
-Route::get('/video/{slug}/a/{a_slug}', 'CmsController@viewVideoArticle');
-Route::get('/book/{slug}/{type}', 'CmsController@viewBookSpecialQuote')->where('type', 'tip|behind|errata');
-Route::get('/video/{slug}/{type}', 'CmsController@viewVideoSpecialQuote')->where('type', 'tip|behind');
+Route::get('/book/{slug}/{sub}', 'CmsController@viewBookSub');
+Route::get('/video/{slug}/{sub}', 'CmsController@viewVideoSub');
 Route::get('/book/{slug?}', 'CmsController@viewBook');
 Route::get('/video/{slug?}', 'CmsController@viewVideo');
 
@@ -46,6 +44,8 @@ Route::get('/ferry/{sub?}', 'CmsController@ferry');
 
 Route::get('/new_article', 'CmsController@createArticle');
 Route::post('/new_article', 'CmsController@storeArticle');
+
+return;
 
 Route::get('/test', function () {
     $i = new \App\MenuItemHelper();

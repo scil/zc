@@ -120,8 +120,8 @@ return [
     */
 
 'providers' => [
-'Barryvdh\Debugbar\ServiceProvider',
-Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+//'Barryvdh\Debugbar\ServiceProvider',
+//Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
         /*
          * Laravel Framework Service Providers...
@@ -178,7 +178,7 @@ Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     */
 
 'aliases' => [
-'Debugbar' => 'Barryvdh\Debugbar\Facade',
+//'Debugbar' => 'Barryvdh\Debugbar\Facade',
 
         'App'       => Illuminate\Support\Facades\App::class,
         'Artisan'   => Illuminate\Support\Facades\Artisan::class,

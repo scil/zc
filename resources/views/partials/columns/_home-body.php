@@ -13,21 +13,6 @@
 
                     <div class=" column-left">
                         <img class="column-img"
-                             src="img/org/book.jpg" alt=""/>
-
-                        <h3 class="column-name"><a href="/writing">山书</a></h3>
-
-                        <p class="hover-show column-intro">
-                            岭上多白云
-                        </p>
-                </div>
-                </div>
-                                                            <div
-                      class="Big-Href column col-sm-4"
-                >
-
-                    <div class="">
-                        <img class="column-img"
                              src="img/org/qing.jpg" alt=""/>
 
                         <h3 class="column-name"><a href="/green">山青</a></h3>
@@ -41,7 +26,7 @@
                       class="Big-Href column col-sm-4"
                 >
 
-                    <div class=" column-right">
+                    <div class="">
                         <img class="column-img"
                              src="img/org/aboutme.jpg" alt=""/>
 
@@ -49,6 +34,21 @@
 
                         <p class="hover-show column-intro">
                             峰回山意深
+                        </p>
+                </div>
+                </div>
+                                                            <div
+                      class="Big-Href column col-sm-4"
+                >
+
+                    <div class=" column-right">
+                        <img class="column-img"
+                             src="img/org/book.jpg" alt=""/>
+
+                        <h3 class="column-name"><a href="/paper">山书</a></h3>
+
+                        <p class="hover-show column-intro">
+                            岭上多白云
                         </p>
                 </div>
                 </div>
@@ -62,10 +62,10 @@
         </h2>
 
         <div class="row text-center" style="position: relative;overflow:hidden;">
-            <div>
+            <div class="row-more-cols row-more-cols-4" >
 
                                                             <div
-                      class="Big-Href column col-sm-4"
+                      class="Big-Href column col-sm-3"
                 >
 
                     <div class=" column-left">
@@ -80,32 +80,47 @@
                 </div>
                 </div>
                                                             <div
-                      class="Big-Href column col-sm-4"
+                      class="Big-Href column col-sm-3"
                 >
 
                     <div class="">
                         <img class="column-img"
                              src="img/org/road.jpg" alt=""/>
 
-                        <h3 class="column-name"><a href="/human/road">人之路</a></h3>
+                        <h3 class="column-name"><a href="/human/road">人路</a></h3>
 
                         <p class="hover-show column-intro">
-                            身为人，成为人
+                            成为人
                         </p>
                 </div>
                 </div>
                                                             <div
-                      class="Big-Href column col-sm-4"
+                      class="Big-Href column col-sm-3"
                 >
 
                     <div class=" column-right">
                         <img class="column-img"
                              src="img/org/disaster.jpg" alt=""/>
 
-                        <h3 class="column-name"><a href="/human/raindrops">雨滴</a></h3>
+                        <h3 class="column-name"><a href="/human/so">这样</a></h3>
 
                         <p class="hover-show column-intro">
-                            天地人
+                            天，地
+                        </p>
+                </div>
+                </div>
+                                                            <div
+                      class="Big-Href column col-sm-3 more-col"
+                >
+
+                    <div class=" column-right">
+                        <img class="column-img"
+                             src="img/org/disaster.jpg" alt=""/>
+
+                        <h3 class="column-name"><a href="/human/indiv">个体</a></h3>
+
+                        <p class="hover-show column-intro">
+                            天地，人
                         </p>
                 </div>
                 </div>

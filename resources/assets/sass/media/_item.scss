@@ -7,7 +7,7 @@
   @extend .first-page-middle;
   //@extend .first-page;
   background-color: lightblue;
-  margin-bottom: 25px;
+  margin-bottom: 55px;
 }
 #col-first-page-close{
   font-weight:normal;
@@ -27,17 +27,20 @@
 /**
 medida quote
  */
-#MQL{
+#col-first-page{
   //border-bottom: darkgray solid 1px;
   >.slick-dots{
+    position: absolute;
+    top: 3em;
+    right: 3em;
     margin:20px 0 20px;
     //padding-right:28px;
     text-align: right;
     >li{
+      //display: block;
       margin-right:5px;
       border-bottom-width:0;
-      border-top: 7px solid #777;
-      border-radius: 8px;
+      border-top: 4px solid #777;
       >button{
         width:15px;
       }
@@ -47,6 +50,9 @@ medida quote
       border-color: #eee;
     }
   }
+}
+#MQL{
+  padding-top: 30px;
 }
 .MQ-box+.MQ-box{
   display: none;
@@ -136,18 +142,22 @@ comment
  */
 
 #MCL{
-  margin: 10px 0 20px;
+  margin: 10px 0 50px;
   border-top: 1px solid lightgray;
   padding-top:20px;
 }
 .MC-box{
-  margin-bottom:12px;
+  margin-bottom:28px;
 }
 .MC {
   padding: 0;
   margin:0;
   border-width: 0;
   font-size: 12px;
+}
+.MC-cite{
+  @extend .MQ-cite;
+  font-size: inherit;
 }
 
 
@@ -157,11 +167,6 @@ comment
 /**
 article
  */
-@media (min-width: $screen-sm-min){
-  #MAL {
-    margin-top: -25px;
-  }
-}
 .prefix-col-name-select{
  @extend .prefix-col-name-2;
   &::before{
@@ -177,7 +182,7 @@ article
 
 
 #M-guide{
-  font-size:12px
+  font-size:14px
 }
 .M-guide-title{
   border-radius: 20px;
@@ -191,4 +196,8 @@ article
 }
 #M-table{
   margin-top:20px;
+}
+.table-read-more-box{
+  text-align: right;
+  margin-top: -25px;
 }

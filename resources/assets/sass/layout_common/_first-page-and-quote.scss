@@ -17,6 +17,9 @@
   background-color: lightblue;
   margin-bottom: 25px;
   margin-top: -$line-height-computed; // equal to margin bottom of hr
+  @media (max-width: $screen-sm-min) {
+    margin-top:-$header_hr_margin_sm;
+  }
 }
 
 // border-radius在Android下的几个BUG

@@ -31,6 +31,7 @@ quote
   }
 }
 
+
 .QL-item-img {
   display: block;
   margin-top: 1.5em;
@@ -67,5 +68,17 @@ quote
   color: #aaa;
   &:hover{
     color: #555;
+  }
+}
+
+
+.truncate {
+  display: inline-block;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &:hover{
+    width: auto;
   }
 }

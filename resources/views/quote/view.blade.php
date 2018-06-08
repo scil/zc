@@ -17,22 +17,24 @@
                             <div id="LMap">
                                 <div class="map"></div>
                             </div>
+                            <span id="LMap-addr"></span>
                         </div>
                         <div id="LMap-info-swipebox">
                             <section id="LMap-info">
-                                <p id="LMap-info-addr" v-html="addr"></p>
+                                <p id="LMap-info-addr" v-html="title"></p>
                                 <div id="LMap-info-intro" v-html="intro"></div>
                             </section>
                         </div>
                         <?php
-                        $mapInfosByID = []; $IDs = [];
+                        $mapInfosByPlaceID = []; $IDs = [];
                         ?>
                         @foreach($quote->places as $place)
                             {{-- only get the first place  --}}
                             <?php $IDs[] = $place->id ;  ?>
                             <?php
-                            $mapInfosByID[$place->id] = [
+                            $mapInfosByPlaceID[$place->id] = [
                                 'addr' => $place->pivot->place_name ?? $place->name ?? $place->name_en,
+                                'title' => $place->pivot->title,
                                 'intro' => $place->pivot->intro];
                             ?>
 
@@ -53,7 +55,7 @@
                                 <h1 id="item-title">{!!  $quote->title !!}</h1>
                             @endif
                         </header>
-                        <div class="truncate item-info">
+                        <div class="item-info">
                             @if($quote->origin_url)
                                 <span>文：<a href="{!! $quote->origin_url !!}" target="_blank">
                                             {!! ($quote->author?$quote->author .' . ':''). $quote->origin !!}</a>
@@ -130,6 +132,8 @@
 
         zc.content.init();
 
+        $('cite','#QItem').addClass('cite-tail');
+
         var plots = {
 
         @foreach($quote->places as $place)
@@ -155,14 +159,16 @@
                 ele: $('#side'),
                 //affixEle: $('#LMap-box'),
                 //swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
+                addrEle:$('#LMap-addr'),
                 infoEle: '#LMap-info',
-                infoData:{!! json_encode($mapInfosByID) !!},
+                infoData:{!! json_encode($mapInfosByPlaceID) !!},
             },
 
             contentArea: '#QL',
             findItemByPlotID: function (id) {
                 return null;
             },
+            lightID:{!! $IDs[0] !!},
             spy: {
                 field: '#QL',
                 target: '.L-item-title',

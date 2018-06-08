@@ -1,4 +1,11 @@
 
+
+@media (max-width: $screen-sm-min) {
+  #navbar{
+    margin-bottom: 20px;
+  }
+}
+
 /**
  *  navbar
  * -------------------------- */
@@ -15,6 +22,8 @@
 #navbar {
   @extend .heiti;
 }
+
+
 
 #navbar-nav-left{
   font-size:15px;

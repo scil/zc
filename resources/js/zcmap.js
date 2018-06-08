@@ -28,10 +28,6 @@ function ZCMap(map, info) {
     /** @type {Raphael} */
     me.paper = null;
 
-    // todo
-    /** @deprecated */
-    me.addrEle = null;
-
 
     me.mode = map.mode || 'all'; // 'single' 'cumulative', or 'all_not_inited' (初次进入all，需要先进入all_not_inited，确保所有plots显示到地图上)
     me._direction = map.direction || 'ltr'; // 'ltr', 'rtl'
@@ -49,6 +45,8 @@ function ZCMap(map, info) {
     me.mapName = map.config.mapName;
 
 
+    /** @type {jQuery} */
+    me.addrEle = null;
     /** @type {string} */
     me.infoEle = null;
     me.infoVue = null;
@@ -164,22 +162,17 @@ ZCMap.prototype._initInfo = function (info) {
     var me = this;
 
     me.infoEle = info.ele;
+    me.addrEle = $(info.addrEle);
 
-    let infoKeys = [], infoData = info.data;
-    for (let id1 in infoData) {
-        if (infoData[id1]['intro']) {
-            for (let id in infoData) {
-                infoData[id]['intro'] = zc.content.renderMD(infoData[id]['intro'])
-            }
-        }
-        for (var k in infoData[id1]) {
-            infoKeys.push(k);
-        }
-        // for 循环只需要找出一个元素 确定里面的keys
-        break
+    let infoData = info.data;
+    for (let id in infoData) {
+        if (infoData[id]['intro'])
+            infoData[id]['intro'] = zc.content.renderMD(infoData[id]['intro'])
     }
+
+
     me.infoData = infoData;
-    me.infoKeys = infoKeys;
+    me.infoKeys = info.keys;
     if (info.infoSwipeBox) {
         $(info.infoSwipeBox).swipe({
             swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
@@ -336,7 +329,11 @@ ZCMap.prototype._updateInfo = function (id: number) {
         return;
     }
 
+    this.addrEle.html(infoData[id]['addr']);
+
     if (!this.infoVue) {
+
+
         var data = {};
 
         for (var ki in this.infoKeys) {
@@ -347,6 +344,7 @@ ZCMap.prototype._updateInfo = function (id: number) {
             data: data,
         })
     } else {
+
         for (var ki in this.infoKeys) {
             this.infoVue[this.infoKeys[ki]] = infoData[id][this.infoKeys[ki]];
         }
@@ -379,11 +377,15 @@ ZCMap.prototype.update = function (nextActivePlotID: number | string) {
 
 // light: 点燃；点火
 ZCMap.prototype.lightLeft = function () {
-    var id = this.all_plots_ids[parseInt(this.all_plots_ids.indexOf(this.lastActivePlotID)) - 1];
-    this.update(id);
+    this.update(this.leftID());
 }
 ZCMap.prototype.lightRight = function () {
+    this.update(this.rightID());
+}
+ZCMap.prototype.leftID = function () {
+    return this.all_plots_ids[parseInt(this.all_plots_ids.indexOf(this.lastActivePlotID)) - 1];
+}
+ZCMap.prototype.rightID = function () {
     var plus = this.all_plots_ids.indexOf(this.lastActivePlotID) + 1;
-    var id = this.all_plots_ids[plus == this.lastActivePlotID.length ? 0 : plus];
-    this.update(id);
+    return this.all_plots_ids[plus == this.lastActivePlotID.length ? 0 : plus];
 }

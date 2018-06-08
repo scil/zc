@@ -45,15 +45,7 @@ class Volume extends Model
     }
     public function firstArticlesSimple()
     {
-        //todo
-        return  $this->articles()->where('type','=','first');
-        return $this->hasMany('App\Article')
-            ->select(['id','slug','title','intro',])->where('type','=','first')
-            ->orderByRaw("FIELD(type, \"first\", \"normal\", \"note\")")
-            ->orderBy('order', 'asc')
-            ;
-        return  $this->articles()->select(['id','slug','title','intro',])->where('type','=','first');
-        return  $this->firstArticles()->select(['id','slug','title','intro',]);
+        return  $this->articles()->select(['id','slug','title','intro','volume_id'])->where('type','=','first');
     }
 
     public function person()

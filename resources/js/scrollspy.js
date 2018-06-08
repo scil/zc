@@ -2,6 +2,8 @@ export {scrollSpy}
 import {viewport, viewportRef, viewportTest} from "./viewport";
 import {log as zclog, smScreen, notSmScreen} from "./util";
 
+const HANDLE_WAIT_TIME = 200;
+
 // 不断定位显示在屏幕最上方的目标元素 对元素进行操作
 class ScrollSpy {
     constructor() {
@@ -47,6 +49,8 @@ class ScrollSpy {
         this.updateH1s(query);
 
         this.addEventHandler();
+
+        return this;
     }
 
 
@@ -105,6 +109,7 @@ class ScrollSpy {
 
         // DOM load 这种事件，可让函数马上运行一遍
 
+        zclog('[spy] addEventHandler and run');
         $(window).on('DOMContentLoaded load resize scroll', this.handler);
     }
 
@@ -171,7 +176,7 @@ function handler(me) {
 
 
         }
-    }, 400)
+    }, HANDLE_WAIT_TIME)
 
 }
 

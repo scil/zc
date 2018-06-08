@@ -9,10 +9,20 @@ import getG from "./g"
 
 const getMDParser = require('./markdownit');
 
-const HOW_LANG_SCROLLSPY_RESTORE_AFTER_SCROLL_UP = 100;
+// why , give `this._updateMap(id);` enough time to redraw the map info, so
+// `me.affixEle.outerHeight(true)` return the height with the new info
+const WAIT_TIME_TO_SCROLL_UP = 100;
+
+const SCROLL_UP_TIME = 300;
+
+const SCROLLSPY_RESTORE_WAIT_TIME_AFTER_SCROLL_UP = 100;
+
+// 30 合适，我觉得道理是 .affix{top:30px}
 const SCROLL_UP_GAP = 30;
 
 var zc = {
+    canTouch: 'ontouchstart' in document,
+    canMouse:'onmouseover' in document,
     editor: {
         init: function (id) {
 
@@ -275,15 +285,15 @@ var zc = {
         init: function (opts) {
 
 
-            zc.sideMap.IDs = opts.itemIDs;
+            this.IDs = opts.itemIDs;
 
-            zc.sideMap.zcmap = new ZCMap(
+            this.zcmap = new ZCMap(
                 {
                     ele: $("#LMap"),
                     plotsIDs: opts.itemIDs,
                     plots: plots,
-                    mode:'all',
-                    direction :'ltr',
+                    mode: 'all',
+                    direction: 'ltr',
                     config: {
                         plotSize: 15,
                     },// plotColor:'#8800CC'},
@@ -293,7 +303,9 @@ var zc = {
                 },
                 {
                     ele: opts.side.infoEle,
+                    addrEle: opts.side.addrEle,
                     data: opts.side.infoData,
+                    keys:opts.side.infoKeys || ['title','intro'],
                     infoSwipeBox: false, // 不需要ZCMap提供的swipe 自定义swipe 动作，增加 scrollUp
                 }
             );
@@ -319,36 +331,57 @@ var zc = {
                     runEnterNow: true,
 
                     sideEle: opts.side.ele,
-                    bigResizeCallback: zc.sideMap._side400,
-                    enterBigCallback: zc.sideMap._side400,
-                    enterXsCallback: zc.sideMap._sideLess400,
+                    bigResizeCallback: this._side400,
+                    enterBigCallback: this._side400,
+                    enterXsCallback: this._sideLess400,
                 });
             }
 
-            zc.sideMap._initAffix(opts);
+            this._initAffix(opts);
 
-            zc.sideMap._initContentArea(opts);
+            this._initContentArea(opts);
 
-            zc.sideMap._initSwipeBox(opts);
+            this._initSwipeBox(opts);
+
+            if(opts.lightID){
+                const id = typeof(opts.lightID)==='function'? opts.lightID(): opts.lightID;
+
+                this._updateMap(id, 0)
+            }
         },
 
         _initContentArea: function (opts) {
             if (!opts.contentArea) return;
 
-            zc.sideMap.contentArea = $(opts.contentArea);
-            zc.sideMap.findItemByPlotID = opts.findItemByPlotID;
+            this.contentArea = $(opts.contentArea);
+            this.findItemByPlotID = opts.findItemByPlotID;
 
-            zc.sideMap.contentArea.on('sidemap.update', function (e, id, last_id) {
+            this.contentArea.on('sidemap.update', function (e, id, last_id) {
+                if (opts._previous) { // neverthelevee smScreen or notSmScreen
+                    opts._previous.removeClass('L-item-opacity');
+                    opts._previous = null;
+                }
+                if (opts.getPrevious && smScreen()) {
+                    const p = opts.getPrevious(id);
+                    if (p.length > 0) {
+                        opts._previous = p;
+                        p.addClass('L-item-opacity');
+                    }
+                }
                 $('#' + last_id).parents('article').removeClass('active');
                 $('#' + id).parents('article').addClass('active');
             });
 
+            if (opts.spy) this.__initSpy(opts);
+        },
 
-            if (opts.spy) {
-                // 根据窗口滚动 map 高亮屏幕上的第一个title
-                // update map red plot according to the first article h1 title on screen
-                // 显示标准是viewport第一个标题，所以bootstrap的 scrollspy不适合
-                scrollSpy.init(
+        __initSpy:function(opts){
+
+            // 根据窗口滚动 map 高亮屏幕上的第一个title
+            // update map red plot according to the first article h1 title on screen
+            // 显示标准是viewport第一个标题，所以bootstrap的 scrollspy不适合
+            scrollSpy
+                .init(
                     opts.spy.field + ' ' + opts.spy.target,
                     opts.spy.getId || function (targetElement) {
                         // return  a real integer or NaN
@@ -356,19 +389,42 @@ var zc = {
                     },
                     opts.side.affixEle && opts.side.affixEle[0],
                 )
-                ;
-                scrollSpy.addDo(function lightViewTopH1(id: number, ele, lastId: number, lastEle) {
-                    // zclog('[spy do] try update map for id ', id);
-                    zc.sideMap._updateMap(id, 100)
+                .addDo(function lightViewTopH1(id: number, ele, lastId: number, lastEle) {
+                     zclog('[spy do] try update map for id ', id);
+                    zc.sideMap._updateMap(id, 0)
                 });
-            }
+
+            // if (zc.canTouch) this.__initTouch(opts)
+            // else this.__initMouse(opts);
+            zc.canMouse && this.__initMouse(opts);
+            zc.canTouch && this.__initTouch(opts);
+        },
+
+        __initTouch: function (opts) {
+
+            $(opts.contentArea).on('touchover', (e) => {
+
+                const id = scrollSpy.getId(
+                    $(e.target).closest(opts.spy.targetItemScope, this).find(opts.spy.target)[0]
+                );
+
+                // 发现 #L 有两侧padding 进入padding是找不到合适 article的 这时 id 没有
+                if (isNaN(id)) return
+
+                zclog('[touch] try update map for id ', id);
+                zc.sideMap._updateMap(id, 70)
+            })
+
+        },
+        __initMouse: function (opts) {
+
 
 
             // 根据鼠标动作  map 高亮鼠标下的 article
             // 鼠标进入目标区域后 不停止 scrollSpy
             $(opts.contentArea).mouseover((e) => {
 
-                if (smScreen()) return false;
+                // if (smScreen()) return false;
 
                 e.preventDefault();
 
@@ -379,10 +435,11 @@ var zc = {
                 // 发现 #L 有两侧padding 进入padding是找不到合适 article的 这时 id 没有
                 if (isNaN(id)) return
 
-                zc.sideMap._updateMap(id, 100)
+                zclog('[mouse] try update map for id ', id);
+                zc.sideMap._updateMap(id, 70)
             })
-        },
 
+        },
 
         _initSwipeBox: function (opts) {
 
@@ -399,7 +456,7 @@ var zc = {
                     scrollSpy.enable();
                 },
                 //Default is 75px,
-                threshold: 40
+                threshold: 30
             });
 
 
@@ -408,6 +465,8 @@ var zc = {
         _initAffix: (opts) => {
 
             if (!opts.side.affixEle) return;
+
+            opts.side.ele.css('float', 'none');
 
             zc.sideMap.affixEle = opts.side.affixEle;
 
@@ -494,15 +553,13 @@ var zc = {
 
             let me = this;
 
-            // why setTimeout 200ms, give `this._updateMap(id);` enough time to redraw the map info, so
-            // `me.affixEle.outerHeight(true)` return the height with the new info
             setTimeout(() => {
 
                 let pos;
 
                 if (smScreen()) {
                     // zclog('[up] affix height: ', me.affixEle.outerHeight(true))
-                    pos = item.offset().top - me.affixEle.outerHeight(true) - 30; // 30 合适，我觉得道理是 .affix{top:30px}
+                    pos = item.offset().top - me.affixEle.outerHeight(true) - SCROLL_UP_GAP;
 
                     if (pos < zc.sideMap.beginAffixPosition) pos = zc.sideMap.beginAffixPosition;
 
@@ -515,20 +572,20 @@ var zc = {
 
                 // someone said both of 'html' and 'body' are needed
                 //      https://stackoverflow.com/questions/16475198/jquery-scrolltop-animation
-                //$('html, body').animate({
+                //$('html, body').animate
                 //      but that cause `scrollSpy.removeLock();` run twice
                 //
                 // now I test 'html', it works on chrome65 and firefox
                 $('html').animate({
                     scrollTop: pos
-                }, 500, () => {
+                }, SCROLL_UP_TIME, () => {
                     zc.sideMap.in_up = false;
                     zclog('[up] in_up stop');
                     setTimeout(() => {
                         scrollSpy.removeOneLock();
-                    }, HOW_LANG_SCROLLSPY_RESTORE_AFTER_SCROLL_UP)
+                    }, SCROLLSPY_RESTORE_WAIT_TIME_AFTER_SCROLL_UP)
                 });
-            }, 200);
+            }, WAIT_TIME_TO_SCROLL_UP);
 
         },
         updateMapTimer: null,
@@ -827,6 +884,7 @@ var zc = {
     ,
 };
 
-getG().zc = zc;
-getG().zclog = zclog;
+zc.zclog = zclog;
+zc.smScreen = smScreen;
 getG().ZCMap = ZCMap;
+getG().zc = zc;

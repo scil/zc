@@ -1,0 +1,41 @@
+
+/**
+article or long quote
+ */
+
+#body{
+
+  > blockquote {
+    font-size: 19px;
+    @extend .kaiti;
+  }
+  > * > blockquote {
+    @extend .kaiti;
+  }
+}
+
+
+.ins {
+  > blockquote {
+    padding-right: 15px;
+    border-left-width: 4px;
+    border-left-style: double;
+  }
+}
+
+/**
+quote or quote list
+ */
+
+
+#QItem,.QL-item-body {
+  >p{
+    + blockquote{
+      margin-top: 30px;
+    }
+  }
+  > blockquote {
+    font-size: 19px;
+    @extend .kaiti;
+  }
+}

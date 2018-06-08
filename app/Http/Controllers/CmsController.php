@@ -21,49 +21,58 @@ class CmsController extends Controller
 
     function home()
     {
-        foreach (['green', 'human/road', 'sail'] as $url) {
+        list($IDs,$plots)= \Cache::remember('home_plots', 60*24, function () {
 
-            if ($url=='sail') { // has child columns with articles
-                $quotes = Quote::with('places','quoteable')
-                    ->orderBy('order', 'desc')
-                    ->where('quoteable_type', 'App\Column')
-                    ->whereIn('quoteable_id', MENU_ITEMS['sail']['q'])
-                    ->get();
-                $IDs["/$url"] = [];
-                $plots["/$url"] = [];
-                foreach ($quotes as $quote){
-                    if ($quote->places->count() > 0) {
-                        $IDs["/$url"][] = $quote->id;
-                        $a_place = $quote->places[0];
-                        $plots["/$url"][$quote->id] = [
-                            'latitude' => $a_place->lat,
-                            'longitude' => $a_place->lng,
-                            'tooltip'=> [ 'content'=> "<span style=\"font-weight:bold;\">{$quote->title}</span><br><span style='font-size:85%'>{$quote->sub_title}</span>" ],
-                        ];
-                    }
+            foreach (['green', 'human/road', 'sail'] as $url) {
 
-                }
-
-            } else {
-                $vols = Volume::with(['firstArticlesSimple.places'])->where('column_id', MENU_ITEMS[$url]['id'])->orderBy('no', 'desc')->get();
-                $IDs["/$url"] = [];
-                $plots["/$url"] = [];
-                foreach ($vols as $vol) {
-                    foreach ($vol->firstArticlesSimple as $article) {
-                        if ($article->places->count() > 0) {
-                            $IDs["/$url"][] = $article->id;
-                            $a_place = $article->places[0];
-                            $plots["/$url"][$article->id] = [
+                if ($url == 'sail') { // has child columns with articles
+                    $quotes = Quote::with('places', 'quoteable')
+                        ->orderBy('order', 'desc')
+                        ->where('quoteable_type', 'App\Column')
+                        ->whereIn('quoteable_id', MENU_ITEMS['sail']['q'])
+                        ->select(['id', 'order', 'slug', 'title', 'desc', 'body',
+                            \DB::raw('if(isnull(body_long),0,if(body_long="",0,1)) as b_long'),
+                            'origin_url', 'origin', 'author',
+                            'image_id', 'quoteable_id', 'quoteable_type'])
+                        ->get();
+                    $IDs["/$url"] = [];
+                    $plots["/$url"] = [];
+                    foreach ($quotes as $quote) {
+                        if ($quote->places->count() > 0) {
+                            $IDs["/$url"][] = $quote->id;
+                            $a_place = $quote->places[0];
+                            $plots["/$url"][$quote->id] = [
                                 'latitude' => $a_place->lat,
                                 'longitude' => $a_place->lng,
-                                'tooltip'=> [ 'content'=> "<span style=\"font-weight:normal;\">{$article->title}</span><br><span style='font-size:85%'>{$article->sub_title}</span>" ],
-                                'href'=>"{$vol->column->url}/{$article->slug}",
+                                'tooltip' => ['content' => "<span style=\"font-weight:bold;\">{$quote->title}</span><br><span style='font-size:85%'>{$quote->desc}</span>"],
                             ];
+                        }
+
+                    }
+
+                } else {
+                    $vols = Volume::with(['firstArticlesSimple.places'])->where('column_id', MENU_ITEMS[$url]['id'])->orderBy('no', 'desc')->get();
+                    $IDs["/$url"] = [];
+                    $plots["/$url"] = [];
+                    foreach ($vols as $vol) {
+                        foreach ($vol->firstArticlesSimple as $article) {
+                            if ($article->places->count() > 0) {
+                                $IDs["/$url"][] = $article->id;
+                                $a_place = $article->places[0];
+                                $plots["/$url"][$article->id] = [
+                                    'latitude' => $a_place->lat,
+                                    'longitude' => $a_place->lng,
+                                    'tooltip' => ['content' => "<span style=\"font-weight:normal;\">{$article->title}</span><br><span style='font-size:85%'>{$article->sub_title}</span>"],
+                                    'href' => "{$vol->column->url}/{$article->slug}",
+                                ];
+                            }
                         }
                     }
                 }
             }
-        }
+
+            return [$IDs,$plots];
+        });
 
         return view('home', ['columnID' => 0, 'IDs' => $IDs, 'plots' => $plots]);
     }
@@ -104,32 +113,39 @@ class CmsController extends Controller
             'title'));
     }
 
-    function viewBookArticle($slug, $a_slug)
+    function viewBookSub($slug, $sub)
     {
-        $media = Book::with(['articles' => function ($q) use ($a_slug) {
+        if (in_array($sub, ['tip', 'behind', 'errata'])) {
+            return $this->viewMediaSpecialQuote($slug, $sub, 'book');
+        }
+        $media = Book::with(['articles' => function ($q) use ($sub) {
             $q->where([
-                ['slug', '=', $a_slug],
+                ['slug', '=', $sub],
             ])->first();
         }])->where('slug', $slug)->first();
         $article = $media->articles[0];
         $article_type = 'book';
         // a simple title for article
-        $columnID = '_' . MENU_ITEMS['book']['id'];
+        $columnID = MENU_ITEMS['book']['id'];
         $title = $article->title . ' &nbsp;|&nbsp; ' . $media->name . ' &nbsp;|&nbsp; 真城书架';
         return view('article.view', compact('columnID', 'article', 'article_type', 'media', 'title'));
     }
 
-    function viewVideoArticle($slug, $a_slug)
+    function viewVideoSub($slug, $sub)
     {
-        $media = Video::with(['articles' => function ($q) use ($a_slug) {
+        if (in_array($sub, ['tip', 'behind', 'errata'])) {
+            return $this->viewMediaSpecialQuote($slug, $sub, 'video');
+        }
+
+        $media = Video::with(['articles' => function ($q) use ($sub) {
             $q->where([
-                ['slug', '=', $a_slug],
+                ['slug', '=', $sub],
             ])->first();
         }])->where('slug', $slug)->first();
         $article = $media->articles[0];
         $article_type = 'video';
         // a simple title for article
-        $columnID = '_' . MENU_ITEMS['video']['id'];
+        $columnID = MENU_ITEMS['video']['id'];
         $title = $article->title . ' &nbsp;|&nbsp; ' . $media->name . ' &nbsp;|&nbsp; 真城视窗';
         return view('article.view', compact('columnID', 'article', 'article_type', 'media', 'title'));
     }
@@ -180,16 +196,6 @@ class CmsController extends Controller
 
     }
 
-    function viewBookSpecialQuote($slug, $type)
-    {
-        return $this->viewMediaSpecialQuote($slug, $type, 'book');
-    }
-
-    function viewVideoSpecialQuote($slug, $type)
-    {
-        return $this->viewMediaSpecialQuote($slug, $type, 'video');
-    }
-
     function viewMediaSpecialQuote($slug, $type, $media_type)
     {
         $quote = Quote::with('quoteable')->where([
@@ -230,14 +236,18 @@ class CmsController extends Controller
         $desc = $columnInfo['desc'];
         $columnID = $columnInfo['id'];
         $title = $columnInfo['title'];
-        $columnCss = $columnInfo['css']??null;
+        $columnCss = $columnInfo['css'] ?? null;
 
-        if ($url == 'sail') {
+        if ($url === 'sail') {
             $columnLevel = 2;
             $quotes = Quote::with('places', 'image', 'quoteable')
                 ->orderBy('order', 'desc')
                 ->where('quoteable_type', 'App\Column')
                 ->whereIn('quoteable_id', $columnInfo['q'])
+                ->select(['id', 'order', 'slug', 'title', 'sub_title', 'body',
+                    \DB::raw('if(isnull(body_long),0,if(body_long="",0,1)) as b_long'),
+                    'origin_url', 'origin', 'author',
+                    'image_id', 'quoteable_id', 'quoteable_type'])
                 ->get();
 
         } else {
@@ -329,7 +339,7 @@ class CmsController extends Controller
         } else {
             $title = MENU_ITEMS['book']['title'];
             $desc = MENU_ITEMS['book']['desc'];
-            $vols = Volume::with('firstBooks.volume', 'firstBooks.places')->where('columnID', $columnID)->orderBy('no', 'desc')->get();
+            $vols = Volume::with('firstBooks.volume', 'firstBooks.places')->where('column_id', $columnID)->orderBy('no', 'desc')->get();
             $medias = $vols->map(function ($item, $key) {
                 return $item->firstBooks[0];
             });
@@ -350,7 +360,7 @@ class CmsController extends Controller
             $title = MENU_ITEMS['video']['title'];
             $desc = MENU_ITEMS['video']['desc'];
 
-            $vols = Volume::with('firstVideos.volume', 'firstVideos.places')->where('columnID', $columnID)->orderBy('no', 'desc')->get();
+            $vols = Volume::with('firstVideos.volume', 'firstVideos.places')->where('column_id', $columnID)->orderBy('no', 'desc')->get();
             $medias = $vols->map(function ($item, $key) {
                 return $item->firstVideos[0];
             });

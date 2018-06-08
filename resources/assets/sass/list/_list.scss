@@ -1,20 +1,19 @@
 #column-box {
-  padding-top: 27px;
+  //padding-top: 27px;
 }
 
 #L, #QL {
-  // xs screen 禁止使用 margin-top ,其由js决定, see _initTopAffix
+  // sm screen 禁止使用 margin-top ,其由js决定, see _initTopAffix
   @media (min-width: $screen-sm-min) {
-    margin-top: -25px;
+    //margin-top: -25px;
   }
 }
-
-.vol>article {
-  padding: 20px 0 5px 2px; // why padding-top 20px? for background-color
+.L-item-opacity{
+  @include opacity(0.3);
 }
 
 .L-item-hr {
-  margin: 25px 0 0;
+  margin: 25px 0;
 }
 
 .vol-item-hr {
@@ -30,6 +29,9 @@
 }
 
 .vol {
+  > .read-more{
+    bottom: 30px;
+  }
   > article > header > .no-in-vol-1 {
     display: none;
   }

@@ -7,7 +7,7 @@
  * Greedy: only for study
  */
 if (!defined('LARAVELFLY_MODE')) define('LARAVELFLY_MODE',
-    'Map'
+    'Simple'
 );
 
 /**
@@ -94,31 +94,9 @@ return [
     ],
     'watch_delay' => 3500,
 
-    /**
-     * compile laravel's core files into a single file to get better performance.
-     *
-     * It's from artican optimize command from Laravel 5.4.Laravel droped it because 'improvements to PHP op-code caching'
-     * LaravelFly pick it up because LaravelFly uses opcache_reset().
-     *
-     * The core files will not support reload because they are included before workers start.
-     *
-     * The compiled file only recreated when its mtime < the mtime of composer.lock except 'force'
-     *
-     * options:
-     *      false
-     *      true
-     *      'force'
-     */
-//    'compile' =>'force',
-    'compile' => true,
+    'pre_include' =>'true',
 
-    /**
-     * Add more files to be compiled
-     * note:
-     * 1. order is important
-     * 2. The files will not support reload
-     */
-    'compile_files' => [
+    'pre_files' => [
     ],
 
 //    'user' => 'www-data', 'group' => 'www-data',

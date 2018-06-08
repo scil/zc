@@ -33,9 +33,19 @@
   }
 }
 
+@media (max-width: $screen-sm-min) {
+  #header-hr{
+    margin:$header_hr_margin_sm;
+  }
+}
+
 #header-nav {
   font-size: 19px;
   > li {
+    @media (max-width: 515px) {
+      // 使小屏换行时 不难看; 515px能显示四个栏目名字
+      margin: 0 1px;
+    }
     & > a {
       color: #999;
       &:hover, &:focus {

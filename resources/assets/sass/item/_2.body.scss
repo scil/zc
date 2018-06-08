@@ -19,13 +19,6 @@
     margin-bottom: 20px;
     background-color: lightgray;
   }
-  > blockquote {
-    font-size: 19px;
-    @extend .kaiti;
-  }
-  > * > blockquote {
-    @extend .kaiti;
-  }
 }
 
 .ins-hr {
@@ -50,11 +43,6 @@
   > h3 {
     margin-top: 0;
     line-height: 1.5;
-  }
-  > blockquote {
-    padding-right: 15px;
-    border-left-width: 4px;
-    border-left-style: double;
   }
 }
 
@@ -207,71 +195,4 @@ ins {
 .Italianno {
   font-family: 'Italianno', serif;
 }
-
-/* *****************
- *   img
- */
-
-.center-img {
-  display: block;
-  margin: 30px auto;
-  @media (min-width: $screen-xs) {
-    max-width: 80%;
-  }
-}
-
-.center-img-box {
-  text-align: center;
-  margin: 25px 0 30px !important;
-}
-
-.left-img-box {
-  @extend .clearfix;
-  @extend .kaiti;
-  position: relative; // 里面的文字可用绝对定位 当然一般用float:right
-
-  > img {
-    float: left;
-    margin-right: 8px;
-    @media (min-width: $screen-xs) {
-      max-width: 80%;
-    }
-    @media (max-width: $screen-xs) {
-      width: 100%;
-    }
-  }
-
-  > a:first-child /* a img with link*/
-  {
-    float: left;
-    margin-right: 8px;
-    @media (min-width: $screen-xs) {
-      max-width: 80%;
-    }
-    @media (max-width: $screen-xs) {
-      width: 100%;
-    }
-    > img {
-      width: 100%;
-    }
-  }
-
-  > span.top {
-    float: right;
-  }
-  @media (min-width: $screen-xs) {
-    > span.bottom {
-      float: none;
-      position: absolute;
-      bottom: 2px;
-    }
-  }
-}
-
-.img-list {
-  > img {
-    max-width: 100%;
-  }
-}
-
 

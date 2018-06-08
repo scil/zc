@@ -11,23 +11,26 @@
                             <div id="LMap">
                                 <div class="map"></div>
                             </div>
+                            <span id="LMap-addr"></span>
                         </div>
                         <div id="LMap-info-swipebox">
                             <section id="LMap-info">
-                                <p id="LMap-info-addr" v-html="addr"></p>
+                                <p id="LMap-info-addr" v-html="title"></p>
                                 <div id="LMap-info-intro" v-html="intro"></div>
                             </section>
                         </div>
                         <?php
-                        $mapInfosByID = []; $IDs = [];
+                        $mapInfosByItemID = []; $IDs = [];
                         ?>
                         @foreach($quotes as $quote)
                             @if($quote->places->count()>0)
                                 <?php $a_place = $quote->places[0];$IDs[] = $quote->id;  ?>
                                 <?php
-                                $mapInfosByID[$quote->id] = [
+                                $mapInfosByItemID[$quote->id] = [
                                     'addr' => $a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en,
-                                    'intro' => $a_place->pivot->intro];
+                                    'title' => $a_place->pivot->title,
+                                    'intro' => $a_place->pivot->intro
+                                    ];
                                 ?>
 
                             @endif
@@ -50,7 +53,7 @@
                                 @endif
                                 <h1 class="L-item-title" id="{!! $quote->id !!}"><a
                                             href="/{!! $url !!}/{!! $quote->slug !!}">
-                                        {!! $quote->title !!}{!! $quote->sub_title?' —— '. $quote->sub_title :'' !!}</a>
+                                        {!! $quote->title !!}{!! $quote->sub_title?' —— '. $quote->sub_title :'' !!}</a></h1>
                             </header>
                             <div class="QL-item-body">{!! $quote->body !!}</div>
                             @if($quote->image)
@@ -65,7 +68,7 @@
                                 @endif
                             @endif
                             <div class="QL-read-more-box">
-                                @if($quote->body_long)
+                                @if($quote->b_long)
                                     <a class="QL-read-more btn btn-default"
                                        href="/{!! $url !!}/{!! $quote->slug !!}"></a>
                                 @endif
@@ -94,6 +97,8 @@
 @section('script_b')
     <script>
 
+        $('cite', '#QL').addClass('cite-tail');
+
         var plots = {
         @foreach($quotes as $quote)
         @if($quote->places->count()>0)
@@ -119,8 +124,10 @@
                 ele: $('#side'),
                 affixEle: $('#LMap-box'),
                 swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
+                addrEle:$('#LMap-addr'),
                 infoEle: '#LMap-info',
-                infoData:{!! json_encode($mapInfosByID) !!},
+                infoData:{!! json_encode($mapInfosByItemID) !!},
+                infoKeys:['title','intro'],
             },
 
             contentArea: '#QL',
@@ -128,6 +135,10 @@
                 var h1 = $(document.getElementById(id)).parents('article');
                 return h1;
             },
+            getPrevious:function(id){
+                return prevVol = $('#' + id).parents('article').prevUntil('article').prev();
+            },
+            lightID:null,
             spy: {
                 field: '#QL',
                 target: '.L-item-title',

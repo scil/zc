@@ -108,7 +108,7 @@ M;
 <header>
     <div id="header" class="container">
         {!! ZC_HEADERS[$columnID] !!}
-        <hr/>
+        <hr id="header-hr"/>
     </div>
 </header>
 

@@ -8,9 +8,9 @@
                             <a href="/zhen" class="dropdown-toggle" data-toggle="dropdown" role="button"
                aria-expanded="false">真山</a>
                             <ul class="dropdown-menu" role="menu">
-                                                                                                        <li><a href="/writing">山书</a></li>
                                                                                                         <li><a href="/green">山青</a></li>
                                                                                                         <li><a href="/spirit">山意</a></li>
+                                                                                                        <li><a href="/paper">山书</a></li>
                                                             </ul>
                         </li>
 
@@ -20,8 +20,9 @@
                aria-expanded="false">人山</a>
                             <ul class="dropdown-menu" role="menu">
                                                                                                         <li><a href="/human/nature">天性</a></li>
-                                                                                                        <li><a href="/human/road">人之路</a></li>
-                                                                                                        <li><a href="/human/raindrops">雨滴</a></li>
+                                                                                                        <li><a href="/human/road">人路</a></li>
+                                                                                                        <li><a href="/human/so">这样</a></li>
+                                                                                                        <li><a href="/human/indiv">个体</a></li>
                                                             </ul>
                         </li>
 
@@ -32,7 +33,7 @@
                             <ul class="dropdown-menu" role="menu">
                                                                                                         <li><a href="/sail/walkers">行者</a></li>
                                                                                                         <li><a href="/sail/assets">财艺</a></li>
-                                                                                                        <li><a href="/sail/dao">知道</a></li>
+                                                                                                        <li><a href="/sail/road">知道</a></li>
                                                             </ul>
                         </li>
 

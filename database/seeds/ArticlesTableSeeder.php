@@ -21,7 +21,7 @@ class ArticlesTableSeeder extends Seeder
 //        $article_ids = require __DIR__ . '/article_ID.php';
         $person_ids = require __DIR__ . '/person_ID.php';
 
-        $book_id = MENU_ITEMS["writing"]['id'];
+        $book_id = MENU_ITEMS["paper"]['id'];
         $qing_id = MENU_ITEMS["green"]['id'];
 
         $ren_nature_id = MENU_ITEMS["human/nature"]['id'];
@@ -59,7 +59,8 @@ class ArticlesTableSeeder extends Seeder
                 '_place' => [
                     '_id' => DB::table('places')->where('name', '北京')->first()->id,
                     'info' => [
-                        'intro' => '她挚爱音乐，却烧掉了中学毕业时的音乐会纪念册，「我感到当时别人在为“New China”浴血奋战，我却沉浸在小资产阶级的钢琴调中，很羞愧，就一把火就烧了」，与过去决裂。时 1953 年。',
+                        'title' => '烧',
+                        'intro' => '她挚爱音乐，却烧掉了中学毕业时的音乐会纪念册，「我感到当时别人在为“New China”浴血奋战，我却沉浸在小资产阶级的钢琴调中，很羞愧，就一把火就烧了」，与过去决裂。',
                     ]
                 ],
                 '_quotes' => [
@@ -189,7 +190,8 @@ class ArticlesTableSeeder extends Seeder
                 '_place' => [
                     '_id' => DB::table('places')->where('name', '牛津大学')->first()->id,
                     'info' => [
-                        'intro' => 'Columbus 发现美洲的同一年，14 岁的 More 来到牛津大学学习语言和文学，时 1492 年。之前，他刚刚在 Morton 家做了两年小侍者。Morton 是当时的大法官、一位大主教，支持文艺复兴。做侍者是欧洲长期的少年成长方式，从事的工作在东方宫廷王府中不乏由奴隶而非公子负责。',
+                        'title' => '小侍者读大学',
+                        'intro' => 'More 在 Morton 家做了两年小侍者。做侍者是欧洲传统的少年成长方式，从事的工作在东方宫廷王府中不乏由奴隶而非公子负责。Morton 是当时的大法官、主教，支持囶外传来的新思潮「文艺复兴」，非常欣赏小 More 的才华，推荐他到牛津大学，学习语言和文学。是年 More 14 岁，Columbus 发现美洲。',
                     ]
                 ],
                 '_quotes' => [
@@ -268,7 +270,8 @@ class ArticlesTableSeeder extends Seeder
                 '_place' => [
                     '_id' => DB::table('places')->where('name', '纽约都会区')->first()->id,
                     'info' => [
-                        'intro' => '圣诞前一天凌晨，黄在投送报纸的路上突然汽车爆胎，下车检修时遭遇车祸。前几天，他刚给家里打电话，询问父母和亲人的情况，谈到自己「研究继续搞着，每个星期去找导师讨论一下，有时导师讲课，就听课」。',
+                        'title' => '工作的路上',
+                        'intro' => '黄给家里打电话，谈到自己「研究继续搞着，每个星期去找导师讨论一下，有时导师讲课，就听课」。几天后，他在投送报纸的路上，检修爆胎的汽车，不幸遭遇车祸。',
                     ]
                 ],
                 '_quotes' => [
@@ -383,7 +386,8 @@ class ArticlesTableSeeder extends Seeder
                 '_place' => [
                     '_id' => DB::table('places')->where('name_en', 'Los Alamos')->first()->id,
                     'info' => [
-                        'intro' => '二战时参加 Manhattan Project，成为人人避而远之的开锁贼。他满身的幽默感来自母亲。',
+                        'title' => '参加研制原子弹的 Manhattan Project',
+                        'intro' => '成为人人避而远之的开锁贼。他满身的幽默感来自母亲。',
                     ]
                 ],
                 '_quotes' => [
@@ -444,7 +448,8 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'name' => '湖北利川',
                     ],
                     'info' => [
-                        'intro' => '他重操旧业，靠在搪瓷碗盆上烧字养活妻女，背着一个简单的木头工具箱，走遍了二十几个省的无数县镇。他和那些江湖手艺人唯一的不同是，他的工具箱里永远放着《楚辞》。',
+                        'title' => '走遍了二十几个省的无数县镇',
+                        'intro' => '他重操旧业，靠在搪瓷碗盆上烧字养活妻女，背着一个简单的木头工具箱，里面永远放着《楚辞》。',
                     ],
                 ],
             ],
@@ -481,7 +486,8 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'lat' => 21.0039009,
                     'lng' => 105.838117,
                     'info' => [
-                        'intro' => '疫情蔓延到这里，终于遭到了阻击。',
+                        'title' => '疫情被阻击',
+                        'intro' => 'Urbani 和 Brudon 狂打电话，不断呼叫各个级别的越南官员，要求紧急会见越南的卫生官员。',
                     ],
                 ],
                 '_quotes' => [
@@ -542,106 +548,108 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
         ];
 
 //        $articles =
-            array_merge($articles,[
+        array_merge($articles, [
 
-                [
-                    'slug' => 'Lu-Zuofu-microbe',
-                    'articleable_id' => $column_id, 'title' => '「微生物」之路：文人，官员，商人',
-                    'desc' => '如何发展中囶？卢作孚的探索之路。',
-                    'intro' => '如何发展中囶？追述卢作孚的探索之路。',
-                    'author' => 'scil（编）',
-                    'author_id' => 1,
-                    'origin' => '',
-                    'origin_date' => '2017-12-05',
-                    'created_at' => '2017-12-05',
-                    'show_date' => false,
-                    'origin_url' => 'http://www.eywedu.com/Bolanqunshu/blqs2003/blqs20030902.html',
-                    'origin_tip' => null,
+            [
+                'slug' => 'Lu-Zuofu-microbe',
+                'articleable_id' => $column_id, 'title' => '「微生物」之路：文人，官员，商人',
+                'desc' => '如何发展中囶？卢作孚的探索之路。',
+                'intro' => '如何发展中囶？追述卢作孚的探索之路。',
+                'author' => 'scil（编）',
+                'author_id' => 1,
+                'origin' => '',
+                'origin_date' => '2017-12-05',
+                'created_at' => '2017-12-05',
+                'show_date' => false,
+                'origin_url' => 'http://www.eywedu.com/Bolanqunshu/blqs2003/blqs20030902.html',
+                'origin_tip' => null,
 
-                    'editor_id' => 1, 'status' => 1, 'deep' => 'open',
-                    'comment' => null,
-                    '_vol' => [
-                        'title' => '卢作孚',
-                        'column_id' => $qing_id,
-                        'no' => ++$qing_vol_no,
-                        'person_id' => $person_ids['Lu_Zuofu'],
+                'editor_id' => 1, 'status' => 1, 'deep' => 'open',
+                'comment' => null,
+                '_vol' => [
+                    'title' => '卢作孚',
+                    'column_id' => $qing_id,
+                    'no' => ++$qing_vol_no,
+                    'person_id' => $person_ids['Lu_Zuofu'],
+                ],
+                '_quotes' => [
+
+                    [
+                        '_slug' => 'Huang_Yu_self',
+                        'type' => 'top',
+                        'order' => 1,
+
+                        'body' => '最好的报酬是求仁得仁——建筑一个美好的公园，便报酬你一个美好的公园；建设一个完整的囶家，便报酬你一个完整的囶家。',
+                        'author' => '卢作孚《工作的报酬》',
+                        'origin' => null,
+                        'origin_date' => null,
+                        'show_date' => false,
+                        'origin_url' => '',
+                        'origin_tip' => null,
+                        'editor_id' => 1, 'status' => 1, 'deep' => 'open',
+                        'comment' => '',
                     ],
-                    '_quotes' => [
-
-                        [
-                            '_slug' => 'Huang_Yu_self',
-                            'type' => 'top',
-                            'order' => 1,
-
-                            'body' => '最好的报酬是求仁得仁——建筑一个美好的公园，便报酬你一个美好的公园；建设一个完整的囶家，便报酬你一个完整的囶家。',
-                            'author' => '卢作孚《工作的报酬》',
-                            'origin' => null,
-                            'origin_date' => null,
-                            'show_date' => false,
-                            'origin_url' => '',
-                            'origin_tip' => null,
-                            'editor_id' => 1, 'status' => 1, 'deep' => 'open',
-                            'comment' => '',
-                        ],
+                ],
+                '_place' => [
+                    'name' => '北碚卢作孚纪念馆',
+                    'name_en' => '',
+                    'addr' => '重庆市北碚区',
+                    'lat' => 29.8332376,
+                    'lng' => 106.4371439,
+                    'oldOrPoint' => [
+                        'type' => 'old',
+                        'name' => '江巴璧合特组峡防局',
                     ],
-                    '_place' => [
-                        'name' => '北碚卢作孚纪念馆',
-                        'name_en' => '',
-                        'addr' => '重庆市北碚区',
-                        'lat' => 29.8332376,
-                        'lng' => 106.4371439,
-                        'oldOrPoint' => [
-                            'type' => 'old',
-                            'name' => '江巴璧合特组峡防局',
-                        ],
-                        'info' => [
-                            'intro' => '1927 年，作孚任峡防局局长，他在剿匪同时，进行乡村建设实验，成就斐然。当时“峡防局”一直是北碚行政中心，卢作孚、卢子英兄弟有关乡村建设的大部分决策都在此制定实施。',
-                        ],
+                    'info' => [
+                        'title' => '1927 年，峡防局局长',
+                        'intro' => '他在剿匪同时，进行乡村建设实验，成就斐然。当时“峡防局”一直是北碚行政中心，卢作孚、卢子英兄弟有关乡村建设的大部分决策都在此制定实施。',
                     ],
-                    '_brothers' => [
-                        [
-                            'slug' => 'miss-Lu-Zuofu',
-                            'articleable_id' => $column_id, 'title' => '石壁上，凿刻着「敬怀至友作孚兄」',
-                            'desc' => '卢作孚一生走过许多地方，但他最爱此地。这是他的亲爱的北碚，花园一样的北碚，举世闻名的北碚。他开发建设了北碚，他生前却决不允许用他的名字命名这里的任何一座建筑任何一个地方',
-                            'intro' => '卢作孚一生走过许多地方，但他最爱此地。这是他的亲爱的北碚[bèi]，花园一样的北碚，举世闻名的北碚。他开发建设了北碚，他生前却决不允许用他的名字命名这里的任何一座建筑任何一个地方',
-                            'author' => '赵晓铃',
-                            'origin' => '《卢作孚的选择》',
-                            'origin_date' => '2008/07/01',
-                            'show_date' => false,
-                            'origin_url' => '',
-                            'copyright' => '',
-                            'editor_id' => 1, 'status' => 1, 'deep' => 'open',
-                            'comment' => '',
-                            '_place' => [
-                                'name' => '国际乡村改造学院',
-                                'name_en' => 'International Institute of Rural Reconstruction',
-                                'addr' => 'Philippines',
-                                'lat' => 14.2615652,
-                                'lng' => 120.9674159,
-                                'info' => [
-                                    'intro' => '1982 年，89 岁高龄的晏阳初撰文怀念阔别半生的至友卢作孚，30 多年前，他劝卢乘桴浮于海，但卢听信了他人，从此天人永隔。',
-                                ],
+                ],
+                '_brothers' => [
+                    [
+                        'slug' => 'miss-Lu-Zuofu',
+                        'articleable_id' => $column_id, 'title' => '石壁上，凿刻着「敬怀至友作孚兄」',
+                        'desc' => '卢作孚一生走过许多地方，但他最爱此地。这是他的亲爱的北碚，花园一样的北碚，举世闻名的北碚。他开发建设了北碚，他生前却决不允许用他的名字命名这里的任何一座建筑任何一个地方',
+                        'intro' => '卢作孚一生走过许多地方，但他最爱此地。这是他的亲爱的北碚[bèi]，花园一样的北碚，举世闻名的北碚。他开发建设了北碚，他生前却决不允许用他的名字命名这里的任何一座建筑任何一个地方',
+                        'author' => '赵晓铃',
+                        'origin' => '《卢作孚的选择》',
+                        'origin_date' => '2008/07/01',
+                        'show_date' => false,
+                        'origin_url' => '',
+                        'copyright' => '',
+                        'editor_id' => 1, 'status' => 1, 'deep' => 'open',
+                        'comment' => '',
+                        '_place' => [
+                            'name' => '国际乡村改造学院',
+                            'name_en' => 'International Institute of Rural Reconstruction',
+                            'addr' => 'Philippines',
+                            'lat' => 14.2615652,
+                            'lng' => 120.9674159,
+                            'info' => [
+                                'title' => '天人永隔',
+                                'intro' => '1982 年，89 岁高龄的晏阳初撰文怀念阔别半生的至友卢作孚。30 多年前，他劝卢乘桴浮于海，但卢听信了他人，从此天人永隔。',
                             ],
-                            '_quotes' => [
-
-                                [
-                                    '_slug' => 'Huang_Yu_ta',
-                                    'type' => 'top',
-                                    'order' => 2,
-
-                                    'body' => '一个没有受过学校教育的学者，一个没有现代个人享受要求的现代企业家，一个没有钱的大亨。',
-                                    'author' => '',
-                                    'origin' => '《卢作孚与他的长江船队》（美《亚洲与美洲》杂志）',
-                                    'origin_date' => '2005/01/07',
-                                    'show_date' => false,
-                                    'origin_url' => '',
-                                    'origin_tip' => null,
-                                    'editor_id' => 1, 'status' => 1, 'deep' => 'open',
-                                    'comment' => '',
-                                ],
-                            ],
-
                         ],
+                        '_quotes' => [
+
+                            [
+                                '_slug' => 'Huang_Yu_ta',
+                                'type' => 'top',
+                                'order' => 2,
+
+                                'body' => '一个没有受过学校教育的学者，一个没有现代个人享受要求的现代企业家，一个没有钱的大亨。',
+                                'author' => '',
+                                'origin' => '《卢作孚与他的长江船队》（美《亚洲与美洲》杂志）',
+                                'origin_date' => '2005/01/07',
+                                'show_date' => false,
+                                'origin_url' => '',
+                                'origin_tip' => null,
+                                'editor_id' => 1, 'status' => 1, 'deep' => 'open',
+                                'comment' => '',
+                            ],
+                        ],
+
+                    ],
 //                    [
 //                        'slug' => '',
 //                        'articleable_id'=>$column_id,'title' => '孩子没有责任感，只会打游戏怎么办？
@@ -673,9 +681,9 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 ////                    'comment'=>'',
 ////                ],
 //                    ],
-                    ],
                 ],
-            ]);
+            ],
+        ]);
 
 
         $create_time = time() - 100000;
@@ -714,7 +722,8 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'lat' => 40.9605098,
                     'lng' => -76.2633296,
                     'info' => [
-                        'intro' => '二战前夕的 1938 年，Maslow 迎来了孩子 Ann 的出生，考察了黑脚印第安人（Blackfoot Indians），开始对行为主义产生怀疑，认为人不是被环境任意涂抹的白纸。',
+                        'title' => '行为主义？',
+                        'intro' => '二战前夕的 1938 年，Maslow 的孩子出生了，他还考察了黑脚印第安人（Blackfoot Indians），开始对行为主义产生怀疑，认为人不是被环境任意涂抹的白纸。',
                         'relation' => false,
                     ]
                 ],
@@ -785,7 +794,8 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'lat' => 22.3252288,
                     'lng' => 112.6009445,
                     'info' => [
-                        'intro' => '1997 年秋，作者和几个师范同学来到潭江边的开平中学做实习老师。',
+                        'title' => '实习老师',
+                        'intro' => '1997 年秋，包括作者在内的几个师范学生来到这所中学做实习老师。',
                         'relation' => false,
                     ]
                 ],
@@ -853,7 +863,8 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'lat' => 54.7063834,
                     'lng' => 20.5098527,
                     'info' => [
-                        'intro' => '<z-lang en=\'"To be trusted is a greater compliment than to be loved."\'>「有两样东西，我们越是时常反复地思索，心中越是充满永远新鲜、有加无减的赞叹和敬畏——头上的灿烂星空和心中的道德律。」</z-lang> 1804 年，康德安眠于家乡东普鲁士首府柯尼斯堡的教堂（目前属于二战后体系下的俄罗斯领土）',
+                        'title' => '头上的灿烂星空和心中的道德律',
+                        'intro' => '「有两样东西，我们越是时常反复地思索，心中越是充满永远新鲜、有加无减的赞叹和敬畏。」 1804 年，康德安眠于家乡东普鲁士首府柯尼斯堡的教堂（目前属于二战后体系下的俄罗斯领土）',
                     ]
                 ],
             ],
@@ -972,6 +983,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'lat' => 37.0625,
                     'lng' => -95.677068,
                     'info' => [
+                        'title' => '逃脱',
                         'intro' => '1987 年，一只 flamingo 鸟逃脱饲养场，飞到大盐湖海岸安家过冬，将近 20 年，成为传奇，人们用一个著名的英格兰摇滚乐队给它命名：Pink Floyd（粉色弗洛依德）。',
                         'relation' => false,
                     ]
@@ -1090,6 +1102,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'name' => '紫禁城',
                     ],
                     'info' => [
+                        'title' => '人心',
                         'intro' => '康熙：致治以服人心为本，人心服更无余事矣',
                         'relation' => false,
                     ]
@@ -1121,6 +1134,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                             'lng' => 18.0702616,
                             'comment' => '1923-1974',
                             'info' => [
+                                'title' => '抢劫犯 让人爱',
                                 'intro' => 'Norrmalmstorg robbery was a bank robbery and hostage crisis best known as the origin of the term Stockholm syndrome.It took place here.',
                             ]
                         ],
@@ -1155,6 +1169,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'lat' => 0.328342,
                     'lng' => 109.2313704,
                     'info' => [
+                        'title' => '与美国同龄的华语移民国',
                         'intro' => '1777 年，即美利坚建国的第二年，汉人建立兰芳共和国，创始人罗芳伯位列《中国殖民八大伟人传》',
                         'relation' => false,
                     ]
@@ -1314,6 +1329,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'lat' => 42.3132882,
                     'lng' => -71.1972432,
                     'info' => [
+                        'title' => '「孩子们的无知和笨拙经常让他们感到痛苦」',
                         'intro' => '*How Children Learn* (1967; revised 1983)。作者 John Holt(1923～1985)， 他的多部作品极大影响了 unschooling 运动.',
                         'relation' => false,
                     ]
@@ -1521,6 +1537,11 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'lng' => 113.3014496,
                         'url' => 'http://www.love-freedom.com/index.php?c=school&a=sabout&id=127&pid=117',
                         'comment' => '',
+                        'info' => [
+                            'title' => '不让',
+                            'intro' => '他们上幼儿园时带的所有东西都不许别人动，也不让老师帮助他们提书包或别的东西',
+                            'relation' => false,
+                        ]
                     ],
 //                '_tags'=>['孝'],
                     '_quotes' => [
@@ -1570,13 +1591,13 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     '_brothers' => [
                     ],
                     '_place' => [
-                        'name' => '委内瑞拉总统府',
+                        'name' => '津巴布韦总统府',
                         'name_en' => 'State House',
                         'lat' => -17.812124,
                         'lng' => 31.0557677,
                         'info' => [
                             'title' => '93 岁穆加贝：「自己的身体状况能够继续胜任总统」。',
-                            'intro' => '非洲粮仓委内瑞拉，在经济减速时，穆加贝集团为把持政权，实行地产掠夺和计划经济，导致严重饥荒，当时「南丰捐送了 15 万个裹尸袋」（《[津巴布韦，为什么会发生大饥荒](http://mp.weixin.qq.com/s/630gQEw8AqcV7cRwTYnEwA)》），同时，委内瑞拉跻身最腐败国家行列，至少2万亿美元的财富被侵吞。穆加贝一头黑发，为囶家「鞠躬尽瘁」，可惜不到「死而后已」就来了委版「粉碎四人帮」（《[穆加比、曼德拉](https://www.msn.com/zh-tw/news/world/閻紀宇專欄穆加比、毛澤東、曼德拉/ar-BBFp6cD)》）。',
+                            'intro' => '津巴布韦经济减速时，穆加贝集团为把持政权，大搞地产掠夺和计划经济，造成这个非洲粮仓发生大饥荒，「南丰捐送了 15 万个裹尸袋」（《[津巴布韦，为什么会发生大饥荒](http://mp.weixin.qq.com/s/630gQEw8AqcV7cRwTYnEwA)》），同时，津巴布韦跻身最腐败国家行列，至少2万亿美元的财富被侵吞。穆加贝一头黑发，妄图「鞠躬尽瘁」（《[穆加比、曼德拉](https://www.msn.com/zh-tw/news/world/閻紀宇專欄穆加比、毛澤東、曼德拉/ar-BBFp6cD)》）。',
                             'relation' => false,
                         ]
                     ],
@@ -1612,6 +1633,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'lat' => 39.941193,
                     'lng' => 116.4315023,
                     'info' => [
+                        'title' => '法律？',
                         'intro' => '盲人陈先生在北京乘地铁时，被拒绝进站。地铁站表示：必须有本地盲人乘车证，不然就得买票。而法律规定，盲人可免费乘坐地铁。',
                         'relation' => true,
                     ]
@@ -1639,15 +1661,29 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 'created_at' => '2017/06/03',
                 'comment' => '',
                 '_place' => [
-                    'name_en' => 'Bsharri',
-                    'addr' => 'Lebanon',
-                    'address' => '',
-                    'lat' => 34.2506498,
-                    'lng' => 35.9942225,
+                    '_name'=>'Gibran（纪伯伦）童年时的家乡',
                     'info' => [
-                        'intro' => 'Gibran（纪伯伦）成长在奥斯曼帝国时代的山区中（今黎巴嫩），12 岁和母亲离开家乡',
+                        'title' => 'Gibran（纪伯伦）长大在奥斯曼帝国的山区中（今黎巴嫩）',
+                        'intro' => '12 岁和母亲、哥哥、妹妹到美囶波士顿唐人街谋生，离开了家乡，离开了黑暗的奥斯曼帝国（9 岁时，父亲被人诬陷入狱，家里的房子和财产被没收，三年后，尽管父亲被无罪释放，但坚强的母亲还是决定远走美囶）。',
                         'relation' => false,
                     ]
+                ],
+                '_quotes' => [
+                    [
+                        '_slug' => 'ziyou1',
+                        'type' => 'tail',
+                        'order' => 1,
+
+                        'body' => '孩子是「祖国的花朵」？孩子是自己生命的花蕊期，最多是家长的花朵（子代），与国家有啥关系？',
+                        'author' => '@史前人类A',
+                        'origin' => '',
+                        'origin_date' => '2018/06/04',
+                        'show_date' => false,
+                        'origin_url' => '/human/indiv/children-whoes-flower',
+                        'origin_tip' => null,
+                        'editor_id' => 1, 'status' => 1, 'deep' => 'open',
+                        'comment' => '',
+                    ],
                 ],
                 '_vol' => [
                     'title' => 'on children',
@@ -1841,15 +1877,27 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'no' => ++$column_no_start,
                     'person_id' => null,
                 ],
+//                '_place' => [
+//                    'name' => '尼姆鲁德',
+//                    'name_en' => 'Nimrud',
+//                    'addr' => '',
+//                    'lat' => 36.065797,
+//                    'lng' => 43.2618086,
+//                    'comment' => '亚述古城,在伊拉克第二大城市、“伊斯兰国”主要据点摩苏尔南约30公里处',
+//                    'info' => [
+//                        'title' => '「血腥的狮穴」',
+//                        'intro' => '亚述古城，雄才大略的纳西尔帕二世在此建立新都。邻近今天的伊拉克第二大城市摩苏尔（曾是伊斯兰国主要据点）。',
+//                    ]
+//                ],
                 '_place' => [
-                    'name' => '尼姆鲁德',
-                    'name_en' => 'Nimrud',
+                    'name' => '尼尼微',
+                    'name_en' => 'Nineveh',
                     'addr' => '',
-                    'lat' => 36.065797,
-                    'lng' => 43.2618086,
-                    'comment' => '亚述古城,在伊拉克第二大城市、“伊斯兰国”主要据点摩苏尔南约30公里处',
+                    'lat' => 36.3656815,
+                    'lng' => 43.1566439,
                     'info' => [
-                        'intro' => '亚述古城，雄才大略的纳西尔帕二世在此建立新都。邻近今天的伊拉克第二大城市摩苏尔（曾是伊斯兰国主要据点）。',
+                        'title' => '「血腥的狮穴」',
+                        'intro' => '尼尼微，意为「上帝面前最伟大的城市」，亚述帝国都城。位于底格里斯河上游，今伊拉克摩苏尔附近。',
                     ]
                 ],
                 '_quotes' => [
@@ -1899,7 +1947,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 '_brothers' => [
                     [
                         'slug' => "human-civilizations-come-2-human-empires",
-                        'articleable_id' => $column_id, 'title' => '《人类文明来到世间》之二：大国生于战争',
+                        'articleable_id' => $column_id, 'title' => '《人类文明来到世间》之二：大国尽是战争狂',
                         'desc' => '耶酥会士卫匡国在《鞑靼战纪》中记述:「他们不论男女老幼一律残酷地杀死，他们不说别的，只说:『杀！杀死这些反叛的蛮子!』」这就是一个新帝国崛起的画面。',
                         'intro' => '耶酥会士卫匡国在《鞑靼战纪》中记述:「他们不论男女老幼一律残酷地杀死，他们不说别的，只说:『杀！杀死这些反叛的蛮子!』」这就是一个新帝国崛起的画面。',
                         'author' => 'scil（编）',
@@ -2027,9 +2075,9 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     ],
                     [
                         'slug' => "human-civilizations-come-5",
-                        'articleable_id' => $column_id, 'title' => '《人类文明来到世间》之五：人类能进步 是因为『存在不等于合理』',
+                        'articleable_id' => $column_id, 'title' => '《人类文明来到世间》之五：人类能进步 是因为「存在不一定合理」',
                         'intro' => '19 世纪末，美国遭遇空前的经济危机，失业人口第一次突破 300 万。美国可能会成为亚述、埃及、波斯、罗马、蒙古、奥斯曼、俄罗斯、大清国、越南、日本、德国那般的扩张型国家。',
-                        'desc' => '为什么年轻的美囶停止扩张，不学习亚述、埃及、波斯、罗马、蒙古、奥斯曼、俄罗斯、大金国、越南、日本？',
+                        'desc' => '19 世纪末，美国遭遇空前的经济危机，失业人口第一次突破 300 万。美国可能会成为亚述、埃及、波斯、罗马、蒙古、奥斯曼、俄罗斯、大清国、越南、日本、德国那般的扩张型国家。',
                         'author' => 'scil（编）',
                         'author_id' => 1,
                         'origin' => '',
@@ -2040,17 +2088,17 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'editor_id' => 1, 'status' => 1, 'deep' => 'open',
                         'created_at' => '2017/06/15',
                         'comment' => '',
-                        '_place' => [
-                            'name' => '尼姆鲁德',
-                            'name_en' => 'Nimrud',
-                            'addr' => '',
-                            'lat' => 36.065797,
-                            'lng' => 43.2618086,
-                            'comment' => '亚述古城,在伊拉克第二大城市、“伊斯兰国”主要据点摩苏尔南约30公里处',
-                            'info' => [
-                                'intro' => '亚述古城，纳西尔帕二世迁都至此。邻近今天的伊拉克第二大城市、“伊斯兰国”主要据点摩苏尔。',
-                            ]
-                        ],
+//                        '_place' => [
+//                            'name' => '尼姆鲁德',
+//                            'name_en' => 'Nimrud',
+//                            'addr' => '',
+//                            'lat' => 36.065797,
+//                            'lng' => 43.2618086,
+//                            'comment' => '亚述古城,在伊拉克第二大城市、“伊斯兰国”主要据点摩苏尔南约30公里处',
+//                            'info' => [
+//                                'intro' => '亚述古城，纳西尔帕二世迁都至此。邻近今天的伊拉克第二大城市、“伊斯兰国”主要据点摩苏尔。',
+//                            ]
+//                        ],
                         '_quotes' => [
 
                         ],
@@ -2071,15 +2119,15 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'editor_id' => 1, 'status' => 1, 'deep' => 'deep',
                         'created_at' => date('Y/m/d h:i:s', $create_time + $column_no_start * 10000),
                         'comment' => '',
-                        '_place' => [
-                            'name' => '上海英美租界会审公廨（北浙江路）',
-                            'name_en' => '',
-                            'addr' => '',
-                            'address' => '',
-                            'lat' => 31.244831,
-                            'lng' => 121.475756,
-                            'comment' => '光绪二十五年八月十四日（1899年9月18日）迁至北浙江路七浦路口新址的会审公廨。//之前：同治八年三月初九（1869年4月20日）公布生效，总理衙门和公使团核准实施，会审公廨正式成立。 当时，原定《洋泾浜设官会审章程》有效期仅1年，但自颁布后，该章程一直沿用。会审公廨最初位于南京路洋泾浜北首理事衙门原址，光绪八年（1882年）迁到南京路口菜市街对面',
-                        ],
+//                        '_place' => [
+//                            'name' => '上海英美租界会审公廨（北浙江路）',
+//                            'name_en' => '',
+//                            'addr' => '',
+//                            'address' => '',
+//                            'lat' => 31.244831,
+//                            'lng' => 121.475756,
+//                            'comment' => '光绪二十五年八月十四日（1899年9月18日）迁至北浙江路七浦路口新址的会审公廨。//之前：同治八年三月初九（1869年4月20日）公布生效，总理衙门和公使团核准实施，会审公廨正式成立。 当时，原定《洋泾浜设官会审章程》有效期仅1年，但自颁布后，该章程一直沿用。会审公廨最初位于南京路洋泾浜北首理事衙门原址，光绪八年（1882年）迁到南京路口菜市街对面',
+//                        ],
 //                '_tags'=>['孝'],
                     ],
                 ],
@@ -2113,7 +2161,8 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'lat' => 31.244831,
                     'lng' => 121.475756,
                     'info' => [
-                        'intro' => '清英双方为了争夺人犯爆发了激烈冲突，最后发展到华人罢市、罢工、冲击巡捕房。',
+                        'title' => '争夺疑犯',
+                        'intro' => '清英双方爆发了激烈冲突，最后发展到华人罢市、罢工、冲击巡捕房。',
                     ],
                     'comment' => '光绪二十五年八月十四日（1899年9月18日）迁至北浙江路七浦路口新址的会审公廨。//之前：同治八年三月初九（1869年4月20日）公布生效，总理衙门和公使团核准实施，会审公廨正式成立。 当时，原定《洋泾浜设官会审章程》有效期仅1年，但自颁布后，该章程一直沿用。会审公廨最初位于南京路洋泾浜北首理事衙门原址，光绪八年（1882年）迁到南京路口菜市街对面',
                 ],
@@ -2147,6 +2196,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                                 'name' => '唐长安城',
                             ],
                             'info' => [
+                                'title' => '奴隶大城',
                                 'intro' => '长安城中，奴隶大约占人口总数的20％至25％。',
                             ]
                         ],
@@ -2183,6 +2233,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'lng' => 10.4099575,
                     'comment' => '',
                     'info' => [
+                        'title' => '平民施压',
                         'intro' => '前 450 年，在平民压力下形成的《十二表法》经会议批准后，公布于罗马广场，是现今成文法的始祖。',
                         'relation' => false,
                     ]
@@ -2212,8 +2263,8 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'name' => '巴塞尔',
                     'name_en' => 'Basel',
                     'addr' => '',
-                    'lat' =>47.5546492,
-                    'lng' =>7.5594405,
+                    'lat' => 47.5546492,
+                    'lng' => 7.5594405,
                     'info' => [
                         'title' => '1527 年，Paracelsus 在巴塞尔做医师和大学老师',
                         'intro' => '他把祖宗的医书扔到圣约翰节上的篝火里，以显示对传统医学的蔑视。这些著作之于西医，相当于《黄帝内经》《伤寒杂病论》《神农本草经》之于中医。',
@@ -2252,6 +2303,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'lat' => 51.3948093,
                     'lng' => -0.6090198,
                     'info' => [
+                        'title' => '13 世纪，限制王权',
                         'intro' => '1215 年6 月 15 日，国王签署 The Great Charter。此文件规定王权受法律的限制。1297 年的英文版本至今仍然是英格兰和威尔士的有效法律。',
                     ]
                 ],
@@ -2317,7 +2369,8 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     'lat' => -33.8679049,
                     'lng' => 151.1924822,
                     'info' => [
-                        'intro' => '80 年代末，「我在悉尼一家洋人的广告公司打工」',
+                        'title' => '三个土生土长的澳洲人，常常拿中囶人取乐',
+                        'intro' => '',
                     ]
                 ],
 //                '_tags'=>['孝'],
@@ -2351,7 +2404,8 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                             'lat' => 35.5968413,
                             'lng' => 116.9885693,
                             'info' => [
-                                'intro' => '孔庙现有九进院落，殿、堂、坛、阁460多间，门坊54座，如今规模来自大清皇帝雍正。1724 年,孔庙几乎被大火烧成废墟，这位满洲人下令重建，成为朝廷重点工程，<a href="http://blog.sina.com.cn/s/blog_571b3d930101ev2o.html" title="曲阜12府">孔氏人宅第借机兴建</a>。',
+                                'title' => '大火',
+                                'intro' => '孔庙现有九进院落，殿、堂、坛、阁460多间，门坊54座，如今规模来自大清皇帝雍正。1724 年,孔庙几乎被大火烧成废墟，这位满洲人下令重建，成为朝廷重点工程，<a href="http://blog.sina.com.cn/s/blog_571b3d930101ev2o.html" title="曲阜12府">孔家人借机兴建宅第</a>。',
                                 'relation' => false,
                             ]
                         ],

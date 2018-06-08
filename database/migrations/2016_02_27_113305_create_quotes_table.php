@@ -25,7 +25,7 @@ class CreateQuotesTable extends Migration
             // 有效数字，但 -1表示: extact
             $table->tinyInteger('sig')->default(-1);
 
-            $table->string('desc', 200)->nullable();
+            $table->string('desc', 220)->nullable();
             $table->string('body', 3000);
             $table->string('md', 3000)->nullable();
             $table->text('body_long')->nullable();

@@ -55,14 +55,3 @@ cite {
     border-bottom: 1px solid chocolate;
   }
 }
-
-.truncate {
-  display: inline-block;
-  width: 150px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  &:hover{
-    width: auto;
-  }
-}

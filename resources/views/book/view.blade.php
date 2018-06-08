@@ -1,4 +1,4 @@
-@extends('layouts.columns._'.$column_id,['title'=>$title])
+@extends('layouts.base',['title'=>$title])
 
 
 @section('content')
@@ -43,33 +43,7 @@
 
                 <div id="side">
 
-                    <div id="M-map-box">
 
-                        <div id="side-first-page">
-                            <div class="map"></div>
-                        </div>
-
-
-                        <div id="LMap-info-swipebox">
-                            <section id="LMap-info">
-                                <p id="LMap-info-title" v-html="title"></p>
-                                <div id="LMap-info-intro" v-html="intro"></div>
-                            </section>
-                        </div>
-                        <?php
-                        $mapInfosByID = []; $IDs = [];
-                        ?>
-                        @foreach($media->places as $place)
-                            <?php $IDs[] = $place->id;  ?>
-                            <?php
-                            $mapInfosByID[$place->id] = [
-                                'title' => $place->pivot->title,
-                                'intro' => $place->pivot->intro]
-                            ?>
-
-                        @endforeach
-
-                    </div>
 
 
                     <div id="M-info" class="one-line-height">
@@ -106,7 +80,7 @@
                                     <div class="MC-body">
                                         {!! $comment->body !!}
                                     </div>
-                                    <cite class="MQ-cite">{!! $comment->author ?? $comment->origin!!}</cite>
+                                    <cite class="MC-cite">{!! $comment->author ?? $comment->origin!!}</cite>
                                 </blockquote>
                             </article>
 
@@ -128,7 +102,7 @@
                             <header class="L-item-header clearfix">
                                 <span class="prefix-col-name prefix-col-name-{!! $article->type !!}"></span>
                                 <h1 class="L-item-title" id="{!! $article->id !!}"><a
-                                            href="{!!$media->slug.  '/a/'.$article->slug !!}">{!! $article->title !!}</a>
+                                            href="{!!$media->slug.  '/'.$article->slug !!}">{!! $article->title !!}</a>
                                 </h1>
                             </header>
                             <p>{!! $article->intro !!}</p>
@@ -187,7 +161,7 @@
                                         <td>@if($v->errata)
                                                {!! $v->errata->body !!}
                                                 @if($v->errata->body_long)
-                                                    <div class="QL-read-more-box">
+                                                    <div class="table-read-more-box">
                                                         <a class="QL-read-more btn btn-sm"
                                                         href="{!! $v->slug .'/errata' !!}"></a>
                                                     </div>
@@ -203,6 +177,34 @@
                     @endif
 
                 </div>
+
+                <div id="M-map-box">
+
+                        <div id="side-first-page">
+                            <div class="map"></div>
+                        </div>
+
+
+                        <div id="LMap-info-swipebox">
+                            <section id="LMap-info">
+                                <p id="LMap-info-title" v-html="title"></p>
+                                <div id="LMap-info-intro" v-html="intro"></div>
+                            </section>
+                        </div>
+                        <?php
+                        $mapInfosByID = []; $IDs = [];
+                        ?>
+                        @foreach($media->places as $place)
+                            <?php $IDs[] = $place->id;  ?>
+                            <?php
+                            $mapInfosByID[$place->id] = [
+                                'title' => $place->pivot->title,
+                                'intro' => $place->pivot->intro]
+                            ?>
+
+                        @endforeach
+
+                    </div>
             </div>
         </div>
     </div>
@@ -240,7 +242,7 @@
             },
             {
                 ele: '#LMap-info',
-                data: {!! json_encode($mapInfosByID) !!},
+                data: {!! json_encode($mapInfosByItemID) !!},
                 infoSwipeBox: '#LMap-info-swipebox' // 不需要ZCMap提供的swipe 自定义swipe
             },
         )
@@ -249,6 +251,7 @@
         var personSlick = $('#MQL').slick({
                 autoplay: false,
                 dots: true,
+                    appendDots:$('#col-first-page'),
 //                variableWidth: true, // 自定义每个幻灯片的宽度 .slick-slide{ width: ...px; }
                 arrows: false,
                 mobileFirst: false,

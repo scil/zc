@@ -109,7 +109,8 @@ class Seeder extends BaseSeeder
 
             $tags = $item['_tags'] ?? [];
 
-            unset($item['_slug'], $item['_image'], $item['_places'], $item['_place'], $item['_tags']);
+            unset($item['_slug'], $item['_image'], $item['_places'], $item['_place'],
+                $item['_tags']);
 
 
             foreach ($data as $k => $v) {
@@ -157,6 +158,9 @@ class Seeder extends BaseSeeder
 
             if (isset($place['_id'])) {
                 $id = $place['_id'];
+
+            }elseif (isset($place['_name'])) {
+                    $id = DB::table('places')->where('name',$place['_name'])->first()->id;
             } else {
                 if (!($place['name'] ?? null) && isset($place['name_en'])) {
                     $place['name'] = $place['name_en'];

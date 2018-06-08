@@ -1,6 +1,8 @@
 export {workAccordingScreen}
 import {log as zclog, smScreen, notSmScreen} from "./util";
 
+const RESIZE_WAIT_TIME = 220;
+
 /**
  // 能力：让各组函数顺序执行 不精深 目前似乎也没啥用处 但不排除日后可能有些函数有先后要求
  // 特征：_pool里一个key储存相关的一组函数，控制级别是组；未来可将 delay, runEnterNow 等功能分配到各个函数上 定制能力细化到函数级别
@@ -60,7 +62,7 @@ var workAccordingScreen = {
         var me = this;
         if (me._timerID[bigType]) {
             clearTimeout(me._timerID[bigType]);
-            zclog('[screen] clear timeout for ' + bigType);
+            // zclog('[screen] clear timeout for ' + bigType);
         }
 
         me._timerID[bigType] = setTimeout(function () {
@@ -73,7 +75,7 @@ var workAccordingScreen = {
                     me._configPool[currentKey][whichType](me._configPool[currentKey]);
                 }
             }
-        }, 220);
+        }, RESIZE_WAIT_TIME);
 
     },
 

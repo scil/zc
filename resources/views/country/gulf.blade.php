@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-sm-12">
 
-                <div class="quote-body text-center first-page first-page-middle zc-slides" id="home-first-page">
+                <div class=" text-center first-page first-page-middle zc-slides" id="home-first-page">
 
                     <div>
                         <div class="quote-img">

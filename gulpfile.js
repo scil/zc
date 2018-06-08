@@ -166,7 +166,7 @@ js_files.push(pkg_dir + 'slick-carousel/slick/slick.min.js');
 
 /* 41k*/
 
-function dist_vendor_css() {
+function css_vendor() {
     return gulp.src(css_files.concat(
         markdown_editor_res[markdown_editor]['css']
     ))
@@ -175,7 +175,7 @@ function dist_vendor_css() {
         .pipe(gulp.dest('public/css'));
 }
 
-function flowcheck_app_js() {
+function flowcheck_app() {
     return gulp.src(['resources/js/*.js'])
         .pipe(flow({
             all: false,
@@ -197,12 +197,13 @@ function jsbin_free() {
             abort: false
         }))
         .pipe(babel({
-            presets: ['@babel/preset-flow'] }))
+            presets: ['@babel/preset-flow']
+        }))
         .pipe(gulp.dest('resources/jsbin'));
 
 }
 
-function dist_app_js() {
+function js_app() {
     return browserify({debug: true,})// enalbe debug To use source maps
         .transform("babelify")
         .require("./resources/js/entry.js", {entry: true})
@@ -225,7 +226,7 @@ function dist_app_js() {
         .pipe(gulp.dest('public/js'));
 }
 
-function dist_vendor_js() {
+function js_vendor() {
 
     // google maps in a dependent file
     gulp.src([
@@ -329,7 +330,7 @@ function watch() {
             // Usually necessary when watching files on a network mount or on a VMs file system.
             usePolling: true,
         },
-        dist_app_js)
+        js_app)
 
     gulp.watch(
         './resources/assets/sass/**/*.scss',
@@ -391,11 +392,11 @@ function watch_seed() {
 };
 
 exports.clean = clean;
-exports.dist_vendor_css = dist_vendor_css;
-exports.dist_vendor_js = dist_vendor_js;
-exports.dist_app_js = dist_app_js;
-exports.flowcheck_app_js = flowcheck_app_js;
-exports.jsbin_free=jsbin_free
+exports.css_vendor = css_vendor;
+exports.js_vendor = js_vendor;
+exports.js_app = js_app;
+exports.flowcheck_app = flowcheck_app;
+exports.jsbin_free = jsbin_free
 
 // sass
 exports.sass_app = sass_app;
@@ -411,9 +412,9 @@ exports.watch_seed = watch_seed;
 var build = gulp.series(
     clean,
     gulp.parallel(
-        dist_vendor_css,
-        gulp.series(flowcheck_app_js, dist_app_js),
-        dist_vendor_js,
+        css_vendor,
+        gulp.series(flowcheck_app, js_app),
+        js_vendor,
     ),
     sass_app,
     sass_ferry

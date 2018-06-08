@@ -158,7 +158,7 @@
             plots: plots,
             infoSwipeBox: '#LMap-info-swipebox', // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
             infoEle: '#LMap-info',
-            infoData:{!! json_encode($mapInfosByID) !!},
+            infoData:{!! json_encode($mapInfosByItemID) !!},
 
             listArea: '#L', // 列表
             findItemToUp: function (id, offsetBox) {  // 自动把目标元素滚动上来 这里是寻找目标元素的方法 找到.vol就行 不细化到 article

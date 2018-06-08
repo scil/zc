@@ -1,4 +1,4 @@
-@extends('layouts.columns._'.$column_id,['title'=>$title])
+@extends('layouts.base',['title'=>$title])
 
 @section('content')
 
