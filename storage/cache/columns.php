@@ -71,7 +71,7 @@
   ),
   'pass' => 
   array (
-    'id' => 21,
+    'id' => 22,
     'name' => '山关',
     'desc' => '真城山关',
     'title' => '真城山关',
@@ -164,7 +164,7 @@
     'desc' => '我们坐享着几千年的财富。',
     'title' => '财艺 &nbsp;|&nbsp; 越海',
   ),
-  'sail/path' => 
+  'sail/road' => 
   array (
     'id' => 15,
     'name' => '知道',
@@ -189,16 +189,22 @@
     'title' => '视窗 &nbsp;|&nbsp; 真城',
     'ctitle' => '真城视窗',
   ),
-  'hall' => 
+  'upper' => 
   array (
     'id' => 20,
+    'name' => '上三角',
+    'title' => '真城上三角',
+  ),
+  'hall' => 
+  array (
+    'id' => 21,
     'name' => '市政厅',
-    'desc' => '真城的财政、团队',
+    'desc' => '真城的财政、组织',
     'title' => '真城市政厅',
   ),
   'ferry' => 
   array (
-    'id' => 22,
+    'id' => 23,
     'name' => '渡口',
     'desc' => '从这里，到真城',
     'title' => '真城渡口',

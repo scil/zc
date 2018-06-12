@@ -14,7 +14,8 @@ class ArticlesTableSeeder extends Seeder
         $this->freeDir = storage_path() . '/free/article/';
         $this->sourceDir = __DIR__ . '/article_src/';
         //
-        File::cleanDirectory($this->freeDir);
+//        File::cleanDirectory($this->freeDir);
+
         DB::table('articles')->truncate();
         DB::table('volumes')->truncate();
 
@@ -1661,7 +1662,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 'created_at' => '2017/06/03',
                 'comment' => '',
                 '_place' => [
-                    '_name'=>'Gibran（纪伯伦）童年时的家乡',
+                    '_name' => 'Gibran（纪伯伦）童年时的家乡',
                     'info' => [
                         'title' => 'Gibran（纪伯伦）长大在奥斯曼帝国的山区中（今黎巴嫩）',
                         'intro' => '12 岁和母亲、哥哥、妹妹到美囶波士顿唐人街谋生，离开了家乡，离开了黑暗的奥斯曼帝国（9 岁时，父亲被人诬陷入狱，家里的房子和财产被没收，三年后，尽管父亲被无罪释放，但坚强的母亲还是决定远走美囶）。',
@@ -2238,12 +2239,47 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'relation' => false,
                     ]
                 ],
+                '_quotes' => [
+
+                    [
+                        '_slug' => 'Zi_2',
+                        'type' => 'tail',
+                        'order' => 1,
+
+                        'body' => '林则徐在与义律的较量中，除了缴烟一事，还有另外一事，闹得很僵。林公听人说过，外囶人特讲信义。所以他要求夷人出具汉夷两字的甘结，保证今后永不夹带鸦片，一有带来，货尽没官，人即正法。3月25日，被围困的许多外商出具了甘结，但是又声明他们对于永久禁止一切来人夹带鸦片这一类事，实在无力控制。因为林钦差要他们所具的甘结，不只是每个外商给自己个人的担保。「外商们所签的字，应该不独可以约束他们自己，而且可以约束一切未来的外商，不独可以约束他们的本囶人，而且可以约束一切囶家的人，只要不是中囶人。」
+
+按中囶的传统，可以搞株连、搞互保，用黄仁宇的说法，乃是集体负责制。可是按英囶的规则，哪能干这种缺德事啊。比如一船主，他要按林公的要求具结，相当于同时为他个人、他的同事、船员、船的所有人、代理人及雇员等签了生死状。按照他们的常识，个人只能对自己负责，而不能对别人负责，何况天朝的法律及威逼招供的传统又是他们最惧怕的。',
+                        'author' => '端木赐香',
+                        'origin' => '《甘结，两大文明的冲突》',
+                        'origin_date' => '2007/12/01',
+                        'show_date' => false,
+                        'origin_url' => '',
+                        'origin_tip' => null,
+                        'editor_id' => 1, 'status' => 1, 'deep' => 'open',
+                        'comment' => '',
+                    ],
+//                    [
+//                        '_slug' => 'Zi_3',
+//                        'type' => 'top',
+//                        'order' => 3,
+//
+//                        'body' => '每一次和她的文字与她本人交流之后，我都对自己说：回家多读几本书吧，把你的腰挺得再直一些吧！',
+//                        'author' => '阎连科',
+//                        'origin' => null,
+//                        'origin_date' => null,
+//                        'show_date' => false,
+//                        'origin_url' => '',
+//                        'origin_tip' => null,
+//                        'editor_id' => 1, 'status' => 1, 'deep' => 'open',
+//                        'comment' => '',
+//                    ],
+                ]
             ],
             [
                 'slug' => 'bye-Western-traditional-medicine',
-                'articleable_id' => $column_id, 'title' => '告别西医',
-                'desc' => '',
-                'intro' => '1543 年哥白尼发表日心说，颠覆了传统天文学；同一年，维萨留斯发表解剖学著作，动摇了神医和古书的权威。被后世奉为药物学之父的化学家帕拉塞尔萨斯，公开焚烧先人著作，以示与传统决裂。两人掀起的医学变革，一直延续到 20 世纪，彻底终结了西医。艾叶、雄黄、柴胡……这些植物的化学成分在如何毒害人体的？溺水后控水为什么有害无益？这些知识，全拜学者使用了现代的医学理论和方法。作为一门科学，现代医学重视证据，没有教条，不怕质疑，在否定和创新中不断前进。',
+                'articleable_id' => $column_id, 'title' => '告别西医（一）',
+                'desc' => '1543 年，也就是哥白尼发表日心说的那一年，维萨留斯发表解剖学著作，动摇了神医和古书的权威。被后世奉为药物学之父的化学家帕拉塞尔萨斯，公开焚烧先人著作，以示与传统决裂。两人掀起的医学变革，一直延续到 20 世纪，彻底终结了西医。',
+                'intro' => '1543 年，也就是哥白尼发表日心说的那一年，维萨留斯发表解剖学著作，动摇了神医和古书的权威。被后世奉为药物学之父的化学家帕拉塞尔萨斯，公开焚烧先人著作，以示与传统决裂。两人掀起的医学变革，一直延续到 20 世纪，彻底终结了西医。',
                 'author' => 'scil（编）',
                 'origin' => '',
                 'origin_date' => '2006/10/01',
@@ -2270,6 +2306,64 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'intro' => '他把祖宗的医书扔到圣约翰节上的篝火里，以显示对传统医学的蔑视。这些著作之于西医，相当于《黄帝内经》《伤寒杂病论》《神农本草经》之于中医。',
                     ],
                 ],
+                '_brothers' => [
+                    [
+                        'slug' => 'bye-Western-traditional-medicine-2',
+                        'articleable_id' => $column_id, 'title' => '告别西医（二）',
+                        'desc' => '十七世纪德国药典有五、六千种药物，今天继承下来的只有少数。《神农本草经》开篇第一味药是朱砂，位列上品药物之首，称具有神奇的药性。而现代科学告诉我们，朱砂的成分是硫化汞，人体服用会产生汞中毒的症状，不明机理的人们还以为这就是安神的效果。现代的化学方法，让很多传统草药的化学毒性被发现。',
+                        'intro' => '十七世纪德国药典有五、六千种药物，今天继承下来的只有少数。《神农本草经》开篇第一味药是朱砂，位列上品药物之首，称具有神奇的药性。而现代科学告诉我们，朱砂的成分是硫化汞，人体服用会产生汞中毒的症状，不明机理的人们还以为这就是安神的效果。现代的化学方法，让传统草药的化学毒性被发现。',
+                        'type' => 'first',
+                        'author' => 'scil（编）',
+                        'origin' => '',
+                        'origin_date' => '2006/10/01',
+                        'show_date' => false,
+                        'origin_url' => null,
+                        'copyright' => '',
+                        'editor_id' => 1, 'status' => 1, 'deep' => 'member',
+                        'created_at' => '2017/06/16',
+                        'comment' => '',
+//                        '_place' => [
+//                            'name' => '巴塞尔',
+//                            'name_en' => 'Basel',
+//                            'addr' => '',
+//                            'lat' => 47.5546492,
+//                            'lng' => 7.5594405,
+//                            'info' => [
+//                                'title' => '1527 年，Paracelsus 在巴塞尔做医师和大学老师',
+//                                'intro' => '他把祖宗的医书扔到圣约翰节上的篝火里，以显示对传统医学的蔑视。这些著作之于西医，相当于《黄帝内经》《伤寒杂病论》《神农本草经》之于中医。',
+//                            ],
+//                        ],
+
+                    ],
+                    [
+                        'slug' => 'bye-Western-traditional-medicine-3',
+                        'articleable_id' => $column_id, 'title' => '告别西医（三）',
+                        'desc' => '新医不怕抹黑，而且不断自黑，获得进步。新医的成就实实在在地提高了人类寿命，无论是非洲人还是东亚人。而如果要反方向增加人类寿命，担当这种国之重器的不是新医。',
+                        'intro' => '新医不怕抹黑，而且不断自黑，获得进步。新医的成就实实在在地提高了人类寿命，无论是非洲人还是东亚人。而如果要反方向增加人类寿命，担当这种国之重器的不是新医。',
+                        'author' => 'scil（编）',
+                        'origin' => '',
+                        'origin_date' => '2006/10/01',
+                        'show_date' => false,
+                        'origin_url' => null,
+                        'copyright' => '',
+                        'editor_id' => 1, 'status' => 1, 'deep' => 'member',
+                        'created_at' => '2017/06/16',
+                        'comment' => '',
+//                        '_place' => [
+//                            'name' => '巴塞尔',
+//                            'name_en' => 'Basel',
+//                            'addr' => '',
+//                            'lat' => 47.5546492,
+//                            'lng' => 7.5594405,
+//                            'info' => [
+//                                'title' => '1527 年，Paracelsus 在巴塞尔做医师和大学老师',
+//                                'intro' => '他把祖宗的医书扔到圣约翰节上的篝火里，以显示对传统医学的蔑视。这些著作之于西医，相当于《黄帝内经》《伤寒杂病论》《神农本草经》之于中医。',
+//                            ],
+//                        ],
+
+                    ],
+                ]
+
             ],
         ]);
 

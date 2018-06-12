@@ -45,12 +45,12 @@ Route::get('/ferry/{sub?}', 'CmsController@ferry');
 Route::get('/new_article', 'CmsController@createArticle');
 Route::post('/new_article', 'CmsController@storeArticle');
 
-return;
 
+return;
 Route::get('/test', function () {
-    $i = new \App\MenuItemHelper();
-    $i->getAllItems();
+    return app('markdown')->encode("## abc\n*abc*");
 });
+
 
 Route::get('/people', function () {
     return redirect("/green", 301);

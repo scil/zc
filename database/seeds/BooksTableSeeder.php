@@ -899,7 +899,7 @@ http://weibo.com/1642088277/DygKCcK2V
                 preg_match('/[\x{4e00}-\x{9fa5}a-zA-Z0-9]{4}/u',substr($quote['body'],0,50),$matches);
                 $this->encodeBody($quote,
                     $item['slug']?? $matches[0]??microtime(true),
-                    'body', 'md', true);
+                    'body', 'md', false);
                 DB::table('media_quotes')->insert($quote);
             }
         }

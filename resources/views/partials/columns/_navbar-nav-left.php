@@ -55,6 +55,8 @@
             <ul class="dropdown-menu" role="menu">
                                     
                                             <li><a href="/hall">市政厅</a></li>
+                                                        
+                                            <li><a href="/upper">上三角</a></li>
                                                 </ul>
         </li>
             <script>

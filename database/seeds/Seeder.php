@@ -28,34 +28,36 @@ class Seeder extends BaseSeeder
         return;
     }
 
-    function encodeBody(&$article, $uniqName, $field, $md_field, $parseMD = false)
+    function encodeBody(&$article, $uniqName, $field, $md_field, $writeFile = false)
     {
 
-        if (!$parseMD) {
+        if (!$writeFile) {
+            $article[$md_field] = $article[$field];
+            $article[$field] = app('markdown')->encode($article[$field]);
             return;
         }
 
+        @mkdir($this->freeDir . 'src/', 0777, true);
+
         if (array_key_exists($field, $article)) {
-            $sourceFile = $this->freeDir . 'src/' . $uniqName . ($field == 'body' ? '' : '_' . $field) . '.src';
+            $sourceFile = $this->freeDir . 'src/' . $uniqName . ($field === 'body' ? '' : '_' . $field) . '.src';
+            file_put_contents($sourceFile, $article[$field]);
         } else {
             // 必须存在源
-            $sourceFile = $this->sourceDir . $uniqName . ($field == 'body' ? '' : '_' . $field) . '.src';
+            $sourceFile = $this->sourceDir . $uniqName . ($field === 'body' ? '' : '_' . $field) . '.src';
             if (!is_file($sourceFile)) {
                 throw new \Exception("Seeder.php : not found markdown file for {$sourceFile}");
             }
         }
 
-        @mkdir($this->freeDir . 'src/', 0777, true);
         $_file = $this->freeDir . $uniqName . $field;
         $htmlFile = $_file . '.html';
 
-        if (isset($article[$field]))
-            file_put_contents($sourceFile, $article[$field]);
 
-        if (!(is_file($htmlFile) && filectime($sourceFile) < filectime($htmlFile))) {
-            echo 'EXEC nodejs free.js for ', $uniqName, $field, PHP_EOL;
+        if (!(is_file($htmlFile) && filemtime($sourceFile) < filemtime($htmlFile))) {
+            echo 'EXEC nodejs encode_content.js for ', $uniqName, $field, PHP_EOL;
             chdir(base_path());
-            $cmd = "nodejs ./resources/jsbin/encode_content.js -i $sourceFile -h $htmlFile ";
+            $cmd = "nodejs ./resources/jscli/encode_content.js -i $sourceFile -h $htmlFile ";
 //            echo "cmd is : $cmd \n";
             $a = exec($cmd, $out, $status);
 
@@ -88,9 +90,9 @@ class Seeder extends BaseSeeder
             }
 
 
-            $this->encodeBody($item, $key, 'body', 'md', true);
+            $this->encodeBody($item, $key, 'body', 'md', false);
             if (isset($item['body_long'])) {
-                if ($item['body_long'] == '_') unset($item['body_long']); // 使用文件
+                if ('_' === $item['body_long']) unset($item['body_long']); // 使用文件
                 $this->encodeBody($item, $key, 'body_long', 'md_long', true);
             }
 
@@ -134,7 +136,7 @@ class Seeder extends BaseSeeder
     {
         foreach ($tags as $index => $oneTag) {
             $objTag = \App\Tag::firstOrCreate($oneTag);
-            if ($taggable_type){
+            if ($taggable_type) {
 
                 DB::table('taggables')->insert([
                     'tag_id' => $objTag->id,
@@ -159,8 +161,8 @@ class Seeder extends BaseSeeder
             if (isset($place['_id'])) {
                 $id = $place['_id'];
 
-            }elseif (isset($place['_name'])) {
-                    $id = DB::table('places')->where('name',$place['_name'])->first()->id;
+            } elseif (isset($place['_name'])) {
+                $id = DB::table('places')->where('name', $place['_name'])->first()->id;
             } else {
                 if (!($place['name'] ?? null) && isset($place['name_en'])) {
                     $place['name'] = $place['name_en'];
