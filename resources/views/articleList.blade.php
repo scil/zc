@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.base'.$pjax)
 
 @section('content')
     <div class="container">
@@ -91,7 +91,7 @@
 
 @section('bottom')
     <script>
-        function safe_func() {
+        function dependent_func() {
 
             var plots = {
             @foreach($vols as $vol)
@@ -171,6 +171,6 @@
             })
 
         }
-        //# sourceURL=mixedList
+        //# sourceURL=articleList
     </script>
 @endsection

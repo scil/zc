@@ -1,4 +1,4 @@
-@extends('layouts.base',['desc'=>$article->desc])
+@extends('layouts.base'.$pjax,['desc'=>$article->desc])
 
 @section('content_top')
     @if($article_type=='book'||$article_type=='video')
@@ -241,19 +241,22 @@
 
 @section('bottom')
     <script>
-        $('cite', '#body').addClass('cite-tail');
-        $('.ins').each(function () {
-            // // 连续的多个.ins 只给第一个添加hr
-            // if (this.previousElementSibling && !this.previousElementSibling.classList.contains('ins')) {
-            //     var me = $(this);
-            //     me.before('<hr class="ins-hr">');
-            // }
-            $(this).append('<span class="prefix-quote">引</span>');
-        });
+        function standalone_func() {
+            $('cite', '#body').addClass('cite-tail');
+            $('.ins').each(function () {
+                // // 连续的多个.ins 只给第一个添加hr
+                // if (this.previousElementSibling && !this.previousElementSibling.classList.contains('ins')) {
+                //     var me = $(this);
+                //     me.before('<hr class="ins-hr">');
+                // }
+                $(this).append('<span class="prefix-quote">引</span>');
+            });
+        }
 
-        function safe_func() {
+        standalone_func();
+
+        function dependent_func() {
             zc.content.init();
-
 
 
             // .limit-height
@@ -326,6 +329,7 @@
 
             @endif
         }
+
         //# sourceURL=article
     </script>
 @stop

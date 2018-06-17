@@ -1,10 +1,9 @@
 // @flow
 export {ZCMap};
 
-import {log as zclog} from "./util";
-
 import _ from 'lodash'
 
+import {log as zclog} from "./util";
 /**
  *
  * @param map

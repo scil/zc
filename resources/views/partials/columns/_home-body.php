@@ -28,10 +28,10 @@
                         <img class="column-img"
                              src="img/org/aboutme.jpg" alt=""/>
 
-                        <h3 class="column-name"><a href="/spirit">山意</a></h3>
+                        <h3 class="column-name"><a href="/spirit">真意</a></h3>
 
                         <p class="hover-show column-intro">
-                            峰回山意深
+                            此中有真意
                         </p>
                 </div>
                 </div>
@@ -54,7 +54,6 @@
         </div>
         </div>
         <hr>
-    </div>
         <div class="container columns"  draggable="true" ondragstart="scrollColumns()">
         <h2 class="h2title">人山
         </h2>
@@ -126,4 +125,3 @@
         </div>
         </div>
         <hr>
-    </div>

@@ -469,38 +469,41 @@ function js_form() {
 function js_vendor() {
 
     // google maps in a dependent file
-    gulp.src([
-        pkg_dir + 'gmaps/gmaps.min.js',
-    ])
-        .pipe(concat('gmaps.js'))
-        .pipe(uglify(getUglifyOptions()))
-        .pipe(gulp.dest('public/js'));
+    // gulp.src([
+    //     pkg_dir + 'gmaps/gmaps.min.js',
+    // ])
+    //     .pipe(concat('gmaps.js'))
+    //     .pipe(uglify(getUglifyOptions()))
+    //     .pipe(gulp.dest('public/js'));
 
 
-    if (markdown_editor == 'editormd') {
-        gulp.src([
-            pkg_dir + 'emmet-codemirror/dist/emmet.js',
-        ]).pipe(gulp.dest('public/js'))
+    // if (markdown_editor === 'editormd') {
+    //     gulp.src([
+    //         pkg_dir + 'emmet-codemirror/dist/emmet.js',
+    //     ]).pipe(gulp.dest('public/js'))
+    // }
 
-    }
+    let g = gulp.src([
+
+        // only used in homepage, so use cdn
+        // pkg_dir + 'jquery-mousewheel/jquery.mousewheel.js',
+
+        // use cdn instead
+        // pkg_dir + 'bootstrap-sass/assets/javascripts/bootstrap.min.js', // 36k
+
+        pkg_dir + 'jquery-touchswipe/jquery.touchSwipe.min.js', // 20k
+        // pkg_dir + 'jquery-pjax/jquery.pjax.js',
+
+        pkg_dir + 'jquery-mapael/js/jquery.mapael.min.js', // 53k
+
+        // pkg_dir + 'jquery-mapael/js/maps/world_countries.js',
+        'resources/js/world.js', // 105k
+
+    ]
+        .concat(vendor_js_files));
 
     if (IN_PRODUCT) {
-        return gulp.src([
-
-            // only used in homepage, so use cdn
-            // pkg_dir + 'jquery-mousewheel/jquery.mousewheel.js',
-
-            pkg_dir + 'bootstrap-sass/assets/javascripts/bootstrap.min.js', // 36k
-
-            pkg_dir + 'jquery-touchswipe/jquery.touchSwipe.min.js', // 20k
-
-            // use cdn instead
-            pkg_dir + 'jquery-mapael/js/jquery.mapael.min.js', // 53k
-            // pkg_dir + 'jquery-mapael/js/maps/world_countries.js',
-            'resources/js/world.js', // 105k
-
-        ]
-            .concat(vendor_js_files))
+        return g
             .pipe(concat('vendor.js'))
             .pipe(uglify(getUglifyOptions()))
             .pipe(rename("vendor.js.product"))
@@ -508,22 +511,7 @@ function js_vendor() {
 
     }
 
-    return gulp.src([
-
-        // only used in homepage, so use cdn
-        // pkg_dir + 'jquery-mousewheel/jquery.mousewheel.js',
-
-        pkg_dir + 'bootstrap-sass/assets/javascripts/bootstrap.min.js', // 36k
-
-        pkg_dir + 'jquery-touchswipe/jquery.touchSwipe.min.js', // 20k
-
-        // use cdn instead
-        pkg_dir + 'jquery-mapael/js/jquery.mapael.min.js', // 53k
-        // pkg_dir + 'jquery-mapael/js/maps/world_countries.js',
-        'resources/js/world.js', // 105k
-
-    ]
-        .concat(vendor_js_files))
+    return g
         .pipe(sourcemaps.init({
             // loadMaps: true,
             //compress: false,

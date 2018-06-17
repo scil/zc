@@ -21,12 +21,12 @@ class CountryController extends Controller
         return view("country.$sub", compact('columnID', 'title', 'desc'));
     }
 
-    function upper()
+    function tree()
     {
 
-        $menu = MENU_ITEMS["upper"];
+        $menu = MENU_ITEMS["tree"];
 
-        return view("country.upper", [
+        return view("country.tree", [
             'title' => $menu['title'],
             'desc' => $menu['desc'],
             'columnID' => $menu['id']

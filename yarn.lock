@@ -3690,7 +3690,7 @@ jquery-mapael@^2.1.0:
   optionalDependencies:
     jquery-mousewheel "^3.1"
 
-jquery-mousewheel@^3.1, jquery-mousewheel@~3.1.13:
+jquery-mousewheel@^3.1, jquery-mousewheel@^3.1.13, jquery-mousewheel@~3.1.13:
   version "3.1.13"
   resolved "http://registry.npm.taobao.org/jquery-mousewheel/download/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
 
@@ -5473,7 +5473,7 @@ slash@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/slash/download/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"
 
-slick-carousel@~1.9.0:
+slick-carousel@^1.8.0:
   version "1.8.1"
   resolved "http://registry.npm.taobao.org/slick-carousel/download/slick-carousel-1.8.1.tgz#a4bfb29014887bb66ce528b90bd0cda262cc8f8d"
 

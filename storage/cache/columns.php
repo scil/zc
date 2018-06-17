@@ -89,12 +89,12 @@
   'spirit' => 
   array (
     'id' => 5,
-    'name' => '山意',
+    'name' => '真意',
     'short_name' => '意',
     'css' => '3',
-    'desc' => '峰回山意深',
-    'title' => '山意 &nbsp;|&nbsp; 真城',
-    'ctitle' => '山意 &nbsp;|&nbsp; 真城',
+    'desc' => '此中有真意',
+    'title' => '真意 &nbsp;|&nbsp; 真城',
+    'ctitle' => '真意 &nbsp;|&nbsp; 真城',
   ),
   'paper' => 
   array (
@@ -189,18 +189,18 @@
     'title' => '视窗 &nbsp;|&nbsp; 真城',
     'ctitle' => '真城视窗',
   ),
-  'mabang' => 
+  'tree' => 
   array (
     'id' => 20,
-    'name' => '马队',
-    'desc' => '真城的商队',
-    'title' => '真城马队',
+    'name' => '三角树',
+    'desc' => '真城式黄页，商业名录。',
+    'title' => '真城三角树',
   ),
   'hall' => 
   array (
     'id' => 21,
     'name' => '市政厅',
-    'desc' => '真城的财政、组织',
+    'desc' => '真城的财政、组织。',
     'title' => '真城市政厅',
   ),
   'ferry' => 

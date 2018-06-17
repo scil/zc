@@ -1598,7 +1598,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'lng' => 31.0557677,
                         'info' => [
                             'title' => '93 岁穆加贝：「自己的身体状况能够继续胜任总统」。',
-                            'intro' => '津巴布韦经济减速时，穆加贝集团为把持政权，大搞地产掠夺和计划经济，造成这个非洲粮仓发生大饥荒，「南丰捐送了 15 万个裹尸袋」（《[津巴布韦，为什么会发生大饥荒](http://mp.weixin.qq.com/s/630gQEw8AqcV7cRwTYnEwA)》），同时，津巴布韦跻身最腐败国家行列，至少2万亿美元的财富被侵吞。穆加贝一头黑发，妄图「鞠躬尽瘁」（《[穆加比、曼德拉](https://www.msn.com/zh-tw/news/world/閻紀宇專欄穆加比、毛澤東、曼德拉/ar-BBFp6cD)》）。',
+                            'intro' => '津巴布韦经济减速时，穆加贝集团为把持政权，推行土改和计划经济，造成这个非洲粮仓大饥荒，「南丰捐送了 15 万个裹尸袋」（《[津巴布韦为什么会发生大饥荒](http://mp.weixin.qq.com/s/630gQEw8AqcV7cRwTYnEwA)》），至少2万亿美元的财富被侵吞。',
                             'relation' => false,
                         ]
                     ],

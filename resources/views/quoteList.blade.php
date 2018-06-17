@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.base'.$pjax)
 
 @section('content')
     <div class="container">
@@ -85,9 +85,12 @@
 @section('bottom')
     <script>
 
-        $('cite', '#QL').addClass('cite-tail');
+        function standalone_func() {
+            $('cite', '#QL').addClass('cite-tail');
+        }
+        standalone_func();
 
-        function safe_func() {
+        function dependent_func() {
 
 
             var plots = {
@@ -145,6 +148,7 @@
 
             @endif
         }
+
         //# sourceURL=qList
     </script>
 

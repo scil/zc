@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh-cmn-Hans">
 <head>
-    {{-- 移动前端不得不了解的html5 head 头标签 http://blog.csdn.net/huang100qi/article/details/42596799 --}}
     <meta charset="utf-8">
     <title>{!! $title !!}</title>
     <meta name="description" content="{!! $desc !!}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Cache-Control" content="no-siteapp">
-    <meta http-equiv="Cache-Control" content="max-age=172800"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/vendor.css" rel="stylesheet">
-    {{--<link href="/css/all.css" rel="stylesheet">--}}
 
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -23,9 +19,18 @@
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/raphael/2.2.7/raphael.min.js" async></script>
+    <script>
+        if (!window.jQuery) {
+            ss = '<script src="https://cdn.jsdelivr.net/npm/', se = '"><\/script>';
+            document.write(ss + 'jquery@3.3.1/dist/jquery.min.js' + se + ss + 'bootstrap-sass@3.3.7/assets/javascripts/bootstrap.min.js' + se + ss + 'raphael@2.2.7/raphael.min.js' + se)
+        }
+        ;
+    </script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
+    <script src="https://cdn.bootcss.com/raphael/2.2.7/raphael.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js" defer></script>
     <script src="/js/vendor.js" defer></script>
-    <script src="/js/app.js" async id="LAST-SCRIPT"></script>
+    <script src="/js/app.js" defer id="LAST-SCRIPT"></script>
 
     <link rel="shortcut icon" href="/favicon.ico">
     <link rel="apple-touch-icon" href="/apple-icon.png">
@@ -100,11 +105,13 @@ M;
     </div>
 </header>
 
-<div class="container">
+<div class="container pjax">
     @yield('content_top')
 </div>
 
-@yield('content')
+<div class="pjax">
+    @yield('content')
+</div>
 
 <footer id="footer">
     <div class="container">
@@ -165,9 +172,12 @@ M;
 {{--</div>--}}
 
 
-
+<div class="pjax">
 @yield('bottom')
+</div>
+
 <script>
+
     function open_gate() {
         return false;
     }
@@ -176,22 +186,6 @@ M;
 
     if (location.pathname.substr(1, 4) === 'sail' || location.host.substr(0, 4) === 'sail') {
         document.getElementById('me').innerHTML = '真城 · 越海';
-    }
-
-    var wait_lib_timer = null;
-    var wait_lib_times = 0;
-
-    function wait_lib() {
-        ++wait_lib_times;
-        if (typeof(Raphael) === 'undefined') {
-            if (wait_lib_times >= 5) {
-                clearInterval(wait_lib_timer)
-                console.error('lib loaded failed ')
-            }
-        } else {
-            safe_func();
-            clearInterval(wait_lib_timer)
-        }
     }
 
     var script = document.getElementById('LAST-SCRIPT'),
@@ -205,13 +199,37 @@ M;
 
             script_done = true;
 
+
+            // Pjax.prototype.getElements = function () {
+            //     var elements = [];
+            //     for (var i of document.links) {
+            //         if( i.getAttribute('href').substr(0,1)==='/' ){
+            //             elements.push(i)
+            //         }
+            //     }
+            //     return elements;
+            // }
+            var pjax = new Pjax({
+                // elements: "a", // default is "a[href], form[action]"
+                selectors: ["title", ".pjax",],
+                cacheBust: false,
+                analytics: false,
+            });
+
+
+            window.dependent_func && dependent_func();
+
+            document.addEventListener("pjax:success", function () {
+                window.standalone_func && standalone_func();
+                window.dependent_func && dependent_func();
+
+                // sometime dropdown not work on weixin, why
+                // $('.dropdown-toggle',$('#item-no')).dropdown()
+            });
+
             // Handle memory leak in IE
             script.onload = script.onreadystatechange = null;
 
-            if (typeof(safe_func) === "function") {
-                if (typeof(Raphael) === 'undefined') wait_lib_timer = setInterval(wait_lib, 100)
-                else safe_func();
-            }
         }
 
     }

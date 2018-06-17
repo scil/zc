@@ -68,7 +68,7 @@ class MenuItemsTableSeeder extends Seeder
                     // 如果书籍、影视需要搜罗万象，而书架、视窗满足不了，则可改名为“百科”
                     //['name' => '人物表', 'show'=>true,'short_name' => null,  'css' => null, 'type' => null, 'level' => 2, 'order' => 3, 'url' => '/country/people', 'ctitle'=>'','title'=>'', 'desc' => '', 'pic' => ''],
 //                    ['name' => '淡水湾', 'show'=>true,'short_name' => null, 'css' => null, 'type' => null, 'level' => 2, 'order' => 5, 'url' => '/bay', 'ctitle'=>'','title'=>'', 'desc' => '', 'pic' => ''],
-                    ['name' => '上三角', 'show'=>true,'short_name' => null, 'css' => null, 'type' => null, 'level' => 2, 'order' => 7, 'url' => '/upper', 'ctitle'=>'','title'=>'真城上三角', 'desc' => '真城黄页，商业名录。', 'pic' => ''],
+                    ['name' => '三角树', 'show'=>true,'short_name' => null, 'css' => null, 'type' => null, 'level' => 2, 'order' => 7, 'url' => '/tree', 'ctitle'=>'','title'=>'真城三角树', 'desc' => '真城式黄页，商业名录。', 'pic' => ''],
                     // 城务站
                     ['name' => '市政厅', 'show'=>true,'short_name' => null, 'css' => null, 'type' => null, 'level' => 2, 'order' => 7, 'url' => '/hall', 'ctitle'=>'','title'=>'真城市政厅', 'desc' => '真城的财政、组织。', 'pic' => ''],
                 ]],

@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //todo
 //        Paginator::useBootstrapThree();
+        \View::share('pjax', $this->app->make('request')->header('x-pjax',''));
     }
 
     /**

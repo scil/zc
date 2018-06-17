@@ -1,4 +1,4 @@
-@extends('layouts.base',['desc'=>$quote->desc])
+@extends('layouts.base'.$pjax,['desc'=>$quote->desc])
 
 @section('content')
 
@@ -116,9 +116,13 @@
 
 @section('bottom')
     <script>
-        $('cite', '#QItem').addClass('cite-tail');
 
-        function safe_func() {
+        function standalone_func() {
+            $('cite', '#QItem').addClass('cite-tail');
+        }
+        standalone_func();
+
+        function dependent_func() {
             zc.content.init();
 
 
@@ -173,6 +177,6 @@
 
             @endif
         }
-        //# sourceURL=qList
+        //# sourceURL=quote
     </script>
 @stop

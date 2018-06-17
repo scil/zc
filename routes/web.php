@@ -39,7 +39,7 @@ Route::get('/video/{slug?}', 'CmsController@viewVideo');
 
 Route::get('/country/{sub?}', 'CmsController@country');
 Route::get('/hall', 'CountryController@hall');
-Route::get('/upper', 'CountryController@upper');
+Route::get('/tree', 'CountryController@tree');
 Route::get('/pass/{sub?}', 'CountryController@pass');
 Route::get('/ferry/{sub?}', 'CountryController@ferry');
 

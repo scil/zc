@@ -44,7 +44,7 @@
     "gmaps": "^0.4.24",
     "jQuery-autoGrowInput": "git+https://github.com/Pixabay/jQuery-autoGrowInput.git",
     "jquery-mapael": "^2.1.0",
-    "jquery-mousewheel": "~3.1.13",
+    "jquery-mousewheel": "^3.1.13",
     "jquery-touchswipe": "^1.6.15",
     "markdown-it": "^8.4.1",
     "markdown-it-container": "^2.0.0",
@@ -57,7 +57,7 @@
     "markdown-it-sup": "^1.0.0",
     "select2": "^4.0.3",
     "simplemde": "^1.11.2",
-    "slick-carousel": "~1.9.0",
+    "slick-carousel": "^1.8.0",
     "vanilla-masker": "^1.2.0"
   },
   "scripts": {

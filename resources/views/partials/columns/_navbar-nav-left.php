@@ -9,7 +9,7 @@
                aria-expanded="false">真山</a>
                             <ul class="dropdown-menu" role="menu">
                                                                                                         <li><a href="/green">山青</a></li>
-                                                                                                        <li><a href="/spirit">山意</a></li>
+                                                                                                        <li><a href="/spirit">真意</a></li>
                                                                                                         <li><a href="/paper">山书</a></li>
                                                             </ul>
                         </li>
@@ -56,7 +56,7 @@
                                     
                                             <li><a href="/hall">市政厅</a></li>
                                                         
-                                            <li><a href="/mabang">马队</a></li>
+                                            <li><a href="/tree">三角树</a></li>
                                                 </ul>
         </li>
             <script>

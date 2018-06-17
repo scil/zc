@@ -131,11 +131,11 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class => [],
+//        App\Providers\AppServiceProvider::class => [],
+
         //todo
         App\Providers\AuthServiceProvider::class => [],
-        App\Providers\BroadcastServiceProvider::class => LARAVELFLY_CF_SERVICES['broadcast'] ?
-            [] : false,
+        App\Providers\BroadcastServiceProvider::class => LARAVELFLY_CF_SERVICES['broadcast'] ? [] : false,
         App\Providers\EventServiceProvider::class => [],
         App\Providers\RouteServiceProvider::class => [],
 
