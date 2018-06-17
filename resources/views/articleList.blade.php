@@ -89,83 +89,88 @@
     </div>
 @endsection
 
-@section('script_b')
+@section('bottom')
     <script>
+        function safe_func() {
 
-        var plots = {
-        @foreach($vols as $vol)
-        @foreach($vol->firstArticlesSimple as $article)
-        @if($article->places->count()>0)
+            var plots = {
+            @foreach($vols as $vol)
+            @foreach($vol->firstArticlesSimple as $article)
+            @if($article->places->count()>0)
 
-        <?php  $a_place = $article->places[0]; ?>
-        {!! $article->id !!}:
-        {
-            latitude: '{!! $a_place->lat !!}', longitude
-        :
-            '{!! $a_place->lng !!}',
-        }
+            <?php  $a_place = $article->places[0]; ?>
+            {!! $article->id !!}:
+            {
+                latitude: '{!! $a_place->lat !!}', longitude
+            :
+                '{!! $a_place->lng !!}',
+            }
         ,
-        @endif
-        @endforeach
-        @endforeach
+            @endif
+            @endforeach
+            @endforeach
         }
-        ;
+            ;
 
-        @if($IDs)
+            @if($IDs)
 
-        zc.sideMap.init({
-            itemIDs:{!! json_encode($IDs) !!},
-            plots: plots,
+            zc.sideMap.init({
+                itemIDs:{!! json_encode($IDs) !!},
+                plots: plots,
 
-            side: {
-                ele: $('#side'),
-                affixEle: $('#LMap-box'), // also used by scrollspy as a viewRef
-                swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
-                infoEle: '#LMap-info',
-                infoElements:{'addr':$('#LMap-addr'),'title':$('#LMap-info-title'),'intro':$('#LMap-info-intro')},
-                infoData:{!! json_encode($mapInfosByItemID) !!},
-            },
+                side: {
+                    ele: $('#side'),
+                    affixEle: $('#LMap-box'), // also used by scrollspy as a viewRef
+                    swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
+                    infoEle: '#LMap-info',
+                    infoElements: {
+                        'addr': $('#LMap-addr'),
+                        'title': $('#LMap-info-title'),
+                        'intro': $('#LMap-info-intro')
+                    },
+                    infoData:{!! json_encode($mapInfosByItemID) !!},
+                },
 
-            contentArea: '#L', // 列表
-            findItemByPlotID: function (id) {  // 操作map, 自动把目标元素滚动上来 这里是寻找目标元素的方法 目前找到.vol就行 不细化到 article
-                var item = $(document.getElementById(id)).parents('.vol');
-                if (item.parent()[0] === $('#L')[0]) {
-                    //zclog('[up] found vol for id ', id)
-                    return item;
-                }
-            },
-            getPrevious:function(id){
-                return prevVol = $('#' + id).parents('.vol').prev();
-            },
-            lightID:null,
-            spy: {
-                field: '#L',
-                target: '.L-item-title', // if one of the targets is in viewport
-                getId: null,
-                targetItemScope: 'article', // mouse over this scope, then use the related target in the scope
-            },
-        });
+                contentArea: '#L', // 列表
+                findItemByPlotID: function (id) {  // 操作map, 自动把目标元素滚动上来 这里是寻找目标元素的方法 目前找到.vol就行 不细化到 article
+                    var item = $(document.getElementById(id)).parents('.vol');
+                    if (item.parent()[0] === $('#L')[0]) {
+                        //zclog('[up] found vol for id ', id)
+                        return item;
+                    }
+                },
+                getPrevious: function (id) {
+                    return prevVol = $('#' + id).parents('.vol').prev();
+                },
+                lightID: null,
+                spy: {
+                    field: '#L',
+                    target: '.L-item-title', // if one of the targets is in viewport
+                    getId: null,
+                    targetItemScope: 'article', // mouse over this scope, then use the related target in the scope
+                },
+            });
 
-        @endif
+            @endif
 
 
 
-        zc.content.limitHeight({
-            containers: $('.limit-height'),
-            scrollBack: true,
-            readMore: function (container, button) {
-                container.addClass('no-limit-height');
-                button.addClass('read-less');
-            },
-            readLess: function (container, button) {
-                container.removeClass('no-limit-height');
-                button.removeClass('read-less');
-            },
-            fix: false,
+            zc.content.limitHeight({
+                containers: $('.limit-height'),
+                scrollBack: true,
+                readMore: function (container, button) {
+                    container.addClass('no-limit-height');
+                    button.addClass('read-less');
+                },
+                readLess: function (container, button) {
+                    container.removeClass('no-limit-height');
+                    button.removeClass('read-less');
+                },
+                fix: false,
 //            containerDefaultHeight:350,  // 容器缩小时的高度　optional, used for update fix status
-        })
+            })
 
-
+        }
         //# sourceURL=mixedList
     </script>
 @endsection

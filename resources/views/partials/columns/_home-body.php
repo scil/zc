@@ -1,6 +1,4 @@
-<style>
-</style>
-        <div class="container columns"  draggable="true" ondragstart="scrollColumns()">
+<div class="container columns"  draggable="true" ondragstart="scrollColumns()">
         <h2 class="h2title">真山
         </h2>
 

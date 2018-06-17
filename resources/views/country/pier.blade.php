@@ -147,14 +147,14 @@
 
         @stop
 
-        @section('script_b')
+        @section('bottom')
             <script>
                 $('#home-first-page').slick({
                     initialSlide: 0,
                     autoplay: false,
                     autoplaySpeed: 25000,
                     arrows: false,
-                    mobileFirst: false,
+                    mobileFirst: true,
                 });
 
                 $('body').on('click', '.baihui-share', function () {

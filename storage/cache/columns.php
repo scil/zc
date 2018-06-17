@@ -189,11 +189,12 @@
     'title' => '视窗 &nbsp;|&nbsp; 真城',
     'ctitle' => '真城视窗',
   ),
-  'upper' => 
+  'mabang' => 
   array (
     'id' => 20,
-    'name' => '上三角',
-    'title' => '真城上三角',
+    'name' => '马队',
+    'desc' => '真城的商队',
+    'title' => '真城马队',
   ),
   'hall' => 
   array (

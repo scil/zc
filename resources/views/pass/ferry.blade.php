@@ -40,7 +40,7 @@
 
 @endsection
 
-@section('script_b')
+@section('bottom')
     <script>
 
         var quotes1 = [

@@ -1662,9 +1662,9 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 'created_at' => '2017/06/03',
                 'comment' => '',
                 '_place' => [
-                    '_name' => 'Gibran（纪伯伦）童年时的家乡',
+                    '_name' => 'Gibran（纪伯伦）的家乡',
                     'info' => [
-                        'title' => 'Gibran（纪伯伦）长大在奥斯曼帝国的山区中（今黎巴嫩）',
+                        'title' => '纪伯伦长大在奥斯曼帝国的山区中（今黎巴嫩）',
                         'intro' => '12 岁和母亲、哥哥、妹妹到美囶波士顿唐人街谋生，离开了家乡，离开了黑暗的奥斯曼帝国（9 岁时，父亲被人诬陷入狱，家里的房子和财产被没收，三年后，尽管父亲被无罪释放，但坚强的母亲还是决定远走美囶）。',
                         'relation' => false,
                     ]
@@ -1947,8 +1947,8 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                '_tags'=>['孝'],
                 '_brothers' => [
                     [
-                        'slug' => "human-civilizations-come-2-human-empires",
-                        'articleable_id' => $column_id, 'title' => '《人类文明来到世间》之二：大国尽是战争狂',
+                        'slug' => "human-civilizations-come-2-militarism-racism",
+                        'articleable_id' => $column_id, 'title' => '《人类文明来到世间》之二：军国主义和种族主义自古是人类本能',
                         'desc' => '耶酥会士卫匡国在《鞑靼战纪》中记述:「他们不论男女老幼一律残酷地杀死，他们不说别的，只说:『杀！杀死这些反叛的蛮子!』」这就是一个新帝国崛起的画面。',
                         'intro' => '耶酥会士卫匡国在《鞑靼战纪》中记述:「他们不论男女老幼一律残酷地杀死，他们不说别的，只说:『杀！杀死这些反叛的蛮子!』」这就是一个新帝国崛起的画面。',
                         'author' => 'scil（编）',
@@ -2076,7 +2076,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     ],
                     [
                         'slug' => "human-civilizations-come-5",
-                        'articleable_id' => $column_id, 'title' => '《人类文明来到世间》之五：人类能进步 是因为「存在不一定合理」',
+                        'articleable_id' => $column_id, 'title' => '《人类文明来到世间》之五：进步的起点 是「存在不一定合理」',
                         'intro' => '19 世纪末，美国遭遇空前的经济危机，失业人口第一次突破 300 万。美国可能会成为亚述、埃及、波斯、罗马、蒙古、奥斯曼、俄罗斯、大清国、越南、日本、德国那般的扩张型国家。',
                         'desc' => '19 世纪末，美国遭遇空前的经济危机，失业人口第一次突破 300 万。美国可能会成为亚述、埃及、波斯、罗马、蒙古、奥斯曼、俄罗斯、大清国、越南、日本、德国那般的扩张型国家。',
                         'author' => 'scil（编）',

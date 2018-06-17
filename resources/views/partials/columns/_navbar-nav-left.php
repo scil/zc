@@ -56,7 +56,7 @@
                                     
                                             <li><a href="/hall">市政厅</a></li>
                                                         
-                                            <li><a href="/upper">上三角</a></li>
+                                            <li><a href="/mabang">马队</a></li>
                                                 </ul>
         </li>
             <script>

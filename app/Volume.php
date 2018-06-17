@@ -45,7 +45,7 @@ class Volume extends Model
     }
     public function firstArticlesSimple()
     {
-        return  $this->articles()->select(['id','slug','title','intro','volume_id'])->where('type','=','first');
+        return  $this->articles()->select(['id','slug','title','sub_title','intro','volume_id'])->where('type','=','first');
     }
 
     public function person()

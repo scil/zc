@@ -291,7 +291,7 @@ var zc = {
                 {
                     ele: $("#LMap"),
                     plotsIDs: opts.itemIDs,
-                    plots: plots,
+                    plots: opts.plots,
                     mode: 'all',
                     direction: 'ltr',
                     config: {
@@ -305,7 +305,6 @@ var zc = {
                     ele: opts.side.infoEle,
                     infoElements: opts.side.infoElements,
                     data: opts.side.infoData,
-                    keys:opts.side.infoKeys || ['title','intro'],
                     infoSwipeBox: false, // 不需要ZCMap提供的swipe 自定义swipe 动作，增加 scrollUp
                 }
             );
@@ -336,6 +335,8 @@ var zc = {
                     enterXsCallback: this._sideLess400,
                 });
             }
+
+            this._initWidth(opts);
 
             this._initAffix(opts);
 
@@ -462,34 +463,47 @@ var zc = {
 
         },
 
-        _initAffix: (opts) => {
+        /**
+         * 原因1:
+         在 chrome 59 中发现 ，被 .affix 的元素 如果其中的子元素没有确定width 会导致这些元素被长内容撑得非常长；
+         在firefox 53 中也有类似问题，但撑得不太长
+         这说明一个元素被fixed 就脱离了原来容器的控制
+         解决：给定一个width, 根据元素 opts.side.ele 的长度而变化
 
-            if (!opts.side.affixEle) return;
+         * 原因2:
+         * 文章页没有使用affix 但也出现宽度过大，所以也需要设置，发现是需要:
+                 opts.side.ele.css('float', 'none');
+         */
+        _initWidth:(opts)=>{
+            var who = opts.side.widthEle||opts.side.affixEle;
+            if(!who) return;
 
             opts.side.ele.css('float', 'none');
 
-            zc.sideMap.affixEle = opts.side.affixEle;
-
-
-            // 在 chrome 59 中发现 ，被 .affix 的元素 如果其中的子元素没有确定width 会导致这些元素被长内容撑得非常长；
-            // 在firefox 53 中也有类似问题，但撑得不太长
-            // 这说明一个元素被ffixed 就脱离了原来容器的控制
-            // 解决：给定一个width, 根据元素 opts.side.ele 的长度而变化
             workAccordingScreen.add({
-                name: 'affix_width',
+                name: 'side_width',
                 level: 6, // it must be after 'side_400px' because the children width depends opts.side.ele
                 runEnterNow: true,
 
                 sideEle: opts.side.ele,
                 //todo test
                 // elements: [opts.side.affixEle, opts.side.swipeBoxEle],
-                elements: [opts.side.affixEle,],
+                elements: [who,],
 
                 bigResizeCallback: zc.sideMap._affixWidth,
                 enterBigCallback: zc.sideMap._affixWidth,
                 enterXsCallback: zc.sideMap._affixWidth,
                 xsResizeCallback: zc.sideMap._affixWidth,
             });
+        },
+
+        _initAffix: (opts) => {
+
+            if (!opts.side.affixEle) return;
+
+            zc.sideMap.affixEle = opts.side.affixEle;
+
+
 
             workAccordingScreen.add({
                 name: 'affix',
@@ -641,7 +655,7 @@ var zc = {
 
             zc.sideMap.zcmap.paper.setSize('100%', '100%');
 
-            zclog('[affix width] re-width and svg resized');
+            zclog('[side width] re-width and svg resized');
 
         },
 

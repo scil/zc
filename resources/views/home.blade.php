@@ -47,7 +47,7 @@
                             </div>
                         </div>
                         <a href="/human/nature/childhood-needs-trial-error-disobedience"
-                        {{--<a href="/human/road/great-zouzhe-China"--}}
+                           {{--<a href="/human/road/great-zouzhe-China"--}}
                            class="pure-kaiti quote-src btn btn-warning btn-primary-outline btn-sm">
                             童年需要“试误”和“不听话”
                             {{--中囶历史上的伟大奏折--}}
@@ -56,6 +56,7 @@
                     </div>
                     <div id="first-page-map">
                         <div class="map"></div>
+                        <span id="LMap-addr"></span>
                     </div>
 
                 </div>
@@ -78,99 +79,101 @@
 
 @stop
 
-@section('script_b')
+@section('bottom')
     <script>
-        zc.content._bigHref();
+        function safe_func() {
+            zc.content._bigHref();
 
-        var slide = $('#home-first-page').slick({
-            initialSlide: 0,
-            autoplay: false,
-            autoplaySpeed: 25000,
-            arrows: false,
-            mobileFirst: false,
-            adaptiveHeight: true,
-            draggable: false,
-        });
-
-        var slideTimer = null;
-
-        function slideGo(index) {
-            if (slideTimer) {
-                clearTimeout(slideTimer)
-            }
-            slideTimer = setTimeout(function () {
-                slide.slick('slickGoTo', index);
-            }, 80)
-        }
-
-        $('#header-row').mouseenter(function () {
-            slideGo(0);
-        }).click(function () {
-            slideGo(0);
-        });
-
-        var IDs = {!! json_encode($IDs) !!};
-        var plots = {!! json_encode($plots) !!};
-
-        var lastPlotsGroup = '';
-
-        zcmap = new ZCMap(
-            {
-                ele: $("#first-page-map"),
-                plotsIDs: [],
-                plots: [],
-                mode: 'all',
-                direction: 'ltr',
-                config: {
-                    plotSize: 15,
-                },// plotColor:'#8800CC'},
-                mouseoverCallback: (e, id, mapElem, textElem, elemOptions) => {
-                }
-            },
-            null
-        );
-
-        function showPlotsForLi(li, visit) {
-
-            slideGo(1);
-
-            var url = li.firstChild.getAttribute('href');
-            if (url === lastPlotsGroup) {
-                if (!visit) return;
-
-                location.href = url;
-                return;
-            }
-            lastPlotsGroup = url;
-            $(li).parent().addClass('active').siblings().removeClass('active');
-            zcmap.resetDataAndShow({
-                plotsIDs: IDs[lastPlotsGroup],
-                plots: plots[lastPlotsGroup],
-
+            var slide = $('#home-first-page').slick({
+                initialSlide: 0,
+                autoplay: false,
+                autoplaySpeed: 25000,
+                arrows: false,
+                mobileFirst: true,
+                adaptiveHeight: true,
+                draggable: false,
             });
-        }
 
-        $('#header-nav li').mouseenter(function (e) {
-            showPlotsForLi(this, false);
-            return false;
-        });
-        if ('ontouchstart' in document) {
+            var slideTimer = null;
 
-            $('#header-nav a')
-               .on('touchstart click', function (e) {
+            function slideGo(index) {
+                if (slideTimer) {
+                    clearTimeout(slideTimer)
+                }
+                slideTimer = setTimeout(function () {
+                    slide.slick('slickGoTo', index);
+                }, 80)
+            }
 
-                    // var a_link = $(this);
-                    // if (a_link.data('flag') === 1) return false;
-                    //
-                    // a_link.data('flag', 1);
-                    // setTimeout(function () {
-                    //     a_link.data('flag', 0);
-                    // }, 100);
+            $('#header-row').mouseenter(function () {
+                slideGo(0);
+            }).click(function () {
+                slideGo(0);
+            });
 
-                    showPlotsForLi(this.parentElement, true);
-                    return false;
+            var IDs = {!! $IDs !!};
+            var plots = {!! $plots !!};
+
+            var lastPlotsGroup = '';
+
+            var zcmap = new ZCMap(
+                {
+                    ele: $("#first-page-map"),
+                    plotsIDs: [],
+                    plots: [],
+                    mode: 'all',
+                    direction: 'ltr',
+                    config: {
+                        plotSize: 15,
+                    },// plotColor:'#8800CC'},
+                    mouseoverCallback: (e, id, mapElem, textElem, elemOptions) => {
+                    }
+                },
+                null
+            );
+
+            function showPlotsForLi(li, visit) {
+
+                slideGo(1);
+
+                var url = li.firstChild.getAttribute('href');
+                if (url === lastPlotsGroup) {
+                    if (!visit) return;
+
+                    location.href = url;
+                    return;
+                }
+                lastPlotsGroup = url;
+                $(li).parent().addClass('active').siblings().removeClass('active');
+                zcmap.resetDataAndShow({
+                    plotsIDs: IDs[lastPlotsGroup],
+                    plots: plots[lastPlotsGroup],
+
                 });
-        }
+            }
+
+            $('#header-nav li').mouseenter(function (e) {
+                showPlotsForLi(this, false);
+                return false;
+            });
+            if ('ontouchstart' in document) {
+
+                $('#header-nav a')
+                    .on('touchstart click', function (e) {
+
+                        // var a_link = $(this);
+                        // if (a_link.data('flag') === 1) return false;
+                        //
+                        // a_link.data('flag', 1);
+                        // setTimeout(function () {
+                        //     a_link.data('flag', 0);
+                        // }, 100);
+
+                        showPlotsForLi(this.parentElement, true);
+                        return false;
+                    });
+            }
+        };
         //# sourceURL=zc_home_map
     </script>
     <script src="https://cdn.bootcss.com/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
@@ -180,7 +183,7 @@
         !function () {
             var ele = $('.row-more-cols');
 
-            if(!ele.mousewheel) return;
+            if (!ele.mousewheel) return;
 
             if (ele.length == 0) return;
 

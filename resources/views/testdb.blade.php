@@ -123,14 +123,14 @@
 //                    slidesToShow: 2,
 //                    slidesToScroll: 2,
                     arrows: false,
-                    mobileFirst: false,
+                    mobileFirst: true,
                 })
             </script>
         @endif
     </div>
 @endsection
 
-@section('script_b')
+@section('bottom')
     <script>
         var plots = {
         @foreach($vols as $vol)

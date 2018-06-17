@@ -210,7 +210,7 @@
     </div>
     </div>
 @stop
-@section('script_b')
+@section('bottom')
     <script>
 
 
@@ -254,7 +254,7 @@
                     appendDots:$('#col-first-page'),
 //                variableWidth: true, // 自定义每个幻灯片的宽度 .slick-slide{ width: ...px; }
                 arrows: false,
-                mobileFirst: false,
+                mobileFirst: true,
                 adaptiveHeight: true,
             })
 

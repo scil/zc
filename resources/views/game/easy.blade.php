@@ -212,13 +212,13 @@
 
 @stop
 
-@section('script_b')
+@section('bottom')
     <script>
         $('#sit-quotes').slick({
             autoplay: true,
             autoplaySpeed: 35000,
             arrows: false,
-            mobileFirst: false,
+            mobileFirst: true,
         });
         $('#sit-quotes').on('beforeChange', function (event, slick, currentSlide, nextSlide) {
             $ele = $(slick.$slides[nextSlide]).eq(0);

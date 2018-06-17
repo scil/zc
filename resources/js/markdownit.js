@@ -1,5 +1,5 @@
 // ********* WARNING
-// run `gulp dist:js` after this file is changed
+// run `gulp js_app` after this file is changed
 // *********
 
 var MarkDownIt = require('markdown-it');

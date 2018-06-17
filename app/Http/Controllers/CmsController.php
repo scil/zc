@@ -8,12 +8,6 @@ use App\Article;
 use App\Quote;
 use App\Book;
 
-if (!defined('MENU_ITEMS')) {
-    include storage_path() . '/cache/columns.php';
-}
-if (!defined('ZC_HEADERS')) {
-    include storage_path() . '/cache/headers.php';
-}
 
 class CmsController extends Controller
 {
@@ -21,60 +15,81 @@ class CmsController extends Controller
 
     function home()
     {
-        list($IDs,$plots)= \Cache::remember('home_plots', 60*24, function () {
+        list($IDs, $plots,) = \Cache::remember('homeplot', 60 * 24, function () {
 
-            foreach (['green', 'human/road', 'sail'] as $url) {
+            $vols = Volume::with(['firstArticlesSimple.places'])->where('column_id', MENU_ITEMS['green']['id'])->orderBy('no', 'desc')->get();
+            $IDs["/green"] = [];
+            $plots["/green"] = [];
+            foreach ($vols as $vol) {
+                foreach ($vol->firstArticlesSimple as $item) {
+                    if ($item->places->count() > 0) {
+                        $a_place = $item->places[0];
+                        $text = ($a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en).($a_place->pivot->title?" · ".$a_place->pivot->title:'');
+                        $IDs["/green"][] = $a_place->id;
+                        $plots["/green"][$a_place->id] = [
+                            'latitude' => $a_place->lat,
+                            'longitude' => $a_place->lng,
+                            'tooltip' => ['content' => "<span style=\"font-weight:normal;\">{$item->title}</span><br><span style='font-size:90%'>{$item->sub_title}</span>"],
+                            'text' => ['content' => $text,
+//                                "position"=>'top',
+                                'margin'=>[
+                                    'x' => 4, 'y'=>-1
+                                ],
+                                "attrs"=>["font-size"=>12,"text-anchor"=>'start','opacity'=>0],
+                                "attrsHover"=>["font-size"=>12,"text-anchor"=>'start','opacity'=>1,"fill"=>'#2461a3'],
 
-                if ($url == 'sail') { // has child columns with articles
-                    $quotes = Quote::with('places', 'quoteable')
-                        ->orderBy('order', 'desc')
-                        ->where('quoteable_type', 'App\Column')
-                        ->whereIn('quoteable_id', MENU_ITEMS['sail']['q'])
-                        ->select(['id', 'order', 'slug', 'title', 'desc', 'body',
-                            \DB::raw('if(isnull(body_long),0,if(body_long="",0,1)) as b_long'),
-                            'origin_url', 'origin', 'author',
-                            'image_id', 'quoteable_id', 'quoteable_type'])
-                        ->get();
-                    $IDs["/$url"] = [];
-                    $plots["/$url"] = [];
-                    foreach ($quotes as $quote) {
-                        if ($quote->places->count() > 0) {
-                            $IDs["/$url"][] = $quote->id;
-                            $a_place = $quote->places[0];
-                            $plots["/$url"][$quote->id] = [
-                                'latitude' => $a_place->lat,
-                                'longitude' => $a_place->lng,
-                                'tooltip' => ['content' => "<span style=\"font-weight:bold;\">{$quote->title}</span><br><span style='font-size:85%'>{$quote->desc}</span>"],
-                            ];
-                        }
-
-                    }
-
-                } else {
-                    $vols = Volume::with(['firstArticlesSimple.places'])->where('column_id', MENU_ITEMS[$url]['id'])->orderBy('no', 'desc')->get();
-                    $IDs["/$url"] = [];
-                    $plots["/$url"] = [];
-                    foreach ($vols as $vol) {
-                        foreach ($vol->firstArticlesSimple as $article) {
-                            if ($article->places->count() > 0) {
-                                $IDs["/$url"][] = $article->id;
-                                $a_place = $article->places[0];
-                                $plots["/$url"][$article->id] = [
-                                    'latitude' => $a_place->lat,
-                                    'longitude' => $a_place->lng,
-                                    'tooltip' => ['content' => "<span style=\"font-weight:normal;\">{$article->title}</span><br><span style='font-size:85%'>{$article->sub_title}</span>"],
-                                    'href' => "{$vol->column->url}/{$article->slug}",
-                                ];
-                            }
-                        }
+                            ],
+                            'href' => "green/{$item->slug}",
+                        ];
                     }
                 }
             }
 
-            return [$IDs,$plots];
-        });
+            foreach (['spirit', 'human/indiv'] as $url) {
 
-        return view('home', ['columnID' => 0, 'IDs' => $IDs, 'plots' => $plots]);
+                $quotes = Quote::with('places', 'quoteable')
+                    ->orderBy('order', 'desc')
+                    ->where('quoteable_type', 'App\Column')
+                    ->where('quoteable_id', MENU_ITEMS[$url]['id'])
+                    ->select(['id', 'order', 'slug', 'title', 'desc', 'body',
+                        \DB::raw('if(isnull(body_long),0,if(body_long="",0,1)) as b_long'),
+                        'origin_url', 'origin', 'author',
+                        'image_id', 'quoteable_id', 'quoteable_type'])
+                    ->get();
+                $IDs["/$url"] = [];
+                $plots["/$url"] = [];
+                foreach ($quotes as $item) {
+                    if ($item->places->count() > 0) {
+                        $a_place = $item->places[0];
+                        $text = ($a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en).($a_place->pivot->title?" · ".$a_place->pivot->title:'');
+                        $IDs["/$url"][] = $a_place->id;
+                        $plots["/$url"][$a_place->id] = [
+                            'latitude' => $a_place->lat,
+                            'longitude' => $a_place->lng,
+
+                            'tooltip' => ['content' => "<span style=\"font-weight:normal;\">{$item->title}</span><br><span style='font-size:90%'>{$item->desc}</span>"],
+                            'text' => ['content' => $text,
+//                                "position"=>'top',
+                                'margin'=>[
+                                    'x' => 4, 'y'=>-1
+                                ],
+                                "attrs"=>["font-size"=>12,"text-anchor"=>'start','opacity'=>0],
+                                "attrsHover"=>["font-size"=>12,"text-anchor"=>'start','opacity'=>1,"fill"=>'#2461a3'],
+
+                            ],
+                            'href' => "/$url/{$item->slug}",
+                        ];
+                    }
+
+                }
+
+            }
+
+            return [json_encode($IDs), json_encode($plots)];
+        });
+       $columnID = 0;
+
+        return view('home', compact('columnID','IDs','plots'));
     }
 
 
@@ -368,53 +383,5 @@ class CmsController extends Controller
         }
     }
 
-    function country($sub = null)
-    {
-        if (is_null($sub)) {
-            $columnID = MENU_ITEMS['country']['id'];
-            $title = MENU_ITEMS['country']['title'];
-            return view('country.index', compact('title'));
-        }
-        $columnID = MENU_ITEMS["country/$sub"]['id'];
-        $title = MENU_ITEMS["country/$sub"]['title'];
-        $desc = MENU_ITEMS["country/$sub"]['desc'];
-        $data = [];
-        return view("country.$sub", compact('columnID', 'title', 'desc'));
-    }
-
-    function hall()
-    {
-
-        $columnID = MENU_ITEMS["hall"]['id'];
-
-        $title = MENU_ITEMS["hall"]['title'];
-        $desc = MENU_ITEMS["hall"]['desc'];
-        return view("country.hall", compact('columnID', 'title', 'desc'));
-    }
-
-    function pass($sub = null)
-    {
-        if (is_null($sub)) {
-            $data = [
-                'title' => MENU_ITEMS["pass"]['title'],
-                'desc' => MENU_ITEMS["pass"]['desc'],
-                'columnID' => MENU_ITEMS["pass"]['id']
-            ];
-            return view('pass.index', $data);
-        }
-        $data = [];
-        return view('pass.' . $sub, $data);
-    }
-
-    function ferry()
-    {
-        $columnID = MENU_ITEMS["ferry"]['id'];
-        $data = [
-            'title' => MENU_ITEMS["ferry"]['title'],
-            'desc' => MENU_ITEMS["ferry"]['desc'],
-            'columnID' => $columnID
-        ];
-        return view('pass.ferry', $data);
-    }
 
 }

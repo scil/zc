@@ -3,8 +3,7 @@ export {ZCMap};
 
 import {log as zclog} from "./util";
 
-const _ = require('lodash')
-
+import _ from 'lodash'
 
 /**
  *
@@ -50,7 +49,6 @@ function ZCMap(map, info) {
     /** @type {string} */
     me.infoEle = null;
     me.infoData = null;
-    me.infoKeys = null;
 
     if (info) {
         me._initInfo(info);
@@ -171,7 +169,6 @@ ZCMap.prototype._initInfo = function (info) {
 
 
     me.infoData = infoData;
-    me.infoKeys = info.keys;
     if (info.infoSwipeBox) {
         $(info.infoSwipeBox).swipe({
             swipe: function (event, direction, distance, duration, fingerCount, fingerData) {
@@ -295,7 +292,7 @@ ZCMap.prototype._lightSinglePlotAndAutoChange = function (nextPlotID: number) {
     ZCMap.log('      active ', nextPlotID)
 
     var to_add = {};
-    _.each(to_add_ids, function (id) {
+    to_add_ids.forEach(function (id) {
         to_add[id] = me.plots[id];
     })
 

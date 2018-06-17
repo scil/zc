@@ -3,41 +3,32 @@
 <head>
     {{-- 移动前端不得不了解的html5 head 头标签 http://blog.csdn.net/huang100qi/article/details/42596799 --}}
     <meta charset="utf-8">
+    <title>{!! $title !!}</title>
+    <meta name="description" content="{!! $desc !!}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="max-age=172800"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{!! $title !!}</title>
-    <meta name="description" content="{!! $desc !!}" />
 
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/vendor.css" rel="stylesheet">
+    {{--<link href="/css/all.css" rel="stylesheet">--}}
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
     <!--[if lt IE 9]>
     <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/raphael/2.2.7/raphael.min.js" async></script>
+    <script src="/js/vendor.js" defer></script>
+    <script src="/js/app.js" async id="LAST-SCRIPT"></script>
 
-    <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-beta.49/polyfill.min.js"></script>
-
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-
-    <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
-
-    <script src="https://cdn.bootcss.com/raphael/2.2.7/raphael.min.js"></script>
-    <script src="https://cdn.bootcss.com/jquery-mapael/2.1.0/js/jquery.mapael.min.js"></script>
-
-    <script src="/js/vendor.js"></script>
-    <script src="/js/zc.js"></script>
-
-    <link rel="apple-touch-icon" href="/apple-icon.png">
     <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-icon.png">
 </head>
 <body>
 
@@ -173,8 +164,9 @@ M;
 {{--</div>--}}
 {{--</div>--}}
 
-@yield('script_b')
 
+
+@yield('bottom')
 <script>
     function open_gate() {
         return false;
@@ -182,8 +174,46 @@ M;
 
     document.getElementById('pass-li').href = '/' + (open_gate() ? 'pass' : 'ferry');
 
-    if(location.pathname.substr(1,4)==='sail' || location.host.substr(0,4)==='sail'){
-        document.getElementById('me').innerHTML='真城 · 越海';
+    if (location.pathname.substr(1, 4) === 'sail' || location.host.substr(0, 4) === 'sail') {
+        document.getElementById('me').innerHTML = '真城 · 越海';
+    }
+
+    var wait_lib_timer = null;
+    var wait_lib_times = 0;
+
+    function wait_lib() {
+        ++wait_lib_times;
+        if (typeof(Raphael) === 'undefined') {
+            if (wait_lib_times >= 5) {
+                clearInterval(wait_lib_timer)
+                console.error('lib loaded failed ')
+            }
+        } else {
+            safe_func();
+            clearInterval(wait_lib_timer)
+        }
+    }
+
+    var script = document.getElementById('LAST-SCRIPT'),
+        script_done = false;
+
+    // https://stackoverflow.com/questions/4845762/onload-handler-for-script-tag-in-internet-explorer
+    script.onload = script.onreadystatechange = function () {
+
+        if (!script_done && (!this.readyState ||
+            this.readyState === "loaded" || this.readyState === "complete")) {
+
+            script_done = true;
+
+            // Handle memory leak in IE
+            script.onload = script.onreadystatechange = null;
+
+            if (typeof(safe_func) === "function") {
+                if (typeof(Raphael) === 'undefined') wait_lib_timer = setInterval(wait_lib, 100)
+                else safe_func();
+            }
+        }
+
     }
     //# sourceURL=zc_gate
 </script>

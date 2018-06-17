@@ -17,6 +17,6 @@
         <h3 class="zc-map-title">山脚下</h3>
         <ul class="nav nav-pills nav-stacked zc-map h4">
                                             <li><a href="/hall">市政厅</a></li>
-                                            <li><a href="/upper">上三角</a></li>
+                                            <li><a href="/mabang">马队</a></li>
                     </ul>
     </div>

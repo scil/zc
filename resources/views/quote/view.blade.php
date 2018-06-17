@@ -114,59 +114,65 @@
 @stop
 
 
-@section('script_b')
+@section('bottom')
     <script>
+        $('cite', '#QItem').addClass('cite-tail');
 
-        zc.content.init();
+        function safe_func() {
+            zc.content.init();
 
-        $('cite','#QItem').addClass('cite-tail');
 
-        var plots = {
+            var plots = {
 
-        @foreach($quote->places as $place)
-        {{-- only get the first place  --}}
-        {!! $place->id !!}:
-        {
-            latitude: '{!! $place->lat !!}', longitude
-        :
-            '{!! $place->lng !!}',
-        }
+            @foreach($quote->places as $place)
+            {{-- only get the first place  --}}
+            {!! $place->id !!}:
+            {
+                latitude: '{!! $place->lat !!}', longitude
+            :
+                '{!! $place->lng !!}',
+            }
         ,
-        @endforeach
+            @endforeach
 
         }
-        ;
+            ;
 
-        @if($IDs)
-        zc.sideMap.init({
-            itemIDs:{!! json_encode($IDs) !!},
-            plots: plots,
+            @if($IDs)
+            zc.sideMap.init({
+                itemIDs:{!! json_encode($IDs) !!},
+                plots: plots,
 
-            side: {
-                ele: $('#side'),
-                //affixEle: $('#LMap-box'),
-                //swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
-                infoElements:{'addr':$('#LMap-addr'),'title':$('#LMap-info-title'),'intro':$('#LMap-info-intro')},
-                infoEle: '#LMap-info',
-                infoData:{!! json_encode($mapInfosByPlaceID) !!},
-            },
+                side: {
+                    ele: $('#side'),
+                    widthEle: $('#LMap-box'),
+                    //affixEle: $('#LMap-box'),
+                    //swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
+                    infoElements: {
+                        'addr': $('#LMap-addr'),
+                        'title': $('#LMap-info-title'),
+                        'intro': $('#LMap-info-intro')
+                    },
+                    infoEle: '#LMap-info',
+                    infoData:{!! json_encode($mapInfosByPlaceID) !!},
+                },
 
-            contentArea: '#QL',
-            findItemByPlotID: function (id) {
-                return null;
-            },
-            lightID:{!! $IDs[0] !!},
-            spy: {
-                field: '#QL',
-                target: '.L-item-title',
-                getId: null,
-                targetItemScope: '.QL-item',
-            },
+                contentArea: '#QL',
+                findItemByPlotID: function (id) {
+                    return null;
+                },
+                lightID:{!! $IDs[0] !!},
+                spy: {
+                    field: '#QL',
+                    target: '.L-item-title',
+                    getId: null,
+                    targetItemScope: '.QL-item',
+                },
 
-        })
+            })
 
-        @endif
-
+            @endif
+        }
         //# sourceURL=qList
     </script>
 @stop

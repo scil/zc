@@ -13,6 +13,8 @@ return [
          */
     ],
 
+    'view_compile_1' => env('APP_ENV')==='production',
+
     /**
      * useless providers. Not For Mode FpmLike
      *

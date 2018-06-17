@@ -68,7 +68,7 @@
 @stop
 
 
-@section('script_b')
+@section('bottom')
     <script>
 
 

@@ -7,7 +7,7 @@
  * Greedy: only for study
  */
 if (!defined('LARAVELFLY_MODE')) define('LARAVELFLY_MODE',
-    'Simple'
+    'Map'
 );
 
 /**
@@ -82,7 +82,7 @@ return [
 
     'listen_port' => 9501,
 
-    'worker_num' => 2,
+    'worker_num' => 1,
 
     'max_coro_num' => 3000,
 

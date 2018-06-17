@@ -24,40 +24,13 @@
 
                         <div class="quote-text">
                             <div>
-                                <p>欢迎投球</p>
+                                <p>商业创造可能</p>
                             </div>
                         </div>
                         <a class="pure-kaiti quote-src btn btn-warning btn-primary-outline btn-sm">真城</a>
                     </div>
 
-                    <div>
-                        <div class="quote-img">
-                            <img src="/img/org/washington.jpg">
-                        </div>
 
-                        <div class="quote-text">
-                            <div>
-                                <p>The Constitution is the guide which I never will abandon.</p>
-                            </div>
-                        </div>
-                        <a class="pure-kaiti quote-src btn btn-warning btn-primary-outline btn-sm">George
-                            Washington</a>
-                    </div>
-
-                    <div>
-
-                        <div class="quote-img" style="border-width:0;width: 100px;height: 150px;border-radius: 20%;;">
-                            <img src="/img/org/americansdon27ttrust.jpg"
-                            >
-                        </div>
-                        {{--美国宪法为何读起来这么“别扭”--}}
-                        {{--去除文字后，需加大图片和按钮的距离--}}
-                        <div class="quote-text" style="margin-top: 5%;">
-                        </div>
-                        <a href="//weibo.com/p/1001603916291386828065" target="_blank"
-                           class="pure-kaiti quote-src btn btn-warning btn-primary-outline btn-sm">美国 Constitution
-                            为何读起来这么“别扭”</a>
-                    </div>
                 </div>
 
             </div>
@@ -151,30 +124,5 @@
 @stop
 
 @section('bottom')
-    <script>
-        $('#home-first-page').slick({
-            initialSlide: 0,
-            autoplay: false,
-            autoplaySpeed: 25000,
-            arrows: false,
-            mobileFirst: true,
-        });
-
-        $('body').on('click', '.baihui-share', function () {
-            var title = $(this).attr('title')
-            var body =
-                '<iframe width="100%" height="400" style="border:1px solid #ccc;margin-bottom: 10px;" frameborder="0" scrolling="no" src="'
-                + $(this).attr('href')
-                + '"> </iframe>'
-                + '<p>注：本表原始文档存放在<a target="_blank" href="'
-                + $(this).attr('g-url')
-                + '">google drive</a></p>'
-
-            $('#global-modal-title').text(title);
-            $('#global-modal-body').html(body);
-            $('#global-modal').modal();
-            return false;
-        })
-
-    </script>
+    <script></script>
 @stop

@@ -38,16 +38,18 @@ Route::get('/book/{slug?}', 'CmsController@viewBook');
 Route::get('/video/{slug?}', 'CmsController@viewVideo');
 
 Route::get('/country/{sub?}', 'CmsController@country');
-Route::get('/hall', 'CmsController@hall');
-Route::get('/pass/{sub?}', 'CmsController@pass');
-Route::get('/ferry/{sub?}', 'CmsController@ferry');
+Route::get('/hall', 'CountryController@hall');
+Route::get('/upper', 'CountryController@upper');
+Route::get('/pass/{sub?}', 'CountryController@pass');
+Route::get('/ferry/{sub?}', 'CountryController@ferry');
 
 Route::get('/new_article', 'CmsController@createArticle');
 Route::post('/new_article', 'CmsController@storeArticle');
 
-
 return;
+
 Route::get('/test', function () {
+    eval(tinker());
     return app('markdown')->encode("## abc\n*abc*");
 });
 

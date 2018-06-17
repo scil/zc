@@ -63,7 +63,7 @@
     </div>
 @endsection
 
-@section('script_b')
+@section('bottom')
     <script>
 
         var plots = {

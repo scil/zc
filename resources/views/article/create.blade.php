@@ -263,7 +263,7 @@
 @stop
 
 
-@section('script_b')
+@section('bottom')
     <script>
         @if(isset($article))
         column_id = {!! $article->column_id !!}

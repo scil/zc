@@ -239,13 +239,9 @@
 @stop
 
 
-@section('script_b')
+@section('bottom')
     <script>
-
-        zc.content.init();
-
         $('cite', '#body').addClass('cite-tail');
-
         $('.ins').each(function () {
             // // 连续的多个.ins 只给第一个添加hr
             // if (this.previousElementSibling && !this.previousElementSibling.classList.contains('ins')) {
@@ -255,71 +251,81 @@
             $(this).append('<span class="prefix-quote">引</span>');
         });
 
-        // .limit-height
+        function safe_func() {
+            zc.content.init();
 
-        zc.content.limitHeight({
-            containers: $('.limit-height'),
-            scrollBack: true,
-            readMore: function (container, button) {
-                container.addClass('no-limit-height');
-                button.addClass('read-less');
-            },
-            readLess: function (container, button) {
-                container.removeClass('no-limit-height');
-                button.removeClass('read-less');
-            },
-            fix: true,
-            containerDefaultHeight: 350,  // 容器缩小时的高度　optional, used for update fix status
-        })
 
-        var plots = {
 
-        @if($article->places->count()>0)
-        @foreach($article->places as $place)
-        {!! $place->id !!}:
-        {
-            latitude: '{!! $place->lat !!}', longitude
-        :
-            '{!! $place->lng !!}',
-        }
+            // .limit-height
+
+            zc.content.limitHeight({
+                containers: $('.limit-height'),
+                scrollBack: true,
+                readMore: function (container, button) {
+                    container.addClass('no-limit-height');
+                    button.addClass('read-less');
+                },
+                readLess: function (container, button) {
+                    container.removeClass('no-limit-height');
+                    button.removeClass('read-less');
+                },
+                fix: true,
+                containerDefaultHeight: 350,  // 容器缩小时的高度　optional, used for update fix status
+            })
+
+            var plots = {
+
+            @if($article->places->count()>0)
+            @foreach($article->places as $place)
+            {!! $place->id !!}:
+            {
+                latitude: '{!! $place->lat !!}', longitude
+            :
+                '{!! $place->lng !!}',
+            }
         ,
-        @endforeach
-        @endif
+            @endforeach
+            @endif
 
         }
-        ;
+            ;
 
-        @if($IDs)
-        zc.sideMap.init({
-            itemIDs:{!! json_encode($IDs) !!},
-            plots: plots,
+            @if($IDs)
+            zc.sideMap.init({
+                itemIDs:{!! json_encode($IDs) !!},
+                plots: plots,
 
-            side: {
-                ele: $('#side'),
-                //affixEle: $('#LMap-box'),
-                //swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
-                infoElements:{'addr':$('#LMap-addr'),'title':$('#LMap-info-title'),'intro':$('#LMap-info-intro')},
-                infoEle: '#LMap-info',
-                infoData:{!! json_encode($mapDataByPlaceID) !!},
-            },
+                side: {
+                    ele: $('#side'),
+                    widthEle: $('#LMap-box'),
+                    // affixEle: $('#LMap-box'),
+                    //swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
+                    infoElements: {
+                        'addr': $('#LMap-addr'),
+                        'title': $('#LMap-info-title'),
+                        'intro': $('#LMap-info-intro')
+                    },
+                    infoEle: '#LMap-info',
+                    infoData:{!! json_encode($mapDataByPlaceID) !!},
+                },
 
-            contentArea: '#QL',
-            findItemByPlotID: function (id) {
-                return null;
-            },
-            getPrevious: null,
-            lightID:{!! $IDs[0] !!},
-            spy: {
-                field: '#QL',
-                target: '.L-item-title',
-                getId: null,
-                targetItemScope: '.QL-item',
-            },
+                contentArea: '#QL',
+                findItemByPlotID: function (id) {
+                    return null;
+                },
+                getPrevious: null,
+                lightID:{!! $IDs[0] !!},
+                spy: {
+                    field: '#QL',
+                    target: '.L-item-title',
+                    getId: null,
+                    targetItemScope: '.QL-item',
+                },
 
-        })
+            })
 
-        @endif
-
+            @endif
+        }
         //# sourceURL=article
     </script>
 @stop

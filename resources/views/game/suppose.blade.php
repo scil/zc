@@ -160,13 +160,13 @@
 
 @stop
 
-@section('script_b')
+@section('bottom')
     <script>
         $('#imagine-quotes').slick({
             autoplay: true,
             autoplaySpeed: 45000,
             arrows: false,
-            mobileFirst: false,
+            mobileFirst: true,
         });
     </script>
 @stop

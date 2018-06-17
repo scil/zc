@@ -82,62 +82,69 @@
     </div>
 @endsection
 
-@section('script_b')
+@section('bottom')
     <script>
 
         $('cite', '#QL').addClass('cite-tail');
 
-        var plots = {
-        @foreach($quotes as $quote)
-        @if($quote->places->count()>0)
-        <?php $place = $quote->places[0];?>
-        {!! $quote->id !!}:
-        {
-            latitude: '{!! $place->lat !!}', longitude
-        :
-            '{!! $place->lng !!}',
-        }
+        function safe_func() {
+
+
+            var plots = {
+            @foreach($quotes as $quote)
+            @if($quote->places->count()>0)
+            <?php $place = $quote->places[0];?>
+            {!! $quote->id !!}:
+            {
+                latitude: '{!! $place->lat !!}', longitude
+            :
+                '{!! $place->lng !!}',
+            }
         ,
-        @endif
-        @endforeach
+            @endif
+            @endforeach
         }
-        ;
+            ;
 
-        @if($IDs)
-        zc.sideMap.init({
-            itemIDs:{!! json_encode($IDs) !!},
-            plots: plots,
+            @if($IDs)
+            zc.sideMap.init({
+                itemIDs:{!! json_encode($IDs) !!},
+                plots: plots,
 
-            side: {
-                ele: $('#side'),
-                affixEle: $('#LMap-box'),
-                swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
-                infoElements:{'addr':$('#LMap-addr'),'title':$('#LMap-info-title'),'intro':$('#LMap-info-intro')},
-                infoEle: '#LMap-info',
-                infoData:{!! json_encode($mapInfosByItemID) !!},
-                infoKeys: ['title', 'intro'],
-            },
+                side: {
+                    ele: $('#side'),
+                    affixEle: $('#LMap-box'),
+                    swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
+                    infoElements: {
+                        'addr': $('#LMap-addr'),
+                        'title': $('#LMap-info-title'),
+                        'intro': $('#LMap-info-intro')
+                    },
+                    infoEle: '#LMap-info',
+                    infoData:{!! json_encode($mapInfosByItemID) !!},
+                    infoKeys: ['title', 'intro'],
+                },
 
-            contentArea: '#QL',
-            findItemByPlotID: function (id) {
-                var h1 = $(document.getElementById(id)).parents('article');
-                return h1;
-            },
-            getPrevious: function (id) {
-                return prevVol = $('#' + id).parents('article').prevUntil('article').prev();
-            },
-            lightID: null,
-            spy: {
-                field: '#QL',
-                target: '.L-item-title',
-                getId: null,
-                targetItemScope: '.QL-item',
-            },
+                contentArea: '#QL',
+                findItemByPlotID: function (id) {
+                    var h1 = $(document.getElementById(id)).parents('article');
+                    return h1;
+                },
+                getPrevious: function (id) {
+                    return prevVol = $('#' + id).parents('article').prevUntil('article').prev();
+                },
+                lightID: null,
+                spy: {
+                    field: '#QL',
+                    target: '.L-item-title',
+                    getId: null,
+                    targetItemScope: '.QL-item',
+                },
 
-        })
+            })
 
-        @endif
-
+            @endif
+        }
         //# sourceURL=qList
     </script>
 

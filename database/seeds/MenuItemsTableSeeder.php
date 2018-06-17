@@ -26,7 +26,7 @@ class MenuItemsTableSeeder extends Seeder
                     ['name' => '真山', 'show'=>true,'short_name' => null, 'css' => null, 'type' => 'box', 'level' => 2, 'order' => 1, 'url' => '/zhen', 'ctitle'=>'','title'=>'真山 &nbsp;|&nbsp; 真城', 'desc' => '人真如山', 'pic' => '', '_children' => [
 
                         ['name' => '山青', 'show'=>true,'short_name' => '人', 'css' => '2', 'type' => 'article', 'level' => 3, 'order' => 1, 'url' => '/green', 'ctitle'=>'山青 &nbsp;|&nbsp; 真城','title'=>'山青 &nbsp;|&nbsp; 真城', 'desc' => '青泉到海流不息', 'pic' => 'qing.jpg'],
-                        ['name' => '山意', 'show'=>true,'short_name' => '意', 'css' => '3', 'type' => 'quote', 'level' => 3, 'order' => 2, 'url' => '/spirit',  'ctitle'=>'山意 &nbsp;|&nbsp; 真城','title'=>'山意 &nbsp;|&nbsp; 真城', 'desc' => '峰回山意深', 'pic' => 'aboutme.jpg'],
+                        ['name' => '真意', 'show'=>true,'short_name' => '意', 'css' => '3', 'type' => 'quote', 'level' => 3, 'order' => 2, 'url' => '/spirit',  'ctitle'=>'真意 &nbsp;|&nbsp; 真城','title'=>'真意 &nbsp;|&nbsp; 真城', 'desc' => '此中有真意', 'pic' => 'aboutme.jpg'],
                         ['name' => '山书', 'show'=>true,'short_name' => '书', 'css' => '1', 'type' => 'article', 'level' => 3, 'order' => 3, 'url' => '/paper', 'ctitle'=>'山书 &nbsp;|&nbsp; 真城','title'=>'山书 &nbsp;|&nbsp; 真城', 'desc' => '岭上多白云', 'pic' => 'book.jpg',],
 //                        ['name' => '海贝', 'show'=>true,'short_name' => '海', 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/shells', 'ctitle'=>'海贝 &nbsp;|&nbsp; 真城','title'=>'海贝 &nbsp;|&nbsp; 真城', 'desc' => '明月共潮生', 'pic' => 'seashell.jpg'],
                     ]],
@@ -68,9 +68,9 @@ class MenuItemsTableSeeder extends Seeder
                     // 如果书籍、影视需要搜罗万象，而书架、视窗满足不了，则可改名为“百科”
                     //['name' => '人物表', 'show'=>true,'short_name' => null,  'css' => null, 'type' => null, 'level' => 2, 'order' => 3, 'url' => '/country/people', 'ctitle'=>'','title'=>'', 'desc' => '', 'pic' => ''],
 //                    ['name' => '淡水湾', 'show'=>true,'short_name' => null, 'css' => null, 'type' => null, 'level' => 2, 'order' => 5, 'url' => '/bay', 'ctitle'=>'','title'=>'', 'desc' => '', 'pic' => ''],
-                    ['name' => '上三角', 'show'=>true,'short_name' => null, 'css' => null, 'type' => null, 'level' => 2, 'order' => 7, 'url' => '/upper', 'ctitle'=>'','title'=>'真城上三角', 'desc' => '', 'pic' => ''],
+                    ['name' => '上三角', 'show'=>true,'short_name' => null, 'css' => null, 'type' => null, 'level' => 2, 'order' => 7, 'url' => '/upper', 'ctitle'=>'','title'=>'真城上三角', 'desc' => '真城黄页，商业名录。', 'pic' => ''],
                     // 城务站
-                    ['name' => '市政厅', 'show'=>true,'short_name' => null, 'css' => null, 'type' => null, 'level' => 2, 'order' => 7, 'url' => '/hall', 'ctitle'=>'','title'=>'真城市政厅', 'desc' => '真城的财政、组织', 'pic' => ''],
+                    ['name' => '市政厅', 'show'=>true,'short_name' => null, 'css' => null, 'type' => null, 'level' => 2, 'order' => 7, 'url' => '/hall', 'ctitle'=>'','title'=>'真城市政厅', 'desc' => '真城的财政、组织。', 'pic' => ''],
                 ]],
                 //['name' => '游戏',  'show'=>true,'short_name'=>null,'css'=>null,'type'=>'quote','level' => 1, 'order' => 4,  'url' => '/games', 'ctitle'=>'','title'=>'', 'desc' => '', 'pic' => ''],
             ]

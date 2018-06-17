@@ -97,7 +97,7 @@
 
 @stop
 
-@section('script_b')
+@section('bottom')
     <script>
         // 三个状态：游客、访客、居民　设置一个 cookie变量进行初始化页面
         // 成功输入邀请码后，first page 左侧: 显示 #yilu-portal-tabs 并切换到第二个tab content
