@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         //todo
 //        Paginator::useBootstrapThree();
-        \View::share('pjax', $this->app->make('request')->header('x-pjax',''));
+        \View::share('pjax', $this->app->make('request')->header('x-pjax', ''));
     }
 
     /**
@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-//        $this->registerMarkdownServiceClient();
+        $this->registerMarkdownServiceClient();
 
     }
 
@@ -46,14 +46,18 @@ class AppServiceProvider extends ServiceProvider
         require $GEN_DIR . 'MarkdownService.php';
         require $GEN_DIR . 'Types.php';
 
-        $socket = new TSocket('localhost', $PORT);
+        try {
+            $socket = new TSocket('localhost', $PORT);
 
-        $transport = new TBufferedTransport($socket, 1024, 1024);
-        $protocol = new TBinaryProtocol($transport);
-        $client = new \MarkdownServiceClient($protocol);
+            $transport = new TBufferedTransport($socket, 1024, 1024);
+            $protocol = new TBinaryProtocol($transport);
+            $client = new \MarkdownServiceClient($protocol);
 
-        $transport->open();
+            $transport->open();
+            app()->instance('markdown', $client);
+        } catch (\Exception $e) {
+            \Log::emergency('thrift MarkdownService not available');
 
-        app()->instance('markdown', $client);
+        }
     }
 }

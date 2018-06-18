@@ -53,8 +53,7 @@ function ZCMap(map, info) {
         me._initInfo(info);
     }
 
-    me.mapEle = $(map.ele).mapael(
-        {
+    me.mapEle = $(map.ele).mapael({
             map: {
 //                            name: "world_countries",
                 name: me.mapName || 'world',
@@ -87,10 +86,12 @@ function ZCMap(map, info) {
                     },
                     attrs: me.config.plotDefaultStyle,
                 },
+                beforeInit : function(container, paper, options) {
+                    $('.map-placeholder',container).hide();
+                }
             },
             plots: plotsFirstShow,
-        }
-    );
+        });
 
 
     me.mapEle.on('afterZoom', function () {

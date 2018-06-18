@@ -4,6 +4,10 @@ $header_hr_margin_sm: 10px;
 $footer_margin_top: 350px;
 $footer_margin_top_small: 70px;
 
+//== world map
+$map_ratio: 0.4;
+
+
 
 @import "re-variables";
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss";
@@ -41,7 +45,7 @@ $footer_margin_top_small: 70px;
 @import 'list/bottom.scss';
 
 @import 'common/mce.scss';
-@import 'common/mapael.scss';
+@import 'common/map.scss';
 
 @import 'pass/pass.scss';
 //@import 'pass/ferry.scss';

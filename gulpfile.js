@@ -121,8 +121,9 @@ const
     log = require('fancy-log');
 
 
-function product_init() {
+function product_init(cb) {
     IN_PRODUCT = 1;
+    cb();
 }
 
 function getUglifyOptions() {
@@ -194,14 +195,14 @@ gulp.task('pkg', gulp.parallel([
 
 function clean() {
     return del([
-        'public/css/app.css',
-        'public/css/vendor.css',
-        'public/css/all.css',
-        'public/js/vendor.js',
-        // here we use a globbing pattern to match everything inside the `mobile` folder
-        'dist/mobile/**/*',
-        // we don't want to clean this file though so we negate the pattern
-        '!dist/mobile/deploy.json'
+        // 'public/css/app.css',
+        // 'public/css/vendor.css',
+        // 'public/css/all.css',
+        // 'public/js/vendor.js',
+        // // here we use a globbing pattern to match everything inside the `mobile` folder
+        // 'dist/mobile/**/*',
+        // // we don't want to clean this file though so we negate the pattern
+        // '!dist/mobile/deploy.json'
     ]);
 }
 
@@ -342,9 +343,10 @@ function jscli_free() {
 
 function js_app() {
 
-    // return browserify({debug: true,})// enalbe debug To use source maps
+    // var bundler =  browserify({debug: true,})// enalbe debug To use source maps
     //     .transform("babelify")
     //     .require("./resources/js/entry.js", {entry: true})
+    //     .bundle()
 
     var bundler = browserify('./resources/js/entry.js', {debug: true})
         .on('postbundle', function (src) {
@@ -352,15 +354,12 @@ function js_app() {
         })
         .transform(babelify, {})
         .bundle()
-        .on("error", function (err) {
-            console.error("Error: " + err.message);
-        })
-        .pipe(source('app.js'))  // Set source name
-        .pipe(buffer()) // Convert to gulp pipeline
-        .pipe(gulp.dest('public/js/babeled'))
 
     if (IN_PRODUCT) {
         return bundler
+            .pipe(source('app.js'))  // Set source name
+            .pipe(buffer()) // Convert to gulp pipeline
+            .pipe(gulp.dest('public/js/babeled'))
         // todo: a replacement https://github.com/babel/minify   it has not pkg @babel
             .pipe(uglify(getUglifyOptions()).on('error', function (err) {
                 console.error("Uglify: " + err.toString());
@@ -370,10 +369,12 @@ function js_app() {
 
     }
     return bundler
+        .pipe(source('app.js'))  // Set source name
+        .pipe(buffer()) // Convert to gulp pipeline
         .pipe(sourcemaps.init({
-            // loadMaps: true,
-            //compress: false,
+            loadMaps: true,
         }))
+        .pipe(gulp.dest('public/js/babeled'))
         // todo: a replacement https://github.com/babel/minify   it has not pkg @babel
         .pipe(uglify(getUglifyOptions()).on('error', function (err) {
             console.error("Uglify: " + err.toString());
@@ -449,7 +450,7 @@ function js_app_ie() {
 }
 
 function js_form() {
-    gulp.src([
+    return gulp.src([
         pkg_dir + 'form-serializer/jquery.serialize-object.js',
         pkg_dir + 'jQuery-autoGrowInput/jquery.auto-grow-input.min.js',
         pkg_dir + 'vanilla-masker/build/vanilla-masker.min.js',
@@ -458,9 +459,8 @@ function js_form() {
         // pkg_dir + 'formvalidation/dist/js/framework/bootstrap.min.js',
         // pkg_dir + 'formvalidation/dist/js/language/zh_CN.js',
 
-    ])
-        .concat(form_js_files)
-        .concat()
+    ]
+        .concat(form_js_files))
         .pipe(concat('form.js'))
         .pipe(uglify(getUglifyOptions()))
         .pipe(gulp.dest('public/js'));
@@ -719,7 +719,9 @@ all_work = gulp.series(
     gulp.parallel(
         css_vendor,
         gulp.series(flowcheck_app, js_app),
-        gulp.series(js_form, js_vendor)
+        gulp.series(
+           // js_form,
+            js_vendor)
     ),
 );
 

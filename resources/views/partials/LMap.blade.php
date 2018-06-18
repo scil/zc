@@ -2,6 +2,7 @@
     <div id="side-first-page">
         <div id="LMap">
             <div class="map"></div>
+            <div class="map-placeholder"></div>
         </div>
         <span id="LMap-addr"></span>
     </div>
