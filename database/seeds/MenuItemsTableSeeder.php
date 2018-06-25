@@ -26,14 +26,14 @@ class MenuItemsTableSeeder extends Seeder
                     ['name' => '真山', 'show'=>true,'short_name' => null, 'css' => null, 'type' => 'box', 'level' => 2, 'order' => 1, 'url' => '/zhen', 'ctitle'=>'','title'=>'真山 &nbsp;|&nbsp; 真城', 'desc' => '人真如山', 'pic' => '', '_children' => [
 
                         ['name' => '山青', 'show'=>true,'short_name' => '人', 'css' => '2', 'type' => 'article', 'level' => 3, 'order' => 1, 'url' => '/green', 'ctitle'=>'山青 &nbsp;|&nbsp; 真城','title'=>'山青 &nbsp;|&nbsp; 真城', 'desc' => '青泉到海流不息', 'pic' => 'qing.jpg'],
-                        ['name' => '真意', 'show'=>true,'short_name' => '意', 'css' => '3', 'type' => 'quote', 'level' => 3, 'order' => 2, 'url' => '/spirit',  'ctitle'=>'真意 &nbsp;|&nbsp; 真城','title'=>'真意 &nbsp;|&nbsp; 真城', 'desc' => '此中有真意', 'pic' => 'aboutme.jpg'],
+                        ['name' => '山意', 'show'=>true,'short_name' => '意', 'css' => '3', 'type' => 'quote', 'level' => 3, 'order' => 2, 'url' => '/spirit',  'ctitle'=>'真意 &nbsp;|&nbsp; 真城','title'=>'山意 &nbsp;|&nbsp; 真城', 'desc' => '此中有真意', 'pic' => 'aboutme.jpg'],
                         ['name' => '山书', 'show'=>true,'short_name' => '书', 'css' => '1', 'type' => 'article', 'level' => 3, 'order' => 3, 'url' => '/paper', 'ctitle'=>'山书 &nbsp;|&nbsp; 真城','title'=>'山书 &nbsp;|&nbsp; 真城', 'desc' => '岭上多白云', 'pic' => 'book.jpg',],
 //                        ['name' => '海贝', 'show'=>true,'short_name' => '海', 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/shells', 'ctitle'=>'海贝 &nbsp;|&nbsp; 真城','title'=>'海贝 &nbsp;|&nbsp; 真城', 'desc' => '明月共潮生', 'pic' => 'seashell.jpg'],
                     ]],
                     ['name' => '人山', 'show'=>true,'short_name' => null, 'css' => null, 'type' => 'box', 'level' => 2, 'order' => 2, 'url' => '/human', 'ctitle'=>'','title'=>'人山 &nbsp;|&nbsp; 真城', 'desc' => '人如山立', 'pic' => '', '_children' => [
 
                         ['name' => '天性', 'show'=>true,'short_name' => '人', 'css' => '2', 'type' => 'article', 'level' => 3, 'order' => 1, 'url' => '/human/nature', 'ctitle'=>'天性 &nbsp;|&nbsp; 真城','title'=>'天性 &nbsp;|&nbsp; 真城', 'desc' => '人性，物性，神性', 'pic' => 'nature.jpg'],
-                        ['name' => '人路', 'show'=>true,'short_name' => '路', 'css' => '1', 'type' => 'article', 'level' => 3, 'order' => 2, 'url' => '/human/road', 'ctitle'=>'人路 &nbsp;|&nbsp; 真城','title'=>'人也 &nbsp;|&nbsp; 真城', 'desc' => '成为人', 'pic' => 'road.jpg'],
+                        ['name' => '人之路', 'show'=>true,'short_name' => '路', 'css' => '1', 'type' => 'article', 'level' => 3, 'order' => 2, 'url' => '/human/road', 'ctitle'=>'人路 &nbsp;|&nbsp; 真城','title'=>'人之路 &nbsp;|&nbsp; 真城', 'desc' => '成为人', 'pic' => 'road.jpg'],
                         ['name' => '这样', 'show'=>true,'short_name' => '地', 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/human/so', 'ctitle'=>'天地 &nbsp;|&nbsp; 真城','title'=>'这样 &nbsp;|&nbsp; 真城', 'desc' => '天，地', 'pic' => 'disaster.jpg'],
                         ['name' => '个体', 'show'=>true,'short_name' => '地', 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 4, 'url' => '/human/indiv', 'ctitle'=>'天地 &nbsp;|&nbsp; 真城','title'=>'个体 &nbsp;|&nbsp; 真城', 'desc' => '天地，人', 'pic' => 'disaster.jpg'],
 //                ['name' => '人难',  'show'=>true,'short_name'=>null,'css'=>null,'type'=>'quote','level' => 3, 'order' => 5,  'url' => '/human/disaster', 'ctitle'=>'','title'=>'', 'desc' => '不敢遗忘', 'pic' => 'disaster.jpg',],
@@ -96,7 +96,7 @@ class MenuItemsTableSeeder extends Seeder
                 ,'ctitle'=>'','title'=>'真城渡口','desc'=>'从这里，到真城',
                     ],
                     // newspeak town 新话镇
-//                    ['menu_id' => $yilu_menu_id, 'name' => '假雨村', 'show'=>true,'short_name' => null,  'css' => null, 'type' => null, 'level' => 1, 'order' => 2, 'url' => '/newspeak'],
+//                    ['menu_id' => $yilu_menu_id, 'name' => '假语村', 'show'=>true,'short_name' => null,  'css' => null, 'type' => null, 'level' => 1, 'order' => 2, 'url' => '/newspeak'],
 //            ['menu_id' => $yilu_menu_id, 'name' => '真城',  'show'=>true,'short_name'=>null,'css'=>null,'type'=>null,'level' => 1, 'order' => 3,  'url' => '/gate/about'],
 //            ['menu_id' => $yilu_menu_id, 'name' => '规则',  'show'=>true,'short_name'=>null,'css'=>null,'type'=>null,'level' => 1, 'order' => 5,  'url' => '/gate/rules'],
 
@@ -110,7 +110,7 @@ class MenuItemsTableSeeder extends Seeder
 
         $this->insertColumns($yilu_menu);
 
-        (new \App\Http\Controllers\Staticizer)->useColumnsData();
+        (new \App\Services\Staticizer)->useColumnsData();
 
 
     }

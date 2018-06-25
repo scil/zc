@@ -37,6 +37,6 @@ class CacheColumns extends Command
      */
     public function handle()
     {
-        ( new \App\Http\Controllers\Staticizer)->useColumnsData('_makeColumnsCache');
+        ( new \App\Services\Staticizer)->useColumnsData('_makeColumnsCache');
     }
 }

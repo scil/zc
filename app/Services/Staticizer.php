@@ -6,7 +6,7 @@
  * Time: 18:27
  */
 
-namespace App\Http\Controllers;
+namespace App\Services;
 
 use App\MenuItemHelper;
 use DB;
@@ -39,7 +39,7 @@ class Staticizer
      *
      * or
      * open tinker and run:
-     * ( new \App\Http\Controllers\Staticizer)->useColumnsData();
+     * ( new \App\Services\Staticizer)->useColumnsData();
      */
     function useColumnsData($method = null, ...$params)
     {
@@ -116,7 +116,7 @@ class Staticizer
 
     /**
      * open tinker and run:
-     * ( new \App\Http\Controllers\Staticizer)->createFinanceData();
+     * ( new \App\Services\Staticizer)->createFinanceData();
      */
     function createFinanceData()
     {
@@ -127,7 +127,8 @@ class Staticizer
 
     protected function _makeColumnsCache()
     {
-        $file = storage_path() . '/cache/columns.php';
+        @mkdir(base_path('bootstrap/cache2') );
+        $file = base_path('bootstrap/cache2/columns.php')  ;
         file_put_contents($file, '<?'
             . 'php const MENU_ITEMS = '
             . var_export(MenuItemHelper::getMenuItemsInfo(0), true)
@@ -144,7 +145,7 @@ class Staticizer
 HOMEPAGE;
 
 
-        $file = storage_path() . '/cache/headers.php';
+        $file = base_path('bootstrap/cache2/headers.php')  ;
         file_put_contents($file, '<?'
             . 'php const ZC_HEADERS = '
             . var_export($headers, true)

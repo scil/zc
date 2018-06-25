@@ -28,7 +28,7 @@
                         <img class="column-img"
                              src="img/org/aboutme.jpg" alt=""/>
 
-                        <h3 class="column-name"><a href="/spirit">真意</a></h3>
+                        <h3 class="column-name"><a href="/spirit">山意</a></h3>
 
                         <p class="hover-show column-intro">
                             此中有真意
@@ -84,7 +84,7 @@
                         <img class="column-img"
                              src="img/org/road.jpg" alt=""/>
 
-                        <h3 class="column-name"><a href="/human/road">人路</a></h3>
+                        <h3 class="column-name"><a href="/human/road">人之路</a></h3>
 
                         <p class="hover-show column-intro">
                             成为人

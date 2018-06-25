@@ -49,10 +49,17 @@ Route::post('/new_article', 'CmsController@storeArticle');
 return;
 
 Route::get('/test', function () {
+
     eval(tinker());
+    return config()->get('app.name');
     return app('markdown')->encode("## abc\n*abc*");
 });
+Route::get('/test2', function () {
+//    eval(tinker());
+    return config()->get('app.name');
+});
 
+return;
 
 Route::get('/people', function () {
     return redirect("/green", 301);

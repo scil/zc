@@ -2,21 +2,32 @@
 
 namespace App\Http;
 
+
 use function foo\func;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 if (defined('LARAVELFLY_MODE')) {
     if (LARAVELFLY_MODE == 'Simple') {
-        class WhichKernel extends \LaravelFly\Simple\Kernel{}
+        class WhichKernel extends \LaravelFly\Simple\Kernel
+        {
+        }
     } elseif (LARAVELFLY_MODE == 'Map') {
-        class WhichKernel extends \LaravelFly\Map\Kernel{}
+        class WhichKernel extends \LaravelFly\Map\Kernel
+        {
+        }
     } elseif (LARAVELFLY_MODE == 'FpmLike') {
-        class WhichKernel extends HttpKernel{}
+        class WhichKernel extends HttpKernel
+        {
+        }
     } else {
-        class WhichKernel extends \LaravelFly\Simple\Kernel{}
+        class WhichKernel extends \LaravelFly\Simple\Kernel
+        {
+        }
     }
 } else {
-    class WhichKernel extends HttpKernel{}
+    class WhichKernel extends HttpKernel
+    {
+    }
 }
 
 class Kernel extends WhichKernel
@@ -35,7 +46,6 @@ class Kernel extends WhichKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
-//        \Spatie\Pjax\Middleware\FilterIfPjax::class,
     ];
 
     /**
@@ -52,6 +62,7 @@ class Kernel extends WhichKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \App\Http\Middleware\Http2Push::class,
         ],
 
         'api' => [
@@ -71,7 +82,7 @@ class Kernel extends WhichKernel
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,

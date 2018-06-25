@@ -38,7 +38,7 @@ class FinanceRecordsTableSeeder extends Seeder
 //            ['date'=>'2015.03.30','title'=>'购买服务器','amount'=>-407,'memo'=>'购买阿里云服务器器 2015.05.20-2016-05-20。带宽：1Mbps按固定带宽；CPU：1核； 操作系统：Ubuntu12.04 64位； 内存：512MB；包年495元，使用代金券88元。'],
         ]);
 
-        ( new \App\Http\Controllers\Staticizer)->createFinanceData();
+        ( new \App\Services\Staticizer)->createFinanceData();
     }
 
 }

@@ -6,7 +6,9 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12 ">
-                <h1 id="M-name">{!! $media->name !!} <small>{!! $media->tags->count()>0 ? $media->tags->implode('name',' / '):'' !!}</small></h1>
+                <h1 id="M-name">{!! $media->name !!}
+                    <small>{!! $media->tags->count()>0 ? $media->tags->implode('name',' / '):'' !!}</small>
+                </h1>
             </div>
         </div>
 
@@ -42,8 +44,6 @@
             <div class="col-sm-5 ">
 
                 <div id="side">
-
-
 
 
                     <div id="M-info" class="one-line-height">
@@ -117,7 +117,8 @@
                         @if($media->$type)
                             <article>
                                 <header class="L-item-header">
-                                    <h1 class="L-item-title"><a class="M-guide-title" href="{!! $media->slug.'/'.$type !!}">{!! $type !!}</a>
+                                    <h1 class="L-item-title"><a class="M-guide-title"
+                                                                href="{!! $media->slug.'/'.$type !!}">{!! $type !!}</a>
                                     </h1>
                                 </header>
                                 <div class="QL-item-body">{!! $media->$type->body !!} </div>
@@ -136,7 +137,7 @@
                         <article>
                             <header class="L-item-header">
                                 <h1 class="L-item-title"><a class="M-guide-title"
-                                                            >Versions</a></h1>
+                                    >Versions</a></h1>
                             </header>
                             <table class="table table-bordered  table-hover" id="M-table">
                                 <thead>
@@ -159,15 +160,15 @@
                                         </td>
                                         <td>{!! $v->tip? $v->tip->body:'' !!}</td>
                                         <td>@if($v->errata)
-                                               {!! $v->errata->body !!}
+                                                {!! $v->errata->body !!}
                                                 @if($v->errata->body_long)
                                                     <div class="table-read-more-box">
                                                         <a class="QL-read-more btn btn-sm"
-                                                        href="{!! $v->slug .'/errata' !!}"></a>
+                                                           href="{!! $v->slug .'/errata' !!}"></a>
                                                     </div>
                                                 @endif
-                                                @endif
-                                            </td>
+                                            @endif
+                                        </td>
                                         <td>{!! $v->integrity !!}</td>
                                     </tr>
                                 @endforeach
@@ -180,31 +181,31 @@
 
                 <div id="M-map-box">
 
-                        <div id="side-first-page">
-                            <div class="map"></div>
-                        </div>
-
-
-                        <div id="LMap-info-swipebox">
-                            <section id="LMap-info">
-                                <p id="LMap-info-title" v-html="title"></p>
-                                <div id="LMap-info-intro" v-html="intro"></div>
-                            </section>
-                        </div>
-                        <?php
-                        $mapInfosByID = []; $IDs = [];
-                        ?>
-                        @foreach($media->places as $place)
-                            <?php $IDs[] = $place->id;  ?>
-                            <?php
-                            $mapInfosByID[$place->id] = [
-                                'title' => $place->pivot->title,
-                                'intro' => $place->pivot->intro]
-                            ?>
-
-                        @endforeach
-
+                    <div id="side-first-page">
+                        <div class="map"></div>
                     </div>
+
+
+                    <div id="LMap-info-swipebox">
+                        <section id="LMap-info">
+                            <p id="LMap-info-title" v-html="title"></p>
+                            <div id="LMap-info-intro" v-html="intro"></div>
+                        </section>
+                    </div>
+                    <?php
+                    $mapInfosByItemID = []; $IDs = [];
+                    ?>
+                    @foreach($media->places as $place)
+                        <?php $IDs[] = $place->id;  ?>
+                        <?php
+                        $mapInfosByItemID[$place->id] = [
+                            'title' => $place->pivot->title,
+                            'intro' => $place->pivot->intro]
+                        ?>
+
+                    @endforeach
+
+                </div>
             </div>
         </div>
     </div>
@@ -212,61 +213,71 @@
 @stop
 @section('bottom')
     <script>
+        function standalone_func() {
 
-
-                @if($IDs)
-        var plots = {
-        @foreach($media->places as $place)
-        {!! $place->id !!}:
-        {
-            latitude: '{!! $place->lat !!}', longitude
-        :
-            '{!! $place->lng !!}',
-        }
-        ,
-        @endforeach
-        }
-        ;
-
-        var bookMap = new ZCMap(
-            {
-                ele: $("#side-first-page"),
-                plotsIDs: {!! json_encode($IDs) !!},
-                plots: plots,
-                config: {
-                    plotSize: 15,
-                },// plotColor:'#8800CC'},
-                mouseoverCallback: function (e, id, mapElem, textElem, elemOptions) {
-                },
-                autoLightFirst: true,
-            },
-            {
-                ele: '#LMap-info',
-                data: {!! json_encode($mapInfosByItemID) !!},
-                infoSwipeBox: '#LMap-info-swipebox' // 不需要ZCMap提供的swipe 自定义swipe
-            },
-        )
-                @endif
-
-        var personSlick = $('#MQL').slick({
-                autoplay: false,
-                dots: true,
-                    appendDots:$('#col-first-page'),
-//                variableWidth: true, // 自定义每个幻灯片的宽度 .slick-slide{ width: ...px; }
-                arrows: false,
-                mobileFirst: true,
-                adaptiveHeight: true,
+            $('#col-first-page-close').click(function () {
+                $(this).parent().slideUp(600, function () {
+                    $(this).prev().show()
+                });
+            })
+            $('#col-first-page-open').click(function () {
+                $(this).hide().next().slideDown();
             })
 
-        zc.content.init();
 
-        $('#col-first-page-close').click(function () {
-            $(this).parent().slideUp(1000, function () {
-                $(this).prev().show()
-            });
-        })
-        $('#col-first-page-open').click(function () {
-            $(this).hide().next().slideDown();
-        })
+        }
+
+        standalone_func();
+
+        function dependent_func() {
+
+                    @if($IDs)
+            var plots = {
+            @foreach($media->places as $place)
+            {!! $place->id !!}:
+            {
+                latitude: '{!! $place->lat !!}', longitude
+            :
+                '{!! $place->lng !!}',
+            }
+        ,
+            @endforeach
+        }
+            ;
+
+            var mediaMap = new ZCMap(
+                {
+                    ele: $("#side-first-page"),
+                    plotsIDs: {!! json_encode($IDs) !!},
+                    plots: plots,
+                    config: {
+                        plotSize: 15,
+                    },// plotColor:'#8800CC'},
+                    mouseoverCallback: function (e, id, mapElem, textElem, elemOptions) {
+                    },
+                    autoLightFirst: true,
+                },
+                {
+                    ele: '#LMap-info',
+                    data: {!! json_encode($mapInfosByItemID) !!},
+                    infoSwipeBox: '#LMap-info-swipebox' // 不需要ZCMap提供的swipe 自定义swipe
+                },
+            )
+                    @endif
+
+            var personSlick = $('#MQL').slick({
+                    autoplay: false,
+                    dots: true,
+                    appendDots: $('#col-first-page'),
+//                variableWidth: true, // 自定义每个幻灯片的宽度 .slick-slide{ width: ...px; }
+                    arrows: false,
+                    mobileFirst: true,
+                    adaptiveHeight: true,
+                })
+
+            zc.content.init();
+        }
+
+        //# sourceURL=media
     </script>
 @endsection

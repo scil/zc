@@ -3,30 +3,28 @@
 if (!defined('LARAVELFLY_MODE')) return [];
 
 return [
-    /**
-     * Not For Mode FpmLike
-     */
-    'config_changed_in_requests' => [
-        /** depends
-         * Debugbar is disabled after its booting, so it's necessary to maintain this config for each request.
-         * // 'debugbar.enabled',
-         */
-    ],
 
-    'view_compile_1' => env('APP_ENV')==='production',
+    'view_compile_1' => LARAVELFLY_SERVICES['view.finder'] &&
+        (env('APP_ENV') === 'production' || env('APP_ENV') === 'product'),
 
     /**
      * useless providers. Not For Mode FpmLike
      *
      * There providers will be removed from app('config')['app.providers'] on worker, before any requets
      */
-    'providers_ignore' => [
+    'providers_ignore' => array_merge([
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
         LaravelFly\Providers\CommandsServiceProvider::class,
         'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
-    ],
+//        'Barryvdh\\Debugbar\\ServiceProvider',
+
+    ], LARAVELFLY_SERVICES['broadcast'] ? [] : [
+        Illuminate\Broadcasting\BroadcastManager::class,
+        Illuminate\Contracts\Broadcasting\Broadcaster::class,
+        App\Providers\BroadcastServiceProvider::class
+    ]),
 
     /**
      * Providers to reg and boot in each request. Not For Mode FpmLike
@@ -70,7 +68,7 @@ return [
             '_replace' => Illuminate\Auth\AuthServiceProvider::class,
         ],
         Illuminate\Broadcasting\BroadcastServiceProvider::class =>
-            LARAVELFLY_CF_SERVICES['broadcast'] ? [
+            LARAVELFLY_SERVICES['broadcast'] ? [
                 Illuminate\Broadcasting\BroadcastManager::class,
                 Illuminate\Contracts\Broadcasting\Broadcaster::class,
             ] : false,
@@ -95,12 +93,12 @@ return [
         Illuminate\Filesystem\FilesystemServiceProvider::class => [
             'files' => true,
             'filesystem.disk' => true,
-            'filesystem.cloud' => LARAVELFLY_CF_SERVICES['filesystem.cloud'],
+            'filesystem.cloud' => LARAVELFLY_SERVICES['filesystem.cloud'],
         ],
         /* This reg FormRequestServiceProvider, whose boot is related to request */
         // Illuminate\Foundation\Providers\FoundationServiceProvider::class=>[] : providers_across ,
         Illuminate\Hashing\HashServiceProvider::class => [
-            'hash' => LARAVELFLY_CF_SERVICES['hash']
+            'hash' => LARAVELFLY_SERVICES['hash']
         ],
         Illuminate\Mail\MailServiceProvider::class => [],
 
@@ -111,7 +109,7 @@ return [
         Illuminate\Pipeline\PipelineServiceProvider::class => [],
         Illuminate\Queue\QueueServiceProvider::class => [],
         Illuminate\Redis\RedisServiceProvider::class => [
-            'redis' => LARAVELFLY_CF_SERVICES['redis'],
+            'redis' => LARAVELFLY_SERVICES['redis'],
         ],
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class => [],
         LaravelFly\Map\Illuminate\Session\SessionServiceProvider::class => [
@@ -131,27 +129,43 @@ return [
         /*
          * Application Service Providers...
          */
-//        App\Providers\AppServiceProvider::class => [],
+        App\Providers\AppServiceProvider::class => false,
+
+        App\Providers\WorkerAppServiceProvider::class => [],
 
         //todo
         App\Providers\AuthServiceProvider::class => [],
-        App\Providers\BroadcastServiceProvider::class => LARAVELFLY_CF_SERVICES['broadcast'] ? [] : false,
+        App\Providers\BroadcastServiceProvider::class => LARAVELFLY_SERVICES['broadcast'] ? [] : false,
         App\Providers\EventServiceProvider::class => [],
         App\Providers\RouteServiceProvider::class => [],
 
         // Collision is an error handler framework for console/command-line PHP applications such as laravelfly
-        NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider::class =>[
-            Illuminate\Contracts\Debug\ExceptionHandler::class=>true,
+        NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider::class => [
+            Illuminate\Contracts\Debug\ExceptionHandler::class => true,
         ],
-
     ],
 
     /**
-     * Which properties of base services need to backup. Only for Mode One or Greedy
+     * Which properties of base services need to backup. Only for Mode Simple
      *
      * See: Illuminate\Foundation\Application::registerBaseServiceProviders
      */
     'BaseServices' => [
+
+        \Illuminate\Contracts\Http\Kernel::class => [
+            /** depends
+             * put new not safe properties here
+             */
+             // 'newProp1', 'newProp2',
+
+            /** depends
+             * Uncomment it if it's not always same across multiple request. They may be changed by Route::middleware
+             * No need worry about same middlewares are added multiple times,
+             * because there's a check in Illuminate\Foundation\Http::pushMiddleware or prependMiddleware:
+             *          if (array_search($middleware, $this->middleware) === false)
+             */
+              // 'middleware',
+        ],
 
         /* Illuminate\Events\EventServiceProvider::class : */
         'events' => [

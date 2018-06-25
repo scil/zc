@@ -15,7 +15,7 @@ class CmsController extends Controller
 
     function home()
     {
-        list($IDs, $plots,) = \Cache::remember('homeplot', 60 * 24, function () {
+        list($IDs, $plots,$articles) = \Cache::remember('home_data', 60 * 24, function () {
 
             $vols = Volume::with(['firstArticlesSimple.places'])->where('column_id', MENU_ITEMS['green']['id'])->orderBy('no', 'desc')->get();
             $IDs["/green"] = [];
@@ -25,8 +25,8 @@ class CmsController extends Controller
                     if ($item->places->count() > 0) {
                         $a_place = $item->places[0];
                         $text = ($a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en).($a_place->pivot->title?" · ".$a_place->pivot->title:'');
-                        $IDs["/green"][] = $a_place->id;
-                        $plots["/green"][$a_place->id] = [
+                        $IDs["/green"][] = $item->id;
+                        $plots["/green"][$item->id] = [
                             'latitude' => $a_place->lat,
                             'longitude' => $a_place->lng,
                             'tooltip' => ['content' => "<span style=\"font-weight:normal;\">{$item->title}</span><br><span style='font-size:90%'>{$item->sub_title}</span>"],
@@ -39,7 +39,9 @@ class CmsController extends Controller
                                 "attrsHover"=>["font-size"=>12,"text-anchor"=>'start','opacity'=>1,"fill"=>'#2461a3'],
 
                             ],
-                            'href' => "green/{$item->slug}",
+                            'href' => "/green/{$item->slug}",
+                            'title' => $item->title,
+                            'desc' => $item->desc,
                         ];
                     }
                 }
@@ -85,11 +87,12 @@ class CmsController extends Controller
 
             }
 
-            return [json_encode($IDs), json_encode($plots)];
+            return [json_encode($IDs), json_encode($plots),$plots['/green']];
         });
        $columnID = 0;
+       $articleID=3;
 
-        return view('home', compact('columnID','IDs','plots'));
+        return view('home', compact('columnID','IDs','plots','articles','articleID'));
     }
 
 

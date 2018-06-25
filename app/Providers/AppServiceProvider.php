@@ -32,21 +32,26 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerMarkdownServiceClient();
+        if (!defined('MENU_ITEMS')) {
+            @include  base_path('bootstrap/cache2/columns.php');
+        }
+        if (!defined('ZC_HEADERS')) {
+            @include base_path('bootstrap/cache2/headers.php');
+        }
 
+        if ($this->app->runningInConsole() || defined('LARAVELFLY_MODE'))
+            $this->registerMarkdownServiceClient();
     }
 
     function registerMarkdownServiceClient()
     {
-//        if (!defined('LARAVELFLY_MODE')) return;
-
         $GEN_DIR = base_path() . '/../thrift/gen-php/';
         $PORT = 7911;
 
-        require $GEN_DIR . 'MarkdownService.php';
-        require $GEN_DIR . 'Types.php';
-
         try {
+            include_once $GEN_DIR . 'MarkdownService.php';
+            include_once $GEN_DIR . 'Types.php';
+
             $socket = new TSocket('localhost', $PORT);
 
             $transport = new TBufferedTransport($socket, 1024, 1024);
@@ -55,9 +60,8 @@ class AppServiceProvider extends ServiceProvider
 
             $transport->open();
             app()->instance('markdown', $client);
-        } catch (\Exception $e) {
-            \Log::emergency('thrift MarkdownService not available');
-
+        } catch (\Throwable $e) {
+            \Log::emergency('thrift MarkdownService: ' . $e->getMessage());
         }
     }
 }

@@ -4,12 +4,12 @@
 
                                 <optgroup label="真山">
                                     <option value="4">山青</option>
-                                    <option value="5">真意</option>
+                                    <option value="5">山意</option>
                                     <option value="6">山书</option>
                             </optgroup>
                                 <optgroup label="人山">
                                     <option value="8">天性</option>
-                                    <option value="9">人路</option>
+                                    <option value="9">人之路</option>
                                     <option value="10">这样</option>
                                     <option value="11">个体</option>
                             </optgroup>

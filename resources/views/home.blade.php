@@ -1,4 +1,4 @@
-@extends('layouts.base'.$pjax,['title'=>'真城','desc'=>'真之城，致敬真，致敬理想主义！'])
+@extends('layouts.base'.$pjax,['title'=>'真城','desc'=>'真城，致敬真，致敬理想主义！'])
 
 @section('content')
     <div class="container">
@@ -11,6 +11,41 @@
 
                     #first-page-quote {
                         padding: 0.9% 0;
+                    }
+
+                    #first-page-space {
+                        padding-top: 9%;
+                    }
+
+                    #first-page-map {
+                        padding: 0 6%;
+                        margin-bottom: -15px;
+                    }
+
+                    @media (min-width: 1200px) {
+                        #first-page-space {
+                            padding-top: 7%;
+                        }
+
+                        #first-page-map {
+                            padding: 0 12%;
+                        }
+
+                    }
+
+                    @media (max-width: 768px) {
+                        #home-first-page {
+                            padding: 50px 15px;
+                        }
+
+                        #first-page-space {
+                            padding-top: 10%;
+                        }
+
+                        #first-page-map {
+                            padding: 0;
+                        }
+
                     }
 
                     .map {
@@ -33,26 +68,27 @@
                 </style>
                 <div class="first-page" id="home-first-page">
                     <div id="first-page-quote" class="text-center">
-                        {{--在T1的QQ上打开　圆角不正常　Q浏览器X5内核　, 需要：在img 外面嵌套一个元素并设置border 和border-radius--}}
-                        {{--参考　http://www.tuicool.com/articles/vQZnMjv--}}
-                        {{--<img class="quote-img" src="//cdn.shopify.com/s/files/1/0691/5403/t/108/assets/avatar-dhg.png?744977531054780914">--}}
+                        {{-- border-radius Android BUG --}}
                         <div class="quote-img">
-                            <img src='/img/org/road.jpg'>
+                            <img src='/img/org/qing.jpg'>
                         </div>
-
                         <div class="quote-text">
                             <div>
-                                <p>一个孩子，他内心自信平和，比谨小慎微重要；凡事有好奇心，比凡事不出错重要；他有自我选择的勇气，比选择正确重要。</p>
+                                <p>{!! $articles[$articleID]['desc'] !!}</p>
+                                {{--<p>一个孩子，他内心自信平和，比谨小慎微重要；凡事有好奇心，比凡事不出错重要；他有自我选择的勇气，比选择正确重要。</p>--}}
                                 {{--<p>「天生万物人为贵」</p>--}}
                             </div>
                         </div>
-                        <a href="/human/nature/childhood-needs-trial-error-disobedience"
+                        <a href="{!! $articles[$articleID]['href'] !!}"
                            {{--<a href="/human/road/great-zouzhe-China"--}}
                            class="pure-kaiti quote-src btn btn-warning btn-primary-outline btn-sm">
-                            童年需要“试误”和“不听话”
+                            {!! $articles[$articleID]['title'] !!}
+                            {{--童年需要“试误”和“不听话”--}}
                             {{--中囶历史上的伟大奏折--}}
                         </a>
 
+                    </div>
+                    <div id="first-page-space">
                     </div>
                     <div id="first-page-map">
                         <div class="map"></div>
@@ -84,43 +120,53 @@
         function dependent_func() {
             zc.content._bigHref();
 
-            var slide = $('#home-first-page').slick({
-                initialSlide: 0,
-                autoplay: false,
-                autoplaySpeed: 25000,
-                arrows: false,
-                mobileFirst: true,
-                adaptiveHeight: true,
-                draggable: false,
-            });
+            var firstQuoteEle = $('#first-page-quote'), defaultArticleID ={!! $articleID !!},
+                currentArticleId ={!! $articleID !!};
 
-            var slideTimer = null;
 
-            function slideGo(index) {
-                if (slideTimer) {
-                    clearTimeout(slideTimer)
+            var firstQuoteTimer = null;
+
+            function firstQuoteShow(bShow) {
+                if (firstQuoteTimer) {
+                    clearTimeout(firstQuoteTimer)
                 }
-                slideTimer = setTimeout(function () {
-                    slide.slick('slickGoTo', index);
+                firstQuoteTimer = setTimeout(function () {
+                    if (!bShow) {
+                        firstQuoteEle.hide();
+                        return;
+                    }
+
+                    firstQuoteEle.show();
+
+                    zcmap.resetDataAndShow({
+                        plotsIDs: [currentArticleId],
+                        plots: [articlesPlots[currentArticleId]],
+                    });
+
                 }, 80)
             }
 
             $('#header-row').mouseenter(function () {
-                slideGo(0);
+                firstQuoteShow(1);
             }).click(function () {
-                slideGo(0);
+                firstQuoteShow(1);
+            });
+            $('#first-page-space').click(function () {
+                firstQuoteShow(1);
             });
 
             var IDs = {!! $IDs !!};
             var plots = {!! $plots !!};
+            var articlesPlots =
+                    {!! json_encode($articles) !!}
 
             var lastPlotsGroup = '';
 
             var zcmap = new ZCMap(
                 {
                     ele: $("#first-page-map"),
-                    plotsIDs: [],
-                    plots: [],
+                    plotsIDs: [currentArticleId],
+                    plots: [articlesPlots[currentArticleId]],
                     mode: 'all',
                     direction: 'ltr',
                     config: {
@@ -134,7 +180,7 @@
 
             function showPlotsForLi(li, visit) {
 
-                slideGo(1);
+                firstQuoteShow(0);
 
                 var url = li.firstChild.getAttribute('href');
                 if (url === lastPlotsGroup) {
@@ -156,22 +202,19 @@
                 showPlotsForLi(this, false);
                 return false;
             });
+
             if ('ontouchstart' in document) {
 
-                $('#header-nav a')
-                    .on('touchstart click', function (e) {
+                $('#header-nav a').on('touchstart click', function (e) {
 
-                        // var a_link = $(this);
-                        // if (a_link.data('flag') === 1) return false;
-                        //
-                        // a_link.data('flag', 1);
-                        // setTimeout(function () {
-                        //     a_link.data('flag', 0);
-                        // }, 100);
+                    showPlotsForLi(this.parentElement, true);
+                    return false;
+                });
 
-                        showPlotsForLi(this.parentElement, true);
-                        return false;
-                    });
+                $('#first-page-space').on('touchstart', function () {
+                    firstQuoteShow(1);
+                });
+
             }
         };
 
@@ -245,6 +288,7 @@
 
             });
         }
+
         standalone_func();
 
         //# sourceURL=zc_home

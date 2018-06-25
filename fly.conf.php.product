@@ -8,7 +8,7 @@ if (!defined('HONEST_IN_CONSOLE')) define('HONEST_IN_CONSOLE',
     false
 );
 
-if (!defined('LARAVELFLY_CF_SERVICES')) define('LARAVELFLY_CF_SERVICES', [
+if (!defined('LARAVELFLY_SERVICES')) define('LARAVELFLY_SERVICES', [
 
     /**
      * make the corresponding service to be true if you use it.
@@ -20,22 +20,11 @@ if (!defined('LARAVELFLY_CF_SERVICES')) define('LARAVELFLY_CF_SERVICES', [
     // to false if app('hash')->setRounds may be called in a request
     'hash' => true,
 
-    /**
-     * to false if same view name refers to different view files in different requests.
-     * for example:
-     *      view 'home' may points to 'guest_location/home.blade.php' for a guest ,
-     *      while to 'admin_location/home.blade.php' for an admin
-     */
     'view.finder' => true,
+    'config' => true,
 ]);
 
 
-/**
- * this array is used for swoole server,
- * see more option list at :
- * 1. Swoole HTTP server configuration https://www.swoole.co.uk/docs/modules/swoole-http-server/configuration
- * 2. Swoole server configuration https://www.swoole.co.uk/docs/modules/swoole-server/configuration
- */
 return [
     'server' => \LaravelFly\Server\HttpServer::class,
 
@@ -61,6 +50,8 @@ return [
 
     'pre_files' => [
     ],
+    
+    'early_laravel' => false,
 
 //    'user' => 'www-data', 'group' => 'www-data',
 

@@ -20,13 +20,13 @@
                             </section>
                         </div>
                         <?php
-                        $mapInfosByID = []; $IDs = [];
+                        $mapInfosByItemID = []; $IDs = [];
                         ?>
                         @foreach($medias as $media)
                             @if($media->places->count()>0)
                                 <?php $a_place = $media->places[0];$IDs[] = $media->id;  ?>
                                 <?php
-                                $mapInfosByID[$media->id] = [
+                                $mapInfosByItemID[$media->id] = [
                                     'title' => $a_place->pivot->title,
                                     'intro' => $a_place->pivot->intro];
                                 ?>
@@ -65,54 +65,57 @@
 
 @section('bottom')
     <script>
+        function dependent_func() {
+            zc.content._bigHref();
 
-        var plots = {
-        @foreach($medias as $media)
-        @if($media->places->count()>0)
-        <?php $all_plots_ids[] = $media->order; $place = $media->places[0];?>
-        {!! $media->id !!}:
-        {
-            latitude: '{!! $place->lat !!}', longitude
-        :
-            '{!! $place->lng !!}',
-        }
+            var plots = {
+            @foreach($medias as $media)
+            @if($media->places->count()>0)
+            <?php $all_plots_ids[] = $media->order; $place = $media->places[0];?>
+            {!! $media->id !!}:
+            {
+                latitude: '{!! $place->lat !!}', longitude
+            :
+                '{!! $place->lng !!}',
+            }
         ,
-        @endif
-        @endforeach
+            @endif
+            @endforeach
         }
-        ;
+            ;
 
-        @if(isset($all_plots_ids))
-        zc.sideMap.init({
-            itemIDs:{!! json_encode($IDs) !!},
-            plots: plots,
+            @if(isset($all_plots_ids))
+            zc.sideMap.init({
+                itemIDs:{!! json_encode($IDs) !!},
+                plots: plots,
 
-            side: {
-                ele: $('#side'),
-                affixEle: $('#LMap-box'), // also used by scrollspy as a viewRef
-                swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
-                infoEle: '#LMap-info',
-                infoData:{!! json_encode($mapInfosByItemID) !!},
-            },
-            contentArea: '#QL',
-            findItemByPlotID: function (id) {
-                var h1 = $(document.getElementById(id)).parents('article');
-                return h1;
-            },
+                side: {
+                    ele: $('#side'),
+                    affixEle: $('#LMap-box'), // also used by scrollspy as a viewRef
+                    swipeBoxEle: $('#LMap-info-swipebox'), // for swipe, 如果直接在 #LMap-info上面swipe,会被Vue破坏
+                    infoEle: '#LMap-info',
+                    infoData:{!! json_encode($mapInfosByItemID) !!},
+                },
+                contentArea: '#QL',
+                findItemByPlotID: function (id) {
+                    var h1 = $(document.getElementById(id)).parents('article');
+                    return h1;
+                },
 
-            spy: {
-                field: '#QL',
-                target: '.L-item-title', // if one of the targets is in viewport
-                getId: null,
-                targetItemScope: 'article', // mouse over this scope, then use the related target in the scope
-            },
+                spy: {
+                    field: '#QL',
+                    target: '.L-item-title', // if one of the targets is in viewport
+                    getId: null,
+                    targetItemScope: 'article', // mouse over this scope, then use the related target in the scope
+                },
 
-        })
+            })
 
-        @endif
+            @endif
 
-        zc.content._bigHref();
+        }
 
+        //# sourceURL=mediaList
     </script>
 
 @endsection
