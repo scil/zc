@@ -118,7 +118,7 @@ M;
         <hr>
         <div class="row" id="footer-first-row">
             <div class="col-xs-6">
-                <p class="pull-left heiti" id="me">真城</p>
+                <p class="pull-left heiti" id="me">善良不是无为的借口</p>
             </div>
             <div class="col-xs-6">
                 <ul id="contacts" class="nav nav-pills pull-right">
