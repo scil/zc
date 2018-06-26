@@ -27,7 +27,6 @@
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.0",
-    "html-minifier": "^3.5.8",
     "lodash": "^4.17.5",
     "uglify-es": "^3.3.8",
     "vinyl-buffer": "^1.0.1",
@@ -42,7 +41,8 @@
     "emmet-codemirror": "^1.2.5",
     "form-serializer": "^2.5.0",
     "gmaps": "^0.4.24",
-    "jQuery-autoGrowInput": "git+https://github.com/Pixabay/jQuery-autoGrowInput.git",
+    "html-minifier": "^3.5.16",
+//    "jQuery-autoGrowInput": "git+https://github.com/Pixabay/jQuery-autoGrowInput.git",
     "jquery-mapael": "^2.1.0",
     "jquery-mousewheel": "^3.1.13",
     "jquery-touchswipe": "^1.6.15",
@@ -58,9 +58,11 @@
     "select2": "^4.0.3",
     "simplemde": "^1.11.2",
     "slick-carousel": "^1.8.0",
+    "thrift": "^0.11.0",
     "vanilla-masker": "^1.2.0"
   },
   "scripts": {
-    "babel": "babel resources/babel -d public/js"
+    "babel": "babel resources/babel -d public/js",
+    "thrift": "pm2 start  thrift/bin/server.js --name zc_thrift"
   }
 }

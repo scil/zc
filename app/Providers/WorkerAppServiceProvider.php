@@ -13,7 +13,7 @@ use Illuminate\Support\ServiceProvider;
 
 class WorkerAppServiceProvider extends ServiceProvider
 {
-    static function coroutineFriendlyServices()
+    static function coroutineFriendlyServices():array
     {
         return ['http2push'];
     }

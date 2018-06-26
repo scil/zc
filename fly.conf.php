@@ -1,8 +1,8 @@
 <?php
 
 if (!defined('LARAVELFLY_MODE')) define('LARAVELFLY_MODE',
-//    'Map'
-'Simple'
+    'Map'
+// 'Simple'
 );
 
 if (!defined('HONEST_IN_CONSOLE')) define('HONEST_IN_CONSOLE',

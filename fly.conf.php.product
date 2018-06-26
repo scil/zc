@@ -17,11 +17,12 @@ if (!defined('LARAVELFLY_SERVICES')) define('LARAVELFLY_SERVICES', [
     'filesystem.cloud' => false,
     'broadcast' => false,
 
-    // to false if app('hash')->setRounds may be called in a request
     'hash' => true,
 
     'view.finder' => true,
+
     'config' => true,
+    'kernel' => true,
 ]);
 
 
