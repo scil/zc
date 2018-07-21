@@ -46,8 +46,9 @@
                         </div>
                         <div class="col-sm-7 col-xs-12 col-sm-pull-5">
                             <div id="yilu-login-intro" class="yilu-firstpage-text">
-                                    <p>爱，就是艰难无比地认识到，除自己之外，这个世界还有其他真实存在的东西。</p>
-                                    <footer>—— Iris Murdoch</footer>
+                                    {{--<p>认清真相；热爱生活。</p>--}}
+                                    {{--<footer>—— Romain Rolland</footer>--}}
+                                目标的实现，需要一步步的工作，还有或这或那的牺牲。
                             </div>
                         </div>
                     </div>

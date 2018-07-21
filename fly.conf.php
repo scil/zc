@@ -11,19 +11,19 @@ if (!defined('HONEST_IN_CONSOLE')) define('HONEST_IN_CONSOLE',
 
 if (!defined('LARAVELFLY_SERVICES')) define('LARAVELFLY_SERVICES', [
 
-    /**
-     * make the corresponding service to be true if you use it.
-     */
     "redis" => false,
     'filesystem.cloud' => false,
     'broadcast' => false,
 
-    'hash' => true,
-
+    'routes' => true,
+    'hash' => false,
+    'auth' => true,
+    'cookie' => true,
     'view.finder' => true,
 
     'config' => true,
     'kernel' => true,
+
 ]);
 
 
@@ -39,19 +39,20 @@ return [
     'listen_port' => 9501,
 
     'worker_num' => 1,
-    'max_request' => 1000,
+    'max_coro_num' => 20,
+    'max_conn' => 128,
+    'max_request' => 500,
 
-    'max_coro_num' => 3000,
-
-    'daemonize' => true,
-//    'daemonize' => false,
+//    'daemonize' => true,
+    'daemonize' => false,
 
     'watch' => [
-        '/home/vagrant/.fly-watch',
+        //'/home/vagrant/.fly-watch',
     ],
     'watch_delay' => 3500,
+    'watch_down'=> false,
 
-    'pre_include' =>'true',
+    'pre_include' =>false,
 
     'pre_files' => [
     ],
@@ -63,7 +64,7 @@ return [
 
     'log_file' => __DIR__ . '/storage/logs/swoole.log',
 
-    'log_cache' => 3,
+    'log_cache' => 4,
 
     'kernel' => \App\Http\Kernel::class,
 

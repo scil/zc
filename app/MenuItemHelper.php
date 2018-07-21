@@ -16,18 +16,22 @@ class MenuItemHelper //  extends Model
         if (isset(self::$topItemIds[$menuId]))
             return self::$topItemIds[$menuId];
 
-        $id = DB::table('menu_items')
+        $item = DB::table('menu_items')
             ->where('level', 0)
             ->where('menu_id', $menuId)
-            ->first()->id;
-        self::$topItemIds[$menuId] = $id;
-        return $id;
+            ->first();
+
+        if ($item) {
+            $id = $item->id;
+            self::$topItemIds[$menuId] = $id;
+            return $id;
+        }
     }
 
     /**
      * @param menuId    get all items if menuId ==0
      */
-    static function getAllItems($menuId = 0)
+    static function getAllItemsById($menuId = 0)
     {
 
         if (isset(self::$allItemsById[$menuId]))

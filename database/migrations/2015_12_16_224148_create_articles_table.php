@@ -53,7 +53,7 @@ class CreateArticlesTable extends Migration
 
             $table->integer('editor_id')->unsigned()->default(1); // 编辑是谁
 
-            $table->integer('volume_id')->unsigned()->nullable(); // 编辑是谁
+            $table->integer('volume_id')->unsigned()->nullable();
 
             $table->enum('articleable_type',['App\\\\Column','App\\\\Video','App\\\\Book']);
             $table->integer('articleable_id')->unsigned();

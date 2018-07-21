@@ -1,4 +1,4 @@
-@extends('layouts.columns._gate_starry')
+@extends('layouts.base')
 
 
 @section('content')

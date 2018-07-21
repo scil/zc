@@ -4,6 +4,20 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Video
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Article[] $articles
+ * @property-read \App\Quote $behind
+ * @property-read \App\Image $image
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\MediaQuote[] $mediaQuotes
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Place[] $places
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Quote[] $quotes
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Tag[] $tags
+ * @property-read \App\Quote $tip
+ * @property-read \App\Volume $volume
+ * @mixin \Eloquent
+ */
 class Video extends Model
 {
 

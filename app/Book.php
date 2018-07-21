@@ -4,6 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Book
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Article[] $articles
+ * @property-read \App\Quote $errata
+ * @property-read \App\Image $image
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\MediaQuote[] $mediaQuotes
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Place[] $places
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Quote[] $quotes
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Tag[] $tags
+ * @property-read \App\Quote $tip
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Book[] $versions
+ * @property-read \App\Volume $volume
+ * @mixin \Eloquent
+ */
 class Book extends Model
 {
     public function volume()

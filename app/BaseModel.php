@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\BaseModel
+ *
+ * @mixin \Eloquent
+ */
 class BaseModel extends Model
 {
     /**

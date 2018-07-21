@@ -78,7 +78,7 @@ class Http2Push
                 }
                 $links[] = $info['text'];
             }
-            if ($links) {
+            if ($links || !$clients) {
                 foreach ($this->tagged as $tag => $info) {
                     $cookies[$tag] = $info['token'];
                 }
@@ -87,7 +87,7 @@ class Http2Push
 
         return [
             $links,
-            cookie(static::COOKIE_NAME, $cookies ? json_encode($cookies) : '',99999)
+            $cookies ? cookie(static::COOKIE_NAME, json_encode($cookies), 99999) : null
         ];
     }
 

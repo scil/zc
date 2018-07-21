@@ -19,7 +19,7 @@
                     <button type="button" class="close" id="col-first-page-close" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
                     <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3">
+                        <div class="col-sm-6 col-sm-offset-2">
 
                             <section id="MQL">
                                 @foreach($media->mediaQuotes as $q)
@@ -41,7 +41,7 @@
         </div>
 
         <div class="row">
-            <div class="col-sm-5 ">
+            <div class="col-sm-5 col-sm-push-7 ">
 
                 <div id="side">
 
@@ -93,7 +93,7 @@
             </div>
 
 
-            <div class="col-sm-7">
+            <div class="col-sm-7 col-sm-pull-5">
 
 
                 <section id="MAL">

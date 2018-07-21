@@ -24,6 +24,16 @@
   }
 }
 
+#header-img{
+  width: 80px;
+    height: 53px;
+    vertical-align: bottom;
+    margin-left: -13px;
+  +a{
+    display: inline !important;
+  }
+}
+
 #header-intro {
   font-size: 45%;
   display: inline-block;

@@ -13,9 +13,13 @@ use DB;
 
 class Staticizer
 {
-    var $menuId = ['main' => 1, 'pass' => 2,]; //  'game' => 3];
+    var $menuId = [
+        'main' => 1,
+        'pass' => 2, '
+//        jia' => 3,
+        'tree' => 4];
     var $topItemId = [];
-    var $columns;
+    var $allItemsById;
 
     function __construct()
     {
@@ -23,7 +27,7 @@ class Staticizer
             $this->topItemId[$name] = MenuItemHelper::getTopItemId($id);
         }
 
-        $this->columns = view()->share('columns', MenuItemHelper::getAllItems());
+        $this->allItemsById = view()->share('columns', MenuItemHelper::getAllItemsById());
 
         view()->share('topId', $this->topItemId['main']);
 
@@ -33,15 +37,26 @@ class Staticizer
     }
 
     /**
+     * open tinker and run:
+     * ( new \App\Services\Staticizer)->createFinanceData();
+     */
+    function createFinanceData()
+    {
+        $data['financeRecords'] = \App\FinanceRecord::getLast();
+        $this->partial('country.finance', $data, 'country._finance');
+    }
+
+
+    /**
      *
      * php artisan column:cache
      * php artisan column:blade
      *
      * or
      * open tinker and run:
-     * ( new \App\Services\Staticizer)->useColumnsData();
+     * ( new \App\Services\Staticizer)->makeColumnsCacheAndBlade();
      */
-    function useColumnsData($method = null, ...$params)
+    function makeColumnsCacheAndBlade($method = null, ...$params)
     {
 
         if ($method) {
@@ -54,7 +69,9 @@ class Staticizer
         \File::deleteDirectory(base_path() . '/resources/views/partials/columns');
         \File::deleteDirectory(base_path() . '/resources/views/layouts/columns');
 
+        echo "### navbar, and  " . COUNTRY_URL . " not render sub menu.\n";
         $this->partial('columns.navbar-nav-left', [], 'columns._navbar-nav-left');
+
         $this->partial('columns.map', [], 'columns._map');
         $this->_columnsSelect(2); // 2 is the id of shanshui column
         $this->_columnsHome();
@@ -68,6 +85,7 @@ class Staticizer
 
         try {
             $r = $oView->render();
+            $r = $this->sanitize_output($r);
             $newName = base_path() . '/resources/views/' . str_replace('.', '/', $newName);
             $newName .= $echoBlade ? '.blade.php' : '.php';
             if (is_string($newName)) {
@@ -87,8 +105,8 @@ class Staticizer
 
     protected function header($data = array())
     {
-        return $this->sanitize_output(
-            $this->viewFromTo('partials.columns.header', $data,null, true));
+        return
+            $this->viewFromTo('partials.columns.header', $data, null, true);
     }
 
     function sanitize_output($buffer)
@@ -114,29 +132,18 @@ class Staticizer
     }
 
 
-    /**
-     * open tinker and run:
-     * ( new \App\Services\Staticizer)->createFinanceData();
-     */
-    function createFinanceData()
-    {
-        $data['financeRecords'] = \App\FinanceRecord::getLast();
-        $this->partial('country.finance', $data, 'country._finance');
-    }
-
-
     protected function _makeColumnsCache()
     {
-        @mkdir(base_path('bootstrap/cache2') );
-        $file = base_path('bootstrap/cache2/columns.php')  ;
+        @mkdir(base_path('bootstrap/cache2'));
+        $file = base_path('bootstrap/cache2/menu_items.php');
         file_put_contents($file, '<?'
             . 'php const MENU_ITEMS = '
             . var_export(MenuItemHelper::getMenuItemsInfo(0), true)
             . '   ; ?>'
         );
 
-        $headers = $this->_columnsOthers('pass')
-            + $this->_columnsLayouts($this->topItemId['main'])//        + $this->_columnsOthers('game')
+        $headers = $this->_twoLevelHeaders('pass')
+            + $this->_mainMenuHeaders($this->topItemId['main'])//        + $this->_twoLevelHeaders('game')
         ;
 
         $headers[0] = <<<HOMEPAGE
@@ -145,7 +152,7 @@ class Staticizer
 HOMEPAGE;
 
 
-        $file = base_path('bootstrap/cache2/headers.php')  ;
+        $file = base_path('bootstrap/cache2/headers.php');
         file_put_contents($file, '<?'
             . 'php const ZC_HEADERS = '
             . var_export($headers, true)
@@ -169,13 +176,13 @@ HOMEPAGE;
         $this->partial('columns.home-body', compact('ids'), 'columns._home-body');
     }
 
-    protected function _columnsLayouts($topId)
+    protected function _mainMenuHeaders($topId)
     {
         echo "### start main menu header\n";
 
         $header = [];
 
-        $columns = $this->columns;
+        $columns = $this->allItemsById;
 
         foreach ($columns[$topId]->children as $level1id) {
             $level1 = $columns[$level1id];
@@ -212,7 +219,7 @@ HOMEPAGE;
         return $header;
     }
 
-    protected function _columnsOthers($menuUrlPrefix)
+    protected function _twoLevelHeaders($menuUrlPrefix)
     {
         if (!isset($this->menuId[$menuUrlPrefix])) {
             echo 'wrong for  menu url-prefix : ', $menuUrlPrefix;
@@ -224,11 +231,11 @@ HOMEPAGE;
         $header = [];
 
         $leftColumnId = $this->topItemId[$menuUrlPrefix];
-        $leftColumn = $this->columns[$leftColumnId];
+        $leftColumn = $this->allItemsById[$leftColumnId];
         $title = $leftColumn->name;
         $header[$leftColumnId] = $this->header(compact('leftColumn', 'title'));
         foreach ($leftColumn->children as $activeId) {
-            $activeColumn = $this->columns[$activeId];
+            $activeColumn = $this->allItemsById[$activeId];
             $title = $activeColumn->name;
             $header[$activeId] = $this->header(compact('leftColumn', 'activeId', 'title'));
         }

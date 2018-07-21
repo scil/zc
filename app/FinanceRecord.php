@@ -12,6 +12,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
+/**
+ * App\FinanceRecord
+ *
+ * @mixin \Eloquent
+ */
 class FinanceRecord extends Model
 {
     static function getLast(){

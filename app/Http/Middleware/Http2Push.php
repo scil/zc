@@ -6,6 +6,8 @@ use Closure;
 
 class Http2Push
 {
+    const PUSH_FLAG = 'pushflag';
+
     /**
      * Handle an incoming request.
      *
@@ -17,17 +19,30 @@ class Http2Push
     {
         $response = $next($request);
 
-        $push = app('http2push');
-        if (!$request->ajax()) {
-            if ($push->hasLinks()) {
+        // 一次session只检查一次
+        if (!$request->session()->has(static::PUSH_FLAG)) {
+
+            if (!$request->ajax()) {
+
+                echo 'http2push-----  ';
+                $push = app('http2push');
+
+//            if ($push->hasLinks()) {
+
                 list($links, $C) = $push->generateLinksCookies();
-                if ($links) {
-                    $response->headers->set('Link', implode(',', $links), false);
-                }
-                $response->cookie($C);
+
+                $links && $response->headers->set('Link', implode(',', $links), false);
+
+                $C && $response->cookie($C);
+
+//            }
 
             }
+
+            $request->session()->put(static::PUSH_FLAG, '1');
+
         }
+
         return $response;
 
     }

@@ -39,23 +39,50 @@ Route::get('/video/{slug?}', 'CmsController@viewVideo');
 
 Route::get('/country/{sub?}', 'CmsController@country');
 Route::get('/hall', 'CountryController@hall');
-Route::get('/tree', 'CountryController@tree');
+Route::get('/tree/{sub?}', 'CountryController@tree');
 Route::get('/pass/{sub?}', 'CountryController@pass');
 Route::get('/ferry/{sub?}', 'CountryController@ferry');
 
 Route::get('/new_article', 'CmsController@createArticle');
 Route::post('/new_article', 'CmsController@storeArticle');
 
-return;
+//return;
+Route::get('/tinker',function (){
+  eval(tinker());
+});
+
+Route::get('/memoryInRouteClosure', function () {
+
+    static $i=0;
+    $dif= memory_get_usage()-$i;
+    $i=memory_get_usage();
+    return $dif;
+});
 
 Route::get('/test', function () {
+//    static $i=0;
+//    $i++;
+//    $d=date('h-i-s');
+//    return $i;
+
+
+    static $all = [[0, 0, 0]];
+//    $all=app('mem');
+    $all[] = [$m = memory_get_usage(false), memory_get_peak_usage(false), $m - last($all)[0]];
+
+    $r='';
+    foreach ($all as $line){
+       $r =$r. implode('  ,',$line)."<br>" ;
+    }
+    return $r;
 
     eval(tinker());
     return config()->get('app.name');
     return app('markdown')->encode("## abc\n*abc*");
 });
 Route::get('/test2', function () {
-//    eval(tinker());
+    eval(tinker());
+
     return config()->get('app.name');
 });
 

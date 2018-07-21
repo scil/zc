@@ -25,10 +25,11 @@ class CreateMenuItemsTable extends Migration {
             $table->tinyInteger('level')->unsigned();
             $table->tinyInteger('order')->unsigned();
             $table->smallInteger('pid')->nullable();
-            $table->string('url',50)->unique();
+            $table->string('url',50)->unique()->nullable();
             $table->string('title',50)->nullable();
             $table->string('ctitle',50)->nullable();
             $table->string('desc',200)->nullable();
+            $table->boolean('show_pic',50)->default(false);
             $table->string('pic',50)->nullable();
 		});
 	}

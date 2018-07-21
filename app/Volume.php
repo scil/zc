@@ -4,6 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Volume
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Article[] $articles
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Book[] $books
+ * @property-read \App\Column $column
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Book[] $firstBooks
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Video[] $firstVideos
+ * @property-read \App\Person $person
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Video[] $videos
+ * @mixin \Eloquent
+ */
 class Volume extends Model
 {
     //

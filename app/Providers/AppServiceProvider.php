@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 
@@ -21,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //todo
-//        Paginator::useBootstrapThree();
+        Paginator::useBootstrapThree();
         \View::share('pjax', $this->app->make('request')->header('x-pjax', ''));
     }
 
@@ -33,10 +34,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         if (!defined('MENU_ITEMS')) {
-            @include  base_path('bootstrap/cache2/columns.php');
+            include  base_path('bootstrap/cache2/menu_items.php');
         }
         if (!defined('ZC_HEADERS')) {
-            @include base_path('bootstrap/cache2/headers.php');
+            include base_path('bootstrap/cache2/headers.php');
         }
 
         if ($this->app->runningInConsole() || defined('LARAVELFLY_MODE'))
@@ -45,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
 
     function registerMarkdownServiceClient()
     {
-        $GEN_DIR = base_path() . '/../thrift/gen-php/';
+        $GEN_DIR = base_path() . '/thrift/gen-php/';
         $PORT = 7911;
 
         try {

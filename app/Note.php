@@ -4,6 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Note
+ *
+ * @property-read \App\Volume $volume
+ * @mixin \Eloquent
+ */
 class Note extends Model
 {
     //

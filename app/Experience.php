@@ -4,6 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Experience
+ *
+ * @property-read \App\Person $person
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Place[] $places
+ * @mixin \Eloquent
+ */
 class Experience extends Model
 {
     //

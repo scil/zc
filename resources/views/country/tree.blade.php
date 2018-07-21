@@ -6,28 +6,20 @@
         <div class="row">
             <div class="col-sm-12">
 
-                <div class=" text-center first-page first-page-middle zc-slides" id="home-first-page">
+                <div class=" text-center first-page first-page-middle zc-slides" id="home-first-page"
+                     style="background-color: #ffa500b0;">
 
                     <div>
                         <div class="quote-img">
-                            <img id="thankyou" src="/img/org/throw.png">
-                            <script>
-                                // var thankyou_img=['/img/org/throw.png',
-                                //     '/img/org/flower.jpg'
-                                // ], index=0;
-                                // setInterval(function () {
-                                //     document.getElementById('thankyou').src= thankyou_img[index];
-                                //     index = 1 -index;
-                                // },3500)
-                            </script>
+                            <img src="/img/org/tree.jpg">
                         </div>
 
-                        <div class="quote-text">
+                        <div class="quote-text" style="margin-top: 4.5%; margin-bottom: 0%;">
                             <div>
-                                <p>商业创造可能</p>
+                                <p id="TREE-Q"><a href="https://www.zhihu.com/question/22463701/answer/108867516"
+                                                  target="_blank">自繇yóu提供可能 自由创造可能</a></p>
                             </div>
                         </div>
-                        <a class="pure-kaiti quote-src btn btn-warning btn-primary-outline btn-sm">真城</a>
                     </div>
 
 

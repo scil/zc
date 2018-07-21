@@ -38,7 +38,7 @@ module.exports = {
             name: 'fly',
             script: 'vendor/scil/laravel-fly/bin/fly',
             interpreter: "/usr/bin/php",
-            max_restarts: 2,
+            max_restarts: 5,
             args: "restart",
             error_file : "./storage/logs/fly-err.log",
             out_file: "./storage/logs/fly-out.log",
@@ -53,9 +53,9 @@ module.exports = {
         // Second application
         {
             name: 'thrift',
-            script: 'node/thrift/bin/server.js',
+            script: 'thrift/bin/server.js',
             max_memory_restart: '65M',
-            max_restarts: 2,
+            max_restarts: 5,
             error_file : "./storage/logs/thrift-err.log",
             out_file: "./storage/logs/thrift-out.log",
         }

@@ -4,6 +4,21 @@ namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * App\Article
+ *
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $articleable
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Place[] $places
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Quote[] $quotes
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Reference[] $references
+ * @property-read \App\Volume $volume
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Article onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Article withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Article withoutTrashed()
+ * @mixin \Eloquent
+ */
 class Article extends BaseModel
 {
     use SoftDeletes;

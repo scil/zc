@@ -9,7 +9,7 @@ class CountryController extends Controller
 
     function country($sub = null)
     {
-        if (is_null($sub)) {
+        if (null === $sub) {
             $columnID = MENU_ITEMS['country']['id'];
             $title = MENU_ITEMS['country']['title'];
             return view('country.index', compact('title'));
@@ -21,16 +21,24 @@ class CountryController extends Controller
         return view("country.$sub", compact('columnID', 'title', 'desc'));
     }
 
-    function tree()
+    function tree($sub = null)
     {
 
         $menu = MENU_ITEMS["tree"];
 
-        return view("country.tree", [
-            'title' => $menu['title'],
-            'desc' => $menu['desc'],
-            'columnID' => $menu['id']
+        if ($sub === null) {
+            return view("country.tree", [
+                'title' => $menu['title'],
+                'desc' => $menu['desc'],
+                'columnID' => $menu['id']
+            ]);
+        }
+        return view("country.tree.$sub", [
+            'columnID' => MENU_ITEMS["tree/$sub"]['id'],
+            'title' => MENU_ITEMS["tree/$sub"]['title'],
+            'desc' => MENU_ITEMS["tree/$sub"]['desc'],
         ]);
+
     }
 
     function hall()

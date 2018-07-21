@@ -42,7 +42,6 @@
     "form-serializer": "^2.5.0",
     "gmaps": "^0.4.24",
     "html-minifier": "^3.5.16",
-//    "jQuery-autoGrowInput": "git+https://github.com/Pixabay/jQuery-autoGrowInput.git",
     "jquery-mapael": "^2.1.0",
     "jquery-mousewheel": "^3.1.13",
     "jquery-touchswipe": "^1.6.15",
@@ -63,6 +62,7 @@
   },
   "scripts": {
     "babel": "babel resources/babel -d public/js",
-    "thrift": "pm2 start  thrift/bin/server.js --name zc_thrift"
+    "pm2_thrift": "pm2 start  thrift/bin/server.js --name zc_thrift",
+    "thrift": "node  thrift/bin/server.js"
   }
 }
