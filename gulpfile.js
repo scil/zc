@@ -95,6 +95,7 @@ const
     // 要压缩的文件用到了es6语法 It's possible to configure the use of a different version using the "composer" entry point.
     composer = require('gulp-uglify/composer'),
     uglify = composer(require('uglify-es'), console),
+    htmlmin = require('gulp-htmlmin'),
     browserify = require('browserify'),
     babelify = require('babelify'),
     source = require('vinyl-source-stream'),
@@ -360,7 +361,7 @@ function js_app() {
             .pipe(source('app.js'))  // Set source name
             .pipe(buffer()) // Convert to gulp pipeline
             .pipe(gulp.dest('public/js/babeled'))
-        // todo: a replacement https://github.com/babel/minify   it has not pkg @babel
+            // todo: a replacement https://github.com/babel/minify   it has not pkg @babel
             .pipe(uglify(getUglifyOptions()).on('error', function (err) {
                 console.error("Uglify: " + err.toString());
             }))
@@ -667,6 +668,23 @@ function icon() {
         .pipe(gulp.dest('public'));
 }
 
+exports.html_compress= html_compress;
+function html_compress() {
+    var opts = {
+        collapseWhitespace: true,
+        preserveLineBreaks:true,
+        removeAttributeQuotes: true,
+        removeComments: true,
+        minifyJS: true,
+        minifyCSS:true,
+        // keep //# sourceURL=
+        ignoreCustomComments:[/^\/\/#/],
+    };
+
+    return gulp.src('./storage/framework/views/*')
+        .pipe(htmlmin(opts))
+        .pipe(gulp.dest('./storage/framework/views/'));
+}
 
 exports.icon = icon;
 
@@ -720,9 +738,10 @@ all_work = gulp.series(
         css_vendor,
         gulp.series(flowcheck_app, js_app),
         gulp.series(
-           // js_form,
+            // js_form,
             js_vendor)
     ),
+    html_compress,
 );
 
 gulp.task('default', all_work);

@@ -41,6 +41,7 @@
     "emmet-codemirror": "^1.2.5",
     "form-serializer": "^2.5.0",
     "gmaps": "^0.4.24",
+    "gulp-htmlmin": "^4.0.0",
     "html-minifier": "^3.5.16",
     "jquery-mapael": "^2.1.0",
     "jquery-mousewheel": "^3.1.13",
