@@ -27,6 +27,8 @@ class DatabaseSeeder extends Seeder
         $this->call(BooksTableSeeder::class);
         $this->call(VideosTableSeeder::class);
 
+        $this->call(TreesTableSeeder::class);
+
         Model::reguard();
     }
 }

@@ -64,7 +64,7 @@
                             <?php $IDs[] = $place->id;  ?>
                             <?php
                             $mapDataByPlaceID[$place->id] = [
-                                'addr' => $place->pivot->place_name ?? $place->name ?? $place->name_en,
+                                'addr' => $place->pivot->place_name ?? $place->name ?? $place->english_name,
                                 'title' => $place->pivot->title,
                                 'intro' => $place->pivot->intro];
                             ?>
@@ -91,7 +91,7 @@
                         </style>
                         <section id="top-quote-box">
                             <blockquote class="top-quote">
-                                {!! $article->topQuote->body !!}
+                                {!! $article->topQuote->htmls[0]->body !!}
                                 <cite class="cite-tail-right"><a
                                             href="{!! $article->topQuote->origin_url !!}">{!! $article->topQuote->author !!}</a></cite>
                             </blockquote>
@@ -139,7 +139,7 @@
 
 
                     <div id="body" class="{!! $article->type=='select'?'select-body':'' !!}">
-                        {!! $article->body !!}
+                        {!! $article->htmls[0]->body !!}
                     </div>
                     <span data-c="{!! $article->codes !!}"></span>
                 </article>
@@ -189,7 +189,7 @@
                             <div id="QSup-body">
                                 @foreach( $article->tailQuotes as $quote )
                                     <blockquote>
-                                        <p>{!! $quote->body !!}</p>
+                                        <p>{!! $quote->htmls[0]->body !!}</p>
                                         <cite class="cite-tail"><a target="_blank"
                                                                    href="{!! $quote->origin_url !!}">{!! $quote->author .' '. $quote->origin !!}</a></cite>
                                     </blockquote>
@@ -212,7 +212,7 @@
                                             </cite>
 
                                             <blockquote>
-                                                <p>{!! $suggest->body !!}</p>
+                                                <p>{!! $suggest->htmls[0]->body !!}</p>
                                             </blockquote>
                                         </li>
                                     @endforeach

@@ -24,7 +24,7 @@
 
                         <div class="quote-text">
                             <div>
-                                <p>欢迎投球</p>
+                                <p>欢迎反馈</p>
                             </div>
                         </div>
                         <a class="pure-kaiti quote-src btn btn-warning btn-primary-outline btn-sm">真城</a>

@@ -16,9 +16,10 @@ class CreatePlacesTable extends Migration
         Schema::create('places', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name',60);
-            $table->string('other_names',300)->nullable(); // 其它汉语名字,格式为: 钢锯岭 / 钢铁英雄(台)
-            $table->string('name_en',60)->nullable(); // 若国外名字，则留下名字的英文名；地址只留英文名
-            $table->string('names',300)->nullable(); // 其它语言的名字,格式为: ja:日语1|日语2;fr:法语1
+            $table->string('other_names',300)->nullable(); // 其它汉语名字,格式为: 钢锯岭\钢铁英雄(台)
+            $table->string('english_name',60)->nullable(); // 若国外名字，则留下名字的英文名；地址只留英文名
+            $table->string('native_name',100)->nullable();// 格式为: fr \ XXX
+            $table->string('names',300)->nullable(); // 其它语言的名字,格式为: ja\\日语1\日语2;fr\\法语1
             $table->string('addr')->nullable(); // 短地址
             $table->string('address')->nullable();
             $table->float('lat',10,6);

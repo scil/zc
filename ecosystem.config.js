@@ -4,6 +4,7 @@ module.exports = {
      *
      * pm2 start ecosystem.config.js
      * pm2 start ecosystem.config.js --only fly
+     * pm2 start ecosystem.config.js --only thrift
      * pm2 start ecosystem.config.js --only --env production # uses variables from `env_production`
      *
      * pm2 save

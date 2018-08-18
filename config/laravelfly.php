@@ -10,8 +10,11 @@ return [
     /**
      * If use cache file for config/laravel.php always.
      *
-     * If true, Laravelfly will always use cache file laravelfly_ps_simple.php or
-     * laravelfly_ps_map.php and laravelfly_aliases.php
+     * If true, Laravelfly will always use cache file
+     *  laravelfly_ps_map.php
+     * or
+     *  laravelfly_ps_simple.php
+     * and laravelfly_aliases.php
      * under bootstrap/cache/ when the files exist. If not exist, Laravelfly will create them.
      *
      * It's better to set it to false in dev env , set true and run `php artisan config:clear` before starting LaravelFly in production env
@@ -25,24 +28,29 @@ return [
      * If true, Laravel not know a view file changed until the swoole workers restart.
      * It's good for production env.
      */
-    'view_compile_1' => LARAVELFLY_SERVICES['view.finder'] && $IN_PRODUCTION,
+    'view_compile_1' => $IN_PRODUCTION && LARAVELFLY_SERVICES['view.finder'],
 
     /**
-     * useless providers. For Mode Simple, Map
+     * useless providers. For Mode Backup, Map
      *
-     * There providers will be only removed from config('app.providers')
-     * not from  config('laravelfly.providers_on_worker') or  config('laravelfly.providers_in_request')
+     * These providers are useless if they are not enabled in
+     * config('laravelfly.providers_on_worker') or
+     * config('laravelfly.providers_in_request')
+     *
+     * There providers will be removed from config('app.providers')
      */
     'providers_ignore' => array_merge([
 
         Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
-        LaravelFly\Providers\CommandsServiceProvider::class,
+        LaravelFly\Providers\ServiceProvider::class,
         'Barryvdh\\LaravelIdeHelper\\IdeHelperServiceProvider',
 
-        'Barryvdh\\Debugbar\\ServiceProvider',
-
+    ],
+        $IN_PRODUCTION ? [
+            'Barryvdh\\Debugbar\\ServiceProvider',
+        ] : [
 
 //        //test
 //        NunoMaduro\Collision\Adapters\Laravel\CollisionServiceProvider::class,
@@ -73,21 +81,23 @@ return [
 //        App\Providers\AppServiceProvider::class,
 ////        App\Providers\WorkerAppServiceProvider::class ,
 
+        ],
 
-    ], LARAVELFLY_SERVICES['broadcast'] ? [] : [
-        Illuminate\Broadcasting\BroadcastServiceProvider::class,
-        Illuminate\Broadcasting\BroadcastManager::class,
-        Illuminate\Contracts\Broadcasting\Broadcaster::class,
-        App\Providers\BroadcastServiceProvider::class
-    ]
+        LARAVELFLY_SERVICES['broadcast'] ? [] : [
+            Illuminate\Broadcasting\BroadcastServiceProvider::class,
+            Illuminate\Broadcasting\BroadcastManager::class,
+            Illuminate\Contracts\Broadcasting\Broadcaster::class,
+            App\Providers\BroadcastServiceProvider::class
+        ]
     ),
 
     /**
-     * Providers to reg and boot in each request.For Mode Simple, Map
+     * Providers to reg and boot in each request.For Mode Backup, Map
      *
      * There providers will be removed from app('config')['app.providers'] on worker, before any requests
      */
     'providers_in_request' => [
+
     ],
 
 
@@ -102,7 +112,7 @@ return [
      * and the singleton services must not be changed during any request,
      * otherwise they should be made in request, no on worker.
      *
-     * a singeton service is like this:
+     * a singleton service is like this:
      *     *   $this->app->singleton('hash', function ($app) { ... });
      *
      * formats:
@@ -126,6 +136,7 @@ return [
      *      proverder8=> 'ignore',           // just like config('laravelfly.providers_ignore')
      */
     'providers_on_worker' => [
+
 
         // this is not in config('app.providers') and registered in Application:;registerBaseServiceProviders
         Illuminate\Log\LogServiceProvider::class => [
@@ -182,7 +193,8 @@ return [
 
         Illuminate\Hashing\HashServiceProvider::class => [
 
-            'hash' => !empty(LARAVELFLY_SERVICES['hash']) ? true : 'clone',
+            // 'hash' => !empty(LARAVELFLY_SERVICES['hash']) ? true : 'clone',
+            'hash' => true, // no need to clone it when empty(LARAVELFLY_SERVICES['hash'], as changed props not belongs to 'hash', but to drivers
 
             'hash.driver',
         ],
@@ -280,6 +292,11 @@ return [
             Illuminate\Contracts\Debug\ExceptionHandler::class => true,
         ],
 
+        /*
+         * LaravelFly
+         */
+
+        LaravelFly\Providers\RouteServiceProvider::class => [],
     ],
 
     /**
@@ -287,15 +304,14 @@ return [
      */
     'update_for_clone' => [
 
-        // for cloned hash
+        // for hash
         !empty(LARAVELFLY_SERVICES['hash']) ? false :
             [
                 'this' => 'hash',
                 'closure' => function () {
-                    // $this here is app('hash'), a newly cloned instance of HashManager
+                    // $this here is app('hash'), the instance of HashManager
+                    // by default, $name is bcrypt and argon
                     foreach ($this->getDrivers() as $name => $drive) {
-                        // var_dump($name);
-                        // debug_zval_dump($drive);
                         $this->drivers[$name] = clone $drive;
                         // debug_zval_dump($this->drivers[$name] );
                     }
@@ -310,8 +326,40 @@ return [
         ]
     ],
 
+    'singleton_route_middlewares' => [
+        \App\Http\Middleware\EncryptCookies::class,
+        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
+        \Illuminate\Session\Middleware\StartSession::class, // hacked by LaravelFly\Map\Illuminate\Session\StartSession
+        //todo
+//        \Illuminate\Session\Middleware\AuthenticateSession::class,
+        \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+        \App\Http\Middleware\VerifyCsrfToken::class,
+        \Illuminate\Routing\Middleware\SubstituteBindings::class,
+
+        //todo
+//        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        //todo
+//        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        //todo
+//        'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        //todo
+//        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+    ],
+    // only helpful when LARAVELFLY_SERVICES['kernel']===true
+    'singleton_middlewares' => [
+        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
+        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
+        \App\Http\Middleware\TrimStrings::class,
+        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \App\Http\Middleware\TrustProxies::class,
+    ],
+
     /**
-     * Which properties of base services need to backup. Only for Mode Simple
+     * Which properties of base services need to backup. Only for Mode Backup
      *
      * See: Illuminate\Foundation\Application::registerBaseServiceProviders
      */

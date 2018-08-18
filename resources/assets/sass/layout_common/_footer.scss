@@ -4,21 +4,20 @@
 $footer-content-padding: 6px;
 $contact-icon-hover-color: #000;
 
-
 #footer {
-  padding-bottom:25px;
+  padding-bottom: 25px;
   margin-top: $footer_margin_top;
-  color: #aaa;
-  &:hover{
-    #footer-first-row{
-      color: #000;
-    }
-  }
+  color: #000;
 }
 
-#footer-first-row{
-  margin-top:40px;
-  margin-bottom:30px;
+#footer-first-row {
+  margin-top: 40px;
+  margin-bottom: 30px;
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 #me {
@@ -48,8 +47,13 @@ $contact-icon-hover-color: #000;
 }
 
 #copyright {
-  margin:20px 0;
-  font-size: 12px;
+  margin: 60px 0 30px;
+  font-size: 14px;
   text-align: center;
+  color: green;
+  opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
 }
 

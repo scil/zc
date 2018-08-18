@@ -62,7 +62,7 @@ class PersonsTableSeeder extends Seeder
 
             'Vienna' => [
                 'name' => '维也纳',
-                'name_en' => 'Vienna',
+                'english_name' => 'Vienna',
                 'addr' => 'Austria',
                 'address' => '',
                 'lat' => 48.2208286,
@@ -116,7 +116,7 @@ class PersonsTableSeeder extends Seeder
                 'comment' => null,
             ],
             'milk' => [
-                'name' => '牛奶街', 'name_en' => 'Milk Street',
+                'name' => '牛奶街', 'english_name' => 'Milk Street',
                 'addr' => 'London',
                 'address' => 'Cheapside, London, England',
                 'lat' => 51.515283,
@@ -124,7 +124,7 @@ class PersonsTableSeeder extends Seeder
                 'comment' => '//www.waymarking.com/waymarks/WMP2E6_Sir_Thomas_More_Milk_Street_London_UK'
             ],
             'Anthony' => [
-                'name' => '圣安多尼学校', 'name_en' => 'St.Anthony’s School (1440-1666)',
+                'name' => '圣安多尼学校', 'english_name' => 'St.Anthony’s School (1440-1666)',
                 'addr' => 'London',
                 'address' => 'Threadneedle Street, London, England',
                 'lat' => 51.5141076,
@@ -132,28 +132,28 @@ class PersonsTableSeeder extends Seeder
                 'comment' => 'London’s original St. Anthony’s School, attended by St. Thomas More, was situated on Threadneedle Street in the City of London. Founded in 1440, it was destroyed in the Great Fire in 1666. Today’s school was founded by Richard Patton during the Victorian period and is now managed by the Alpha Plus Group. It moved to its Hampstead location after World War Two.'
             ],
             'Knole_House' => [
-                'name' => '', 'name_en' => 'Knole House',
+                'name' => '', 'english_name' => 'Knole House',
                 'addr' => 'Kent, England',
                 'address' => 'Sevenoaks, Kent, England',
                 'lat' => 51.2661905,
                 'lng' => 0.2046482,
             ],
             'Oxford' => [
-                'name' => '牛津大学', 'name_en' => 'University of Oxford',
+                'name' => '牛津大学', 'english_name' => 'University of Oxford',
                 'addr' => '',
                 'address' => 'Sevenoaks, Kent, England',
                 'lat' => 51.7566341,
                 'lng' => -1.2568924,
             ],
             'middle' => [
-                'name' => '', 'name_en' => 'The Middle Temple',
+                'name' => '', 'english_name' => 'The Middle Temple',
                 'addr' => 'London',
                 'address' => '',
                 'lat' => 51.511699,
                 'lng' => -0.1130257,
             ],
             'lincoln' => [
-                'name' => '林肯律师学院', 'name_en' => 'Lincoln’s Inn',
+                'name' => '林肯律师学院', 'english_name' => 'Lincoln’s Inn',
                 'addr' => 'London',
                 'address' => '',
                 'lat' => 51.5164125,
@@ -161,7 +161,7 @@ class PersonsTableSeeder extends Seeder
 
             ],
             'London Charterhouse' => [
-                'name' => '伦敦卡尔特修道院', 'name_en' => 'London Charterhouse (1370–1538)',
+                'name' => '伦敦卡尔特修道院', 'english_name' => 'London Charterhouse (1370–1538)',
                 'addr' => 'London',
                 'address' => 'Smithfield, London',
                 'lat' => 51.5209453,
@@ -169,14 +169,14 @@ class PersonsTableSeeder extends Seeder
 
             ],
             'Guildhall' => [
-                'name' => '伦敦市政厅', 'name_en' => 'Guildhall, London',
+                'name' => '伦敦市政厅', 'english_name' => 'Guildhall, London',
                 'addr' => '',
                 'address' => 'The ceremonial heart of London\'s administration with an art museum, public library and clock museum',
                 'lat' => 51.515819,
                 'lng' => -0.091982,
             ],
             'Ostend' => [
-                'name' => '奥斯坦德', 'name_en' => 'Ostend',
+                'name' => '奥斯坦德', 'english_name' => 'Ostend',
                 'addr' => 'Belgian',
                 'address' => 'Ostend is a Belgian coasted city and municipality, located in the province of West-Flanders',
                 'lat' => 51.214119,
@@ -184,7 +184,7 @@ class PersonsTableSeeder extends Seeder
 
             ],
             'Beaufort' => [
-                'name' => '', 'name_en' => 'Beaufort House',
+                'name' => '', 'english_name' => 'Beaufort House',
                 'addr' => 'Chelsea, England',
                 'address' => 'Chelsea, England',
                 'lat' => 51.4861215,
@@ -192,7 +192,7 @@ class PersonsTableSeeder extends Seeder
 
             ],
             'Calais' => [
-                'name' => '加来', 'name_en' => 'Calais',
+                'name' => '加来', 'english_name' => 'Calais',
                 'addr' => 'France',
                 'address' => 'Calais is a port city in northern France.',
                 'lat' => 50.9551949,
@@ -200,7 +200,7 @@ class PersonsTableSeeder extends Seeder
 
             ],
             'tower' => [
-                'name' => '伦敦塔', 'name_en' => 'Tower of London',
+                'name' => '伦敦塔', 'english_name' => 'Tower of London',
                 'addr' => '',
                 'address' => 'a historic castle located on the north bank of the River Thames in central',
                 'lat' => 51.5054947,
@@ -208,7 +208,7 @@ class PersonsTableSeeder extends Seeder
 
             ],
             'Bucklersbury street' => [
-                'name' => '', 'name_en' => 'Bucklersbury street',
+                'name' => '', 'english_name' => 'Bucklersbury street',
                 'addr' => 'London',
                 'address' => 'Bucklersbury street, London',
                 'lat' => 51.5128517,
@@ -275,33 +275,33 @@ class PersonsTableSeeder extends Seeder
                 'lng' => 116.2504113
             ],
             'Hopkins' => [
-                'name' => '约翰斯·霍普金斯大学', 'name_en' => 'Johns Hopkins University',
+                'name' => '约翰斯·霍普金斯大学', 'english_name' => 'Johns Hopkins University',
                 'addr' => 'Baltimore, MD',
                 'lat' => 39.3299054,
                 'lng' => -76.6227064
             ],
             'Druid Lake' => [
-                'name' => '', 'name_en' => 'Druid Lake',
+                'name' => '', 'english_name' => 'Druid Lake',
                 'addr' => 'Baltimore, MD',
                 'lat' => 39.318317,
                 'lng' => -76.637604
             ],
             'Imagine' => [
-                'name' => '想象软件公司', 'name_en' => 'Imagine Software, Inc.',
+                'name' => '想象软件公司', 'english_name' => 'Imagine Software, Inc.',
                 'addr' => 'New York',
                 'address' => '22 Cortlandt St., New York, NY ',
                 'lat' => 40.7105135,
                 'lng' => -74.0127689
             ],
             'John' => [
-                'name' => '', 'name_en' => 'John Jay College of Criminal Justice',
+                'name' => '', 'english_name' => 'John Jay College of Criminal Justice',
                 'addr' => 'New York',
                 'address' => '524 W 59th St, New York, NY 10019',
                 'lat' => 40.7703971,
                 'lng' => -73.9906882,
             ],
             'New York Bay' => [
-                'name' => '', 'name_en' => 'New York Bay',
+                'name' => '', 'english_name' => 'New York Bay',
                 'addr' => '',
                 'lat' => 40.6243,
                 'lng' => -74.0590124,
@@ -313,7 +313,7 @@ class PersonsTableSeeder extends Seeder
 
             'Brooklyn' => [
                 'name' => '布鲁克林',
-                'name_en' => 'Brooklyn',
+                'english_name' => 'Brooklyn',
                 'addr' => '',
                 'address' => 'Brooklyn, New York City',
                 'lat' => 40.6454199,
@@ -321,7 +321,7 @@ class PersonsTableSeeder extends Seeder
             ],
             'Far_Rockaway' => [
                 'name' => '',
-                'name_en' => 'Far Rockaway',
+                'english_name' => 'Far Rockaway',
                 'addr' => '',
                 'address' => 'Queens, New York City',
                 'lat' => 40.6021936,
@@ -329,7 +329,7 @@ class PersonsTableSeeder extends Seeder
             ],
             'Far_Rockaway_High_School' => [
                 'name' => '',
-                'name_en' => 'Far Rockaway High School',
+                'english_name' => 'Far Rockaway High School',
                 'addr' => 'New York City',
                 'address' => '8-21 Bay 25 Street in Far Rockaway, Queens, New York City',
                 'lat' => 40.602351,
@@ -337,7 +337,7 @@ class PersonsTableSeeder extends Seeder
             ],
             'MIT' => [
                 'name' => '麻省理工学院',
-                'name_en' => 'Massachusetts Institute of Technology',
+                'english_name' => 'Massachusetts Institute of Technology',
                 'addr' => '',
                 'address' => '',
                 'lat' => 42.3600949,
@@ -345,7 +345,7 @@ class PersonsTableSeeder extends Seeder
             ],
             '普林斯顿大学' => [
                 'name' => '普林斯顿大学',
-                'name_en' => 'Princeton University',
+                'english_name' => 'Princeton University',
                 'addr' => '',
                 'address' => '',
                 'lat' => 40.3439929,
@@ -353,7 +353,7 @@ class PersonsTableSeeder extends Seeder
             ],
             'Los_Alamos' => [
                 'name' => '洛斯阿拉莫斯',
-                'name_en' => 'Los Alamos',
+                'english_name' => 'Los Alamos',
                 'addr' => '',
                 'address' => '',
                 'lat' => 35.891987,
@@ -361,7 +361,7 @@ class PersonsTableSeeder extends Seeder
             ],
             'Cornell' => [
                 'name' => '',
-                'name_en' => 'Cornell University',
+                'english_name' => 'Cornell University',
                 'addr' => '',
                 'address' => '',
                 'lat' => 42.4534531,
@@ -369,7 +369,7 @@ class PersonsTableSeeder extends Seeder
             ],
             '加州理工学院' => [
                 'name' => '加州理工学院',
-                'name_en' => 'California Institute of Technology',
+                'english_name' => 'California Institute of Technology',
                 'addr' => '',
                 'address' => '',
                 'lat' => 34.137662,
@@ -606,7 +606,7 @@ class PersonsTableSeeder extends Seeder
                     'url' => '//www.rbkc.gov.uk/vmhistory/general/vm_hs_p02.asp',
                 ],
                 'more-st' => [
-                    'url' => '//www.sloanestreet.co.uk/en/lifestylearticles/sloane-street-insider/fact-of-the-week-sir-thomas-more-chelsea-s-saint'
+                    'url' => '//www.sloanestreet.co.uk/en/beingstylearticles/sloane-street-insider/fact-of-the-week-sir-thomas-more-chelsea-s-saint'
                 ],
                 'wiki-father' => [
                     'url' => '//en.wikipedia.org/wiki/John_More_(judge)',
@@ -2068,7 +2068,7 @@ http://www.jgzyw.com/zhuanyelunwen/shekelunwen/falvlunwen/sifazhidu/27/433926.ht
             $new_place = array_merge($this->places[$place_slug], [
                 'type' => 'point',
                 'name' => $_place['point_to'],
-                'name_en' => $_place['point_to_en']??null,
+                'english_name' => $_place['point_to_en']??null,
             ]);
             $new_place_id = DB::table('places')->insertGetId($new_place);
 

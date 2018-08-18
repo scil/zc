@@ -22,8 +22,8 @@ class CreateTreesTable extends Migration
             $table->string('master', 150)->nullable();
             $table->integer('master_id')->unsigned()->nullable();
             $table->string('desc', 200)->nullable();
-            $table->string('body', 3000)->nullable(); // markdown
-            $table->mediumText('md');
+            $table->string('md',7000);
+            $table->mediumText('body'); // markdown
             $table->string('contact', 1000)->nullable(); // markdown
             $table->string('buy', 1000)->nullable(); // markdown
 

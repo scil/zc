@@ -16,14 +16,14 @@ class ArticlesTableSeeder extends Seeder
         //
 //        File::cleanDirectory($this->freeDir);
 
-        DB::table('articles')->truncate();
+//        DB::table('articles')->truncate();
         DB::table('volumes')->truncate();
 
 //        $article_ids = require __DIR__ . '/article_ID.php';
         $person_ids = require __DIR__ . '/person_ID.php';
 
         $book_id = MENU_ITEMS["paper"]['id'];
-        $qing_id = MENU_ITEMS["green"]['id'];
+        $qing_id = MENU_ITEMS["being"]['id'];
 
         $ren_nature_id = MENU_ITEMS["human/nature"]['id'];
         $ren_id = MENU_ITEMS["human/road"]['id'];
@@ -39,7 +39,7 @@ class ArticlesTableSeeder extends Seeder
                 'slug' => 'Zi-ZhongYun',
                 'articleable_id' => $column_id,
                 'title' => '最珍惜独立人格',
-                'sub_title' => '一位 80 岁学者的升华人生',
+                'sub_title' => '一位 80 岁学者的独立之路',
                 'desc' => '少年时，她徜徉于文学和音乐，无心于世事；80 岁时，恬淡优雅的她常常感时忧世，「欲罢不能」。曾经，她天真愚善、「坦白一切」；后来，「能瞒就瞒」。走过上世纪阵阵风雨的资中筠，最珍惜的，是独立之人格。',
                 'intro' => '少年时，她徜徉于文学和音乐，无心于世事；80 岁时，恬淡优雅的她常常感时忧世，「欲罢不能」。曾经，她天真愚善、「坦白一切」；后来，「能瞒就瞒」。走过上世纪阵阵风雨的资中筠，最珍惜的，是独立之人格。',
                 'author' => '萧辉',
@@ -116,7 +116,7 @@ class ArticlesTableSeeder extends Seeder
                         'comment' => '',
 //                        '_place' => [
 //                            'name' => 'Kreditbanken 银行',
-//                            'name_en' => 'Kreditbanken',
+//                            'english_name' => 'Kreditbanken',
 //                            'addr' => 'Stockholm',
 //                            'address' => 'Norrmalmstorg square in Stockholm, Sweden',
 //                            'lat' => 59.333355,
@@ -385,7 +385,7 @@ class ArticlesTableSeeder extends Seeder
                     ]
                 ],
                 '_place' => [
-                    '_id' => DB::table('places')->where('name_en', 'Los Alamos')->first()->id,
+                    '_id' => DB::table('places')->where('english_name', 'Los Alamos')->first()->id,
                     'info' => [
                         'title' => '参加研制原子弹的 Manhattan Project',
                         'intro' => '成为人人避而远之的开锁贼。他满身的幽默感来自母亲。',
@@ -440,7 +440,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
                 '_place' => [
                     'name' => '湖北利川清江河',
-                    'name_en' => 'Qingjiang River',
+                    'english_name' => 'Qingjiang River',
                     'addr' => '湖北省恩施州利川市',
                     'lat' => 30.290963,
                     'lng' => 108.960458,
@@ -459,7 +459,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                'id' => $article_ids['Urbani'],
                 'slug' => 'Carlo-Urbani-SARS',
                 'articleable_id' => $column_id,
-                'title' => '他是利玛窦的教友和精神传人',
+                'title' => '他是利玛窦的教友和意大利同胞',
                 'sub_title' => '记抵御 SARS 病毒的医生 Urbani',
                 'desc' => 'Urbani 因为 SARS 而广为人知，是他的专业和尽心尽力遏制了病毒，而他的博爱胸怀，更让我们怀念。 ',
                 'intro' => '一场起于青萍之末的疫情，在“低调处理”中越变越大，染病的专业医生，携带着病毒，堂而皇之进入国际大都市，引爆了世界性传染。病毒闯入越南，一名从意大利半岛来到印度支那的医生，向世界发出了警讯；周围人风声鹤唳、四散奔逃，身在异乡的他，仍然坚守在那里，尽自己的最大努力，联系各方，建立起抵御病毒的防线。回顾他的一生，Urbani 好像同样来自意大利岛的天主教徒利玛窦，带着火种，送往文明的洼地。',
@@ -482,7 +482,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
                 '_place' => [
                     'name' => '河内法囶医院',
-                    'name_en' => 'French Hospital of Hanoi',
+                    'english_name' => 'French Hospital of Hanoi',
                     'addr' => 'Vietnam',
                     'lat' => 21.0039009,
                     'lng' => 105.838117,
@@ -534,7 +534,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                        ],
 ////                '_place'=>[
 ////                    'name' => '',
-////                    'name_en' => '',
+////                    'english_name' => '',
 ////                    'addr' => '',
 ////                    'address' =>'',
 ////                    'lat' => 31.244831,
@@ -593,7 +593,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
                 '_place' => [
                     'name' => '北碚卢作孚纪念馆',
-                    'name_en' => '',
+                    'english_name' => '',
                     'addr' => '重庆市北碚区',
                     'lat' => 29.8332376,
                     'lng' => 106.4371439,
@@ -622,7 +622,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'comment' => '',
                         '_place' => [
                             'name' => '国际乡村改造学院',
-                            'name_en' => 'International Institute of Rural Reconstruction',
+                            'english_name' => 'International Institute of Rural Reconstruction',
                             'addr' => 'Philippines',
                             'lat' => 14.2615652,
                             'lng' => 120.9674159,
@@ -674,7 +674,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                        ],
 ////                '_place'=>[
 ////                    'name' => '',
-////                    'name_en' => '',
+////                    'english_name' => '',
 ////                    'addr' => '',
 ////                    'address' =>'',
 ////                    'lat' => 31.244831,
@@ -718,7 +718,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
                 '_place' => [
                     'name' => '纽约城市大学布鲁克林学院(Brooklyn College)',
-                    'name_en' => 'Brooklyn College',
+                    'english_name' => 'Brooklyn College',
                     'addr' => 'New York',
                     'lat' => 40.9605098,
                     'lng' => -76.2633296,
@@ -789,7 +789,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
                 '_place' => [
                     'name' => '广东开平市第一中学',
-                    'name_en' => '',
+                    'english_name' => '',
                     'addr' => '广东江门开平市',
                     'address' => '广东省江门市开平市祥龙南路',
                     'lat' => 22.3252288,
@@ -824,7 +824,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                ],
 //                '_place' => [
 //                    'name' => '维克多·雨果之家',
-//                    'name_en' => 'Maison de Victor Hugo',
+//                    'english_name' => 'Maison de Victor Hugo',
 //                    'addr' => 'Paris, France',
 //                    'lat' => 48.8548007,
 //                    'lng' => 2.3640231,
@@ -859,7 +859,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
                 '_place' => [
                     'name' => '柯尼斯堡大教堂',
-                    'name_en' => 'Königsberg Cathedral',
+                    'english_name' => 'Königsberg Cathedral',
                     'addr' => '加里宁格勒, 俄罗斯',
                     'lat' => 54.7063834,
                     'lng' => 20.5098527,
@@ -1016,7 +1016,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
 //                '_place'=>[
 //                    'name' => '',
-//                    'name_en' => '',
+//                    'english_name' => '',
 //                    'addr' => '',
 //                    'address' =>'',
 //                    'lat' => 31.244831,
@@ -1063,7 +1063,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                        ],
 ////                '_place'=>[
 ////                    'name' => '',
-////                    'name_en' => '',
+////                    'english_name' => '',
 ////                    'addr' => '',
 ////                    'address' =>'',
 ////                    'lat' => 31.244831,
@@ -1128,7 +1128,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'comment' => '',
                         '_place' => [
                             'name' => 'Kreditbanken 银行',
-                            'name_en' => 'Kreditbanken',
+                            'english_name' => 'Kreditbanken',
                             'addr' => 'Stockholm',
                             'address' => 'Norrmalmstorg square in Stockholm, Sweden',
                             'lat' => 59.333355,
@@ -1164,7 +1164,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
                 '_place' => [
                     'name' => '曼多尔（东万律）',
-                    'name_en' => 'Mandor',
+                    'english_name' => 'Mandor',
                     'addr' => '印度尼西亚',
                     'address' => '',
                     'lat' => 0.328342,
@@ -1298,7 +1298,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         ],
 //                        '_place'=>[
 //                            'name' => '内蒙古武川县',
-//                            'name_en' => '',
+//                            'english_name' => '',
 //                            'addr' => '',
 //                            'address' =>'',
 //                            'lat' => 41.0480226,
@@ -1325,7 +1325,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 'comment' => '',
                 '_place' => [
                     'name' => '波士顿',
-                    'name_en' => 'Boston',
+                    'english_name' => 'Boston',
                     'addr' => 'MA',
                     'lat' => 42.3132882,
                     'lng' => -71.1972432,
@@ -1378,7 +1378,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
 //                        '_place'=>[
 //                            'name' => '内蒙古武川县',
-//                            'name_en' => '',
+//                            'english_name' => '',
 //                            'addr' => '',
 //                            'address' =>'',
 //                            'lat' => 41.0480226,
@@ -1412,7 +1412,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         ],
 //                        '_place'=>[
 //                            'name' => '内蒙古武川县',
-//                            'name_en' => '',
+//                            'english_name' => '',
 //                            'addr' => '',
 //                            'address' =>'',
 //                            'lat' => 41.0480226,
@@ -1439,7 +1439,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         ],
 //                        '_place'=>[
 //                            'name' => '内蒙古武川县',
-//                            'name_en' => '',
+//                            'english_name' => '',
 //                            'addr' => '',
 //                            'address' =>'',
 //                            'lat' => 41.0480226,
@@ -1466,7 +1466,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         ],
 //                        '_place'=>[
 //                            'name' => '内蒙古武川县',
-//                            'name_en' => '',
+//                            'english_name' => '',
 //                            'addr' => '',
 //                            'address' =>'',
 //                            'lat' => 41.0480226,
@@ -1520,7 +1520,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                             ],
 //                        '_place'=>[
 //                            'name' => '内蒙古武川县',
-//                            'name_en' => '',
+//                            'english_name' => '',
 //                            'addr' => '',
 //                            'address' =>'',
 //                            'lat' => 41.0480226,
@@ -1531,7 +1531,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     ],
                     '_place' => [
                         'name' => '时代廊桥幼儿园',
-                        'name_en' => '',
+                        'english_name' => '',
                         'addr' => '广州',
                         'address' => '',
                         'lat' => 23.0682177,
@@ -1593,7 +1593,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                     ],
                     '_place' => [
                         'name' => '津巴布韦总统府',
-                        'name_en' => 'State House',
+                        'english_name' => 'State House',
                         'lat' => -17.812124,
                         'lng' => 31.0557677,
                         'info' => [
@@ -1709,7 +1709,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                        'comment' => '',
 //                        '_place'=>[
 //                            'name' => '内蒙古武川县',
-//                            'name_en' => '',
+//                            'english_name' => '',
 //                            'addr' => '',
 //                            'address' =>'',
 //                            'lat' => 41.0480226,
@@ -1761,7 +1761,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                ],
 //                '_place' => [
 //                    'name' => '上海英美租界会审公廨（北浙江路）',
-//                    'name_en' => '',
+//                    'english_name' => '',
 //                    'addr' => '',
 //                    'address' => '',
 //                    'lat' => 31.244831,
@@ -1828,7 +1828,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                ],
 //                '_place' => [
 //                    'name' => '上海英美租界会审公廨（北浙江路）',
-//                    'name_en' => '',
+//                    'english_name' => '',
 //                    'addr' => '',
 //                    'address' => '',
 //                    'lat' => 31.244831,
@@ -1880,7 +1880,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
 //                '_place' => [
 //                    'name' => '尼姆鲁德',
-//                    'name_en' => 'Nimrud',
+//                    'english_name' => 'Nimrud',
 //                    'addr' => '',
 //                    'lat' => 36.065797,
 //                    'lng' => 43.2618086,
@@ -1892,7 +1892,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                ],
                 '_place' => [
                     'name' => '尼尼微',
-                    'name_en' => 'Nineveh',
+                    'english_name' => 'Nineveh',
                     'addr' => '',
                     'lat' => 36.3656815,
                     'lng' => 43.1566439,
@@ -1963,7 +1963,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'comment' => '',
 //                        '_place' => [
 //                            'name' => '尼姆鲁德',
-//                            'name_en' => 'Nimrud',
+//                            'english_name' => 'Nimrud',
 //                            'addr' => '',
 //                            'lat' => 36.065797,
 //                            'lng' => 43.2618086,
@@ -2012,7 +2012,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'comment' => '',
 //                        '_place' => [
 //                            'name' => '尼姆鲁德',
-//                            'name_en' => 'Nimrud',
+//                            'english_name' => 'Nimrud',
 //                            'addr' => '',
 //                            'lat' => 36.065797,
 //                            'lng' => 43.2618086,
@@ -2044,7 +2044,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'comment' => '',
 //                        '_place' => [
 //                            'name' => '尼姆鲁德',
-//                            'name_en' => 'Nimrud',
+//                            'english_name' => 'Nimrud',
 //                            'addr' => '',
 //                            'lat' => 36.065797,
 //                            'lng' => 43.2618086,
@@ -2091,7 +2091,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'comment' => '',
 //                        '_place' => [
 //                            'name' => '尼姆鲁德',
-//                            'name_en' => 'Nimrud',
+//                            'english_name' => 'Nimrud',
 //                            'addr' => '',
 //                            'lat' => 36.065797,
 //                            'lng' => 43.2618086,
@@ -2122,7 +2122,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'comment' => '',
 //                        '_place' => [
 //                            'name' => '上海英美租界会审公廨（北浙江路）',
-//                            'name_en' => '',
+//                            'english_name' => '',
 //                            'addr' => '',
 //                            'address' => '',
 //                            'lat' => 31.244831,
@@ -2156,7 +2156,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
                 '_place' => [
                     'name' => '上海英美租界会审公廨（北浙江路）',
-                    'name_en' => 'Mixed Court',
+                    'english_name' => 'Mixed Court',
                     'addr' => '',
                     'address' => '',
                     'lat' => 31.244831,
@@ -2227,7 +2227,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
                 '_place' => [
                     'name' => '罗马共和广场',
-                    'name_en' => 'Piazza della Repubblica',
+                    'english_name' => 'Piazza della Repubblica',
                     'addr' => '',
                     'address' => '',
                     'lat' => 42.9243543,
@@ -2297,7 +2297,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
                 '_place' => [
                     'name' => '巴塞尔',
-                    'name_en' => 'Basel',
+                    'english_name' => 'Basel',
                     'addr' => '',
                     'lat' => 47.5546492,
                     'lng' => 7.5594405,
@@ -2324,7 +2324,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'comment' => '',
 //                        '_place' => [
 //                            'name' => '巴塞尔',
-//                            'name_en' => 'Basel',
+//                            'english_name' => 'Basel',
 //                            'addr' => '',
 //                            'lat' => 47.5546492,
 //                            'lng' => 7.5594405,
@@ -2351,7 +2351,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'comment' => '',
 //                        '_place' => [
 //                            'name' => '巴塞尔',
-//                            'name_en' => 'Basel',
+//                            'english_name' => 'Basel',
 //                            'addr' => '',
 //                            'lat' => 47.5546492,
 //                            'lng' => 7.5594405,
@@ -2391,7 +2391,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 ],
                 '_place' => [
                     'name' => 'Runnymede',
-                    'name_en' => '',
+                    'english_name' => '',
                     'addr' => '',
                     'address' => 'Runnymede is a water-meadow alongside the River Thames in the English county of Surrey, and just over 20 miles (32 km) west of central London.',
                     'lat' => 51.3948093,
@@ -2424,7 +2424,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                ],
 //                '_place' => [
 //                    'name' => '加尔各答',
-//                    'name_en' => '',
+//                    'english_name' => '',
 //                    'addr' => '',
 //                    'address' => '',
 //                    'lat' => 22.6754807,
@@ -2457,7 +2457,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                 'comment' => '',
                 '_place' => [
                     'name' => '悉尼',
-                    'name_en' => 'Sydney',
+                    'english_name' => 'Sydney',
                     'addr' => 'Australia',
                     'address' => '',
                     'lat' => -33.8679049,
@@ -2492,7 +2492,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
                         'comment' => '',
                         '_place' => [
                             'name' => '孔庙',
-                            'name_en' => '',
+                            'english_name' => '',
                             'addr' => '山东曲阜',
                             'address' => '',
                             'lat' => 35.5968413,
@@ -2537,7 +2537,7 @@ looked lousy. If it looked good, I said it looked good. Simple proposition. I\'v
 //                        'comment' => '',
 //                        '_place'=>[
 //                            'name' => '荷兰',
-//                            'name_en' => 'Holland',
+//                            'english_name' => 'Holland',
 //                            'addr' => '',
 //                            'address' =>'',
 //                            'lat' => 52.1284512,

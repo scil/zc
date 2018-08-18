@@ -7,8 +7,8 @@ use function foo\func;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 if (defined('LARAVELFLY_MODE')) {
-    if (LARAVELFLY_MODE == 'Simple') {
-        class WhichKernel extends \LaravelFly\Simple\Kernel
+    if (LARAVELFLY_MODE == 'Backup') {
+        class WhichKernel extends \LaravelFly\Backup\Kernel
         {
         }
     } elseif (LARAVELFLY_MODE == 'Map') {
@@ -20,7 +20,7 @@ if (defined('LARAVELFLY_MODE')) {
         {
         }
     } else {
-        class WhichKernel extends \LaravelFly\Simple\Kernel
+        class WhichKernel extends \LaravelFly\Backup\Kernel
         {
         }
     }

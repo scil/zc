@@ -4,7 +4,6 @@
  is assigned the "web" middleware group
  */
 
-use App\Quote;
 use App\Volume;
 
 Route::get('/', 'CmsController@home');
@@ -13,16 +12,16 @@ Route::get('/', 'CmsController@home');
 //quote 必须在 article 前面，否则 human/so 不正常
 // column
 Route::get('/{qlist_url}', 'CmsController@viewQuoteColumn')
-    ->where('qlist_url', 'spirit|human/(so|indiv)|sail|sail/(walkers|assets|road)');
+    ->where('qlist_url', 'spirit|human/(country|Indiv)|sail|sail/(walkers|assets|road)');
 //item
 Route::get('/{qprefix_url}/{slug}', 'CmsController@viewShanShuiQuote')
-    ->where('qprefix_url', 'spirit|human/(so|indiv)|sail');
+    ->where('qprefix_url', 'spirit|human/(country|Indiv)|sail');
 
 //article
 // column
-Route::get('/{mlist_url}', 'CmsController@viewArticleColumn')->where('mlist_url', 'green|paper|human|human/road|human/nature|zhen');
+Route::get('/{mlist_url}', 'CmsController@viewArticleColumn')->where('mlist_url', 'being|paper|human|human/road|human/nature|zhen');
 //item
-Route::get('/{prefix_url}/{slug}', 'CmsController@viewColumnArticle')->where('prefix_url', 'green|paper|human|human/road|human/nature|zhen');
+Route::get('/{prefix_url}/{slug}', 'CmsController@viewColumnArticle')->where('prefix_url', 'being|paper|human|human/road|human/nature|zhen');
 
 Route::get('/article/{slug}', 'CmsController@viewColumnArticle');
 Route::get('/article/{slug}/edit', 'CmsController@editArticle');
@@ -39,40 +38,66 @@ Route::get('/video/{slug?}', 'CmsController@viewVideo');
 
 Route::get('/country/{sub?}', 'CmsController@country');
 Route::get('/hall', 'CountryController@hall');
-Route::get('/tree/{sub?}', 'CountryController@tree');
+Route::get('/bay/{sub?}', 'CountryController@bay');
 Route::get('/pass/{sub?}', 'CountryController@pass');
 Route::get('/ferry/{sub?}', 'CountryController@ferry');
 
 Route::get('/new_article', 'CmsController@createArticle');
 Route::post('/new_article', 'CmsController@storeArticle');
 
-//return;
-Route::get('/tinker',function (){
-  eval(tinker());
+Route::redirect('/green', '/being', 301);
+Route::redirect('/tree', '/bay', 301);
+Route::redirect('/tree/about', '/bay/about', 301);
+Route::get('/green/{slug}', function ($slug) {
+    return redirect("/being/$slug", 301);
+});
+
+
+Route::get('/tinker', function () {
+    eval(tinker());
 });
 
 Route::get('/memoryInRouteClosure', function () {
 
-    static $i=0;
-    $dif= memory_get_usage()-$i;
-    $i=memory_get_usage();
+    static $i = 0;
+    $dif = memory_get_usage() - $i;
+    $i = memory_get_usage();
     return $dif;
 });
 
 Route::get('/test', function () {
-//    static $i=0;
-//    $i++;
-//    $d=date('h-i-s');
-//    return $i;
+return 854;
+    Schema::dropIfExists('test_articles');
+    Schema::create('test_articles', function ($table) {
+        $table->enum('type', ['first', 'normal', 'note']);
+    }
+    );
+    $items = [
+        ['type' => 'first'],
+        ['type' => 'note'],
+        ['type' => 'first'],
+        ['type' => 'normal'],
+        ['type' => 'first'],
+    ];
 
+    foreach ($items as $item) {
+        \DB::table('test_articles')->insert($item);
+    }
+
+    return \DB::table('test_articles')
+        ->orderByRaw("FIELD(type, 'first', 'normal', 'note')")
+//        ->orderBy('type')
+        ->get(['type',]);
+
+    return \Cache::get('home2_data', 'empty');
 
     static $all = [[0, 0, 0]];
 //    $all=app('mem');
     $all[] = [$m = memory_get_usage(false), memory_get_peak_usage(false), $m - last($all)[0]];
 
-    $r='';
-    foreach ($all as $line){
-       $r =$r. implode('  ,',$line)."<br>" ;
+    $r = '';
+    foreach ($all as $line) {
+        $r = $r . implode('  ,', $line) . "<br>";
     }
     return $r;
 
@@ -89,10 +114,10 @@ Route::get('/test2', function () {
 return;
 
 Route::get('/people', function () {
-    return redirect("/green", 301);
+    return redirect("/being", 301);
 });
 Route::get('/people/{slug}', function ($slug) {
-    return redirect("/green/$slug", 301);
+    return redirect("/being/$slug", 301);
 });
 
 

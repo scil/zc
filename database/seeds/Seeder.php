@@ -83,14 +83,28 @@ class Seeder extends BaseSeeder
             $this->encodeFieldsIndependently($item, $key, ['author', 'comment']);
 
             if ($quoteable_id) {
-                $item['quoteable_id'] = $quoteable_id;
+                $item['articleable_id'] = $quoteable_id;
             }
             if ($quoteable_type) {
-                $item['quoteable_type'] = $quoteable_type;
+                $item['articleable_type'] = $quoteable_type;
             }
 
+            if($item['quoteable_type']??null){
+                $item['articleable_type'] = $item['quoteable_type'];
+                $item['articleable_id'] = $quoteable_id ?? $item['quoteable_id'];
+                unset($item['quoteable_type'], $item['quoteable_id']);
+            }
+            if($item['articleable_type'] == 'Article'){
+                $item['articleable_type'] = 'App\Article';
+            }
 
-            $this->encodeBody($item, $key, 'body', 'md', false);
+            if(!isset($item['intro']))
+            {
+                $item['intro'] = $item['body'];
+                unset($item['body']);
+            }
+
+            $this->encodeBody($item, $key, 'intro', 'intro_md', false);
             if (isset($item['body_long'])) {
                 if ('_' === $item['body_long']) unset($item['body_long']); // 使用文件
                 $this->encodeBody($item, $key, 'body_long', 'md_long', true);
@@ -99,9 +113,9 @@ class Seeder extends BaseSeeder
 
             $place_infos = [];
             if (isset($item['_place'])) {
-                $place_infos = $this->insertPlaces([$item['_place']], 'App\Quote');
+                $place_infos = $this->insertPlaces([$item['_place']], 'App\Article');
             } elseif (isset($item['_places'])) {
-                $place_infos = $this->insertPlaces($item['_places'], 'App\Quote');
+                $place_infos = $this->insertPlaces($item['_places'], 'App\Article');
             }
 
             if (isset($item['_image'])) {
@@ -119,8 +133,34 @@ class Seeder extends BaseSeeder
                 $item[$k] = $v;
             }
 
-            $qID = DB::table('quotes')->insertGetId($item);
 
+            $body = $item['body_long'] ?? null;
+            $md = $item['md_long'] ?? null;
+            unset($item['body_long'], $item['md_long']);
+            if($body){
+                $item['short'] = 3;
+            }else{
+                $item['short'] = 2;
+
+            }
+
+            // $qID = DB::table('quotes')->insertGetId($item);
+            $qID = DB::table('articles')->insertGetId($item);
+
+            if ($body)
+                DB::table('contents')->insert([
+                    'body' => $body,
+//                    'contentable_type' => 'App\Quote',
+                    'article_id' => $qID,
+                ]);
+            if ($md) {
+                DB::table('contents')->insert([
+                    'body' => $md,
+                    'md' => true,
+//                    'contentable_type' => 'App\Quote',
+                    'article_id' => $qID,
+                ]);
+            }
 
             $this->insertPlaceInfos($place_infos, $qID);
 
@@ -164,8 +204,8 @@ class Seeder extends BaseSeeder
             } elseif (isset($place['_name'])) {
                 $id = DB::table('places')->where('name', $place['_name'])->first()->id;
             } else {
-                if (!($place['name'] ?? null) && isset($place['name_en'])) {
-                    $place['name'] = $place['name_en'];
+                if (!($place['name'] ?? null) && isset($place['english_name'])) {
+                    $place['name'] = $place['english_name'];
                 }
 
                 $id = DB::table('places')->insertGetId($place);
@@ -240,7 +280,25 @@ class Seeder extends BaseSeeder
             $this->encodeFieldsIndependently($article, $_slug, ['title',]);
 
 
+            $body = $article['body'];
+            $md = $article['md'] ?? null;
+            unset($article['body'], $article['md']);
+
             $articleID = DB::table('articles')->insertGetId($article);
+
+            DB::table('contents')->insert([
+                'body' => $body,
+//                'contentable_type' => 'App\Article',
+                'article_id' => $articleID,
+            ]);
+            if ($md) {
+                DB::table('contents')->insert([
+                    'body' => $md,
+                    'md' => true,
+//                    'contentable_type' => 'App\Article',
+                    'article_id' => $articleID,
+                ]);
+            }
 
             if ($notes) {
                 $this->addArticles($notes, 'note', $articleable_id, $articleable_type, $volume_id);

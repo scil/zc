@@ -18,11 +18,11 @@
     'a' => 
     array (
       0 => 4,
-      1 => 6,
+      1 => 5,
     ),
     'q' => 
     array (
-      0 => 5,
+      0 => 6,
     ),
   ),
   'human' => 
@@ -67,14 +67,14 @@
   'country' => 
   array (
     'id' => 19,
-    'name' => '山脚下',
+    'name' => '山水畔',
   ),
-  'tree' => 
+  'bay' => 
   array (
     'id' => 20,
-    'name' => '三角树',
+    'name' => '三角湾',
     'desc' => '企园。',
-    'title' => '真城三角树',
+    'title' => '真城三角湾',
     'a' => 
     array (
     ),
@@ -89,40 +89,40 @@
     'desc' => '真城山关',
     'title' => '真城山关',
   ),
-  'tree_menu' => 
+  'bay_menu' => 
   array (
     'id' => 25,
-    'name' => '三角树',
+    'name' => '三角湾',
   ),
-  'green' => 
+  'being' => 
   array (
     'id' => 4,
-    'name' => '山青',
+    'name' => '真身',
     'short_name' => '人',
     'css' => '2',
     'desc' => '青泉到海流不息',
-    'title' => '山青 &nbsp;|&nbsp; 真城',
-    'ctitle' => '山青 &nbsp;|&nbsp; 真城',
-  ),
-  'spirit' => 
-  array (
-    'id' => 5,
-    'name' => '真意',
-    'short_name' => '意',
-    'css' => '3',
-    'desc' => '此中有真意',
-    'title' => '真意 &nbsp;|&nbsp; 真城',
-    'ctitle' => '真意 &nbsp;|&nbsp; 真城',
+    'title' => '真身 &nbsp;|&nbsp; 真城',
+    'ctitle' => '真身 &nbsp;|&nbsp; 真城',
   ),
   'paper' => 
   array (
-    'id' => 6,
+    'id' => 5,
     'name' => '山书',
     'short_name' => '书',
     'css' => '1',
     'desc' => '岭上多白云',
     'title' => '山书 &nbsp;|&nbsp; 真城',
     'ctitle' => '山书 &nbsp;|&nbsp; 真城',
+  ),
+  'spirit' => 
+  array (
+    'id' => 6,
+    'name' => '真意',
+    'short_name' => '意',
+    'css' => '3',
+    'desc' => '此中有真意',
+    'title' => '真意 &nbsp;|&nbsp; 真城',
+    'ctitle' => '真意 &nbsp;|&nbsp; 真城',
   ),
   'human/nature' => 
   array (
@@ -144,7 +144,7 @@
     'title' => '人之路 &nbsp;|&nbsp; 真城',
     'ctitle' => '人路 &nbsp;|&nbsp; 真城',
   ),
-  'human/so' => 
+  'human/country' => 
   array (
     'id' => 10,
     'name' => '这样',
@@ -154,15 +154,15 @@
     'title' => '这样 &nbsp;|&nbsp; 真城',
     'ctitle' => '这样 &nbsp;|&nbsp; 真城',
   ),
-  'human/indiv' => 
+  'human/Indiv' => 
   array (
     'id' => 11,
-    'name' => '个体',
+    'name' => '个体树',
     'short_name' => '个',
     'css' => 'q',
     'desc' => '天地，人',
-    'title' => '个体 &nbsp;|&nbsp; 真城',
-    'ctitle' => '个体 &nbsp;|&nbsp; 真城',
+    'title' => '个体树 &nbsp;|&nbsp; 真城',
+    'ctitle' => '个体树 &nbsp;|&nbsp; 真城',
   ),
   'sail/walkers' => 
   array (
@@ -173,23 +173,23 @@
     'desc' => '从远方而来，向远方而去',
     'title' => '行者 &nbsp;|&nbsp; 越海',
   ),
-  'sail/assets' => 
-  array (
-    'id' => 14,
-    'name' => '财艺',
-    'short_name' => '财',
-    'css' => '2',
-    'desc' => '我们坐享着几千年的财富。',
-    'title' => '财艺 &nbsp;|&nbsp; 越海',
-  ),
   'sail/road' => 
   array (
-    'id' => 15,
+    'id' => 14,
     'name' => '知道',
     'short_name' => '道',
     'css' => 'q',
     'desc' => '人之知，行之道。',
     'title' => '知道 &nbsp;|&nbsp; 越海',
+  ),
+  'sail/assets' => 
+  array (
+    'id' => 15,
+    'name' => '财艺',
+    'short_name' => '财',
+    'css' => '2',
+    'desc' => '一点又一点',
+    'title' => '财艺 &nbsp;|&nbsp; 越海',
   ),
   'book' => 
   array (
@@ -207,12 +207,12 @@
     'title' => '视窗 &nbsp;|&nbsp; 真城',
     'ctitle' => '真城视窗',
   ),
-  'tree/why' => 
+  'bay/about' => 
   array (
     'id' => 21,
-    'name' => '倒三角',
-    'desc' => '三角树的名字来自马斯洛的需求模型。',
-    'title' => '为什么用倒三角 &nbsp;|&nbsp; 真城三角树',
+    'name' => '介绍',
+    'desc' => '三角湾的名字来自马斯洛的需求模型。',
+    'title' => '介绍 &nbsp;|&nbsp; 真城三角湾',
   ),
   'hall' => 
   array (
@@ -228,37 +228,42 @@
     'desc' => '从这里，到真城',
     'title' => '真城渡口',
   ),
-  'tree/law' => 
+  'bay/law' => 
   array (
     'id' => 26,
-    'name' => '规则树',
-    'desc' => '共同遵守的规则是共同体的基础。',
+    'name' => '规则',
+    'desc' => '规则是系统的核心。',
   ),
-  'tree/play' => 
+  'bay/play' => 
   array (
     'id' => 27,
-    'name' => '儿童树',
+    'name' => '教育',
   ),
-  'tree/think' => 
+  'bay/read' => 
   array (
     'id' => 28,
-    'name' => '思维树',
+    'name' => '阅读',
     'desc' => '书籍/知识/资讯',
   ),
-  'tree/eat' => 
+  'bay/learn' => 
   array (
     'id' => 29,
-    'name' => '吃喝树',
+    'name' => '学习',
   ),
-  'tree/health' => 
+  'bay/food' => 
   array (
     'id' => 30,
-    'name' => '健康树',
-    'desc' => '健康，医疗。',
+    'name' => '饮食',
   ),
-  'tree/colorful' => 
+  'bay/health' => 
   array (
     'id' => 31,
-    'name' => '五彩树',
+    'name' => '健康',
+    'desc' => '健康，医疗。',
+  ),
+  'bay/other' => 
+  array (
+    'id' => 32,
+    'name' => '其它',
   ),
 )   ; ?>

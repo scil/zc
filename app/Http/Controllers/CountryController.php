@@ -21,22 +21,22 @@ class CountryController extends Controller
         return view("country.$sub", compact('columnID', 'title', 'desc'));
     }
 
-    function tree($sub = null)
+    function bay($sub = null)
     {
 
-        $menu = MENU_ITEMS["tree"];
+        $menu = MENU_ITEMS["bay"];
 
         if ($sub === null) {
-            return view("country.tree", [
+            return view("country.bay", [
                 'title' => $menu['title'],
                 'desc' => $menu['desc'],
                 'columnID' => $menu['id']
             ]);
         }
-        return view("country.tree.$sub", [
-            'columnID' => MENU_ITEMS["tree/$sub"]['id'],
-            'title' => MENU_ITEMS["tree/$sub"]['title'],
-            'desc' => MENU_ITEMS["tree/$sub"]['desc'],
+        return view("country.bay.$sub", [
+            'columnID' => MENU_ITEMS["bay/$sub"]['id'],
+            'title' => MENU_ITEMS["bay/$sub"]['title'],
+            'desc' => MENU_ITEMS["bay/$sub"]['desc'],
         ]);
 
     }

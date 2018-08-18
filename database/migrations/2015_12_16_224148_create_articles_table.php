@@ -14,14 +14,20 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
-//            $table->integer('no')->unsigned()->nullable();
             $table->string('slug',70)->nullable();
 
-            $table->string('title',50);
+            $table->string('title',50)->nullable();
             $table->string('sub_title',50)->nullable();
-            $table->string('desc',200)->nullable();
-            $table->mediumText('body');
-            $table->mediumText('md');
+            $table->string('desc',200)->nullable(); // <meta desc> or  show on map
+            $table->string('intro',1300)->nullable(); // 用处：描述、作为相关信息时展示、文章列表时显示
+            $table->string('intro_md',1500)->nullable(); // 用处：描述、作为相关信息时展示、文章列表时显示
+
+            $table->integer('image_id')->unsigned()->nullable();
+
+            // todo 如果以后需要表示月、日，那可把类型改为小数 如92.0321 sig仍然只针对年数
+            $table->integer('year')->nullable();
+            // 有效数字，但 -1表示: extact
+            $table->tinyInteger('sig')->default(-1);
 
             $table->string('author')->nullable(); //来源，注意这是给读者看的，如果没用的(如没多大用的作者信息)就不需要显示在这里，显示在tip
             $table->integer('author_id')->unsigned()->nullable();
@@ -34,11 +40,11 @@ class CreateArticlesTable extends Migration
 
 //            $table->integer('reference_id')->unsigned()->nullable();
             
-//            $table->integer('top_quote_id')->unsigned()->nullable(); // top quote
+//            $table->boolean('link')->default(0); // 不显示全文，只显示摘要，全文要到原地址去
+//            $table->enum('long',['has','link'])->nullable();
+            // 0: article; 1: show link ; 2: quote; 3: quote has long ; 4: show link
+            $table->tinyInteger('short')->default(0);
 
-            $table->boolean('link')->default(0); // 不显示全文，只显示摘要，全文要到原地址去
-
-            $table->string('intro',500); // 用处：描述、作为相关信息时展示、文章列表时显示
             // 不独立成字段了，方便使用markdown
 //            $table->string('preface',1000)->nullable();
 //            $table->string('note', 500)->nullable();
@@ -53,14 +59,19 @@ class CreateArticlesTable extends Migration
 
             $table->integer('editor_id')->unsigned()->default(1); // 编辑是谁
 
+            $table->integer('page_counter')->unsigned()->default(1);
+
             $table->integer('volume_id')->unsigned()->nullable();
 
-            $table->enum('articleable_type',['App\\\\Column','App\\\\Video','App\\\\Book']);
+            $table->enum('articleable_type',[
+                'App\\\\Article',  // this one is only for Quote
+                'App\\\\Column',
+                'App\\\\Video',
+                'App\\\\Book']);
             $table->integer('articleable_id')->unsigned();
             $table->tinyInteger('order')->unsigned()->default(0);
             $table->enum('type',[
                 'first','normal',
-                // 'note', del
 
                 // dispute book or video 的争议
                 // quote 书籍长篇文章的quote
@@ -69,14 +80,29 @@ class CreateArticlesTable extends Migration
                 // review 评论文
                 'discuss',
                 'quote','script',
-                'select','review'])->default('first');
-            $table->unique(['articleable_type','articleable_id','slug']);
+                'select','review',
+
+
+                // for Quote
+                // top 指放到文章最上头显示；
+                // Book/Video:
+                //  comment 是评论
+                // suggestion 参考
+                //  origin ? 用 BookQuote
+                'top', 'tail', 'comment',
+                'spoiler_comment',
+                'suggestion'
+
+            ])->default('first')->nullable();
 
 //            $table->integer('place_id')->unsigned()->nullable();
 //            $table->string('place_intro')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
+
+            $table->unique(['articleable_type','articleable_id','slug']);
+            $table->index('slug');
 
         });
     }

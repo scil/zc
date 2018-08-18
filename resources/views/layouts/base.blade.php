@@ -146,7 +146,7 @@ M;
 
 
         </div>
-        <p id="copyright">All rights reserved.</p>
+        <p id="copyright">真城是一个山水城邦，山水无形，山水有形</p>
     </div>
 </footer>
 

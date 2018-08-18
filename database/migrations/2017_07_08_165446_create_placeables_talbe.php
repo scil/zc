@@ -18,10 +18,11 @@ class CreatePlaceablesTalbe extends Migration
 
             $table->integer('place_id')->unsigned();
 
-            $table->enum('placeable_type',['App\\\\Experience','App\\\\Article','App\\\\Quote','App\\\\Book','App\\\\Video','App\\\\Tree'])->nullable(); // 用在 Article 时，不是代表引用(文章的引用都是markdown内置)，而是代表推荐文章或链接
+            $table->enum('placeable_type',['App\\\\Experience','App\\\\Article','App\\\\Book','App\\\\Video','App\\\\Tree'])->nullable(); // 用在 Article 时，不是代表引用(文章的引用都是markdown内置)，而是代表推荐文章或链接
             $table->integer('placeable_id')->unsigned();
 
             $table->string('place_name')->nullable();  // 自定义地点的显示名字
+            $table->string('place_english_name',60)->nullable();
             $table->string('title',100)->nullable(); // markdown
             $table->string('intro',800)->nullable(); // markdown
             $table->boolean('relation')->default(true); // 是否和内容严格相关

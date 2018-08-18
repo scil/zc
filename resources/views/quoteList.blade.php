@@ -16,7 +16,7 @@
                             <?php $a_place = $quote->places[0];$IDs[] = $quote->id;  ?>
                             <?php
                             $mapInfosByItemID[$quote->id] = [
-                                'addr' => $a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en,
+                                'addr' => $a_place->pivot->place_name ?? $a_place->name ?? $a_place->english_name,
                                 'title' => $a_place->pivot->title,
                                 'intro' => $a_place->pivot->intro
                             ];
@@ -43,7 +43,7 @@
                                         {!! $quote->title !!}{!! $quote->sub_title?' —— '. $quote->sub_title :'' !!}</a>
                                 </h1>
                             </header>
-                            <div class="QL-item-body">{!! $quote->body !!}</div>
+                            <div class="QL-item-body">{!! $quote->intro !!}</div>
                             @if($quote->image)
                                 <img src="{!! $quote->image->url?:$quote->image->local !!}"
                                      alt="{!! $quote->image->alt !!}"

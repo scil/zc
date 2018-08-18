@@ -21,7 +21,7 @@
                         <?php $IDs[] = $place->id ;  ?>
                         <?php
                         $mapInfosByPlaceID[$place->id] = [
-                            'addr' => $place->pivot->place_name ?? $place->name ?? $place->name_en,
+                            'addr' => $place->pivot->place_name ?? $place->name ?? $place->english_name,
                             'title' => $place->pivot->title,
                             'intro' => $place->pivot->intro];
                         ?>
@@ -64,7 +64,7 @@
                         </div>
                     @else
                         <blockquote id="QItem" class="z-free">
-                            {!! $quote->body_long ?? $quote->body !!}
+                            {!! $quote->body_long ?? $quote->intro !!}
                             @unless($quote->title)
                                 <cite class="cite-tail-right quote-item-cite"><a target="_blank"
                                                                                  href="{!! $quote->origin_url !!}">{!! $quote->author !!}</a></cite>

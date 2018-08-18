@@ -16,8 +16,7 @@
 
                         <div class="quote-text" style="margin-top: 4.5%; margin-bottom: 0%;">
                             <div>
-                                <p id="TREE-Q"><a href="https://www.zhihu.com/question/22463701/answer/108867516"
-                                                  target="_blank">自繇yóu提供可能 自由创造可能</a></p>
+                                <p id="TREE-Q">三角湾</p>
                             </div>
                         </div>
                     </div>

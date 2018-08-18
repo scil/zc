@@ -25,10 +25,10 @@ class CreateVideosTable extends Migration
             $table->integer('image_id')->unsigned()->nullable();
             $table->string('slug',100)->unique()->nullable();
             $table->string('name',50);
-            $table->string('other_names',300)->nullable(); // 其它汉语名字,格式为: 钢锯岭 / 钢铁英雄(台)
-            $table->string('origin_name',100)->nullable(); // 格式为: XXX( fr )
-            $table->string('name_en',60)->nullable(); // 如果原名即en 则空白
-            $table->string('names',300)->nullable(); // 其它语言的名字,格式为: ja:日语1|日语2;fr:法语1
+            $table->string('other_names',300)->nullable(); // 其它汉语名字,格式为: 钢锯岭\钢铁英雄(台)
+            $table->string('native_name',100)->nullable(); // 格式为: fr \ XXX
+            $table->string('english_name',60)->nullable(); // 如果原名即en 则空白
+            $table->string('names',300)->nullable(); // 其它语言的名字,格式为: ja\\日语1\日语2;fr\\法语1
 
 //            $table->string('pic',150);
 

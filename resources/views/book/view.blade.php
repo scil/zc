@@ -53,7 +53,7 @@
                                                                        alt="{!! $media->image->alt !!}"{!! $media->image->style ? 'style="'.$media->image->style.'"':'' !!} >
                             </div>
                             <ul id="M-info-list" class="list-unstyled pull-left">
-                                <li><span class="li-name">英名: </span>{!! $media->name_en !!}</li>
+                                <li><span class="li-name">英名: </span>{!! $media->english_name !!}</li>
                                 @if($media->other_names || $meida->names)
                                     <li>
                                         <span class="li-name">又名: </span>{!! $media->other_names !!} {!! $media->names !!}

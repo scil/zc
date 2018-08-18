@@ -15,31 +15,31 @@ class CmsController extends Controller
 
     function home()
     {
-        list($IDs, $plots,$articles) = \Cache::remember('home_data', 60 * 24, function () {
+        list($IDs, $plots, $articles) = \Cache::remember('home_data', 60 * 24, function () {
 
-            $vols = Volume::with(['firstArticlesSimple.places'])->where('column_id', MENU_ITEMS['green']['id'])->orderBy('no', 'desc')->get();
-            $IDs["/green"] = [];
-            $plots["/green"] = [];
+            $vols = Volume::with(['firstArticlesSimple.places'])->where('column_id', MENU_ITEMS['being']['id'])->orderBy('no', 'desc')->get();
+            $IDs["/being"] = [];
+            $plots["/being"] = [];
             foreach ($vols as $vol) {
                 foreach ($vol->firstArticlesSimple as $item) {
                     if ($item->places->count() > 0) {
                         $a_place = $item->places[0];
-                        $text = ($a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en).($a_place->pivot->title?" · ".$a_place->pivot->title:'');
-                        $IDs["/green"][] = $item->id;
-                        $plots["/green"][$item->id] = [
+                        $text = ($a_place->pivot->place_name ?? $a_place->name ?? $a_place->english_name) . ($a_place->pivot->title ? " · " . $a_place->pivot->title : '');
+                        $IDs["/being"][] = $item->id;
+                        $plots["/being"][$item->id] = [
                             'latitude' => $a_place->lat,
                             'longitude' => $a_place->lng,
                             'tooltip' => ['content' => "<span style=\"font-weight:normal;\">{$item->title}</span><br><span style='font-size:90%'>{$item->sub_title}</span>"],
                             'text' => ['content' => $text,
 //                                "position"=>'top',
-                                'margin'=>[
-                                    'x' => 4, 'y'=>-1
+                                'margin' => [
+                                    'x' => 4, 'y' => -1
                                 ],
-                                "attrs"=>["font-size"=>12,"text-anchor"=>'start','opacity'=>0],
-                                "attrsHover"=>["font-size"=>12,"text-anchor"=>'start','opacity'=>1,"fill"=>'#2461a3'],
+                                "attrs" => ["font-size" => 12, "text-anchor" => 'start', 'opacity' => 0],
+                                "attrsHover" => ["font-size" => 12, "text-anchor" => 'start', 'opacity' => 1, "fill" => '#2461a3'],
 
                             ],
-                            'href' => "/green/{$item->slug}",
+                            'href' => "/being/{$item->slug}",
                             'title' => $item->title,
                             'desc' => $item->desc,
                         ];
@@ -47,23 +47,23 @@ class CmsController extends Controller
                 }
             }
 
-            foreach (['spirit', 'human/indiv'] as $url) {
+            foreach (['spirit', 'human/Indiv'] as $url) {
 
-                $quotes = Quote::with('places', 'quoteable')
+                $quotes = Article::with('places', 'articleable')
                     ->orderBy('order', 'desc')
-                    ->where('quoteable_type', 'App\Column')
-                    ->where('quoteable_id', MENU_ITEMS[$url]['id'])
-                    ->select(['id', 'order', 'slug', 'title', 'desc', 'body',
-                        \DB::raw('if(isnull(body_long),0,if(body_long="",0,1)) as b_long'),
+                    ->where('articleable_type', 'App\Column')
+                    ->where('articleable_id', MENU_ITEMS[$url]['id'])
+                    ->select(['id', 'order', 'slug', 'title', 'desc', 'intro',
+                        \DB::raw('if(short>2,1,0) as b_long'),
                         'origin_url', 'origin', 'author',
-                        'image_id', 'quoteable_id', 'quoteable_type'])
+                        'image_id', 'articleable_id', 'articleable_type'])
                     ->get();
                 $IDs["/$url"] = [];
                 $plots["/$url"] = [];
                 foreach ($quotes as $item) {
                     if ($item->places->count() > 0) {
                         $a_place = $item->places[0];
-                        $text = ($a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en).($a_place->pivot->title?" · ".$a_place->pivot->title:'');
+                        $text = ($a_place->pivot->place_name ?? $a_place->name ?? $a_place->english_name) . ($a_place->pivot->title ? " · " . $a_place->pivot->title : '');
                         $IDs["/$url"][] = $a_place->id;
                         $plots["/$url"][$a_place->id] = [
                             'latitude' => $a_place->lat,
@@ -72,11 +72,11 @@ class CmsController extends Controller
                             'tooltip' => ['content' => "<span style=\"font-weight:normal;\">{$item->title}</span><br><span style='font-size:90%'>{$item->desc}</span>"],
                             'text' => ['content' => $text,
 //                                "position"=>'top',
-                                'margin'=>[
-                                    'x' => 4, 'y'=>-1
+                                'margin' => [
+                                    'x' => 4, 'y' => -1
                                 ],
-                                "attrs"=>["font-size"=>12,"text-anchor"=>'start','opacity'=>0],
-                                "attrsHover"=>["font-size"=>12,"text-anchor"=>'start','opacity'=>1,"fill"=>'#2461a3'],
+                                "attrs" => ["font-size" => 12, "text-anchor" => 'start', 'opacity' => 0],
+                                "attrsHover" => ["font-size" => 12, "text-anchor" => 'start', 'opacity' => 1, "fill" => '#2461a3'],
 
                             ],
                             'href' => "/$url/{$item->slug}",
@@ -87,12 +87,12 @@ class CmsController extends Controller
 
             }
 
-            return [json_encode($IDs), json_encode($plots),$plots['/green']];
+            return [json_encode($IDs), json_encode($plots), $plots['/being']];
         });
-       $columnID = 0;
-       $articleID=3;
+        $columnID = 0;
+        $articleID = 28;
 
-        return view('home', compact('columnID','IDs','plots','articles','articleID'));
+        return view('home', compact('columnID', 'IDs', 'plots', 'articles', 'articleID'));
     }
 
 
@@ -102,7 +102,7 @@ class CmsController extends Controller
         $columnID = MENU_ITEMS[$prefix]['id'];
         $column_name = MENU_ITEMS[$prefix]['name'];
 
-        $article = Article::with('volume', 'volume.articles', 'volume.person.experiences.places', 'quotes', 'topQuotes', 'tailQuotes', 'references')
+        $article = Article::with('volume', 'volume.articles', 'volume.person.experiences.places', 'htmls', 'quotes', 'topQuotes.htmls', 'tailQuotes.htmls', 'references')
             ->where(
                 'slug', $slug
             )->first();
@@ -204,11 +204,11 @@ class CmsController extends Controller
     function viewQuote($slug)
     {
         $slug = 'beauty-in-her-eyes';
-        $quote = Quote::with('quoteable')->where([
+        $quote = Article::with('articleable')->where([
             ['slug', '=', $slug]
         ])->first();
 
-        return $columnID = $quote->quoteable->id;
+        return $columnID = $quote->articleable->id;
 
         return view('quote.view', compact('quote', 'columnID'));
 
@@ -216,12 +216,16 @@ class CmsController extends Controller
 
     function viewMediaSpecialQuote($slug, $type, $media_type)
     {
-        $quote = Quote::with('quoteable')->where([
+        $quote = Article::with(['articleable', 'htmls' => function ($q) {
+            $q->first();
+        }])->where([
             ['slug', '=', $slug . '---' . $type]
         ])->first();
 
+        $quote->body = $quote->htmls->body;
+
         $columnID = MENU_ITEMS['video']['id'];
-        $media = $quote->quoteable;
+        $media = $quote->articleable;
 
         $title = $media->name . ' ' . $type;
         $desc = '';
@@ -232,16 +236,22 @@ class CmsController extends Controller
 
     function viewShanShuiQuote($prefix, $slug)
     {
-        $quote = Quote::
-        with(['places', 'image', 'quoteable' => function ($query) {
-            $query->select('id');
-        }])->
+        $quote = Article::
+        with(['places', 'image',
+            'articleable' => function ($query) {
+                $query->select('id');
+            },
+            'htmls'
+        ])->
         where([
             ['slug', '=', $slug]
         ])->first();
 
+        if ($quote->htmls->count()>0)
+            $quote->body_long = $quote->htmls->body;
+
         $title = $quote->title . ' &nbsp;|&nbsp; ' . MENU_ITEMS[$prefix]['ctitle'];
-        $columnID = $quote->quoteable->id;
+        $columnID = $quote->articleable->id;
 
         return view('quote.view', compact('quote', 'columnID', 'title'));
 
@@ -258,24 +268,24 @@ class CmsController extends Controller
 
         if ($url === 'sail') {
             $columnLevel = 2;
-            $quotes = Quote::with('places', 'image', 'quoteable')
+            $quotes = Article::with('places', 'image', 'articleable')
                 ->orderBy('order', 'desc')
-                ->where('quoteable_type', 'App\Column')
-                ->whereIn('quoteable_id', $columnInfo['q'])
-                ->select(['id', 'order', 'slug', 'title', 'sub_title', 'body',
-                    \DB::raw('if(isnull(body_long),0,if(body_long="",0,1)) as b_long'),
+                ->where('articleable_type', 'App\Column')
+                ->whereIn('articleable_id', $columnInfo['q'])
+                ->select(['id', 'order', 'slug', 'title', 'sub_title', 'intro',
+                    \DB::raw('if(short>2,1,0) as b_long'),
                     'origin_url', 'origin', 'author',
-                    'image_id', 'quoteable_id', 'quoteable_type'])
+                    'image_id', 'articleable_id', 'articleable_type'])
                 ->get();
 
         } else {
             $columnLevel = 3;
 
-            $quotes = Quote::with('places', 'image')
+            $quotes = Article::with('places', 'image')
                 ->orderBy('order', 'desc')
                 ->where([
-                    'quoteable_type' => 'App\Column',
-                    'quoteable_id' => $columnID,
+                    'articleable_type' => 'App\Column',
+                    'articleable_id' => $columnID,
                 ])
                 ->get();
 
@@ -320,16 +330,16 @@ class CmsController extends Controller
 
     public function testdb()
     {
-        $columnInfo = MENU_ITEMS["green"];
+        $columnInfo = MENU_ITEMS["being"];
         $desc = $columnInfo['desc'];
         $title = $columnInfo['title'];
         $columnLevel = 3;
 
         $vols = Volume::with(['column', 'firstArticlesSimple.places'])->where('column_id', $columnInfo['id'])->orderBy('no', 'desc')->get();
 
-        $quotes = Quote::with('places')->where([
-            ['quoteable_type', '=', 'App\Column'],
-            ['quoteable_id', '=', $columnInfo['id']],
+        $quotes = Article::with('places')->where([
+            ['articleable_type', '=', 'App\Column'],
+            ['articleable_id', '=', $columnInfo['id']],
         ])->orderBy('order', 'desc')->get();
 
         $articles = $vols[0]->firstArticlesSimple();

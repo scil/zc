@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVolumesTable extends Migration
+class CreateContentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,14 @@ class CreateVolumesTable extends Migration
      */
     public function up()
     {
-        Schema::create('volumes', function (Blueprint $table) {
+        Schema::create('contents', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title',50);
-
-            $table->integer('column_id')->unsigned();
-            $table->integer('no')->unsigned();
-
-            $table->integer('person_id')->unsigned()->nullable();
+            $table->mediumText('body');
+            $table->boolean('md')->default(false);
+            $table->integer('article_id')->unsigned();
+//            $table->enum('contentable_type',['App\\\\Article','App\\\\Quote']);
+//            $table->integer('contentable_id')->unsigned();
             $table->timestamps();
-
-            $table->index(['column_id','no'])->unique();
         });
     }
 
@@ -34,6 +31,6 @@ class CreateVolumesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('volumes');
+        Schema::dropIfExists('contents');
     }
 }

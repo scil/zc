@@ -11,18 +11,22 @@ class TreesTableSeeder extends Seeder
      */
     public function run()
     {
+        $this->freeDir = storage_path() . '/free/trees/';
+        $this->sourceDir = __DIR__ . '/book_src/';
         //
+
         DB::table('trees')->truncate();
         DB::table('foliages')->truncate();
+        DB::table('tree_contacts')->truncate();
 
 
-        $law_id = MENU_ITEMS["tree/law"]['id'];
-        $read_id = MENU_ITEMS["tree/read"]['id'];
-        $learn_id = MENU_ITEMS["tree/learn"]['id'];
-        $play_id = MENU_ITEMS["tree/play"]['id'];
-        $food_id = MENU_ITEMS["tree/eat"]['id'];
-        $health_id = MENU_ITEMS["tree/health"]['id'];
-        $other_id = MENU_ITEMS["tree/other"]['id'];
+        $law_id = MENU_ITEMS["bay/law"]['id'];
+        $read_id = MENU_ITEMS["bay/read"]['id'];
+        $learn_id = MENU_ITEMS["bay/learn"]['id'];
+        $play_id = MENU_ITEMS["bay/play"]['id'];
+        $food_id = MENU_ITEMS["bay/food"]['id'];
+        $health_id = MENU_ITEMS["bay/health"]['id'];
+        $other_id = MENU_ITEMS["bay/other"]['id'];
 
         $current_type_id = $law_id;
         $items = [
@@ -40,28 +44,99 @@ class TreesTableSeeder extends Seeder
 
 - [徐昕的专业著作](https://mp.weixin.qq.com/s/kwXIR3JBaJTJSZwTjKoSgQ)
 
+- 招聘实习:[再招助理和实习生](https://weibo.com/5116580947/GbhoWg1Bc);  [对想做律师同学的告诫](https://weibo.com/p/1001603705207048563251?mod=zwenzhang)
 
   ',
-                'contact'=>'
-
-- 微博：[@法律悦读](https://weibo.com/dushushanmei); [@刑辩大案](https://weibo.com/xuxinlaw); [@徐昕](https://weibo.com/poetjustice); ~~[@昕静自然好](https://weibo.com/lawvoice)~~
-
-- 微信公众号：
-  - <z-wechat title="正义联接">Justicelink</z-wechat>: 接受案件申请，[转介适当律师](https://mp.weixin.qq.com/s/twenPlYnkZoEvK55QaP-tQ)
-  - ~~<z-wechat title="大案">mycase</z-wechat>~~
-  - ~~<z-wechat title="诗性正义">lawxuxin</z-wechat>~~([2014.12.10](https://mp.weixin.qq.com/s/eD4PevRGLmGxHqj4QsdXIg) - 2017)
-
-- [徐昕的博客](http://blog.sina.com.cn/s/articlelist_1701401324_0_1.html)
-
-- 招聘或实习:[再招助理和实习生](https://weibo.com/5116580947/GbhoWg1Bc);  [对想做律师同学的告诫](https://weibo.com/p/1001603705207048563251?mod=zwenzhang)
-
-                ',
-                'buy' => '1. 请将相关资料发至邮箱 xuxinlaw@163.com
-2. 然后联系助理肖哲 电话 17801230311',
                 'editor_id' => 1,
                 'menu_item_id' => $current_type_id,
 
                 '_relations' => [
+                    'contacts' => [
+                        [
+                            'type' => 'weibo',
+                            'name' => '法律悦读',
+                            'id1' => 'https://weibo.com/dushushanmei',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => 0,
+                            'enabled' => true,
+                        ],
+                        [
+                            'type' => 'weibo',
+                            'name' => '刑辩大案',
+                            'id1' => 'https://weibo.com/xuxinlaw',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => 1,
+                            'enabled' => true,
+                        ],
+                        [
+                            'type' => 'weibo',
+                            'name' => '徐昕',
+                            'id1' => 'https://weibo.com/poetjustice',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => 2,
+                            'enabled' => true,
+                        ],
+                        [
+                            'type' => 'weibo',
+                            'name' => '昕静自然好',
+                            'id1' => 'https://weibo.com/lawvoice',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => 3,
+                            'enabled' => false,
+                        ],
+                        [
+                            'type' => 'wechat-pub',
+                            'name' => '正义联接',
+                            'id1' => 'Justicelink',
+                            'id2' => null,
+                            'intro' => '接受案件申请，[转介适当律师](https://mp.weixin.qq.com/s/twenPlYnkZoEvK55QaP-tQ)',
+                        ],
+                        [
+                            'type' => 'wechat-pub',
+                            'name' => '大案',
+                            'id1' => 'mycase',
+                            'id2' => null,
+                            'intro' => '',
+                            'enabled' => false,
+                        ],
+                        [
+                            'type' => 'wechat-pub',
+                            'name' => '诗性正义',
+                            'id1' => 'lawxuxin',
+                            'id2' => null,
+                            'intro' => '[2014.12.10](https://mp.weixin.qq.com/s/eD4PevRGLmGxHqj4QsdXIg) - 2017',
+                            'enabled' => false,
+                        ],
+                        [
+                            'type' => 'blog',
+                            'name' => '徐昕的博客',
+                            'id1' => 'http://blog.sina.com.cn/s/articlelist_1701401324_0_1.html',
+                            'id2' => null,
+                            'intro' => '',
+                        ],
+                        [
+                            'type' => 'zhaopin',
+                            'name' => '再招助理和实习生',
+                            'id1' => 'https://weibo.com/5116580947/GbhoWg1Bc',
+                            'id2' => null,
+                            'intro' => '',
+                        ],
+
+                        [
+                            'type' => 'email',
+                            'buy' => true,
+                            'name' => 'xuxinlaw@163.com',
+                            'id1' => '',
+                            'id2' => null,
+                            'intro' => '请将相关资料发至邮箱，然后联系助理肖哲 电话 17801230311',
+                            'order' => 0,
+                            'enabled' => true,
+                        ],
+                    ],
 
                     'image' => [
                         'local' => '',
@@ -78,14 +153,14 @@ class TreesTableSeeder extends Seeder
 
 
         $current_type_id = $read_id;
-        // $items =
+         $items =
         array_merge($items, [
             [
                 'slug' => 'meijun',
                 'name' => '美君军事',
                 'master' => '美君',
                 'master_id' => null,
-                'desc' => '美君，思想自由，充满洞见，对军事、近代史、战争决策有真实而深刻的了解。美君军人家庭出身，小时因为父母繁忙而泡在空军图书馆，80 年代在南苑机场目睹美军推销而来的 F16 战斗机，对军事耳濡目染，现为了照顾家中老母亲，居家写作，已撰写了一系列富有洞见和思想的传世新作。',
+                'desc' => '美君，知识丰富，思想自由，充满洞见，对军事、近代史、战争决策有真实而深刻的理解。美君军人家庭出身，小时因为父母繁忙而泡在空军图书馆，80 年代在南苑机场目睹美军推销而来的 F16 战斗机，对军事耳濡目染，现为了照顾家中老母亲，居家写作，已撰写了一系列富有思想和启迪的经典作品。',
 
                 'body' => ' 
 > 新闻：朝鲜弃核
@@ -98,7 +173,34 @@ class TreesTableSeeder extends Seeder
 >
 > @美君01:所以，理解洒家为何研究方法论了吧？每当历史大变局，所谓“道德、情感、原则”似如粪土、一钱不值 …… 唯方法论是干货 [嘻嘻]
 >
-> [《韩-朝暗战》的留言和互动](https://weibo.com/5527193038/GkPW2hlUK)
+> <cite>[《韩-朝暗战》的留言和互动](https://weibo.com/5527193038/GkPW2hlUK)</cite>
+
+> 新闻：美国情报机构相信朝鲜几乎所有的核武器设施都在继续工作 
+>
+> @美君01: 别怪“鑫”背信弃义，也别怪川普故意玩弄大家…要怪就怪大家自己傻，愿意被人家愚弄；6月“双胖会”前后，网上一片弃核高潮；网V们唯@valkyrie20607 、洒家…两个，坚决认为“鑫”不会弃核…当时真是再次空前孤立啊（以前还有国主、老防两票）！
+> ![“鑫”不会弃核](https://wx2.sinaimg.cn/mw1024/00623xoOly1ftu9ur6q4sj30gk06a0sz.jpg)
+>
+> <cite>[“鑫”不会弃核](https://weibo.com/5527193038/GsDhlkuae) 2018.8.1</cite>
+
+> 读通华族历史后，就会明白分久必合…分成许多碎块后，就会为统一而征战…从春秋到国共，可有例外？…国族文化：绝不会如美佬那样几十个州遵守一纸宪法几百年。…所以，无论怎样乱世、混战、分裂…最后一定会重归一统，重新回到统一思想、压制维新、取缔自由、封禁言论…的群体稳定状态。 
+>
+> @白银时代-我爱吃猪肉：统一的状态墒值很高，自然状态墒值低，为何华族总是反其道而行之，“天降伟人”？   
+> @美君01：美帝各州约法后，马萨诸塞未武力进攻康涅狄格之类，互信就建立了；期间一次违约（南北战争）若违约多了（譬如打个十次八次内战）美佬互信也会被毁掉；而国族历史太古老，违约何止千百次？谁信谁啊？假设：你是王家烈，不想去统一别人，但总有蒋中正毛润之来统一你！   
+> @美君01:回复@翀锅陪你来巡山:春秋战国时代吧…中央政权建立500-600年后；美帝社会目前依然有信约，是因其建政时间太短仅240多年；就像古罗马共和，前200-300年充满理想主义、英雄主义、信约精神…500-600年后也是一塌糊涂，才被蛮族所灭。//@翀锅陪你来巡山:华族是啥时把守信给扔了的
+>
+> @翀锅陪你来巡山:所以文明古国就是垃圾堆   
+> @美君01：以本人为例，因出身军人世家，自小喜军事，先看的西人《战争论、海权论、空中国防论》路子较正；后看《孙子兵法、孙膑兵法、三十六计、三国志、资治通鉴》…看完后心灵一片黑暗…幸亏先看的西人著述，基础较正，污泥中又长出莲花…[嘻嘻]  
+>
+> @美君01：西人著述谈事物本质：战争是什么？战役是什么？军队是什么？海权是什么？空权是什么？…华族经典全是如何骗人？如何害人？如何突破底线？   
+> @幽忧de贼：华族擅长的这套厚黑，在西人面前屡屡吃瘪，却很少人彻底反思…   
+> @美君01：回复@幽忧de贼:西人建树的战争论体系，是完整-立体-可延续的科学体系，就像银行体系；而华族“兵法”集中在“诈术”一块，就像重点研究金融诈骗术…金融诈骗有时也能使银行损失掺重，但从长久历史时期全面看，是银行统治世界呢？还是金融诈骗集团统治世界？  
+> @神气飞天猪：中国传统兵法，好处在于高屋建瓴，以抽象理论提纲挈领，在前工业时代不容易过时，缺点是不接地气，从抽象原则到实战，中间缺失的环节太多，没有给军人以具体落脚点。西方则相反，对于战争本质的思辨性著作出现得晚，优点是没有花拳绣腿，就事论事，老老实实讲如何让对方死，而避免让自己死。   
+> @美君01：回复@神气飞天猪:西点将《孙子》列为“有益读物”，俄军总参军事学院评级很不客气：人类早期粗陋智慧结晶…只是简单谋略理念、不全面，但已是华族兵法最高境界。对战争认识、军队建设、战争经济、战略学、战役学、战术学、军事后勤、谋略学…西方军学完整系统，就像现代医学；而华族“兵法”则像军事领域的“中医”。  
+> @神气飞天猪：回复@美君01:网络谣言西点军校学孙子，后来谷歌查过西点的课表，原来是有一门大概叫经典军事理论著作选读的课，孙子是著作之一，跟克劳塞维茨，若米尼，色诺芬等人的列在一起 
+> @美君01：回复@神气飞天猪:还有军制学、军事法…都是西方奠基，军制学研究军队如何编制、军人衔级如何晋升；军人也是人，服役要回报的，脱了军装要回归平民社会…可见西方军事学术之全面严谨，把人作为军事学核心研究课题…《孙子》里根本没有，这也是华族王朝军队每每朽坏原因：朝廷不把俺当人，那只能贪污军饷了[摊手]
+>
+> <cite>[华族分久必合](//weibo.com/5527193038/GsErvnblh) 2018.8.1</cite>
+<!-- {blockquote:.ins.limit-height} -->
 
 ## 部分短篇文章
 
@@ -122,35 +224,79 @@ class TreesTableSeeder extends Seeder
 
 [Auchinleck，奥金莱克陆军元帅](https://weibo.com/ttarticle/p/show?id=2309404223428650528189&mod=zwenzhang) Auchinleck在1942年初便开始大刀阔斧进行改革，这当然得罪了很多人，为其后来被撤职埋下伏笔。这段历史告诉我们：变革总有代价。英国的君宪制，总体上是良政，在这样的体制中，不会把Auchinleck逼成林冲；所以其背负与忍耐，最终得到了回报。
 
-## 精品长文
+## 精品长文 知识与思想的双重结晶
 <a name="buy"></a>
 
 |  |   |   |   |
-| ------ | ----------- | ----- | ----- | ----- |
-| 2017.6  | [卐字的野望 -- 浅议苏德战争前期纳粹德国最严重战略错误](https://weibo.com/ttarticle/p/show?id=2309404253726511626097&mod=zwenzhang)  |   德国的军事失误在哪里？为什么提前动员有希望赢得战争？ | 14.00元 |  |
-| 2017.8  | [太平洋战争美军岛屿登陆作战的火力支援问题](https://weibo.com/ttarticle/p/show?id=2309404143850523371466&mod=zwenzhang)  |   @lzuan1：看完了，胜利都是尸山血海堆出来的。米国的将军也有不靠谱的时候，士兵可就惨了。所以能不打仗就不要打，开战了，人就是阿猫阿狗。<br>@美君01：任何将领都一样，因为将军们的利益，与士兵们的利益是不一致的…  | 4.98元 | |
-| 2017.9  | [胜利大逃亡 -- 真实与虚幻的敦刻尔克](https://weibo.com/ttarticle/p/show?id=2309404150764388885460&mod=zwenzhang) |   一战时德军北上比利时进入法国，二战时，德军会故伎重演吗？  |  8.8元  |  |
-| 2018.1  | [雅尔塔史观 & 翻案潮](https://weibo.com/ttarticle/p/show?id=2309404200858551233218&mod=zwenzhang)  |    | 5.88元 |   |
-| 2018.3  | [静默艅艎 -- 浅析美国海军DDG-1000](https://weibo.com/ttarticle/p/show?id=2309404212703634849034&mod=zwenzhang)  |    @美君01：BEA利润大涨…这是资本家惯用伎俩：中标后利用“别无他店只此一家”垄断优势涨价…合法的违约；譬如洛.马也企图F35涨价，遭遇川普也是资本家反而砍价（以增购其竞争对手波音F/A-18E/F为威胁）  | 7.8元 |  |
-| 2018.2  | [巴别之塔 -- 可复用火箭&低成本航天的发展及未来](https://weibo.com/ttarticle/p/show?id=2309404218330813707429&mod=zwenzhang) |  @美君01：文章有个思想：太空开发要资本化，逐渐改变全民纳税射火箭之模式、减少财政供养比例；而投资者要从太空开发逐渐获利、并承担投资风险。…这是满漫长的过程，但也是必由之路。 <br>兲嘲只普及“科学知识”，但禁止“科学思想”…譬如，前些天看一文章，前面谈可复用火箭，在科技方面写得很不错；最后几段文风大变：硬说“CZ-9”全面超越美帝，天晓得“CZ-9”的PPT写好了没有？[笑cry]…但不这么写无法发表 [摊手] <br> 在航天工程应用领域，别人都想赚钱，而Musk在赚钱念头下总有深层危机意识，即人类级灾难，所以别人都觉的他疯了…文章谈到这点。 | 12元 |  |
-| 2018.3  | [暗夜之蝠 -- 美未来轰炸机LRS-B（B-21）解析](https://weibo.com/ttarticle/p/show?id=2309404222856727766537&mod=zwenzhang)  |    | 4.50元 |  |
-| 2018.4  | [洁白与蔚蓝的光辉 -- 古希腊雕塑艺术解析: 上部-解析篇）](https://weibo.com/ttarticle/p/show?id=2309404229408582943908&mod=zwenzhang) |  为什么应了解古希腊艺术呢？ 因为这是我们国族传统文化艺术中缺憾的一块，而身体，无论如何也无法回避； 将来，子女到了青春期，父母有责任对其进行美与性的教育（不能把这部分工作全推给日本AV） | 9.98元 |  |
-|   | [洁白与蔚蓝的光辉 -- 古希腊雕塑艺术解析: 下部-赏析篇）](https://weibo.com/ttarticle/p/show?id=2309404230879269515214) |  珍贵作品之品评…若子女学美术、音乐、文学、表演、舞蹈等，建议拥有…诗画同源、异曲同工 | 6.8元 |  |
-| 2018.5  | [血雨刀峰 -- 孟良崮战役70年](https://weibo.com/ttarticle/p/show?id=2309404239885425839830&mod=zwenzhang)  |   @美君01: 1946-1947上半年，国军在华东的进攻，占领了江苏、安徽的共军根据地；华野只剩下山东了…所以，重点当然是山东。东北腹地辽阔，但通向中原的通道狭窄；国军像明军，不擅长机动作战，7个军在近80万平方公里远不敷用；但国军善死守（这点也像明军）只要兵力足够，堵住关-宁-锦、喜峰口-冷口等进关隘口，是可以的…所以只要拿下山东，让林彪在东北关着门发展吧，反正就3000万人。张灵甫有华族上古春秋时代士人理念+剑客风度，这也埋下其悲剧性根源… |   26.96元 |  |
+| ------ | ----------- | ----- | ----- |
+| 2017.6  | [卐字的野望 -- 浅议苏德战争前期纳粹德国最严重战略错误](https://weibo.com/ttarticle/p/show?id=2309404253726511626097&mod=zwenzhang)  |   德国的军事失误在哪里？为什么提前动员有希望赢得战争？ | 14.00元 | 
+| 2017.8  | [太平洋战争美军岛屿登陆作战的火力支援问题](https://weibo.com/ttarticle/p/show?id=2309404143850523371466&mod=zwenzhang)  |   @lzuan1：看完了，胜利都是尸山血海堆出来的。米国的将军也有不靠谱的时候，士兵可就惨了。所以能不打仗就不要打，开战了，人就是阿猫阿狗。<br>@美君01：任何将领都一样，因为将军们的利益，与士兵们的利益是不一致的…  | 4.98元 |
+| 2017.9  | [胜利大逃亡 -- 真实与虚幻的敦刻尔克](https://weibo.com/ttarticle/p/show?id=2309404150764388885460&mod=zwenzhang) |   一战时德军北上比利时进入法国，二战时，德军会故伎重演吗？  |  8.8元  |
+| 2018.1  | [雅尔塔史观 & 翻案潮](https://weibo.com/ttarticle/p/show?id=2309404200858551233218&mod=zwenzhang)  |    | 5.88元 |
+| 2018.3  | [静默艅艎 -- 浅析美国海军DDG-1000](https://weibo.com/ttarticle/p/show?id=2309404212703634849034&mod=zwenzhang)  |   | 7.8元 |
+| 2018.2  | [巴别之塔 -- 可复用火箭&低成本航天的发展及未来](https://weibo.com/ttarticle/p/show?id=2309404218330813707429&mod=zwenzhang) |  @美君01：文章有个思想：太空开发要资本化，逐渐改变全民纳税射火箭之模式、减少财政供养比例；而投资者要从太空开发逐渐获利、并承担投资风险。…这是满漫长的过程，但也是必由之路。 <br>兲嘲只普及“科学知识”，但禁止“科学思想”…譬如，前些天看一文章，前面谈可复用火箭，在科技方面写得很不错；最后几段文风大变：硬说“CZ-9”全面超越美帝，天晓得“CZ-9”的PPT写好了没有？[笑cry]…但不这么写无法发表 [摊手] <br> 在航天工程应用领域，别人都想赚钱，而Musk在赚钱念头下总有深层危机意识，即人类级灾难，所以别人都觉的他疯了…文章谈到这点。 | 12元 |
+| 2018.3  | [暗夜之蝠 -- 美未来轰炸机LRS-B（B-21）解析](https://weibo.com/ttarticle/p/show?id=2309404222856727766537&mod=zwenzhang)  | 中国对标战机的打击目标包括美军冲绳基地，美军战机要如何实现它在新形势下的使命呢？   | 4.50元 |
+| 2018.4  | [洁白与蔚蓝的光辉 -- 古希腊雕塑艺术解析: 上部-解析篇）](https://weibo.com/ttarticle/p/show?id=2309404229408582943908&mod=zwenzhang) |  为什么应了解古希腊艺术呢？ 因为这是我们国族传统文化艺术中缺憾的一块，而身体，无论如何也无法回避； 将来，子女到了青春期，父母有责任对其进行美与性的教育（不能把这部分工作全推给日本AV） | 9.98元 |
+|   | [洁白与蔚蓝的光辉 -- 古希腊雕塑艺术解析: 下部-赏析篇）](https://weibo.com/ttarticle/p/show?id=2309404230879269515214) |  珍贵作品之品评…若子女学美术、音乐、文学、表演、舞蹈等，建议拥有…诗画同源、异曲同工 | 6.8元 |
+| 2018.5  | [血雨刀峰 -- 孟良崮战役70年](https://weibo.com/ttarticle/p/show?id=2309404239885425839830&mod=zwenzhang)  |   @美君01: 1946-1947上半年，国军在华东的进攻，占领了江苏、安徽的共军根据地；华野只剩下山东了…所以，重点当然是山东。东北腹地辽阔，但通向中原的通道狭窄；国军像明军，不擅长机动作战，7个军在近80万平方公里远不敷用；但国军善死守（这点也像明军）只要兵力足够，堵住关-宁-锦、喜峰口-冷口等进关隘口，是可以的…所以只要拿下山东，让林彪在东北关着门发展吧，反正就3000万人。张灵甫有华族上古春秋时代士人理念+剑客风度，这也埋下其悲剧性根源… |   26.96元 |
 | 2018.6  | [ 韩朝暗战 -- 韩朝非正规战简述.四部曲](https://weibo.com/ttarticle/p/show?id=2309404249662021341745&mod=zwenzhang) |  | 15.88元  |
-|   | [钢雨倾盆 -- M142（HIMARS）自行火箭炮](https://weibo.com/ttarticle/p/show?id=2309404255822006894942&mod=zwenzhang)  |   包含美军和大陆现代火箭炮发展史  | 9.8元  |  |
+|   | [钢雨倾盆 -- M142（HIMARS）自行火箭炮](https://weibo.com/ttarticle/p/show?id=2309404255822006894942&mod=zwenzhang)  |   包含美军和大陆现代火箭炮发展史  | 9.8元  |
 
 
 
 ',
-                'contact'=>'
-
-                ',
-                'buy' => '点击选择[美君作品](/tree/meijun#buy)，然后可通过微信红包或微博打赏支付。',
                 'editor_id' => 1,
                 'menu_item_id' => $current_type_id,
 
                 '_relations' => [
+                    'contacts' => [
+
+                        [
+                            'type' => 'weibo',
+                            'name' => '美君01',
+                            'id1' => 'https://weibo.com/5527193038',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => 0,
+                            'enabled' => true,
+                        ],
+                        [
+                            'type' => 'weibo',
+                            'name' => '科学与艺术001',
+                            'id1' => 'https://weibo.com/u/5948757855',
+                            'id2' => null,
+                            'intro' => '备用号',
+                            'order' => 1,
+                            'enabled' => true,
+                        ],
+                        [
+                            'type' => 'wechat',
+                            'name' => '美利坚08',
+                            'id1' => '',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => 2,
+                        ],
+                        [
+                            'buy' => true,
+                            'type' => 'url',
+                            'name' => '[美君作品选购单]',
+                            'id1' => '/bay/meijun#buy',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => 0,
+                            'enabled' => true,
+                        ],
+                        [
+                            'buy' => true,
+                            'type' => 'wechat-pub',
+                            'name' => '美利坚08',
+                            'id1' => '',
+                            'id2' => null,
+                            'intro' => '包含全部长篇，除了两篇[雅尔塔史观 & 翻案潮](https://weibo.com/ttarticle/p/show?id=2309404200858551233218&mod=zwenzhang) 和 [《静默艅艎 -- 浅析美国海军DDG-1000》](https://weibo.com/ttarticle/p/show?id=2309404212703634849034&mod=zwenzhang)',
+                            'order' => 1,
+                        ],
+                    ],
 
                     'image' => [
                         'local' => '',
@@ -177,19 +323,61 @@ class TreesTableSeeder extends Seeder
 
 
 ',
-                'contact'=>'
-- 微博：[@醒客二张](https://www.weibo.com/AllSagesBooks); [@万圣网购](https://weibo.com/wanshengwanggou)
-
-                ',
-                'buy' => '
-- 淘宝：[万圣书园](https://allsagesbooks.taobao.com/index.htm)
-- 官网: [网上订购](http://www.allsagesbooks.com/guestbook/INDEX.ASP)                
-- [实体店地址：北京海淀区](http://www.allsagesbooks.com/GUANYU/lianxi.htm)
-',
                 'editor_id' => 1,
                 'menu_item_id' => $current_type_id,
 
                 '_relations' => [
+                    'contacts' => [
+
+                        [
+                            'type' => 'weibo',
+                            'name' => '万圣网购',
+                            'id1' => 'https://weibo.com/wanshengwanggou',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => 0,
+                            'enabled' => true,
+                        ],
+                        [
+                            'type' => 'weibo',
+                            'name' => '醒客二张',
+                            'id1' => 'https://www.weibo.com/AllSagesBooks',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => 0,
+                            'enabled' => true,
+                        ],
+                        [
+                            'buy' => true,
+                            'type' => 'taobao',
+                            'name' => '万圣书园',
+                            'id1' => 'https://allsagesbooks.taobao.com/index.htm',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => 0,
+                            'enabled' => true,
+                        ],
+                        [
+                            'buy' => true,
+                            'type' => 'official',
+                            'name' => '官网订购',
+                            'id1' => 'http://www.allsagesbooks.com/guestbook/INDEX.ASP',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => 0,
+                            'enabled' => true,
+                        ],
+                        [
+                            'buy' => true,
+                            'type' => 'url',
+                            'name' => '万圣书园实体店',
+                            'id1' => 'http://www.allsagesbooks.com/GUANYU/lianxi.htm',
+                            'id2' => null,
+                            'intro' => '北京海淀区，总店在成府路',
+                            'order' => 0,
+                            'enabled' => true,
+                        ],
+                    ],
 
                     'image' => [
                         'local' => '',
@@ -235,23 +423,69 @@ class TreesTableSeeder extends Seeder
 
 
 ',
-                'contact'=>'
-- 微博：[@读库](https://weibo.com/duku6)
-- 知乎：[读库老六](https://www.zhihu.com/people/dk66)
-- 微信公众号
-    - <z-wechat title="读库">dukubook</z-wechat> 每月更新四次，周一推送，内容主要是关于读库旗下所有书籍的书评书迅、读库微视频，线下活动记录等，以及拦都拦不住的老六式思考人生
-    - <z-wechat title="读小库">duxiaoku666</z-wechat> 儿童书籍的出版动态、单本绘本的多角度解读，此外还会分享一些优秀的教育理念和育儿心得，作者除了自己的编辑团队，还来自广大的读者和专家后援团
-    - <z-wechat title="读库小报">dukuxiaobao</z-wechat>  报道读库各部门的最新动态为己任，不负责地剧透即将推出的最新图书，并负责地解答来自读者的深度疑问
-
-                ',
-                'buy' => '
-- 天猫：[读库](https://duku.tmall.com)
-- 官网：[读库](http://www.duku.cn)
-',
                 'editor_id' => 1,
                 'menu_item_id' => $current_type_id,
 
                 '_relations' => [
+                    'contacts' => [
+
+                        [
+                            'type' => 'weibo',
+                            'name' => '读库',
+                            'id1' => 'https://weibo.com/duku6',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => $order = 0,
+                            'enabled' => true,
+                        ],
+                        [
+                            'type' => 'wechat-pub',
+                            'name' => '读库',
+                            'id1' => 'dukubook',
+                            'id2' => null,
+                            'intro' => '每月更新四次，周一推送，内容主要是关于读库旗下所有书籍的书评书迅、读库微视频，线下活动记录等，以及拦都拦不住的老六式思考人生',
+                            'order' => ++$order,
+                        ],
+                        [
+                            'type' => 'wechat-pub',
+                            'name' => '读小库',
+                            'id1' => 'duxiaoku666',
+                            'id2' => null,
+                            'intro' => '儿童书籍的出版动态、单本绘本的多角度解读，此外还会分享一些优秀的教育理念和育儿心得，作者除了自己的编辑团队，还来自广大的读者和专家后援团',
+                            'order' => ++$order,
+                        ],
+                        [
+                            'type' => 'wechat-pub',
+                            'name' => '读库小报',
+                            'id1' => 'dukuxiaobao',
+                            'id2' => null,
+                            'intro' => '报道读库各部门的最新动态为己任，不负责地剧透即将推出的最新图书，并负责地解答来自读者的深度疑问',
+                            'order' => ++$order,
+                        ],
+                        [
+                            'type' => 'zhihu',
+                            'name' => '读库老六',
+                            'id1' => 'https://www.zhihu.com/people/dk66',
+                            'id2' => null,
+                            'intro' => '',
+                        ],
+                        [
+                            'buy' => true,
+                            'type' => 'tmall',
+                            'name' => '读库',
+                            'id1' => 'https://duku.tmall.com',
+                            'id2' => null,
+                            'intro' => '',
+                        ],
+                        [
+                            'buy' => true,
+                            'type' => 'official',
+                            'name' => '读库',
+                            'id1' => 'http://www.duku.cn',
+                            'id2' => null,
+                            'intro' => '',
+                        ],
+                    ],
 
                     'image' => [
                         'local' => '',
@@ -265,7 +499,7 @@ class TreesTableSeeder extends Seeder
             ],
         ]);
         $current_type_id = $learn_id;
-        // $items =
+         $items =
         array_merge($items, [
             [
                 'slug' => 'liufangzhai',
@@ -275,20 +509,46 @@ class TreesTableSeeder extends Seeder
                 'desc' => '加拿大女王大学政治学毕业，2018年，我开始引介西方博雅教育，以逐页、逐段、逐句精讲的方法，阅读西方正典。课程分为收费课与公开课，分别在荔枝微课和 bilibili 更新。 ',
                 'body' => '
 [免费公开课](https://space.bilibili.com/289000118/#/)
-
-微博：[刘放斋](https://weibo.com/liuyizhifangzhai)
-微信：xuebarunbi 
   ',
-                'contact'=>'
-
-                ',
-                'buy' => '- [柏拉图《理想国》全书通读详解](https://www.bilibili.com/read/cv558342) 逐页、逐段、逐句地阅读西方正典, [试听](https://www.bilibili.com/video/av26143651)
-- [赞助刘放斋开办哲学、历史和学术英语课程](https://afdian.net/@liufangzhai)
-',
                 'editor_id' => 1,
                 'menu_item_id' => $current_type_id,
 
                 '_relations' => [
+                    'contacts' => [
+
+                        [
+                            'type' => 'weibo',
+                            'name' => '刘放斋',
+                            'id1' => 'https://weibo.com/liuyizhifangzhai',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => 0,
+                            'enabled' => true,
+                        ],
+                        [
+                            'type' => 'wechat',
+                            'name' => 'xuebarunbi',
+                            'id1' => '',
+                            'id2' => null,
+                            'intro' => '',
+                        ],
+                        [
+                            'buy' => true,
+                            'type' => 'url',
+                            'name' => '柏拉图《理想国》全书通读详解',
+                            'id1' => 'https://www.bilibili.com/read/cv558342',
+                            'id2' => null,
+                            'intro' => '逐页、逐段、逐句地阅读西方正典, [试听](https://www.bilibili.com/video/av26143651)',
+                        ],
+                        [
+                            'buy' => true,
+                            'type' => 'url',
+                            'name' => '赞助刘放斋开办哲学、历史和学术英语课程',
+                            'id1' => 'https://afdian.net/@liufangzhai',
+                            'id2' => null,
+                            'intro' => '',
+                        ],
+                    ],
 
                     'image' => [
                         'local' => '',
@@ -302,7 +562,7 @@ class TreesTableSeeder extends Seeder
             ],
         ]);
         $current_type_id = $play_id;
-        // $items =
+         $items =
         array_merge($items, [
             [
                 'slug' => '',
@@ -312,10 +572,6 @@ class TreesTableSeeder extends Seeder
                 'desc' => '',
                 'body' => ' 
   ',
-                'contact'=>'
-
-                ',
-                'buy' => '',
                 'editor_id' => 1,
                 'menu_item_id' => $current_type_id,
 
@@ -335,44 +591,64 @@ class TreesTableSeeder extends Seeder
 
 
         $current_type_id = $food_id;
-        // $items =
+         $items =
         array_merge($items, [
-            [
-                'slug' => 'zhangwen-tea',
-                'name' => '章文煮茶',
-                'master' => '',
-                'master_id' => null,
-                'desc' => '红茶、白茶等各地名贵茶叶，兼售特色茶具。',
-                'body' => ' 
-微博：[茶煮-文章](https://weibo.com/u/6329944802)
-  ',
-                'contact'=>'
-
-                ',
-                'buy' => '
-- 微店：[章文煮茶](https://weidian.com/?userid=819323713)
-- 淘宝：[章文煮茶茶煮文章](https://shop482505958.taobao.com/index.htm)
-',
-
-                'editor_id' => 1,
-                'menu_item_id' => $current_type_id,
-
-                '_relations' => [
-
-                    'image' => [
-                        'local' => '',
-                        'url' => 'http://wx3.sinaimg.cn/large/006UnNNUly1fsdyzx82s7j306y06y0sn.jpg',
-                        'alter' => null,
-                        'style' => null,
-                        'alt' => '章文煮茶',
-                    ],
-
-                ]
-            ],
+//            [
+//                'slug' => 'zhangwen-tea',
+//                'name' => '章文煮茶',
+//                'master' => '章文',
+//                'master_id' => null,
+//                'desc' => '红茶、白茶等各地名贵茶叶，兼售特色茶具。',
+//                'body' => '
+//  ',
+//
+//                'editor_id' => 1,
+//                'menu_item_id' => $current_type_id,
+//
+//                '_relations' => [
+//                    'contacts' => [
+//
+//                        [
+//                            'type' => 'weibo',
+//                            'name' => '茶煮-文章',
+//                            'id1' => 'https://weibo.com/u/6329944802',
+//                            'id2' => null,
+//                            'intro' => '',
+//                            'order' => 0,
+//                            'enabled' => true,
+//                        ],
+//                        [
+//                            'buy' => true,
+//                            'type' => 'wechat-pub',
+//                            'name' => '章文煮茶',
+//                            'id1' => 'https://weidian.com/?userid=819323713',
+//                            'id2' => null,
+//                            'intro' => '',
+//                        ],
+//                        [
+//                            'buy' => true,
+//                            'type' => 'taobao',
+//                            'name' => '章文煮茶茶煮文章',
+//                            'id1' => 'https://shop482505958.taobao.com/index.htm',
+//                            'id2' => null,
+//                            'intro' => '',
+//                        ],
+//                    ],
+//
+//                    'image' => [
+//                        'local' => '',
+//                        'url' => 'http://wx3.sinaimg.cn/large/006UnNNUly1fsdyzx82s7j306y06y0sn.jpg',
+//                        'alter' => null,
+//                        'style' => null,
+//                        'alt' => '章文煮茶',
+//                    ],
+//
+//                ]
+//            ],
         ]);
 
         $current_type_id = $health_id;
-        // $items =
+         $items =
         array_merge($items, [
             [
                 'slug' => 'Yaeher',
@@ -391,17 +667,54 @@ class TreesTableSeeder extends Seeder
 - [医院自制药，是宝贝药还是垃圾药？](https://weibo.com/ttarticle/p/show?id=2309404248595837677690)
 
 ',
-                'contact'=>'
-- 微博：[@怡禾健康](https://weibo.com/u/5155446806); [@小儿外科裴医生](https://weibo.com/u/1829870212)
-- 微信公众号: <z-wechat title="drpei">drpei</z-wechat>
-                ',
-                'buy' => '
-- 微信公众号: <z-wechat title="怡禾健康">Yaeher</z-wechat>
-',
                 'editor_id' => 1,
                 'menu_item_id' => $current_type_id,
 
                 '_relations' => [
+                    'contacts' => [
+
+                        [
+                            'type' => 'weibo',
+                            'name' => '怡禾健康',
+                            'id1' => 'https://weibo.com/u/5155446806',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => 0,
+                            'enabled' => true,
+                        ],
+                        [
+                            'type' => 'weibo',
+                            'name' => '小儿外科裴医生',
+                            'id1' => 'https://weibo.com/u/1829870212',
+                            'id2' => null,
+                            'intro' => '让父母少花钱，让孩子少受罪',
+                            'order' => 0,
+                            'enabled' => true,
+                        ],
+                        [
+                            'type' => 'wechat-pub',
+                            'name' => 'drpei',
+                            'id1' => 'drpei',
+                            'id2' => null,
+                            'intro' => '',
+                        ],
+                        [
+                            'type' => 'wechat-pub',
+                            'name' => '怡和科普',
+                            'id1' => '',
+                            'id2' => null,
+                            'intro' => '',
+                        ],
+                        [
+                            'type' => 'wechat-pub',
+                            'name' => '怡禾健康',
+                            'id1' => 'Yaeher',
+                            'id2' => null,
+                            'intro' => '',
+                            'order' => 0,
+                            'enabled' => true,
+                        ],
+                    ],
 
                     'image' => [
                         'local' => '',
@@ -416,7 +729,7 @@ class TreesTableSeeder extends Seeder
         ]);
 
         $current_type_id = $other_id;
-        // $items =
+         $items =
         array_merge($items, [
             [
                 'slug' => 'weixunfang',
@@ -425,9 +738,6 @@ class TreesTableSeeder extends Seeder
                 'master_id' => null,
                 'desc' => '主营 Evie 护肤品，这是一款得到很多香港明星青睐的产品。店主在大型护肤品公司工作多年，熟悉护肤原理。',
                 'body' => '',
-                'contact'=>'
-
-                ',
                 'buy' => '淘宝：[微醺坊 香草美人](//weixunfang.taobao.com)',
                 'editor_id' => 1,
                 'menu_item_id' => $current_type_id,
@@ -446,27 +756,47 @@ class TreesTableSeeder extends Seeder
             ],
         ]);
 
+        $this->addTrees($items);
     }
 
     function addTrees($trees)
     {
         foreach ($trees as $tree) {
-            $relations = $tree['relation'];
-            unset($tree['relation']);
+
+            if(empty($tree['slug'])) continue;
+
+            $relations = $tree['_relations'];
+            unset($tree['_relations']);
 
 
-            if (isset($tree['place'])) {
-                $place_infos = $this->insertPlaces([$tree['place']], 'App\Tree');
-            } elseif (isset($tree['places'])) {
-                $place_infos = $this->insertPlaces($tree['places'], 'App\Tree');
+            if (isset($relations['place'])) {
+                $place_infos = $this->insertPlaces([$relations['place']], 'App\Tree');
+            } elseif (isset($relations['places'])) {
+                $place_infos = $this->insertPlaces($relations['places'], 'App\Tree');
+            }else
+                $place_infos=[];
+
+            $image = DB::table('images')->where('url', $relations['image']['url'])->first();
+            if ($image) {
+                DB::table('images')->where('url', $relations['image']['url'])->update($relations['image']);
+                $imageID = $image->id;
+            } else {
+                $imageID = DB::table('images')->insertGetId($relations['image']);
             }
+
+            $tree['image_id'] = $imageID;
 
 
             $this->encodeBody($tree, $tree['slug'], 'body', 'md', true);
 
-            $treeID = DB::table('articles')->insertGetId($tree);
+            $treeID = DB::table('trees')->insertGetId($tree);
 
             $this->insertPlaceInfos($place_infos, $treeID);
+
+            foreach ($relations['contacts'] ?? [] as $contact) {
+                $contact['tree_id'] = $treeID;
+                DB::table('tree_contacts')->insert($contact);
+            }
 
         }
     }

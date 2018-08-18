@@ -34,6 +34,16 @@ class Article extends BaseModel
         return $this->belongsTo('App\Volume');
     }
 
+    function contents()
+    {
+        return $this->hasMany('App\Content');
+    }
+
+    function htmls()
+    {
+        return $this->contents()->where('md', '=', false);
+    }
+
     public function articleable()
     {
         return $this->morphTo();
@@ -44,9 +54,14 @@ class Article extends BaseModel
         return $this->morphToMany('App\Place', 'placeable')->withPivot('place_name', 'title', 'intro', 'deep', 'comment');
     }
 
+    function image()
+    {
+        return $this->belongsTo('App\Image');
+    }
+
     public function quotes()
     {
-        return $this->morphMany('App\Quote', 'quoteable');
+        return $this->morphMany('App\Article', 'articleable');
     }
 
     public function topQuotes()

@@ -1,1 +1,4 @@
 - debugbar.php
+- ide-helper.php
+- swoole_http.php
+- swoole_websocket.php

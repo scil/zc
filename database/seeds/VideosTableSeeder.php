@@ -17,10 +17,10 @@ class VideosTableSeeder extends Seeder
 
         $videos = [
             '碧海蓝天' => [
-                'name_en' => 'The Big Blue',
+                'english_name' => 'The Big Blue',
                 'slug' => 'The-Big-Blue',
-                'other_names' => '碧海情深 / 碧海情',
-                'origin_name' => 'Le grand bleu ( fr ) ',
+                'other_names' => '碧海情深\碧海情',
+                'native_name' => 'fr \ Le grand bleu',
                 'author' => 'Luc Besson（吕克·贝松）',
                 'author_id' => null,
                 'time' => '1988',
@@ -84,7 +84,7 @@ Jacques Mayol’s lifelong passion for diving was based on his love for the ocea
                     'places' => [
                         [
                             'name' => '托斯卡纳海岸',
-                            'name_en' => 'Tuscany coast',
+                            'english_name' => 'Tuscany coast',
                             'lat' => 43.4660533,
                             'lng' => 9.9623026,
                             'info' => [
@@ -272,7 +272,7 @@ Jacques: <z-lang title="\'Cause you have to find a good reason to come back up..
 
             ], // end big blue
             '钢锯岭' => [
-                'name_en' => 'Hacksaw Ridge',
+                'english_name' => 'Hacksaw Ridge',
                 'slug' => 'Hacksaw-Ridge',
                 'other_names' => '血战钢锯岭',
                 'author' => '',
@@ -322,13 +322,13 @@ Jacques: <z-lang title="\'Cause you have to find a good reason to come back up..
                     'places' => [
                         [
                             'name' => '钢锯岭',
-                            'name_en' => 'Hacksaw Ridge',
+                            'english_name' => 'Hacksaw Ridge',
                             'lat' => 26.2466564,
                             'lng' => 127.7312275,
                         ],
                         [
                             'name' => 'Fairview Christian Church',
-                            'name_en' => 'Fairview Christian Church',
+                            'english_name' => 'Fairview Christian Church',
                             'lat' => 38.0685312,
                             'lng' => -82.1828882,
                             'info' => [
@@ -510,7 +510,7 @@ Jacques: <z-lang title="\'Cause you have to find a good reason to come back up..
                 ],
             ],
             '肖申克的救赎' => [
-                'name_en' => 'The Shawshank Redemption',
+                'english_name' => 'The Shawshank Redemption',
                 'slug' => 'The-Shawshank-Redemption',
                 'other_names' => '',
                 'author' => '',
@@ -527,7 +527,7 @@ Jacques: <z-lang title="\'Cause you have to find a good reason to come back up..
                     'places' => [
                         [
                             'name' => '曼斯菲尔德管教所',
-                            'name_en' => 'Mansfield',
+                            'english_name' => 'Mansfield',
                             'addr' => 'Ohio',
                             'lat' => 40.7931279,
                             'lng' => -83.1738411,
@@ -663,8 +663,8 @@ Jacques: <z-lang title="\'Cause you have to find a good reason to come back up..
                 ],
             ],
             '达拉斯买家俱乐部' => [
-                'name_en' => 'Dallas Buyers Club',
-                'other_names' => '续命枭雄;药命俱乐部',
+                'english_name' => 'Dallas Buyers Club',
+                'other_names' => '续命枭雄\药命俱乐部',
                 'author' => '',
                 'author_id' => null,
                 'time' => '2013',
@@ -819,7 +819,7 @@ Woodroof和他的达拉斯买家俱乐部，对抗着FDA、不合理的法规和
                 ],// end _relations
                 'brothers' => [
                     '瘟疫求生指南' => [
-                        'name_en' => 'How to Survive a Plague',
+                        'english_name' => 'How to Survive a Plague',
                         'other_names' => '',
                         'author' => '',
                         'author_id' => null,
@@ -890,7 +890,7 @@ Woodroof和他的达拉斯买家俱乐部，对抗着FDA、不合理的法规和
                         ],
                     ],
 //                    '' => [
-//                        'name_en' => '',
+//                        'english_name' => '',
 //                        'other_names' => '',
 //                        'author' => '',
 //                        'author_id' => null,

@@ -24,7 +24,7 @@ class Http2Push
 
             if (!$request->ajax()) {
 
-                echo 'http2push-----  ';
+//                echo 'http2push-----  ';
                 $push = app('http2push');
 
 //            if ($push->hasLinks()) {

@@ -31,7 +31,7 @@ class BooksTableSeeder extends Seeder
 
         $books = [
             '刀锋' => [
-                'name_en' => 'The Razor\'s Edge',
+                'english_name' => 'The Razor\'s Edge',
                 'slug' => 'The-Razor\'s-Edge',
                 'other_names' => '剃刀邊緣',
                 'author' => 'W. Somerset Maugham（毛姆）',
@@ -136,14 +136,14 @@ class BooksTableSeeder extends Seeder
 
                          [
                             'name' => '云门',
-                            'name_en' => 'Cloud Gate',
+                            'english_name' => 'Cloud Gate',
                             'addr' => 'Chicago',
                             'lat' =>41.8826572,
                             'lng' =>-87.6254979,
                             'oldOrPoint' => [
                                 'type' => 'point',
                                 'name' => '芝加哥',
-                                'name_en' => 'Chicago',
+                                'english_name' => 'Chicago',
                             ],
                             'info' => [
                                 'title'=>'晃膀子 / loaf',
@@ -153,7 +153,7 @@ class BooksTableSeeder extends Seeder
                         ],
                         [
                             'name' => '多姆咖啡馆',
-                            'name_en' => 'Café Le Dome',
+                            'english_name' => 'Café Le Dome',
                             'addr' => 'Paris',
                             'lat' => 48.8576469,
                             'lng' => 2.2983275,
@@ -166,14 +166,14 @@ class BooksTableSeeder extends Seeder
                         ],
                         [
                             'name' => '卢浮宫朗斯分馆',
-                            'name_en' => 'Louvre Lens',
+                            'english_name' => 'Louvre Lens',
                             'addr' => 'Lens, France',
                             'lat' =>50.430714,
                             'lng' => 2.8020556,
                             'oldOrPoint' => [
                                 'type' => 'point',
                                 'name' => '朗斯（曾经的煤炭中心）',
-                                'name_en' => 'Lens',
+                                'english_name' => 'Lens',
                             ],
                             'info' => [
                                 'title' => '煤矿',
@@ -183,7 +183,7 @@ class BooksTableSeeder extends Seeder
                         ],
                          [
                             'name' => '波恩大学',
-                            'name_en' => 'University of Bonn',
+                            'english_name' => 'University of Bonn',
                             'addr' => 'Bonn, Germany',
                             'lat' =>50.7267715,
                             'lng' => 7.0843287,
@@ -196,7 +196,7 @@ class BooksTableSeeder extends Seeder
                         ],
                         [
                             'name' => '孟买象岛',
-                            'name_en' => 'Elephanta',
+                            'english_name' => 'Elephanta',
                             'addr' => 'Mumbai, India',
                             'lat' =>18.9621218,
                             'lng' => 72.9245857,
@@ -589,7 +589,7 @@ Part Sever Chapter 3. 作者说 Isabel 很招人爱，就是差一点，“温�
 
             ], // end 刀锋
             '好妈妈胜过好老师' => [
-                'name_en' =>'A Good Mum Is Better Than a Good Teacher',
+                'english_name' =>'A Good Mum Is Better Than a Good Teacher',
                 'slug'=>'A-Good-Mum-Is-Better-Than-a-Good-Teacher',
                 'other_names' => null,
                 'author' => '尹建莉',
@@ -779,7 +779,7 @@ http://weibo.com/1642088277/DygKCcK2V
                 ],// end _relations
             ],// 好妈妈
             '这个时代这些人' => [
-                'name_en' => null,
+                'english_name' => null,
                 'other_names' => null,
                 'author' => '',
                 'author_id' => null,
@@ -799,7 +799,7 @@ http://weibo.com/1642088277/DygKCcK2V
                 ],
             ],
             '小王子' => [
-                'name_en' => 'The Road Less Traveled',
+                'english_name' => 'The Road Less Traveled',
                 'other_names' => null,
                 'author' => 'Scott Peck（M·斯科特·派克）',
                 'author_id' => null,
@@ -818,7 +818,7 @@ http://weibo.com/1642088277/DygKCcK2V
                 ],
             ],//
             '少有人走的路' => [
-                'name_en' => 'The Road Less Traveled',
+                'english_name' => 'The Road Less Traveled',
                 'other_names' => null,
                 'author' => '<z-lang lang="en" title="M·斯科特·派克">Morgan Scott Peck</z-lang>（1936-2005）',
                 'author_id' => null,

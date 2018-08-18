@@ -17,7 +17,7 @@ class Staticizer
         'main' => 1,
         'pass' => 2, '
 //        jia' => 3,
-        'tree' => 4];
+        'bay' => 4];
     var $topItemId = [];
     var $allItemsById;
 
@@ -148,7 +148,7 @@ class Staticizer
 
         $headers[0] = <<<HOMEPAGE
 <div class="row pjax" id="header-row"><div class="col-xs-4"><h1 id="header-name"><a href="/">真城</a></h1></div>
-<div class="col-xs-8"><ul class="nav nav-pills pull-right" id="header-nav"><li role="presentation"><a href="/green">山青</a></li><li role="presentation"><a href="/spirit">真意</a></li><li role="presentation"><a href="/human/indiv">个体</a></li></ul></div></div>
+<div class="col-xs-8"><ul class="nav nav-pills pull-right" id="header-nav"><li role="presentation"><a href="/being">真身</a></li><li role="presentation"><a href="/spirit">真意</a></li><li role="presentation"><a href="/human/indiv">个体</a></li></ul></div></div>
 HOMEPAGE;
 
 

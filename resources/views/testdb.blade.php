@@ -33,7 +33,7 @@
                                     <?php $a_place = $article->places[0];$IDs[]= $article->id;  ?>
                                     <?php
                                     $mapInfosByID[$article->id] = [
-                                        'addr' => $a_place->pivot->place_name ?? $a_place->name ?? $a_place->name_en,
+                                        'addr' => $a_place->pivot->place_name ?? $a_place->name ?? $a_place->english_name,
                                         'intro' => $a_place->pivot->intro]
                                     ?>
 

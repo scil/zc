@@ -47,7 +47,7 @@ class Volume extends Model
     function articles()
     {
         return $this->hasMany('App\Article')
-            ->orderByRaw("FIELD(type, \"first\", \"normal\", \"note\")")
+            ->orderByRaw("FIELD(type, 'first', 'normal', 'note')")
             ->orderBy('order', 'asc')
             ;
     }
