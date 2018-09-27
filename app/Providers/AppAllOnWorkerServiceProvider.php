@@ -1,27 +1,25 @@
 <?php
-/**
- * User: scil
- * Date: 2018/6/24
- * Time: 17:17
- */
 
 namespace App\Providers;
 
 
 use App\Services\Http2Push;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
-class WorkerAppServiceProvider extends ServiceProvider
+class AppAllOnWorkerServiceProvider extends ServiceProvider
 {
-    static function coroutineFriendlyServices():array
+    static function coroutineFriendlyServices(): array
     {
         return ['http2push'];
     }
 
     public function boot()
     {
+        Paginator::useBootstrapThree();
+
         $push = app('http2push');
-        $push->registerGulpFiles();
+        $push->registerGulpProducedFilesWithToken();
 
     }
 

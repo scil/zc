@@ -7,6 +7,11 @@ $IN_PRODUCTION = env('APP_ENV') === 'production' || env('APP_ENV') === 'product'
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 
 return [
+    'web' => [
+        'enable' => true,
+        'prefix' => 'laravel-fly',
+    ],
+
     /**
      * If use cache file for config/laravel.php always.
      *
@@ -79,11 +84,11 @@ return [
 //        Illuminate\Validation\ValidationServiceProvider::class,
 ////        \LaravelFly\Map\Illuminate\View\ViewServiceProvider::class ,
 //        App\Providers\AppServiceProvider::class,
-////        App\Providers\WorkerAppServiceProvider::class ,
+////        App\Providers\AppAllOnWorkerServiceProvider::class ,
 
         ],
 
-        LARAVELFLY_SERVICES['broadcast'] ? [] : [
+        !!LARAVELFLY_SERVICES['broadcast'] ? [] : [
             Illuminate\Broadcasting\BroadcastServiceProvider::class,
             Illuminate\Broadcasting\BroadcastManager::class,
             Illuminate\Contracts\Broadcasting\Broadcaster::class,
@@ -143,6 +148,14 @@ return [
             'log' => true,
         ],
 
+        // this is not in config('app.providers') and registered in Application:;registerBaseServiceProviders
+        Illuminate\Routing\RoutingServiceProvider::class => [
+            'router' => true,
+            'url' => 'clone',
+            // todo
+            'redirect' => false,
+        ],
+
         Illuminate\Auth\AuthServiceProvider::class => [
             '_replaced_by' => LaravelFly\Map\Illuminate\Auth\AuthServiceProvider::class,
             'auth',
@@ -150,7 +163,7 @@ return [
         ],
 
         Illuminate\Broadcasting\BroadcastServiceProvider::class =>
-            LARAVELFLY_SERVICES['broadcast'] ? [
+            !!LARAVELFLY_SERVICES['broadcast'] ? [
                 Illuminate\Broadcasting\BroadcastManager::class,
                 Illuminate\Contracts\Broadcasting\Broadcaster::class,
             ] : 'ignore',
@@ -185,7 +198,7 @@ return [
         Illuminate\Filesystem\FilesystemServiceProvider::class => [
             'files' => true,
             'filesystem.disk' => true,
-            'filesystem.cloud' => LARAVELFLY_SERVICES['filesystem.cloud'],
+            'filesystem.cloud' => !!LARAVELFLY_SERVICES['filesystem.cloud'],
         ],
 
         /* This reg FormRequestServiceProvider, whose boot is related to request */
@@ -215,7 +228,7 @@ return [
         Illuminate\Queue\QueueServiceProvider::class => [],
 
         Illuminate\Redis\RedisServiceProvider::class => [
-            'redis' => LARAVELFLY_SERVICES['redis'],
+            'redis' => !!LARAVELFLY_SERVICES['redis'],
         ],
 
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class => [],
@@ -227,15 +240,18 @@ return [
             \Illuminate\Session\Middleware\StartSession::class
         ],
 
-        Illuminate\Translation\TranslationServiceProvider::class => [
-            'translation.loader' => true,
-            'translator' => true,
-        ],
+        Illuminate\Translation\TranslationServiceProvider::class =>
+            !!LARAVELFLY_SERVICES['translator'] || !!LARAVELFLY_SERVICES['validator'] ? [
+                '_replaced_by' => LaravelFly\Map\Illuminate\Translation\TranslationServiceProvider::class,
+                'translation.loader' => true,
+                'translator' => true,
+            ] : 'ignore',
 
-        Illuminate\Validation\ValidationServiceProvider::class => [
-            'validator' => true,
-            'validation.presence' => true,
-        ],
+        Illuminate\Validation\ValidationServiceProvider::class =>
+            !!LARAVELFLY_SERVICES['validator'] ? [
+                'validator' => true,
+                'validation.presence' => true,
+            ] : 'ignore',
 
         Illuminate\View\ViewServiceProvider::class => [
             '_replaced_by' => \LaravelFly\Map\Illuminate\View\ViewServiceProvider::class,
@@ -260,7 +276,7 @@ return [
          * if some executions always same in each request,
          * suggest to create a new AppServiceProvider whoes reg and boot are both executed on worker.
          */
-        App\Providers\WorkerAppServiceProvider::class => [],
+        App\Providers\AppAllOnWorkerServiceProvider::class => [],
 
         /* depends */
         /**
@@ -270,7 +286,7 @@ return [
          */
         App\Providers\AuthServiceProvider::class => 'across',
 
-        App\Providers\BroadcastServiceProvider::class => LARAVELFLY_SERVICES['broadcast'] ? [] : 'ignore',
+        App\Providers\BroadcastServiceProvider::class => !!LARAVELFLY_SERVICES['broadcast'] ? [] : 'ignore',
 
         /* depends */
         /**
@@ -281,7 +297,7 @@ return [
 
         /* depends */
         App\Providers\RouteServiceProvider::class => [],
-
+//        App\Providers\RouteServiceProvider::class => 'across',
 
         /*
          * Third Party
@@ -292,17 +308,49 @@ return [
             Illuminate\Contracts\Debug\ExceptionHandler::class => true,
         ],
 
+        Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class => [
+            Mcamara\LaravelLocalization\LaravelLocalization::class => 'clone',
+        ],
+
         /*
          * LaravelFly
+         *
+         * /laravel-fly/info
          */
 
         LaravelFly\Providers\RouteServiceProvider::class => [],
     ],
 
     /**
+     * if a Facade alias of a CLONE SERVICE maybe used before any requests, put it here to clean.
+     *
+     * No worry about the Facade alias used in a request, because refactor working has done on Facade.
+     */
+    'clean_Facade_on_work' => [
+
+        // a facke request instance made on work
+        'request',
+        //'url' has been made on work? when? \Illuminate\Routing\RoutingServiceProvider
+        'url',
+
+        'laravellocalization',
+
+    ],
+
+    /**
      * for Mode Map
      */
-    'update_for_clone' => [
+    'update_on_request' => [
+
+        [
+            'this' => 'laravellocalization',
+            'closure' => function () {
+                $this->url = app('url');
+                app()->rebinding('request', function () {
+                    $this->request = app('request');
+                });
+            }
+        ],
 
         // for hash
         !empty(LARAVELFLY_SERVICES['hash']) ? false :
@@ -349,6 +397,7 @@ return [
         //todo
 //        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
     ],
+
     // only helpful when LARAVELFLY_SERVICES['kernel']===true
     'singleton_middlewares' => [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,

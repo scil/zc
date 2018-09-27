@@ -10,7 +10,7 @@ class VideosTableSeeder extends Seeder
         $this->sourceDir = __DIR__ . '/video_src/';
 
 
-        $v_col_id = MENU_ITEMS["video"]['id']; //9;
+        $v_col_id = MENU_MAP["video"]['id']; //9;
         $vol_nu = 0;
 
         DB::table('videos')->truncate();

@@ -1,4 +1,4 @@
-@extends('layouts.base'.$pjax,['desc'=>$quote->desc])
+@extends('layouts.base'.$IS_PJAX,['title'=>$quote->title . ' &nbsp;|&nbsp; ' . MENU_ITEMS[$LOCALE][$prefix]['ctitle'], 'desc'=>$quote->desc])
 
 @section('content')
 
@@ -18,7 +18,7 @@
                     ?>
                     @foreach($quote->places as $place)
                         {{-- only get the first place  --}}
-                        <?php $IDs[] = $place->id ;  ?>
+                        <?php $IDs[] = $place->id;  ?>
                         <?php
                         $mapInfosByPlaceID[$place->id] = [
                             'addr' => $place->pivot->place_name ?? $place->name ?? $place->english_name,
@@ -37,7 +37,9 @@
                     @if($quote->title)
                         <header>
                             @if($quote->sub_title)
-                                <h1 id="item-title">{!!  $quote->title !!}<small> —— {!! $quote->sub_title !!}</small></h1>
+                                <h1 id="item-title">{!!  $quote->title !!}
+                                    <small> —— {!! $quote->sub_title !!}</small>
+                                </h1>
                             @else
                                 <h1 id="item-title">{!!  $quote->title !!}</h1>
                             @endif
@@ -120,7 +122,8 @@
         function standalone_func() {
             $('cite', '#QItem').addClass('cite-tail');
         }
-        standalone_func();
+
+
 
         function dependent_func() {
             zc.content.init();
@@ -177,6 +180,7 @@
 
             @endif
         }
+
         //# sourceURL=quote
     </script>
 @stop

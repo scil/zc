@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.base',['title' => MENU_ITEMS[$LOCALE]["bay"]['title'], 'desc' => MENU_ITEMS[$LOCALE]["bay"]['desc']])
 
 
 @section('content')
@@ -16,7 +16,7 @@
 
                         <div class="quote-text" style="margin-top: 4.5%; margin-bottom: 0%;">
                             <div>
-                                <p id="TREE-Q">三角湾</p>
+                                <p id="TREE-Q">淡水湾</p>
                             </div>
                         </div>
                     </div>
@@ -27,69 +27,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-    <div class="container townhall-one">
-        <h2 class="h2title text-center heiti">财务栏
-        </h2>
-
-        <div class="row">
-            <div class="col-sm-8 col-sm-offset-2">
-                <table class="table table-bordered">
-                    <colgroup>
-                        <col width="">
-                        <col width="20%">
-                        <col width="25%">
-                        <col width="20%">
-                        <col width="">
-                    </colgroup>
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>日期</th>
-                        <th>内容</th>
-                        <th>金额(CNY)</th>
-                        <th>备注</th>
-                    </tr>
-                    </thead>
-                    @include('partials.country._finance')
-                </table>
-            </div>
-        </div>
-        <hr>
-    </div>
-
-
-
-
-    {{--<div class="container townhall-one ">--}}
-    {{--<h2 class="h2title text-center heiti">城务员</h2>--}}
-
-    {{--<div class="row text-center">--}}
-    {{--<div class="col-sm-6 col-sm-offset-3" id="zc-workers">--}}
-
-    {{--<table class="table table-bordered  table-hover">--}}
-    {{--<thead>--}}
-    {{--<tr>--}}
-    {{--<th>名字</th>--}}
-    {{--<th>职务</th>--}}
-    {{--<th>QQ</th>--}}
-    {{--<th>微信</th>--}}
-    {{--</tr>--}}
-    {{--</thead>--}}
-    {{--<tbody>--}}
-    {{--<tr>--}}
-    {{--<td>结巢人境</td>--}}
-    {{--<td>站长</td>--}}
-    {{--<td></td>--}}
-    {{--<td></td>--}}
-    {{--</tr>--}}
-    {{--</tbody>--}}
-    {{--</table>--}}
-    {{--</div>--}}
-    {{--</div>--}}
 
 
     <div class="modal fade" tabindex="-1" role="dialog" id="global-modal">

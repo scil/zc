@@ -2,9 +2,7 @@
 
 namespace App\Providers;
 
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
-
 
 use Thrift\Protocol\TBinaryProtocol;
 use Thrift\Transport\TSocket;
@@ -21,9 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //todo
-        Paginator::useBootstrapThree();
-        \View::share('pjax', $this->app->make('request')->header('x-pjax', ''));
+        \View::share('IS_PJAX', $this->app->make('request')->header('x-pjax', ''));
     }
 
     /**
@@ -33,13 +29,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if (!defined('MENU_ITEMS')) {
-            include  base_path('bootstrap/cache2/menu_items.php');
-        }
-        if (!defined('ZC_HEADERS')) {
-            include base_path('bootstrap/cache2/headers.php');
-        }
-
         if ($this->app->runningInConsole() || defined('LARAVELFLY_MODE'))
             $this->registerMarkdownServiceClient();
     }

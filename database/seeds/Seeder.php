@@ -57,7 +57,7 @@ class Seeder extends BaseSeeder
         if (!(is_file($htmlFile) && filemtime($sourceFile) < filemtime($htmlFile))) {
             echo 'EXEC nodejs encode_content.js for ', $uniqName, $field, PHP_EOL;
             chdir(base_path());
-            $cmd = "nodejs ./resources/jscli/encode_content.js -i $sourceFile -h $htmlFile ";
+            $cmd = "nodejs ./resources/bin/encode_content.js -i $sourceFile -h $htmlFile ";
 //            echo "cmd is : $cmd \n";
             $a = exec($cmd, $out, $status);
 
@@ -89,17 +89,16 @@ class Seeder extends BaseSeeder
                 $item['articleable_type'] = $quoteable_type;
             }
 
-            if($item['quoteable_type']??null){
+            if ($item['quoteable_type'] ?? null) {
                 $item['articleable_type'] = $item['quoteable_type'];
                 $item['articleable_id'] = $quoteable_id ?? $item['quoteable_id'];
                 unset($item['quoteable_type'], $item['quoteable_id']);
             }
-            if($item['articleable_type'] == 'Article'){
+            if ($item['articleable_type'] == 'Article') {
                 $item['articleable_type'] = 'App\Article';
             }
 
-            if(!isset($item['intro']))
-            {
+            if (!isset($item['intro'])) {
                 $item['intro'] = $item['body'];
                 unset($item['body']);
             }
@@ -137,15 +136,32 @@ class Seeder extends BaseSeeder
             $body = $item['body_long'] ?? null;
             $md = $item['md_long'] ?? null;
             unset($item['body_long'], $item['md_long']);
-            if($body){
+            if ($body) {
                 $item['short'] = 3;
-            }else{
+            } else {
                 $item['short'] = 2;
 
             }
 
-            // $qID = DB::table('quotes')->insertGetId($item);
-            $qID = DB::table('articles')->insertGetId($item);
+            $article = $item;
+            if (!isset($article['zh'])) {
+                $article['zh'] = [
+                    'title' => $article['title'] ?? null,
+                    'sub_title' => $article['sub_title'] ?? null,
+                    'desc' => $article['desc'] ?? null,
+                    'intro' => $article['intro'] ?? null,
+                    'intro_md' => $article['intro_md'] ?? null,
+                ];
+            }
+            unset($article['title'], $article['sub_title'], $article['desc'], $article['intro'], $article['intro_md']);
+
+            if (isset($article['created_at']))
+                $article['created_at'] = date('Y-m-d H:i:s', strtotime($article['created_at']));
+
+            $item = \App\Article::create($article);
+            $item->save();
+            $qID = $item->id;
+            // $qID = DB::table('articles')->insertGetId($item);
 
             if ($body)
                 DB::table('contents')->insert([
@@ -202,20 +218,44 @@ class Seeder extends BaseSeeder
                 $id = $place['_id'];
 
             } elseif (isset($place['_name'])) {
-                $id = DB::table('places')->where('name', $place['_name'])->first()->id;
+                //$id = DB::table('places')->where('name', $place['_name'])->first()->id;
+                $id = \App\Place::whereTranslation('name', $place['_name'])->first()->id;
             } else {
                 if (!($place['name'] ?? null) && isset($place['english_name'])) {
                     $place['name'] = $place['english_name'];
                 }
 
-                $id = DB::table('places')->insertGetId($place);
+                if ($place['name'] ?? false) {
+                    $place['zh'] = ['name' => $place['name']];
+                }
+
+                if (isset($place['english_name']) && $place['english_name']) {
+                    $place['en'] = ['name' => $place['english_name']];
+                }
+
+                unset($place['name'], $place['english_name']);
+
+                $item = \App\Place::create($place);
+                $item->save();
+                $id = $item->id;
             }
 
             if ($oldOrPoint) {
                 $oldOrPoint['relate_id'] = $id;
                 $oldOrPoint['lat'] = $place['lat'];
                 $oldOrPoint['lng'] = $place['lng'];
-                $id = DB::table('places')->insertGetId($oldOrPoint);
+
+                if ($oldOrPoint['name'] ?? false) {
+                    $oldOrPoint['zh'] = ['name' => $oldOrPoint['name']];
+                }
+                if (isset($oldOrPoint['english_name']) && $oldOrPoint['english_name']) {
+                    $oldOrPoint['en'] = ['name' => $oldOrPoint['english_name']];
+                }
+                unset($oldOrPoint['name'], $oldOrPoint['english_name']);
+
+                $item = \App\Place::create($oldOrPoint);
+                $item->save();
+                $id = $item->id;
             }
 
 
@@ -231,7 +271,27 @@ class Seeder extends BaseSeeder
     {
         foreach ($place_infos as $place_info) {
             $place_info['placeable_id'] = $id;
-            DB::table('placeables')->insert($place_info);
+            // DB::table('placeables')->insert($place_info);
+
+            if (!isset($place_info['zh']))
+                $place_info['zh'] = [
+                    'info_name' => $place_info['info_name'] ?? ($place_info['place_name'] ?? null),
+                    'title' => $place_info['title'] ?? null,
+                    'intro' => $place_info['intro'] ?? null,
+                ];
+
+            if (null === $place_info['zh']['info_name'] && null === $place_info['zh']['title'] && null === $place_info['zh']['intro'])
+                unset($place_info['zh']);
+
+            unset($place_info['place_name'], $place_info['title'], $place_info['intro']);
+
+            //if($place_info['place_english_name']??null){}
+
+            // var_dump($data);exit();
+            $item = \App\Placeable::create($place_info);
+            $item->save();
+
+
         }
     }
 
@@ -284,7 +344,25 @@ class Seeder extends BaseSeeder
             $md = $article['md'] ?? null;
             unset($article['body'], $article['md']);
 
-            $articleID = DB::table('articles')->insertGetId($article);
+            // $articleID = DB::table('articles')->insertGetId($article);
+
+            if (!isset($article['zh'])) {
+                $article['zh'] = [
+                    'title' => $article['title'] ?? null,
+                    'sub_title' => $article['sub_title'] ?? null,
+                    'desc' => $article['desc'] ?? null,
+                    'intro' => $article['intro'] ?? null,
+                    'intro_md' => $article['intro_md'] ?? null,
+                ];
+            }
+            unset($article['title'], $article['sub_title'], $article['desc'], $article['intro'], $article['intro_md']);
+
+            if (isset($article['created_at']))
+                $article['created_at'] = date('Y-m-d H:i:s', strtotime($article['created_at']));
+
+            $item = \App\Article::create($article);
+            $item->save();
+            $articleID = $item->id;
 
             DB::table('contents')->insert([
                 'body' => $body,

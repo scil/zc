@@ -1,4 +1,4 @@
-@extends('layouts.base',['title'=>$title])
+@extends('layouts.base',['title'=>$media->name . ' &nbsp;|&nbsp; ' . MENU_ITEMS[$LOCALE][$media_type]['ctitle'],'desc'=> $media->desc ?? substr($media->intro, 0, 200)])
 
 
 @section('content')
@@ -227,7 +227,7 @@
 
         }
 
-        standalone_func();
+
 
         function dependent_func() {
 

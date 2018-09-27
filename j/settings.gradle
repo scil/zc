@@ -1,0 +1,3 @@
+rootProject.name = 'zc'
+
+include 'Jena', 'map2'

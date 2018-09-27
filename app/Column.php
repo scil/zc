@@ -17,6 +17,17 @@ class Column extends Model
 {
     //
     protected $table = 'menu_items';
+
+    use \Dimsav\Translatable\Translatable;
+    public $translatedAttributes = ['name','short_name','title','ctitle','desc'];
+    public $translationModel = \App\ColumnTranslation::class;
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['translations'];
+
     public $timestamps = false;
 
     public function tags()

@@ -23,7 +23,8 @@ class Volume extends Model
     {
         return $this->belongsTo('App\Column')
         // 为什么使用了select , 文章页面就查不到 column
-         ->select(['id','short_name','css','url'])
+        ->select(['id','css','url'])
+        // ->select(['id','short_name','css','url'])
         ;
     }
     function books()
@@ -57,7 +58,9 @@ class Volume extends Model
     }
     public function firstArticlesSimple()
     {
-        return  $this->articles()->select(['id','slug','title','sub_title','desc','intro','volume_id'])->where('type','=','first');
+        return  $this->articles()->select(['id','slug',
+//            'title','sub_title','desc','intro',
+            'volume_id'])->where('type','=','first');
     }
 
     public function person()

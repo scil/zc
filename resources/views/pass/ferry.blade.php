@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.base',['title' => MENU_ITEMS[$LOCALE]["ferry"]['title'], 'desc' => MENU_ITEMS[$LOCALE]["ferry"]['desc']])
 
 @section('content')
     <div class="container make-footer-margin-top-smaller">

@@ -15,11 +15,10 @@ class CreatePlacesTable extends Migration
         //
         Schema::create('places', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name',60);
-            $table->string('other_names',300)->nullable(); // 其它汉语名字,格式为: 钢锯岭\钢铁英雄(台)
-            $table->string('english_name',60)->nullable(); // 若国外名字，则留下名字的英文名；地址只留英文名
-            $table->string('native_name',100)->nullable();// 格式为: fr \ XXX
-            $table->string('names',300)->nullable(); // 其它语言的名字,格式为: ja\\日语1\日语2;fr\\法语1
+            $table->string('native_lang',10)->nullable();// fr, zh, en ..
+
+//            $table->string('names',300)->nullable(); // 其它语言的名字,格式为: ja\\日语1\日语2;fr\\法语1
+
             $table->string('addr')->nullable(); // 短地址
             $table->string('address')->nullable();
             $table->float('lat',10,6);
@@ -31,7 +30,21 @@ class CreatePlacesTable extends Migration
 
             $table->string('url')->nullable();
 
+            $table->timestamps();
+
             $table->string('comment',1000)->nullable(); // 备注， 如昆明二十二中的历史
+        });
+        Schema::create('place_translations', function (Blueprint $table) {
+
+            $table->increments('id');
+            $table->string('locale')->index();
+
+            $table->string('name',60);
+            $table->string('other_names',300)->nullable(); // 其它名字,格式为: 钢锯岭\钢铁英雄(台)
+//            $table->string('english_name',60)->nullable(); // 若国外名字，则留下名字的英文名；地址只留英文名
+
+            $table->integer('place_id')->unsigned();
+            $table->unique(['place_id', 'locale']);
         });
     }
 
@@ -44,5 +57,6 @@ class CreatePlacesTable extends Migration
     {
         //
         Schema::drop('places');
+        Schema::drop('place_translations');
     }
 }

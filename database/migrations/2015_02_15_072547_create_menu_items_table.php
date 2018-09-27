@@ -12,12 +12,10 @@ class CreateMenuItemsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('menu_items', function(Blueprint $table)
-		{
-			$table->tinyIncrements('id');
+        Schema::create('menu_items', function(Blueprint $table)
+        {
+            $table->tinyIncrements('id');
             $table->smallInteger('menu_id')->unsigned()->default(1);
-            $table->string('name',15);
-            $table->string('short_name',15)->nullable();
             $table->boolean('show')->default(true);
             $table->string('css')->nullable();
             // box: parent column
@@ -26,10 +24,26 @@ class CreateMenuItemsTable extends Migration {
             $table->tinyInteger('order')->unsigned();
             $table->smallInteger('pid')->nullable();
             $table->string('url',50)->unique()->nullable();
+            $table->string('pic',50)->nullable();
+        });
+
+		Schema::create('menu_item_translations', function(Blueprint $table)
+		{
+			$table->tinyIncrements('id');
+            $table->string('locale')->index();
+
+            $table->string('name',15);
+            $table->string('short_name',15)->nullable();
+
             $table->string('title',50)->nullable();
+            // used for simple title of items, e.g. a book in /books
             $table->string('ctitle',50)->nullable();
             $table->string('desc',200)->nullable();
-            $table->string('pic',50)->nullable();
+
+            $table->integer('column_id')->unsigned();
+            $table->unique(['column_id','locale']);
+            //todo
+//            $table->foreign('menu_item_id')->references('id')->on('menu_items')->onDelete('cascade');
 		});
 	}
 
@@ -41,6 +55,8 @@ class CreateMenuItemsTable extends Migration {
 	public function down()
 	{
 		Schema::drop('menu_items');
+        Schema::drop('menu_item_translations');
+
 	}
 
 }

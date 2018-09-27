@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.base',['title'=>MENU_ITEMS[$LOCALE][$media_type]['title'], 'desc'=>MENU_ITEMS[$LOCALE][$media_type]['desc']])
 
 @section('content')
     <div class="container">

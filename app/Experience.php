@@ -20,6 +20,9 @@ class Experience extends Model
     }
     public function places()
     {
-        return $this->morphToMany('App\Place', 'placeable')->withPivot('place_name','intro','comment');
+        return $this->morphToMany('App\Place', 'placeable')
+            // todo
+            ->withPivot('type');
+        // ->withPivot('name','title','intro','comment');
     }
 }

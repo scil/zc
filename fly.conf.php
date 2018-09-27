@@ -1,6 +1,8 @@
 <?php
-
 $basePath = $basePath ?? __DIR__;
+
+if (!defined('HOMEPAGE_PLOTS_QUOTE'))
+    require $basePath . '/bootstrap/global_config.php';
 
 foreach (file($basePath . '/.env') as $line) {
     if (substr($line, 0, 7) === 'APP_ENV') {
@@ -12,24 +14,29 @@ if (!isset($IN_PRODUCTION)) die('no .env found in ' . $basePath);
 
 
 //const LARAVELFLY_MODE = 'Backup';
+//const LARAVELFLY_MODE = 'FpmLike';
 const LARAVELFLY_MODE = 'Map';
+
+const LARAVELFLY_COROUTINE = true;
 
 const HONEST_IN_CONSOLE = false;
 
 const LARAVELFLY_SERVICES = [
 
-    "redis" => true,
-    'filesystem.cloud' => false,
-    'broadcast' => false,
+    "redis" => 'use',
+    'filesystem.cloud' => !'use',
+    'broadcast' => !'use',
+    'translator' => 'use',
+    'validator' => 'use',
 
+    'App\Providers\RouteServiceProvider' => true,
     'routes' => true,
     'cookie' => true,
     'auth' => true,
     'hash' => true,
     'view.finder' => true,
 
-    'config' => true,
-    'kernel' => true,
+    'kernel' => false,
 
 ];
 
@@ -67,6 +74,21 @@ return [
     // 'early_laravel' => true,
     'early_laravel' => false,
 
+    'before_start_func' => function () {
+
+        // memory share
+        // $this is the instance of the 'server'
+        // $this->newIntegerMemory('hits', new swoole_atomic(0));
+
+
+        // event
+        // $this->getDispatcher()->addListener('worker.starting', function (GenericEvent $event) {
+        //    echo "There files can not be hot reloaded, because they are included before worker starting\n";
+        //    var_dump(get_included_files());
+        // });
+
+    },
+
     // 'user' => 'www-data', 'group' => 'www-data',
 
     /**
@@ -82,5 +104,6 @@ return [
     'log_cache' => 5,
 
     'kernel' => \App\Http\Kernel::class,
+    'application' => '\LaravelFly\\' . LARAVELFLY_MODE . '\Application',
 
 ];

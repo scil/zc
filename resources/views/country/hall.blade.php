@@ -1,4 +1,4 @@
-@extends('layouts.base')
+@extends('layouts.base',['title' => MENU_ITEMS[$LOCALE]["hall"]['title'], 'desc' => MENU_ITEMS[$LOCALE]["hall"]['desc']])
 
 
 @section('content')

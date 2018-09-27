@@ -12,7 +12,7 @@ class BooksTableSeeder extends Seeder
         DB::table('books')->truncate();
 
 
-        $bookColID = MENU_ITEMS["book"]['id'];
+        $bookColID = MENU_MAP["book"]['id'];
         foreach (['小说'] as $tagName){
             $tag = App\Tag::firstOrCreate(
                 [
@@ -26,7 +26,7 @@ class BooksTableSeeder extends Seeder
 //           ]);
         }
 
-        $v_col_id = MENU_ITEMS["book"]['id']; //9;
+        $v_col_id = MENU_MAP["book"]['id']; //9;
         $vol_nu=0;
 
         $books = [

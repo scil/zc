@@ -22,11 +22,11 @@ class ArticlesTableSeeder extends Seeder
 //        $article_ids = require __DIR__ . '/article_ID.php';
         $person_ids = require __DIR__ . '/person_ID.php';
 
-        $book_id = MENU_ITEMS["paper"]['id'];
-        $qing_id = MENU_ITEMS["being"]['id'];
+        $book_id = MENU_MAP["think"]['id'];
+        $qing_id = MENU_MAP["being"]['id'];
 
-        $ren_nature_id = MENU_ITEMS["human/nature"]['id'];
-        $ren_id = MENU_ITEMS["human/road"]['id'];
+        $ren_nature_id = MENU_MAP["human/nature"]['id'];
+        $ren_id = MENU_MAP["human/road"]['id'];
 
 
         $qing_vol_no = 0;
@@ -58,7 +58,7 @@ class ArticlesTableSeeder extends Seeder
                     'person_id' => $person_ids['Zi'],
                 ],
                 '_place' => [
-                    '_id' => DB::table('places')->where('name', '北京')->first()->id,
+                    '_id' => \App\Place::whereTranslation('name', '北京')->first()->id,
                     'info' => [
                         'title' => '烧',
                         'intro' => '她挚爱音乐，却烧掉了中学毕业时的音乐会纪念册，「我感到当时别人在为“New China”浴血奋战，我却沉浸在小资产阶级的钢琴调中，很羞愧，就一把火就烧了」，与过去决裂。',
@@ -169,7 +169,7 @@ class ArticlesTableSeeder extends Seeder
                 'articleable_id' => $column_id,
                 'title' => '与信念同行',
                 'sub_title' => '小记《乌托邦》作者莫尔',
-                'desc' => '《乌托邦》的作者莫尔和王阳明是同代人，都是官员兼作家、思想家，都品性高洁，但莫尔针砭现实，思想外向。',
+                'desc' => '《乌托邦》的作者莫尔和王阳明是同代人，同样品性高洁，同是官员兼作家、思想家，但莫尔笔锋针砭现实，思想外向。',
                 'intro' => '莫尔（More）和王阳明是同代人，小六岁，在英格兰为官，专业、正直，被称为「穷人的庇护者」；他也是信仰虔诚，身居高位，一如既往磨炼精神，鞭笞苦修；和王阳明的心学不同，他面向现实，渴望改革，虽然在历史转折的节点上，人们会认为他是守旧的顽固派。',
                 'author' => 'scil',
                 'author_id' => 1,
@@ -189,7 +189,7 @@ class ArticlesTableSeeder extends Seeder
                     'person_id' => $person_ids['Thomas_More'],
                 ],
                 '_place' => [
-                    '_id' => DB::table('places')->where('name', '牛津大学')->first()->id,
+                    '_id' => \App\Place::whereTranslation('name', '牛津大学')->first()->id,
                     'info' => [
                         'title' => '小侍者读大学',
                         'intro' => 'More 在 Morton 家做了两年小侍者。做侍者是欧洲传统的少年成长方式，从事的工作在东方宫廷王府中不乏由奴隶而非公子负责。Morton 是当时的大法官、主教，支持囶外传来的新思潮「文艺复兴」，非常欣赏小 More 的才华，推荐他到牛津大学，学习语言和文学。是年 More 14 岁，Columbus 发现美洲。',
@@ -269,7 +269,7 @@ class ArticlesTableSeeder extends Seeder
                     'person_id' => $person_ids['Huang_Yu'],
                 ],
                 '_place' => [
-                    '_id' => DB::table('places')->where('name', '纽约都会区')->first()->id,
+                    '_id' => \App\Place::whereTranslation('name', '纽约都会区')->first()->id,
                     'info' => [
                         'title' => '工作的路上',
                         'intro' => '黄给家里打电话，谈到自己「研究继续搞着，每个星期去找导师讨论一下，有时导师讲课，就听课」。几天后，他在投送报纸的路上，检修爆胎的汽车，不幸遭遇车祸。',
@@ -385,10 +385,10 @@ class ArticlesTableSeeder extends Seeder
                     ]
                 ],
                 '_place' => [
-                    '_id' => DB::table('places')->where('english_name', 'Los Alamos')->first()->id,
+                    '_id' => \App\Place::whereTranslation('name', 'Los Alamos','en')->first()->id,
                     'info' => [
-                        'title' => '参加研制原子弹的 Manhattan Project',
-                        'intro' => '成为人人避而远之的开锁贼。他满身的幽默感来自母亲。',
+                        'title' => '参加研制原子弹',
+                        'intro' => '在曼哈顿，费曼成了大家避而远之的开锁贼。他满身的幽默感来自母亲。',
                     ]
                 ],
                 '_quotes' => [

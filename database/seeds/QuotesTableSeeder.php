@@ -17,19 +17,19 @@ class QuotesTableSeeder extends Seeder
 //        File::cleanDirectory($this->freeDir);
         DB::table('articles')->truncate();
 
-        $book_id = MENU_ITEMS["paper"]['id']; //;
-        $zhi_ren_ye_id = MENU_ITEMS["being"]['id'];
-        $rain_id = MENU_ITEMS["spirit"]['id']; //
-//        $si_id=MENU_ITEMS["zhen/think"]; // 15;
+        $book_id = MENU_MAP["think"]['id']; //;
+        $zhi_ren_ye_id = MENU_MAP["being"]['id'];
+        $rain_id = MENU_MAP[STARS_URL]['id']; //
+//        $si_id=MENU_MAP["zhen/think"]; // 15;
 
-        $ren_id = MENU_ITEMS["human/road"]['id'];
-        $ren_home = MENU_ITEMS["human/country"]['id'];
-        $ren_indiv = MENU_ITEMS["human/Indiv"]['id'];
+        $ren_id = MENU_MAP["human/road"]['id'];
+        $ren_home = MENU_MAP["human/country"]['id'];
+        $ren_indiv = MENU_MAP["human/Indiv"]['id'];
 
-        $fan_ren = MENU_ITEMS['sail/walkers']['id'];
-        $fan_cai = MENU_ITEMS['sail/assets']['id'];
-        $fan_dao = MENU_ITEMS['sail/road']['id'];
-//        $fan_zhi=MENU_ITEMS['/sail/zhi'];
+        $fan_ren = MENU_MAP['sail/walkers']['id'];
+        $fan_cai = MENU_MAP['sail/wealth']['id'];
+        $fan_dao = MENU_MAP['sail/road']['id'];
+//        $fan_zhi=MENU_MAP['/sail/zhi'];
 
         $items = [
         ];
@@ -92,7 +92,7 @@ class QuotesTableSeeder extends Seeder
                     ]
                 ],
                 '_image' => [
-                    'url' => 'http://img.chyxx.com/2017/05/20170510093201fj_m.png',
+                    'url' => '//img.chyxx.com/2017/05/20170510093201fj_m.png',
                     'local' => '/img/2016/yangliping.jpg',
                     'alter' => "//photocdn.sohu.com/20151207/mp46747023_1449450060219_2_th_fv23.jpeg",
                     'style' => null,
@@ -114,49 +114,50 @@ class QuotesTableSeeder extends Seeder
                 'status' => 1, 'deep' => 'open',
                 'comment' => '',
             ],
-//            [
-//                '_slug' => 'chang_' . (++$column_no_start),
-//                'quoteable_type' => 'App\Column',
-//                'quoteable_id' => $column_id,
-//
-//                '_place' => [
-//                    'name' => '中国人民大学东门',
-//                    'addr' => '北京',
-//                    'address' => '',
-//                    'lat' => 39.969703,
-//                    'lng' => 116.319994,
-//                    'info' => [
-//                        'relation' => false,
-//                    ]
-//                ],
-//                '_image' => [
-//            'local' => '/img/2016/yangliping.jpg',
-//                    'url' => '//www.ccln.gov.cn/uploadImage/dangshidagjian/dangshi/dswk/1358147569530.jpg',
-//                    'alter' => null,
-//                    'style' => null,
-//                    'alt' => 'Snow visits China 1970',
-//                ],
-//
-//                'order' => $column_no_start,
-//                'title' => '斯诺夫人',
-//                'slug' => 'Mrs.Snow',
-//                'intro' => 'Mrs. Snow 90 年代一次来访。<span lang="ru">Правительство</span>看她生活比较艰难，欲以演讲费等形式给点资助，亦算是对 Snow 过去帮助中囶革命的感谢。 她谢绝了，说：Snow 和我在世界上讲的话，之所以有人相信，全因他们认定我们和 <span lang="ru">КПК</span> 没有利益关系，所言所论皆出自我们的“独立”观察。如果我拿了钱，今后没人再信我们的话了，连以前说的也都不信。[^snow]
-//
-//[^snow]: Edgar Snow 有两任妻子。
-//第一任妻子 [Helen Foster Snow](http://www.nytimes.com/1997/01/14/world/helen-foster-snow-89-a-founder-of-industrial-co-ops-in-china.html) 1997 年去世，[<span lang="ru">КНР</span> 官方举行纪念大会](//blog.sina.com.cn/s/blog_634131a40100n907.html)，相关资料：「从中国来的“客人”经常为她的窘迫生活而难过不安，愿向她提供一些必要的资助，但海伦每次都予以拒绝，她说，这就是她想要的生活」（[斯诺写<西行漫记>过程中从未到过延安](www.huaxia.com/wh/gjzt/2007/00702851.html)）。
-//第二任妻子 Lois Wheeler Snow ，与 Edgar Snow 在 1949 年结婚，1970 年两人应邀[在天安门城楼参加国庆典礼](http://blog.sina.com.cn/s/blog_5de8a665010138e3.html) ,1973 年 未名湖畔 Snow 骨灰安葬仪式上，她说「在这里，对人类的尊重达到了新的高度，在这里，世界的希望发射着新的光芒」，此后常收到访中邀请。但在 90 年代已与 <span lang="ru">КНР</span> 官方组织无联系，之后只在 2000 年到中囶一次<z-deep>：[\'Tam Just Woke Me Up\'](//edition.cnn.com/ASIANOW/time/features/interviews/int.snow.html)； [Chinese Film\'s Version of Mao Backfires](http://articles.latimes.com/2002/jan/04/entertainment/et-bodeen4) </z-deep>
-//',
-//                'author' => '徐斌',
-//                'origin' => '',
-//                'origin_date' => '2012/02/01',
-//                'show_date' => false,
-//                'origin_url' => 'http://blog.sciencenet.cn/blog-481697-566908.html',
-//                'origin_tip' => null,
-//                'editor_id' => 1,
-//
-//                'status' => 1, 'deep' => 'open',
-//                'comment' => '',
-//            ],
+            [
+                '_slug' => 'chang_' . (++$column_no_start),
+                'quoteable_type' => 'App\Column',
+                'quoteable_id' => $column_id,
+
+                '_place' => [
+                    'name' => '中国人民大学东门',
+                    'addr' => '北京',
+                    'address' => '',
+                    'lat' => 39.969703,
+                    'lng' => 116.319994,
+                    'info' => [
+                        'relation' => false,
+                    ]
+                ],
+                '_image' => [
+                    'local' => '/img/2016/Snow visits China 1970.jpg',
+                    'url' => 'http://upload.haijiangzx.com/2018/0711/1531272004196.jpg',
+                    'alter' => null,
+                    'style' => null,
+                    'alt' => 'Snow visits China 1970',
+                    'intro'=>'Lois Wheeler Snow 与 Edgar Snow 在 1949 年结婚，1970 年两人应邀<a href="http://blog.sina.com.cn/s/blog_5de8a665010138e3.html">在天安门城楼参加国庆典礼</a>，中借此向美传达交往信号。1973 年 未名湖畔 Snow 骨灰安葬仪式上，她说「在这里，对人类的尊重达到了新的高度，在这里，世界的希望发射着新的光芒」，此后常收到访中邀请。在 90 年代与中国官方已无正式联系。',
+                ],
+
+                'order' => $column_no_start,
+                'title' => '斯诺夫人',
+                'slug' => 'Mrs.Snow',
+                'intro' => '斯诺夫人（疑为斯诺早年前妻 Helen）90 年代一次来访。<span lang="ru">Правительство</span>看她生活比较艰难，欲以演讲费等形式给点资助，亦算是对 Snow 过去帮助中囶革命的感谢。 她谢绝了，说：Snow 和我在世界上讲的话，之所以有人相信，全因他们认定我们和 <span lang="ru">КПК</span> 没有利益关系，所言所论皆出自我们的“独立”观察。如果我拿了钱，今后没人再信我们的话了，连以前说的也都不信。[^snow]
+
+[^snow]: Edgar Snow 有两任妻子。
+第一任妻子 [Helen Foster Snow](http://www.nytimes.com/1997/01/14/world/helen-foster-snow-89-a-founder-of-industrial-co-ops-in-china.html) 1997 年去世，[<span lang="ru">КНР</span> 官方举行纪念大会](//blog.sina.com.cn/s/blog_634131a40100n907.html)，相关资料：「从中国来的“客人”经常为她的窘迫生活而难过不安，愿向她提供一些必要的资助，但海伦每次都予以拒绝，她说，这就是她想要的生活」（[斯诺写<西行漫记>过程中从未到过延安](www.huaxia.com/wh/gjzt/2007/00702851.html)）。
+第二任妻子 Lois Wheeler Snow ，在 2000 年来到中囶一次<z-deep>：[\'Tam Just Woke Me Up\'](//edition.cnn.com/ASIANOW/time/features/interviews/int.snow.html)； [Chinese Film\'s Version of Mao Backfires](http://articles.latimes.com/2002/jan/04/entertainment/et-bodeen4) </z-deep>
+',
+                'author' => '徐斌',
+                'origin' => '',
+                'origin_date' => '2012/02/01',
+                'show_date' => false,
+                'origin_url' => 'http://blog.sciencenet.cn/blog-481697-566908.html',
+                'origin_tip' => null,
+                'editor_id' => 1,
+
+                'status' => 1, 'deep' => 'open',
+                'comment' => '',
+            ],
 
 
 //            [
@@ -366,7 +367,6 @@ class QuotesTableSeeder extends Seeder
                     'alter' => null,
                     'style' => null,
                     'alt' => '第一任协和董事会',
-                    'title' => '',
                     'intro' => '<b>Peking Union Medical College 第一任董事会 右起第三人为小洛克菲勒</b>。<br>1912 年夏天，老洛克菲勒在老家的树荫下，举办了一场中囶问题分享会，450 位宾客挤满庭院，洛克菲勒夫人为这些滔滔不绝的客人们准备了冰水。小洛克菲勒领导了次年成立的洛克菲勒基金会，使命是「为了全人类的幸福和健康」。基金会在中囶创办了北京协和医学院，三十多年总计投入 4800 万美元。1951 年医院主人更换，新协和「专门设立外宾和高干门诊部，开设专门的高干、外宾、特需病区」。',
                 ],
                 '_place' => [
@@ -1099,18 +1099,19 @@ Don\'t be a victim 已成美囶人共识。它的意思不是要人去和人争�
                 'quoteable_id' => $column_id,
 
                 'order' => $column_no_start,
-                'title' => 'Joseph Pierce',
-                'sub_title' => '咸丰二年 十岁的他移民到美洲',
+                'title' => '祖囶从太平天国到袁世凯称帝, 60 年里 Joseph Pierce 在美洲',
                 'slug' => 'Joseph-Pierce',
                 'year' => 1852,
                 'sig' => -1,
-                'intro' => 'Joseph Pierce，1842 年生于中囶广东。10 岁时，咸丰二年、太平天国二年，他被一位船长带到美囶抚养(或是其家人把他卖给了船长)。
+                'intro' => 'Joseph Pierce，1842 年生于中囶广东。10 岁时，即 1852 年、咸丰二年、太平天国二年，他由一位船长带到美囶抚养(或是其家人把他卖给了船长)。
 
 南北战争爆发后，20 岁的 Pierce 入伍。1863 年 7 月参与葛底斯堡遭遇战后，他志愿参加了第二天的新一场战斗，因此役战功任职士官，是为数不多且事迹可查的早期美囶华裔军人之一。随后，他被派往 New Haven 从事招兵工作，1864 年 9 月归队（此时他去母囶 12 年，太平天国都城刚刚陷落）。
 
-Pierce 退伍后定居 Meriden, Connecticut，与 Martha Morgan 女士结婚，生二女二子，73 岁辞世，葬于胡桃木墓园（Walnut Grove Cemetery）。当地报纸上刊登了他的讣告，介绍他是「知名、受人喜爱」（well know and liked）。此时，母囶正经历袁世凯错误称帝，地缘强国——大日本帝国——趁机出手制造动乱（[《日本反对，是袁世凯失败的关键》](http://cul.qq.com/a/20171106/042812.htm)）。
+Pierce 退伍后定居 Meriden, Connecticut，与 Martha Morgan 女士结婚，生二女二子，73 岁辞世，葬于胡桃木墓园（Walnut Grove Cemetery）。当地报纸上刊登了他的讣告，介绍他是「知名、受人喜爱」（well know and liked）。此时，母囶正经历袁世凯错误称帝，地缘强国之一的大日本帝国趁机出手制造动乱（[《日本反对，是袁世凯失败的关键》](http://cul.qq.com/a/20171106/042812.htm)）。
 
-移民新大陆，是旧大陆人口、经济等危机的释放和缓解，更为人类个体和人类整体的发展提供了更多可能。',
+1993 年，Pierce 一张穿着平民服装的照片登上了美国葛底斯堡国家军事公园的「肖像墙」（The wall of faces）。^[[Joseph Pierce](http://www.gdg.org/Research/People/jpierce.html)]
+
+移民新大陆，是旧大陆人口、经济等危机的释放和缓解，更为人类个体和人类整体提供了更多可能。',
                 'author' => '',
                 'origin' => 'wikipedia',
                 'origin_date' => null,
@@ -1135,8 +1136,12 @@ Pierce 退伍后定居 Meriden, Connecticut，与 Martha Morgan 女士结婚，�
                     'lng' => -72.8719198,
                     'info' => [
                         'fromto' => 'to',
-                        'title' => '安葬于家乡胡桃木墓园',
-                        'intro' => '退伍后，23 岁的 Pierce 定居在这里，73 岁辞世。',
+                        'title' => '退伍后，23 岁的 Pierce 成为一名银匠',
+                        'intro' => '73 岁辞世。安葬于胡桃木墓园',
+                        'en'=>[
+                            'title' => 'Postwar, Pierce became a silver engraver.',
+                            'intro' => '1905, at age 73, Joseph Pierce is buried in Walnut Grove Cemetery',
+                        ]
                     ]
                 ],
 

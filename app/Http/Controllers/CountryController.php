@@ -10,57 +10,42 @@ class CountryController extends Controller
     function country($sub = null)
     {
         if (null === $sub) {
-            $columnID = MENU_ITEMS['country']['id'];
-            $title = MENU_ITEMS['country']['title'];
-            return view('country.index', compact('title'));
+            $columnID = MENU_MAP['country']['id'];
+            return view('country.index', compact('columnID'));
         }
-        $columnID = MENU_ITEMS["country/$sub"]['id'];
-        $title = MENU_ITEMS["country/$sub"]['title'];
-        $desc = MENU_ITEMS["country/$sub"]['desc'];
+
+        $columnID = MENU_MAP["country/$sub"]['id'];
+
         $data = [];
-        return view("country.$sub", compact('columnID', 'title', 'desc'));
+        return view("country.$sub", compact('columnID'));
     }
 
     function bay($sub = null)
     {
-
-        $menu = MENU_ITEMS["bay"];
-
         if ($sub === null) {
             return view("country.bay", [
-                'title' => $menu['title'],
-                'desc' => $menu['desc'],
-                'columnID' => $menu['id']
+                'columnID' =>  MENU_MAP["bay"]['id']
             ]);
         }
         return view("country.bay.$sub", [
-            'columnID' => MENU_ITEMS["bay/$sub"]['id'],
-            'title' => MENU_ITEMS["bay/$sub"]['title'],
-            'desc' => MENU_ITEMS["bay/$sub"]['desc'],
+            'columnID' => MENU_MAP["bay/$sub"]['id'],
+            'sub' => $sub,
         ]);
 
     }
 
     function hall()
     {
-
-        $menu = MENU_ITEMS["hall"];
-
         return view("country.hall", [
-            'title' => $menu['title'],
-            'desc' => $menu['desc'],
-            'columnID' => $menu['id']
+            'columnID' =>  MENU_MAP["hall"]['id']
         ]);
     }
 
     function pass($sub = null)
     {
-        if (is_null($sub)) {
-            $menu = MENU_ITEMS["pass"];
+        if ($sub === null) {
             return view('pass.index', [
-                'title' => $menu['title'],
-                'desc' => $menu['desc'],
-                'columnID' => $menu['id']
+                'columnID' =>  MENU_MAP["pass"]['id']
             ]);
         }
         $data = [];
@@ -69,11 +54,8 @@ class CountryController extends Controller
 
     function ferry()
     {
-        $menu = MENU_ITEMS["ferry"];
         return view('pass.ferry', [
-            'title' => $menu['title'],
-            'desc' => $menu['desc'],
-            'columnID' => $menu['id']
+            'columnID' =>  MENU_MAP["ferry"]['id']
         ]);
     }
 }

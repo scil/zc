@@ -1,12 +1,4 @@
 <?php
-/**
- * User: scil
- * Date: 2018/6/28
- * Time: 22:01
- */
-
-namespace App\Http\Middleware;
-
 use Closure;
 
 class Memory

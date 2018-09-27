@@ -1,4 +1,9 @@
 #!/usr/bin/env node
+/**
+ * a cli used to convert markdown file to html file
+ * like MarkdownService provided by thrift/bin/server.js, but a cli, not a thrift server
+ * used by database/seeds/Seeder.php
+*/
 
 const fs = require('fs');
 const process = require('process');

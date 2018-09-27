@@ -1,4 +1,4 @@
-@extends('layouts.base'.$pjax)
+@extends('layouts.base'.$IS_PJAX,['title'=>MENU_ITEMS[$LOCALE][$url]['title'],'desc'=>MENU_ITEMS[$LOCALE][$url]['desc']])
 
 @section('content')
     <div class="container">
@@ -41,7 +41,7 @@
                                 @foreach($vol->firstArticlesSimple as $article)
                                     <article>
                                         <header class="L-item-header clearfix">
-                                            <span class="prefix-col-name prefix-col-name-{!! $vol->column->css !!}">{!! $vol->column->short_name !!}</span>
+                                            <span class="prefix-col-name prefix-col-name-{!! $vol->column->css !!}">{!! MENU_ITEMS[$LOCALE][substr($vol->column->url,1)]['short_name'] !!}</span>
                                             <h1 class="L-item-title" id="{!! $article->id !!}">
                                                 <a href="{!! $vol->column->url !!}/{!!  $article->slug !!}">
                                                     {!! $article->title !!}{!! $article->sub_title?' —— '. $article->sub_title :'' !!}</a>
@@ -59,13 +59,13 @@
                                     <article>
                                         <header class="L-item-header clearfix">
                                             @if ($loop->first)
-                                                <span class="prefix-col-name  prefix-col-name-{!! $columnInfo['css'] !!}">{!! $vol->no !!}</span>
+                                                <span class="prefix-col-name  prefix-col-name-{!! MENU_MAP[$url]['css'] !!}">{!! $vol->no !!}</span>
                                                 <span class="no-in-vol no-in-vol-1">{!! $loop->index + 1 !!}</span>
                                             @else
                                                 <span class="no-in-vol">{!! $loop->index + 1 !!}</span>
                                             @endif
                                             <h1 class="L-item-title" id="{!! $article->id !!}"><a
-                                                        href="{!! $vol->column->url !!}/{!!  $article->slug !!}">
+                                                        href="/{!! $url !!}/{!!  $article->slug !!}">
                                                     {!! $article->title !!}{!! $article->sub_title?' —— '. $article->sub_title :'' !!}</a>
                                             </h1>
                                         </header>
@@ -171,6 +171,7 @@
             })
 
         }
+
         //# sourceURL=articleList
     </script>
 @endsection

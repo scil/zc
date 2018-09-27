@@ -1,5 +1,8 @@
 <?php
 
+if (!defined('HOMEPAGE_PLOTS_QUOTE'))
+    require __DIR__ . '/global_config.php';
+
 /*
 |--------------------------------------------------------------------------
 | Create The Application
@@ -12,7 +15,7 @@
 */
 
 $app = new Illuminate\Foundation\Application(
-    realpath(__DIR__.'/../')
+    realpath(__DIR__ . '/../')
 );
 
 /*

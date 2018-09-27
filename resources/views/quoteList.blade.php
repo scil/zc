@@ -1,4 +1,4 @@
-@extends('layouts.base'.$pjax)
+@extends('layouts.base'.$IS_PJAX, ['title'=>MENU_ITEMS[$LOCALE][$url]['title'],'desc'=>MENU_ITEMS[$LOCALE][$url]['desc']])
 
 @section('content')
     <div class="container">
@@ -34,7 +34,7 @@
                         <article class="QL-item">
                             <header class="L-item-header clearfix">
                                 @if($columnLevel==2)
-                                    <span class="prefix-col-name prefix-col-name-{!! $quote->quoteable->css !!}">{!! $quote->quoteable->short_name !!}</span>
+                                    <span class="prefix-col-name prefix-col-name-{!! $quote->articleable->css !!}">{!! $quote->articleable->short_name !!}</span>
                                 @else
                                     <span class="prefix-col-name prefix-col-name-{!! $columnCss !!}">{!! $quote->order !!}</span>
                                 @endif
@@ -78,19 +78,17 @@
 
         </div>
     </div>
-    </div>
-    </div>
 @endsection
 
 @section('bottom')
     <script>
 
         function standalone_func() {
-            $('cite', '#QL').addClass('cite-tail');
         }
-        standalone_func();
+
 
         function dependent_func() {
+            $('cite', '#QL').addClass('cite-tail');
 
 
             var plots = {
@@ -149,7 +147,7 @@
             @endif
         }
 
-        //# sourceURL=qList
+        //# sourceURL=quoteList
     </script>
 
 @endsection

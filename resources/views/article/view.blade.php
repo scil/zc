@@ -1,4 +1,4 @@
-@extends('layouts.base'.$pjax,['desc'=>$article->desc])
+@extends('layouts.base'.$IS_PJAX,['title'=>$article->title . ' &nbsp;|&nbsp; ' . MENU_ITEMS[$LOCALE][$prefix]['ctitle'],'desc'=>$article->desc])
 
 @section('content_top')
     @if($article_type=='book'||$article_type=='video')
@@ -91,7 +91,7 @@
                         </style>
                         <section id="top-quote-box">
                             <blockquote class="top-quote">
-                                {!! $article->topQuote->htmls[0]->body !!}
+                                {!! $article->topQuote->intro !!}
                                 <cite class="cite-tail-right"><a
                                             href="{!! $article->topQuote->origin_url !!}">{!! $article->topQuote->author !!}</a></cite>
                             </blockquote>
@@ -148,7 +148,7 @@
                 @if($article_type=='vol')
                     <section id="V">
                         <div id="V-title" class="supplement-title">
-                            真城 · {!! $column_name !!} &nbsp&nbsp 卷 <span id="V-no">{!! $article->volume->no !!}</span>
+                            真城 · {!! MENU_ITEMS[$LOCALE][$prefix]['name'] !!} &nbsp&nbsp 卷 <span id="V-no">{!! $article->volume->no !!}</span>
                         </div>
                         @foreach($article->volume->articles as $a_article)
                             @if($article->id ==$a_article->id)
@@ -189,7 +189,7 @@
                             <div id="QSup-body">
                                 @foreach( $article->tailQuotes as $quote )
                                     <blockquote>
-                                        <p>{!! $quote->htmls[0]->body !!}</p>
+                                        <p>{!! $quote->intro !!}</p>
                                         <cite class="cite-tail"><a target="_blank"
                                                                    href="{!! $quote->origin_url !!}">{!! $quote->author .' '. $quote->origin !!}</a></cite>
                                     </blockquote>
@@ -212,7 +212,7 @@
                                             </cite>
 
                                             <blockquote>
-                                                <p>{!! $suggest->htmls[0]->body !!}</p>
+                                                <p>{!! $suggest->intro !!}</p>
                                             </blockquote>
                                         </li>
                                     @endforeach
@@ -253,7 +253,7 @@
             });
         }
 
-        standalone_func();
+
 
         function dependent_func() {
             zc.content.init();

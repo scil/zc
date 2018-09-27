@@ -7,27 +7,11 @@ use function foo\func;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 if (defined('LARAVELFLY_MODE')) {
-    if (LARAVELFLY_MODE == 'Backup') {
-        class WhichKernel extends \LaravelFly\Backup\Kernel
-        {
-        }
-    } elseif (LARAVELFLY_MODE == 'Map') {
-        class WhichKernel extends \LaravelFly\Map\Kernel
-        {
-        }
-    } elseif (LARAVELFLY_MODE == 'FpmLike') {
-        class WhichKernel extends HttpKernel
-        {
-        }
-    } else {
-        class WhichKernel extends \LaravelFly\Backup\Kernel
-        {
-        }
-    }
+
+    class WhichKernel extends \LaravelFly\MidKernel{}
+
 } else {
-    class WhichKernel extends HttpKernel
-    {
-    }
+    class WhichKernel extends HttpKernel{}
 }
 
 class Kernel extends WhichKernel
@@ -88,5 +72,11 @@ class Kernel extends WhichKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+
+        'localize' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+        'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+        'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
+        'localeViewPath' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class
+
     ];
 }

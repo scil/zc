@@ -1,0 +1,84 @@
+buildscript { // http://www.cnblogs.com/huang0925/p/3940528.html
+    ext.kotlin_version = '1.2.61'
+    ext.jena_version = '3.8.0'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: "kotlin"
+    apply plugin: 'idea'
+
+    // https://docs.gradle.org/current/userguide/application_plugin.html
+    apply plugin: 'application'
+
+//    apply plugin: 'maven'
+
+
+    kotlin {
+        experimental {
+            coroutines 'enable'
+        }
+    }
+
+// configure all Kotlin compilation tasks in the project
+// https://kotlinlang.org/docs/reference/using-gradle.html#configuring-dependencies
+    project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+//        suppressWarnings = true
+            jvmTarget = "1.8"
+        }
+    }
+
+// When targeting the JVM, the tasks are called compileKotlin for production code and compileTestKotlin for test code. The tasks for custom source sets are called accordingly to the compile<Name>Kotlin pattern 
+    compileKotlin {
+        kotlinOptions {
+        }
+    }
+
+    compileTestKotlin {
+        kotlinOptions {
+        }
+    }
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        jcenter()
+        maven { url "http://repo.maven.apache.org/maven2" }
+    }
+
+    dependencies {
+        // compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+        compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+        testCompile 'junit:junit'
+        testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
+    }
+
+
+}
+
+subprojects {
+
+    task subTasks {
+        description = "this is hello8"
+        doLast {
+            println project.name
+            println tasks.size()
+        }
+    }
+
+}
+
+
+group = 'org.zhenc'
+version = '0.0.1'
+
+description = """zc"""
+

@@ -16,11 +16,6 @@ class CreateArticlesTable extends Migration
             $table->increments('id');
             $table->string('slug',70)->nullable();
 
-            $table->string('title',50)->nullable();
-            $table->string('sub_title',50)->nullable();
-            $table->string('desc',200)->nullable(); // <meta desc> or  show on map
-            $table->string('intro',1300)->nullable(); // 用处：描述、作为相关信息时展示、文章列表时显示
-            $table->string('intro_md',1500)->nullable(); // 用处：描述、作为相关信息时展示、文章列表时显示
 
             $table->integer('image_id')->unsigned()->nullable();
 
@@ -40,9 +35,14 @@ class CreateArticlesTable extends Migration
 
 //            $table->integer('reference_id')->unsigned()->nullable();
             
-//            $table->boolean('link')->default(0); // 不显示全文，只显示摘要，全文要到原地址去
-//            $table->enum('long',['has','link'])->nullable();
-            // 0: article; 1: show link ; 2: quote; 3: quote has long ; 4: show link
+            //
+            /**
+             * 0: article;
+             * 1: show link ;  不显示全文，只显示摘要，全文要到原地址去
+             * 2: quote;
+             * 3: quote has long ;
+             * 4: quote show link
+             */
             $table->tinyInteger('short')->default(0);
 
             // 不独立成字段了，方便使用markdown
@@ -54,12 +54,11 @@ class CreateArticlesTable extends Migration
             $table->integer('status')->unsigned()->default(1); // 0 not ready; 1 ok; 2 achive ; >2 archive,point to another article id
             // list 对游客显示在列表上
             $table->enum('deep',['open','member-list','deep-list','friend','member','deep']);
+
             $table->string('comment',900)->nullable(); // mysql里, varchar(300) 300不是指字节 而是指字符
 
 
             $table->integer('editor_id')->unsigned()->default(1); // 编辑是谁
-
-            $table->integer('page_counter')->unsigned()->default(1);
 
             $table->integer('volume_id')->unsigned()->nullable();
 
@@ -95,15 +94,25 @@ class CreateArticlesTable extends Migration
 
             ])->default('first')->nullable();
 
-//            $table->integer('place_id')->unsigned()->nullable();
-//            $table->string('place_intro')->nullable();
-
             $table->timestamps();
             $table->softDeletes();
 
             $table->unique(['articleable_type','articleable_id','slug']);
             $table->index('slug');
 
+        });
+        Schema::create('article_translations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('locale')->index();
+
+            $table->string('title',50)->nullable();
+            $table->string('sub_title',50)->nullable();
+            $table->string('desc',200)->nullable(); // <meta desc> or  show on map
+            $table->string('intro',1500)->nullable(); // 用处：描述、作为相关信息时展示、文章列表时显示
+            $table->string('intro_md',1500)->nullable();
+
+            $table->integer('article_id')->unsigned();
+            $table->unique(['article_id', 'locale']);
         });
     }
 
@@ -115,5 +124,6 @@ class CreateArticlesTable extends Migration
     public function down()
     {
         Schema::drop('articles');
+        Schema::drop('article_translations');
     }
 }

@@ -1,6 +1,6 @@
 <title>{!! $title !!}</title>
 
-{!! ZC_HEADERS[$columnID] !!}
+{!! ZC_HEADERS[$LOCALE][$columnID] !!}
 
 <div class="container pjax">
     @yield('content_top')

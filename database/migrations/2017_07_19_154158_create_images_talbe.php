@@ -22,7 +22,7 @@ class CreateImagesTalbe extends Migration
             $table->string('alter',1000)->nullable();
             $table->string('style')->nullable();
             $table->string('alt',100)->nullable();
-            $table->string('title',100)->nullable();
+//            $table->string('title',100)->nullable();
             $table->string('intro',500)->nullable();
             $table->timestamps();
         });

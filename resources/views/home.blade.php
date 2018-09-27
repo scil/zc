@@ -1,4 +1,4 @@
-@extends('layouts.base'.$pjax,['title'=>'真城','desc'=>'真城，致敬真，致敬理想主义！'])
+@extends('layouts.base'.$IS_PJAX,['title'=>'真城','desc'=>'真城，致敬真，致敬理想主义！'])
 
 @section('content')
     <div class="container">
@@ -102,14 +102,14 @@
     </div>
 
 
-    @include('partials.columns._home-body')
+    @include('partials.columns._home-body-'.$LOCALE)
 
     <div class="container columns text-center heiti" id="zc-map">
         <h2 class="h2title">真城地图
         </h2>
 
         <div class="row">
-            @include('partials.columns._map')
+            @include('partials.columns._map-'.$LOCALE)
         </div>
     </div>
 
@@ -117,14 +117,28 @@
 
 @section('bottom')
     <script>
+        /**
+         * -  _bigHref
+         * -  ZCMap
+         * -  firstQuoteShow
+         * -  showPlotsForLi
+         */
+
+
+        /**
+         * this var is also used by $('#header-nav li').mouseenter,
+         * so that mouseover around #header-nav only for #header-nav, not for firstQuoteShow
+         *
+         * @type {null|int}
+         */
+        var firstQuoteTimer = null;
         function dependent_func() {
             zc.content._bigHref();
 
-            var firstQuoteEle = $('#first-page-quote'), defaultArticleID ={!! $articleID !!},
-                currentArticleId ={!! $articleID !!};
+            var firstQuoteEle = $('#first-page-quote');
+            var defaultArticleID ={!! $articleID !!};
+            var currentArticleId ={!! $articleID !!};
 
-
-            var firstQuoteTimer = null;
 
             function firstQuoteShow(bShow) {
                 if (firstQuoteTimer) {
@@ -146,11 +160,16 @@
                 }, 80)
             }
 
-            $('#header-row').mouseenter(function () {
-                firstQuoteShow(1);
-            }).click(function () {
-                firstQuoteShow(1);
-            });
+            $('#header-row')
+                .mouseenter(function () {
+                    firstQuoteShow(1);
+                })
+                .mouseover(function () {
+                    firstQuoteShow(1);
+                })
+                .click(function () {
+                    firstQuoteShow(1);
+                });
             $('#first-page-space').click(function () {
                 firstQuoteShow(1);
             });
@@ -199,10 +218,14 @@
             }
 
             $('#header-nav li').mouseenter(function (e) {
+                if (firstQuoteTimer) {
+                    clearTimeout(firstQuoteTimer)
+                }
                 showPlotsForLi(this, false);
                 return false;
             });
 
+            // for cell phone
             if ('ontouchstart' in document) {
 
                 $('#header-nav a').on('touchstart click', function (e) {
@@ -216,9 +239,8 @@
                 });
 
             }
-        };
 
-        function standalone_func() {
+
             $.ajax({
                 url: "https://cdn.bootcss.com/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js",
                 dataType: "script",
@@ -293,9 +315,10 @@
                     }
 
             });
-        }
 
-        standalone_func();
+        };
+
+
 
         //# sourceURL=zc_home
     </script>

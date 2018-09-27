@@ -3,10 +3,24 @@
 namespace App\Services;
 
 
+/**
+ * Class Http2Push
+ * Get resources and their tokens and save into $tagged,
+ * then , in each request,
+ * produce links and update cookies according $tagged and client cookies if some resouces have not pushed
+ *
+ * @package App\Services
+ */
 class Http2Push
 {
     const COOKIE_NAME = 'tagpush';
+
+    const URL_PREFIX = '/rev/all-';
+
+    const TOKEN_FROM = 'views/layouts/base.blade.php.product';
     /**
+     * resource's push text and token
+     *
      * @var array
      *
      * [
@@ -35,25 +49,31 @@ class Http2Push
         ];
     }
 
-    public function registerGulpFiles()
+    public function registerGulpProducedFilesWithToken()
     {
         foreach ($this->getGulpRevTokerns() as $tag => $info) {
             $this->queueTag($tag, $info['token'],
-                "/rev/all-{$info['token']}.{$info['ext']}",
+                static::URL_PREFIX . "{$info['token']}.{$info['ext']}",
                 static::getTypeByExtension($info['ext']));
         }
     }
 
     /**
-     * use 'base.blade.php.product' produced by gulp
+     * get token by using 'base.blade.php.product' produced by gulp
+     *
+     * @return array
+     * [
+     *  'css'=> ['token'=>'...', 'ext'=>'css'],
+     *  'js'=> ['token'=>'...', 'ext'=>'js'],
+     * ]
      */
-    public function getGulpRevTokerns()
+    protected function getGulpRevTokerns()
     {
-        $content = @file_get_contents(resource_path('views/layouts/base.blade.php.product'));
-        if (preg_match('#\<link href="/rev/all-(\w+)\.css"#', $content, $matches)) {
+        $content = @file_get_contents(resource_path(static::TOKEN_FROM));
+        if (preg_match('#\<link href="'.static::URL_PREFIX.'(\w+)\.css"#', $content, $matches)) {
             $t['css'] = ['token' => $matches[1], 'ext' => 'css'];
         }
-        if (preg_match('#\<script src="/rev/all-(\w+)\.js"#', $content, $matches)) {
+        if (preg_match('#\<script src="'.static::URL_PREFIX.'(\w+)\.js"#', $content, $matches)) {
             $t['js'] = ['token' => $matches[1], 'ext' => 'js'];
         }
         return $t;

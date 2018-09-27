@@ -16,9 +16,11 @@ class PersonsTableSeeder extends Seeder
     {
         //
         DB::table('places')->truncate();
+        DB::table('place_translations')->truncate();
         DB::table('persons')->truncate();
         DB::table('experiences')->truncate();
         DB::table('placeables')->truncate();
+        DB::table('placeable_translations')->truncate();
 
 
         $referenceIDs = json_encode(file_get_contents(__DIR__ . '/reference_ID.php'));
@@ -75,9 +77,9 @@ class PersonsTableSeeder extends Seeder
                 'lat' => 39.9016068,
                 'lng' => 116.3990858,
             ],
-            '北京'=>[
-                '_place'=>'中华门',
-                'point_to'=>'北京',
+            '北京' => [
+                '_place' => '中华门',
+                'point_to' => '北京',
             ],
             '北京大学' => [
                 'name' => '北京大学',
@@ -378,11 +380,23 @@ class PersonsTableSeeder extends Seeder
         ]);
 
         foreach ($places as $name => $place) {
-            if( ($place['old_name']??null) || ($place['point_to']??null)  ){
-                $new_place_id = $this->insertPointOrOldPlace($place,$place['_place']);
+            if (($place['old_name'] ?? null) || ($place['point_to'] ?? null)) {
+                $new_place_id = $this->insertPointOrOldPlace($place, $place['_place']);
                 $this->placeIDs[$name] = $new_place_id;
-            }else
-                $this->placeIDs[$name] = DB::table('places')->insertGetId($place);
+            } else {
+
+                if ($place['name'] ?? false) {
+                    $place['zh'] = ['name' => $place['name']];
+                    unset($place['name']);
+                }
+                if ($place['english_name'] ?? false) {
+                    $place['en'] = ['name' => $place['english_name']];
+                    unset($place['english_name']);
+                }
+                $item = \App\Place::create($place);
+                $item->save();
+                $this->placeIDs[$name] = $item->id;
+            }
         }
         $placeIDs = $this->placeIDs;
 
@@ -492,7 +506,7 @@ class PersonsTableSeeder extends Seeder
                 'shang_jiao' => [
                     'title' => '不要上缴独立思考的权利',
                     'origin' => '环球人物 2011 年第 31 期',
-                    'url' => '//paper.people.com.cn/hqrw/html/2011-11/26/content_966659.htm',
+                    'url' => '/think.people.com.cn/hqrw/html/2011-11/26/content_966659.htm',
                     'date' => '2011/11/01',
                 ],
                 'xin_yi' => [
@@ -1963,7 +1977,7 @@ http://www.jgzyw.com/zhuanyelunwen/shekelunwen/falvlunwen/sifazhidu/27/433926.ht
                     }
 
 //                    $type = $attris['type']??null;
-                    $order = $attris['_order']??null;
+                    $order = $attris['_order'] ?? null;
 
 //                    if (($type == 'suggest' && $order > 100) || ($type == 'link' && $order < 100) || $order > 255) {
 //                        throw  new \Exception('wrong order for ' . $item['title']);
@@ -2005,7 +2019,7 @@ http://www.jgzyw.com/zhuanyelunwen/shekelunwen/falvlunwen/sifazhidu/27/433926.ht
             echo $experience['intro'], PHP_EOL;
 
             $_places = $experience['_places'];
-            $_children = $experience['_children']??[];
+            $_children = $experience['_children'] ?? [];
             unset($experience['_children'], $experience['_places']);
 
             if ($pid) {
@@ -2026,18 +2040,28 @@ http://www.jgzyw.com/zhuanyelunwen/shekelunwen/falvlunwen/sifazhidu/27/433926.ht
                 echo "\t$place_slug\n";
 
 
-                $new_place_id = $this->insertPointOrOldPlace($_place,$place_slug);
+                $new_place_id = $this->insertPointOrOldPlace($_place, $place_slug);
 
                 $data = [
-                    'placeable_type' =>'App\\Experience',
+                    'placeable_type' => 'App\\Experience',
                     'placeable_id' => $experienceID,
                     'place_id' => $new_place_id ?: $this->placeIDs[$place_slug],
-                    'place_name' =>$_place['place_name']??null,
-                    'comment' =>$_place['comment']??null,
+                    'comment' => $_place['comment'] ?? null,
                 ];
+                if ($_place['place_name'] ?? null) {
+                    $data['zh'] = [
+                        'info_name' => $_place['place_name'],
+                    ];
+                }
 
                 if (isset($this->placeIDs[$place_slug])) {
-                    DB::table('placeables')->insert($data);
+
+                    // DB::table('placeables')->insert($data);
+
+
+                    $item = \App\Placeable::create($data);
+//                    var_dump($data);exit();
+                    $item->save();
                 } else {
                     echo "$_place not set isset in \$this->placeIDs])";
                 }
@@ -2054,26 +2078,34 @@ http://www.jgzyw.com/zhuanyelunwen/shekelunwen/falvlunwen/sifazhidu/27/433926.ht
     {
         $new_place_id = null;
 
-        if ($_place['old_name']??null) {
+        if ($_place['old_name'] ?? null) {
 
             $new_place = array_merge($this->places[$place_slug], [
-                'name' => $_place['old_name'],
+                'zh' => ['name' => $_place['old_name']],
                 'type' => 'old',
                 'relate_id' => $this->placeIDs[$place_slug],
             ]);
-            $new_place_id = DB::table('places')->insertGetId($new_place);
+            if ($new_place['english_name'] ?? null) {
+                $new_place['en'] = ['name' => $new_place['english_name']];
+            }
 
-        } elseif ($_place['point_to']??null) {
+        } elseif ($_place['point_to'] ?? null) {
 
             $new_place = array_merge($this->places[$place_slug], [
                 'type' => 'point',
-                'name' => $_place['point_to'],
-                'english_name' => $_place['point_to_en']??null,
+                'zh' => ['name' => $_place['point_to']],
             ]);
-            $new_place_id = DB::table('places')->insertGetId($new_place);
+            if ($_place['point_to_en'] ?? null) {
+                $new_place['en'] = ['name' => $_place['point_to_en']];
+            }
 
         }
-
+        if ($new_place??false) {
+            unset($new_place['name'], $new_place['english_name']);
+            $item = \App\Place::create($new_place);
+            $item->save();
+            $new_place_id = $item->id;
+        }
         return $new_place_id;
     }
 

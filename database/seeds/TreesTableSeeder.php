@@ -20,13 +20,13 @@ class TreesTableSeeder extends Seeder
         DB::table('tree_contacts')->truncate();
 
 
-        $law_id = MENU_ITEMS["bay/law"]['id'];
-        $read_id = MENU_ITEMS["bay/read"]['id'];
-        $learn_id = MENU_ITEMS["bay/learn"]['id'];
-        $play_id = MENU_ITEMS["bay/play"]['id'];
-        $food_id = MENU_ITEMS["bay/food"]['id'];
-        $health_id = MENU_ITEMS["bay/health"]['id'];
-        $other_id = MENU_ITEMS["bay/other"]['id'];
+        $law_id = MENU_MAP["bay/law"]['id'];
+        $read_id = MENU_MAP["bay/read"]['id'];
+        $learn_id = MENU_MAP["bay/learn"]['id'];
+        $play_id = MENU_MAP["bay/play"]['id'];
+        $food_id = MENU_MAP["bay/food"]['id'];
+        $health_id = MENU_MAP["bay/health"]['id'];
+        $other_id = MENU_MAP["bay/other"]['id'];
 
         $current_type_id = $law_id;
         $items = [
