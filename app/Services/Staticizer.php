@@ -154,10 +154,11 @@ trait Cache
         $main = $this->mainMenuHeaders();
 
 
+        // homepage header
         foreach (ALL_LOCALS as $locale) {
 
             app()->setLocale($locale);
-            \View::share('URL_LOCALE_PREFIX', $locale === DEFAULT_LOCAL ? '/' : "/$locale");
+            \View::share('URL_LOCALE_PREFIX', $locale === DEFAULT_LOCAL ? '' : "/$locale");
             $homeLeft = new \stdClass();
             $homeLeft->url = '';
             $homeLeft->name = __('Zhenc City');
@@ -166,7 +167,6 @@ trait Cache
                 $homeLeft->children[] = $id;
             }
             $homepage = [0 => $this->header(['leftColumn' => $homeLeft, 'header_intro' => ''])];
-            var_dump($homepage);
 
             $headers[$locale] = $homepage + $main[$locale] + $pass[$locale];
         }

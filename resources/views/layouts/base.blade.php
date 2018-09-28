@@ -225,18 +225,27 @@ M;
     function select_lang() {
         $ui = $('#select-lang');
         // use 'en/' instead of 'en', avoid some urls like '/enjoy'
-        if (location.pathname.substr(1, 3) === LOCALE + '/' || location.pathname.substr(1, 3) === LOCALE) {
+        if (location.pathname.substr(1, 3) === LOCALE + '/' || location.pathname.substr(1, 2) === LOCALE) {
+            // pathname without locale
             var cleanpath = location.pathname.substr(3);
         } else {
+            // pathname without locale for zh
             var cleanpath = location.pathname;
         }
 
         var target = $ui.attr('data-locale');
         if (target === LOCALE) return;
 
-        prefix = target === 'zh' ? (cleanpath !== '' ? '' : '/') : '/' + target;
+        if (target === 'zh') {
+            // add '?' to prevent pjax cache for root url 'zhenc.test/'
+            url = cleanpath === '' ? '/?' : cleanpath;
+        }
+        else {
+            url = '/' + target + cleanpath;
+        }
 
-        $ui.attr('href', prefix + cleanpath);
+        console.log('another lang url is',url)
+        $ui.attr('href', url);
 
         // why? do not use pjax
         $ui.click(function () {

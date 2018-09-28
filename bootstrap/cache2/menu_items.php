@@ -336,7 +336,7 @@ const MENU_ITEMS = array (
     'human/nature' => 
     array (
       'id' => 8,
-      'name' => 'Human Nature',
+      'name' => 'Nature',
       'short_name' => 'N',
       'desc' => 'BY NATURE, FROM NATURE',
       'title' => 'Human Nature &nbsp;|&nbsp; Zhen',
@@ -345,7 +345,7 @@ const MENU_ITEMS = array (
     'human/road' => 
     array (
       'id' => 9,
-      'name' => 'Human Road',
+      'name' => 'Road',
       'short_name' => 'R',
       'desc' => 'TO BE HUMAN',
       'title' => 'Human Road &nbsp;|&nbsp; Zhen',
@@ -354,7 +354,7 @@ const MENU_ITEMS = array (
     'human/country' => 
     array (
       'id' => 10,
-      'name' => 'Human Country',
+      'name' => 'Country',
       'short_name' => 'C',
       'desc' => 'LIVING IN',
       'title' => 'Human Country &nbsp;|&nbsp; Zhen',
@@ -363,11 +363,11 @@ const MENU_ITEMS = array (
     'human/Indiv' => 
     array (
       'id' => 11,
-      'name' => 'Human Indiv',
+      'name' => 'Individual',
       'short_name' => 'I',
       'desc' => 'INDIV TREES',
-      'title' => 'Human Indiv &nbsp;|&nbsp; Zhen',
-      'ctitle' => 'Human Indiv &nbsp;|&nbsp; Zhen',
+      'title' => 'Human Individual &nbsp;|&nbsp; Zhen',
+      'ctitle' => 'Human Individual &nbsp;|&nbsp; Zhen',
     ),
     'sail/walkers' => 
     array (

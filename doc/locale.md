@@ -1,18 +1,24 @@
 
 # url
 
+ no support for urls like '/zh', '/zh/being'
+ 
+ 除了 root url 支持 302，其它页面都不支持转向，都指向唯一页面，即 /en 代表英文首页， /being 中代表中文的 being
+ ```php
+class LocaleForRoot
+{
 
-## support for urls like '/zh', '/zh/being'
-`
-SUPPORT_URL_WITH_DEFAULT_LOCALE = true,
-`
+        if (!$request->hasPreviousSession()) {
+}
+```
+ 
 # front end
 
 切换语言必须刷新全页面 而不可借助于pjax 以更新layout和js变量
 
 data-locale 里面必须使用url所用的locale名称，即 zh, en。日后如果增加新locale，也要如此。
 ```html
-    <li><a id="select-lang" data-locale="/{!! $LOCALE==='zh'?'en':'zh' !!}">{!! $LOCALE==='zh'?'EN':'ZH' !!}</a></li>
+    <li><a id="select-lang" data-locale="......."> .... </a></li>
 ```
 
 # menu items and local

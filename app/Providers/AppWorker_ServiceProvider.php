@@ -7,7 +7,7 @@ use App\Services\Http2Push;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
-class AppAllOnWorkerServiceProvider extends ServiceProvider
+class AppWorker_ServiceProvider extends ServiceProvider
 {
     static function coroutineFriendlyServices(): array
     {

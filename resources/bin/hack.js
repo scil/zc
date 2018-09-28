@@ -28,11 +28,11 @@ const check_level = program.check_level || default_check_level;
 
 const map = {
     'LaravelLocalization.php': {
-        'desc':
-        'any non-zh browsers visits non-local url,like "/values", will be thought to use locale "en", then '
-        + 'LaravelLocalizationRedirectFilter will redirect to "/en/up" ',
-
+        'enable':true,
+        'desc': `any non-zh browsers visits non-local url,like "/being", will be thought to use locale "en", then 
+            LaravelLocalizationRedirectFilter will redirect to "/en/being" `,
         'origin': '/vendor/mcamara/laravel-localization/src/Mcamara/LaravelLocalization/LaravelLocalization.php',
+
         'type': 'replace-in-file',
         'from': '  $this->currentLocale = $this->defaultLocale;',
         'to': [
@@ -47,6 +47,9 @@ const map = {
 };
 
 for (let i in map) {
+
+    if(!map[i]['enable']) continue;
+
     if (check_level !== 'no') {
         origin_file = project_root + map[i]['origin']
         let full = fs.readFileSync(origin_file).toString().replace(/\s+/g, ' ');

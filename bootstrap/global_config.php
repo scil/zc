@@ -1,9 +1,8 @@
 <?php
 // menu items
 const
-
-// support /zh/being
-SUPPORT_URL_WITH_DEFAULT_LOCALE = true,
+DEFAULT_LOCAL = 'zh',
+ALL_LOCALS = ['zh', 'en',],
 
 COUNTRY_URL = '/foot', STARS_URL='sky', SAIL_URL='sail',SAIL_FULL='/sail',
 
@@ -20,9 +19,7 @@ MENU_ID = [
     'bay' => 4
 ],
 
-ALL_LOCALS = ['zh', 'en',],
 
-DEFAULT_LOCAL = 'zh',
 
 MENU_CACHE_DIR = 'bootstrap/cache2',
 

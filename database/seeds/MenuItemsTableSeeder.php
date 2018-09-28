@@ -59,20 +59,20 @@ class MenuItemsTableSeeder extends Seeder
 
                         ['show' => true, 'css' => '2', 'type' => 'article', 'level' => 3, 'order' => 1, 'url' => '/human/nature', 'pic' => 'nature.jpg', '_trans' => [
                             'zh' => ['name' => '天性', 'short_name' => '人', 'ctitle' => '天性 &nbsp;|&nbsp; 真城', 'title' => '天性 &nbsp;|&nbsp; 真城', 'desc' => '天性，物性，神性',],
-                            'en' => ['name' => 'Human Nature', 'short_name' => 'N', 'ctitle' => 'Human Nature &nbsp;|&nbsp; Zhen', 'title' => 'Human Nature &nbsp;|&nbsp; Zhen', 'desc' => 'BY NATURE, FROM NATURE',],
+                            'en' => ['name' => 'Nature', 'short_name' => 'N', 'ctitle' => 'Human Nature &nbsp;|&nbsp; Zhen', 'title' => 'Human Nature &nbsp;|&nbsp; Zhen', 'desc' => 'BY NATURE, FROM NATURE',],
                         ]
                         ],
                         ['show' => true, 'css' => '1', 'type' => 'article', 'level' => 3, 'order' => 2, 'url' => '/human/road', 'pic' => 'road.jpg', '_trans' => [
                             'zh' => ['name' => '人之路', 'short_name' => '路', 'ctitle' => '人路 &nbsp;|&nbsp; 真城', 'title' => '人之路 &nbsp;|&nbsp; 真城', 'desc' => '成为人',],
-                            'en' => ['name' => 'Human Road', 'short_name' => 'R', 'ctitle' => 'Human Road &nbsp;|&nbsp; Zhen', 'title' => 'Human Road &nbsp;|&nbsp; Zhen', 'desc' => 'TO BE HUMAN',],
+                            'en' => ['name' => 'Road', 'short_name' => 'R', 'ctitle' => 'Human Road &nbsp;|&nbsp; Zhen', 'title' => 'Human Road &nbsp;|&nbsp; Zhen', 'desc' => 'TO BE HUMAN',],
                         ]],
                         ['show' => true, 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/human/country', 'pic' => 'disaster.jpg', '_trans' => [
                             'zh' => ['name' => '人天地', 'short_name' => '这', 'ctitle' => '人天地 &nbsp;|&nbsp; 真城', 'title' => '人天地 &nbsp;|&nbsp; 真城', 'desc' => '天，地'],
-                            'en' => ['name' => 'Human Country', 'short_name' => 'C', 'ctitle' => 'Human Country &nbsp;|&nbsp; Zhen', 'title' => 'Human Country &nbsp;|&nbsp; Zhen', 'desc' => 'LIVING IN',],
+                            'en' => ['name' => 'Country', 'short_name' => 'C', 'ctitle' => 'Human Country &nbsp;|&nbsp; Zhen', 'title' => 'Human Country &nbsp;|&nbsp; Zhen', 'desc' => 'LIVING IN',],
                         ]],
                         ['show' => true, 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 4, 'url' => '/human/Indiv', 'pic' => 'disaster.jpg', '_trans' => [
                             'zh' => ['name' => '个体树', 'short_name' => '个', 'ctitle' => '个体树 &nbsp;|&nbsp; 真城', 'title' => '个体树 &nbsp;|&nbsp; 真城', 'desc' => '天地，人'],
-                            'en' => ['name' => 'Human Individual', 'short_name' => 'I', 'ctitle' => 'Human Individual &nbsp;|&nbsp; Zhen', 'title' => 'Human Individual &nbsp;|&nbsp; Zhen', 'desc' => 'INDIV TREES',],
+                            'en' => ['name' => 'Individual', 'short_name' => 'I', 'ctitle' => 'Human Individual &nbsp;|&nbsp; Zhen', 'title' => 'Human Individual &nbsp;|&nbsp; Zhen', 'desc' => 'INDIV TREES',],
                         ]],
 //                ['name' => '人难',  'show'=>true,'short_name'=>null,'css'=>null,'type'=>'quote','level' => 3, 'order' => 5,  'url' => '/human/disaster', 'ctitle'=>'','title'=>'', 'desc' => '不敢遗忘', 'show_pic'=>false,'pic'=>'disaster.jpg', '_trans'=>['zh'=>[]],],
                     ]],

@@ -3,7 +3,8 @@
 namespace App\Http;
 
 
-use function foo\func;
+use App\Http\Middleware\Locale;
+use App\Http\Middleware\LocaleForRoot;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 if (defined('LARAVELFLY_MODE')) {
@@ -73,10 +74,13 @@ class Kernel extends WhichKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
-        'localize' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
-        'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
-        'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
-        'localeViewPath' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class
+//        'localize' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+//        'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+//        'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
+//        'localeViewPath' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
+
+        'locale'=> Locale::class,
+        'localeForRoot'=> LocaleForRoot::class,
 
     ];
 }

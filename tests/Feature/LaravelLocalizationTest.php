@@ -11,14 +11,15 @@ class LaravelLocalizationTest extends TestCase
      *
      * @return void
      */
-    public function testNoLocaleUrlUsingNoAccept()
+    public function testNoLocaleUrl()
     {
         $response = $this->get("/being");
-        $response->assertStatus(302);
-        $response->assertHeader('Location', 'http://localhost/en/being');
+        // $response->assertStatus(302);
+        // $response->assertHeader('Location', 'http://localhost/en/being');
+        $response->assertStatus(200);
     }
 
-    public function testNoLocaleUrlUsingAccept()
+    public function testRootUsingHead()
     {
         // can not use laravel test api,  https://github.com/laravel/framework/issues/25601#event-1851094699
 //        $response = $this->withHeaders([
@@ -34,12 +35,14 @@ class LaravelLocalizationTest extends TestCase
         foreach ([
                      " -H 'Accept-Language: zh' -XGET http://zhenc.test/being -I" => 'HTTP/1.1 200 OK',
                      " -H 'Accept-Language: zh-tw' -XGET http://zhenc.test/being -I" => 'HTTP/1.1 200 OK',
-
-                     " -H 'Accept-Language: fr' -XGET http://zhenc.test/being -I" => 'Location: http://zhenc.test/en/being',
+                     " -H 'Accept-Language: fr' -XGET http://zhenc.test/being -I" => 'HTTP/1.1 200 OK',
 
 
                      " -H 'Accept-Language: zh' -XGET http://zhenc.test -I" => 'HTTP/1.1 200 OK',
-                     " -H 'Accept-Language: fr' -XGET http://zhenc.test -I" => 'Location: http://zhenc.test/en',
+                     " -H 'Accept-Language: fr' -XGET http://zhenc.test -I" => 'Location: /en',
+                     " -H 'Accept-Language: en' -XGET http://zhenc.test -I" => 'Location: /en',
+
+                     " -H 'Accept-Language: fr' -XGET http://zhenc.test/en -I" => 'HTTP/1.1 200 OK',
 
                  ] as $args => $contains) {
             $this->curlTest($args, $contains);

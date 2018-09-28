@@ -4,19 +4,12 @@
  is assigned the "web" middleware group
  */
 
-use App\Volume;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
-$routesForAllLocal = function () {
+$routesForAllLocalNoHome = function () {
 
 
-    Route::get('/loc', function () {
-        return LaravelLocalization::getCurrentLocale();
-    });
-
-
-    Route::get('/', 'CmsController@home');
 //todo
 //quote 必须在 article 前面，否则 human/so 不正常
 // column
@@ -161,81 +154,24 @@ $routesForAllLocal = function () {
 
 };
 
-// must before LaravelLocalization::setLocale() because the config will be changed by it.
-$default = config('app.locale');
 
-if (defined('LARAVELFLY_MODE')) {
-    $locales = LaravelLocalization::getSupportedLanguagesKeys();
-} else {
-    $locales = [LaravelLocalization::setLocale()];
-}
+if (defined('LARAVELFLY_MODE'))
+    // use '' for  'zh'
+    $target = array_merge([''], array_diff(ALL_LOCALS, [DEFAULT_LOCAL]));
+else
+    $target = [LaravelLocalization::setLocale() ?: ''];
 
 
-if (config('laravellocalization.hideDefaultLocaleInURL')) {
-//    var_dump($locales,$default);
-    $non_default = array_diff($locales, [$default]);
+foreach ($target as $locale) {
 
-    $support_redirect = SUPPORT_URL_WITH_DEFAULT_LOCALE ? ['', $default] : [''];
+    Route::get('/' . $locale, 'CmsController@home')->middleware($locale ? 'locale:' . $locale : 'localeForRoot');
 
-    foreach ($support_redirect as $locale) {
-        Route::group([
+    Route::group(
+        [
             'prefix' => $locale,
-            'middleware' => [
-                function ($request, Closure $next) {
-                    LaravelLocalization::setLocale();
-                    return $next($request);
-                },
-                'localeSessionRedirect',
-                'localizationRedirect',
-                function ($request, Closure $next) {
-                    \View::share('LOCALE', \App::getLocale());
-                    return $next($request);
-                },
-                'localeViewPath'
-            ],],
-            $routesForAllLocal);
-    }
-
-    foreach ($non_default as $locale) {
-
-        Route::group([
-            'prefix' => $locale,
-            'middleware' => [
-                function ($request, Closure $next) {
-                    LaravelLocalization::setLocale();
-                    return $next($request);
-                },
-                function ($request, Closure $next) {
-                    \View::share('LOCALE', \App::getLocale());
-                    return $next($request);
-                },
-                'localeViewPath'
-            ],],
-            $routesForAllLocal);
-    }
-
-
-} else {
-
-    foreach ($locales as $locale) {
-        Route::group([
-            'prefix' => $locale,
-            'middleware' => [
-                function ($request, Closure $next) {
-                    LaravelLocalization::setLocale();
-                    return $next($request);
-                },
-                'localeSessionRedirect',
-                'localizationRedirect',
-                function ($request, Closure $next) {
-                    \View::share('LOCALE', \App::getLocale());
-                    return $next($request);
-                },
-                'localeViewPath'
-            ],],
-            $routesForAllLocal);
-    }
-
+            'middleware' => [$locale ? 'locale:' . $locale : 'locale:zh'],
+        ],
+        $routesForAllLocalNoHome);
 }
 
 
@@ -245,17 +181,3 @@ Route::get('/php', function () {
     return ob_get_clean();
 });
 
-Route::get('/fly', function () {
-    $a = '';
-
-    var_dump(  \Request::path());
-
-    fly(function () use (&$a) {
-        \Log::info(\Request::path());
-        $a = \Request::path();
-    });
-
-
-    return $a;
-
-});
