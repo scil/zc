@@ -13,18 +13,19 @@
     <link href="/css/vendor.css" rel="stylesheet">
 
     @if($LOCALE==='zh')
-        <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+              rel="stylesheet">
 
         <!--[if lt IE 9]>
-        <script src="https://cdn.bootcss.com/html5shiv/r29/html5.min.js"></script>
-        <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
         <script src="data:text/javascript;base64, aWYoIXdpbmRvdy5qUXVlcnkpe3ZhciBoPWRvY3VtZW50LmhlYWQsZj0iLy9jZG4uanNkZWxpdnIubmV0L25wbS8iLGU9Ii5taW4uanMiLGo9ImpxdWVyeSIsYj0iYm9vdHN0cmFwIixyPSJyYXBoYWVsIix1PVtmK2orIkAzLjMuMS9kaXN0LyIraitlXSx1Mj1bZitiKyItc2Fzc0AzLjMuNy9hc3NldHMvamF2YXNjcmlwdHMvIitiK2UsZityKyJAMi4yLjcvIityK2VdLHE9Ij9zPTQiLHUzPVsiL2pzL3ZlbmRvci5qcyIrcSwiL2pzL2FwcC5qcyIrcV07ZnVuY3Rpb24geihuKXtmb3IoaSBpbiBuKXM9ZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgic2NyaXB0Iikscy5zcmM9bltpXSxoLmluc2VydEJlZm9yZShzLGguZmlyc3RDaGlsZCl9ZnVuY3Rpb24gdChuKXtzLm9ubG9hZD1mdW5jdGlvbigpe3NldFRpbWVvdXQobiwzMDApfX16KHUpLHQoZnVuY3Rpb24oKXt6KHUyKSx0KGZ1bmN0aW9uKCl7eih1MyksdChmdW5jdGlvbigpe3dpbmRvdy5kZXBlbmRlbnRfZnVuYyYmZGVwZW5kZW50X2Z1bmMoKX0pfSl9KX0=
 " defer></script>
 
-        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
-        <script src="https://cdn.bootcss.com/raphael/2.2.7/raphael.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js" defer></script>
     @else
         <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
@@ -237,14 +238,14 @@ M;
         if (target === LOCALE) return;
 
         if (target === 'zh') {
-            // add '?' to prevent pjax cache for root url 'zhenc.test/'
-            url = cleanpath === '' ? '/?' : cleanpath;
+            // add '/zh' to prevent pjax cache for root url 'zhenc.test/'
+            url = cleanpath === '' ? '/zh' : cleanpath;
         }
         else {
             url = '/' + target + cleanpath;
         }
 
-        console.log('another lang url is',url)
+        console.log('another lang url is', url)
         $ui.attr('href', url);
 
         // why? do not use pjax

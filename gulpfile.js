@@ -314,7 +314,7 @@ function only_pub_rev() {
 }
 
 function flowcheck_app() {
-    return gulp.src(['resources/js/*.js'])
+    return gulp.src(['resources/server_js/*.js'])
         .pipe(flow({
             all: false,
             weak: false,
@@ -327,7 +327,7 @@ function flowcheck_app() {
 //deprecated
 function jscli_free() {
 
-    return gulp.src(['resources/js/free.js'])
+    return gulp.src(['resources/server_js/free.js'])
         .pipe(flow({
             all: false,
             weak: false,
@@ -338,7 +338,7 @@ function jscli_free() {
         .pipe(babel({
             presets: ['@babel/preset-flow']
         }))
-        .pipe(gulp.dest('resources/jscli'));
+        .pipe(gulp.dest('resources/server_jscli'));
 
 }
 
@@ -346,10 +346,10 @@ function js_app() {
 
     // var bundler =  browserify({debug: true,})// enalbe debug To use source maps
     //     .transform("babelify")
-    //     .require("./resources/js/entry.js", {entry: true})
+    //     .require("./resources/server_js/entry.js", {entry: true})
     //     .bundle()
 
-    var bundler = browserify('./resources/js/entry.js', {debug: true})
+    var bundler = browserify('./resources/server_js/entry.js', {debug: true})
         .on('postbundle', function (src) {
             console.log(src)
         })
@@ -416,7 +416,7 @@ function js_app_ie() {
                             // Babel默认只转换新的JavaScript句法（syntax），而不转换新的API. 须使用babel-polyfill
                             // * 可打包用到的api 即 "usage"
                             //  "useBuiltIns": "usage",
-                            // * 可在html上引入 如     <script src="https://cdn.bootcss.com/babel-polyfill/7.0.0-beta.49/polyfill.min.js"></script>
+                            // * 可在html上引入 如用cdn     <script src=".../babel-polyfill/7.0.0-beta.49/polyfill.min.js"></script>
                             // "useBuiltIns": false,
                             "useBuiltIns": 'usage',
 
@@ -430,7 +430,7 @@ function js_app_ie() {
                 "comments": false
             }
         )
-        .require("./resources/js/entry.js", {entry: true})
+        .require("./resources/server_js/entry.js", {entry: true})
         .bundle()
         .on("error", function (err) {
             console.error("Error: " + err.message);
@@ -498,7 +498,7 @@ function js_vendor() {
         pkg_dir + 'jquery-mapael/js/jquery.mapael.min.js', // 53k
 
         // pkg_dir + 'jquery-mapael/js/maps/world_countries.js',
-        'resources/js/world.js', // 105k
+        'resources/server_js/world.js', // 105k
 
     ]
         .concat(vendor_js_files));
@@ -589,7 +589,7 @@ function column_data() {
 
 function watch() {
 
-    gulp.watch('./resources/js/entry.js',
+    gulp.watch('./resources/server_js/entry.js',
         {
             ignoreInitial: false,
             delay: 600,

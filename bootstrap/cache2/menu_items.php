@@ -63,14 +63,14 @@ const MENU_ITEMS = array (
       'id' => 28,
       'name' => '淡水湾',
     ),
-    'being' => 
+    'children' => 
     array (
       'id' => 4,
-      'name' => '此身',
-      'short_name' => '人',
-      'desc' => '此身此时此地',
-      'title' => '此身 &nbsp;|&nbsp; 真城',
-      'ctitle' => '此身 &nbsp;|&nbsp; 真城',
+      'name' => '真之子',
+      'short_name' => '子',
+      'desc' => '高山仰止,虽不能至,然心向往之',
+      'title' => '真之子 &nbsp;|&nbsp; 真城',
+      'ctitle' => '真之子 &nbsp;|&nbsp; 真城',
     ),
     'sky' => 
     array (
@@ -262,22 +262,22 @@ const MENU_ITEMS = array (
       'id' => 3,
       'name' => 'Zhen Hills',
       'desc' => 'Zhen in human nature is like a standing hill.',
-      'title' => 'Zhen Hills &nbsp;|&nbsp; Zhen',
+      'title' => 'Zhen Hills &nbsp;|&nbsp; Zhen City',
     ),
     'human' => 
     array (
       'id' => 7,
       'name' => 'Human Hills',
       'desc' => 'A person is like a standing hill.',
-      'title' => 'Human Hills &nbsp;|&nbsp; Zhen',
+      'title' => 'Human Hills &nbsp;|&nbsp; Zhen City',
     ),
     'sail' => 
     array (
       'id' => 12,
       'name' => 'Sailing',
       'desc' => 'Advance in Civilization Road.',
-      'title' => 'Sailing &nbsp;|&nbsp; Zhen',
-      'ctitle' => 'Sailing &nbsp;|&nbsp; Zhen',
+      'title' => 'Sailing &nbsp;|&nbsp; Zhen City',
+      'ctitle' => 'Sailing &nbsp;|&nbsp; Zhen City',
     ),
     'library' => 
     array (
@@ -306,14 +306,14 @@ const MENU_ITEMS = array (
     array (
       'id' => 28,
     ),
-    'being' => 
+    'children' => 
     array (
       'id' => 4,
-      'name' => 'Being',
-      'short_name' => 'B',
-      'desc' => 'BEING HERE',
-      'title' => 'Being &nbsp;|&nbsp; Zhen',
-      'ctitle' => 'Being &nbsp;|&nbsp; Zhen',
+      'name' => 'Children',
+      'short_name' => 'C',
+      'desc' => 'Children of Zhen',
+      'title' => 'Children of Zhen &nbsp;|&nbsp; Zhen City',
+      'ctitle' => 'Children of Zhen &nbsp;|&nbsp; Zhen City',
     ),
     'sky' => 
     array (
@@ -321,8 +321,8 @@ const MENU_ITEMS = array (
       'name' => 'Starry Sky',
       'short_name' => 'S',
       'desc' => 'The starry sky Zhen lives under and appreciates',
-      'title' => 'Starry Sky &nbsp;|&nbsp; Zhen',
-      'ctitle' => 'Starry Sky &nbsp;|&nbsp; Zhen',
+      'title' => 'Starry Sky &nbsp;|&nbsp; Zhen City',
+      'ctitle' => 'Starry Sky &nbsp;|&nbsp; Zhen City',
     ),
     'think' => 
     array (
@@ -330,8 +330,8 @@ const MENU_ITEMS = array (
       'name' => 'Think',
       'short_name' => 'T',
       'desc' => 'TO KNOW, TO MOVE',
-      'title' => 'Think &nbsp;|&nbsp; Zhen',
-      'ctitle' => 'Think &nbsp;|&nbsp; Zhen',
+      'title' => 'Think &nbsp;|&nbsp; Zhen City',
+      'ctitle' => 'Think &nbsp;|&nbsp; Zhen City',
     ),
     'human/nature' => 
     array (
@@ -339,8 +339,8 @@ const MENU_ITEMS = array (
       'name' => 'Nature',
       'short_name' => 'N',
       'desc' => 'BY NATURE, FROM NATURE',
-      'title' => 'Human Nature &nbsp;|&nbsp; Zhen',
-      'ctitle' => 'Human Nature &nbsp;|&nbsp; Zhen',
+      'title' => 'Human Nature &nbsp;|&nbsp; Zhen City',
+      'ctitle' => 'Human Nature &nbsp;|&nbsp; Zhen City',
     ),
     'human/road' => 
     array (
@@ -348,8 +348,8 @@ const MENU_ITEMS = array (
       'name' => 'Road',
       'short_name' => 'R',
       'desc' => 'TO BE HUMAN',
-      'title' => 'Human Road &nbsp;|&nbsp; Zhen',
-      'ctitle' => 'Human Road &nbsp;|&nbsp; Zhen',
+      'title' => 'Human Road &nbsp;|&nbsp; Zhen City',
+      'ctitle' => 'Human Road &nbsp;|&nbsp; Zhen City',
     ),
     'human/country' => 
     array (
@@ -357,8 +357,8 @@ const MENU_ITEMS = array (
       'name' => 'Country',
       'short_name' => 'C',
       'desc' => 'LIVING IN',
-      'title' => 'Human Country &nbsp;|&nbsp; Zhen',
-      'ctitle' => 'Human Country &nbsp;|&nbsp; Zhen',
+      'title' => 'Human Country &nbsp;|&nbsp; Zhen City',
+      'ctitle' => 'Human Country &nbsp;|&nbsp; Zhen City',
     ),
     'human/Indiv' => 
     array (
@@ -366,8 +366,8 @@ const MENU_ITEMS = array (
       'name' => 'Individual',
       'short_name' => 'I',
       'desc' => 'INDIV TREES',
-      'title' => 'Human Individual &nbsp;|&nbsp; Zhen',
-      'ctitle' => 'Human Individual &nbsp;|&nbsp; Zhen',
+      'title' => 'Human Individual &nbsp;|&nbsp; Zhen City',
+      'ctitle' => 'Human Individual &nbsp;|&nbsp; Zhen City',
     ),
     'sail/walkers' => 
     array (
@@ -398,7 +398,7 @@ const MENU_ITEMS = array (
       'id' => 17,
       'name' => 'Bookshelf',
       'desc' => 'Read soul, read wisdom.',
-      'title' => 'Bookshelf &nbsp;|&nbsp; Zhen',
+      'title' => 'Bookshelf &nbsp;|&nbsp; Zhen City',
       'ctitle' => 'Zhen Bookshelf',
     ),
     'video' => 
@@ -406,7 +406,7 @@ const MENU_ITEMS = array (
       'id' => 18,
       'name' => 'Video Window',
       'desc' => 'Window to the soul, window to the world',
-      'title' => 'Video Window &nbsp;|&nbsp; Zhen',
+      'title' => 'Video Window &nbsp;|&nbsp; Zhen City',
       'ctitle' => 'Zhen Video Window',
     ),
     'park' => 

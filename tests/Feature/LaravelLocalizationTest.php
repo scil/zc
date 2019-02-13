@@ -13,9 +13,9 @@ class LaravelLocalizationTest extends TestCase
      */
     public function testNoLocaleUrl()
     {
-        $response = $this->get("/being");
+        $response = $this->get("/children");
         // $response->assertStatus(302);
-        // $response->assertHeader('Location', 'http://localhost/en/being');
+        // $response->assertHeader('Location', 'http://localhost/en/children');
         $response->assertStatus(200);
     }
 
@@ -25,7 +25,7 @@ class LaravelLocalizationTest extends TestCase
 //        $response = $this->withHeaders([
 //            'Accept-Language' => 'zh',
 //            'Accept' => '*/*',
-//        ])->get('http://zhenc.test/being');
+//        ])->get('http://zhenc.test/children');
 //        $response->assertStatus(302);
 //        $response->assertHeader('Location', 'http://localhost/go');
 

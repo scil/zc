@@ -29,8 +29,8 @@ const check_level = program.check_level || default_check_level;
 const map = {
     'LaravelLocalization.php': {
         'enable':true,
-        'desc': `any non-zh browsers visits non-local url,like "/being", will be thought to use locale "en", then 
-            LaravelLocalizationRedirectFilter will redirect to "/en/being" `,
+        'desc': `any non-zh browsers visits non-local url,like "/children", will be thought to use locale "en", then 
+            LaravelLocalizationRedirectFilter will redirect to "/en/children" `,
         'origin': '/vendor/mcamara/laravel-localization/src/Mcamara/LaravelLocalization/LaravelLocalization.php',
 
         'type': 'replace-in-file',
@@ -56,7 +56,7 @@ for (let i in map) {
         $part = checkPart(i, full, origin_file)
         assert.strictEqual($part, true)
         if (check_level === 'full') {
-            $full = checkFull(i, full)
+            $full = checkFull(i, full,origin_file)
             assert.strictEqual($full, true)
         }
     }
@@ -78,17 +78,20 @@ function replace_in_file(item, info) {
     }
 }
 
-function checkFull(item, full, origin_file) {
+function checkFull(item_name, full, origin_file) {
 
-    let backup_file = hack_files_root + '/backup/' + item
+    let backup_file = hack_files_root + '/backup/' + item_name
 
     let back_full = fs.readFileSync(backup_file).toString().replace(/\s+/g, ' ');
 
     if (back_full !== full) {
 
         diffOPtions = '--ignore-all-space --ignore-blank-lines';
-        $cmdArguments = `$diffOPtions $backup_file $origin_file `;
-        console.log("\n\n[CMD] diff $cmdArguments\n\n")
+        cmdArguments = `${diffOPtions} ${backup_file} ${origin_file} `;
+        console.log(`
+[CMD] fuck check failed for file ${origin_file}
+please run this cmd manully:
+ diff ${cmdArguments}\n\n`)
         return;
     }
 
@@ -113,7 +116,7 @@ function checkPart(item, full) {
     for (let part of parts) {
         part = part.replace(/\s+/g, ' ')
         if (full.indexOf(part) === -1) {
-            console.log(part_file, 'part :', part)
+            console.log(part_file, ' part not found:', part.substr(0,30),'...')
             return false;
         }
 

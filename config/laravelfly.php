@@ -13,6 +13,23 @@ return [
     ],
 
     /**
+     * by default, all models can be booted  on work.
+     *
+     * But if a model add a third-party trait, you should check if the trait can be booted on work.
+     * [Laravel Tip: Bootable Model Traits ](https://tighten.co/blog/laravel-tip-bootable-model-traits/)
+     *
+     * when a trait can boot on work?
+     * 1. if it has static prop, the prop should
+     *      always be same when coroutine used,
+     *      or does not harm the next request when coroutines not used.
+     * 2. if it has a reference prop, the prop should be a WORKER SERVICE or WORKER OBJECT
+     */
+    'models_booted_on_work' => [
+        'App\Volume', 'App\Article',
+        'App\Place', 'App\Placeable',
+    ],
+
+    /**
      * If use cache file for config/laravel.php always.
      *
      * If true, Laravelfly will always use cache file
@@ -151,7 +168,7 @@ return [
         // this is not in config('app.providers') and registered in Application:;registerBaseServiceProviders
         Illuminate\Routing\RoutingServiceProvider::class => [
             'router' => true,
-            'url' => 'clone',
+            'url' =>  true,
             // todo
             'redirect' => false,
         ],
@@ -229,6 +246,8 @@ return [
         Illuminate\Queue\QueueServiceProvider::class => [],
 
         Illuminate\Redis\RedisServiceProvider::class => [
+            '_replaced_by' =>
+                LARAVELFLY_COROUTINE ? LaravelFly\Map\Illuminate\Redis\RedisServiceProvider::class : false,
             'redis' => !!LARAVELFLY_SERVICES['redis'],
         ],
 
@@ -259,6 +278,11 @@ return [
             'view', 'view.engine.resolver', 'blade.compiler'
         ],
 
+        /*
+         * LaravelFly
+         */
+
+        LaravelFly\Providers\RouteServiceProvider::class => [],
 
         /*
          * Application Service Providers...
@@ -312,14 +336,6 @@ return [
         Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class => [
             Mcamara\LaravelLocalization\LaravelLocalization::class => 'clone',
         ],
-
-        /*
-         * LaravelFly
-         *
-         * /laravel-fly/info
-         */
-
-        LaravelFly\Providers\RouteServiceProvider::class => [],
     ],
 
 
@@ -337,36 +353,7 @@ return [
     ],
 
 
-    /**
-     * if a Facade alias of a CLONE SERVICE maybe used before any requests, put it here to clean.
-     *
-     * No worry about the Facade alias used in a request, because refactor working has done on Facade.
-     */
-    'clean_Facade_on_work' => [
-
-        // a facke request instance made on work
-        'request',
-        //'url' has been made on work? when? \Illuminate\Routing\RoutingServiceProvider
-        'url',
-
-        'laravellocalization',
-
-    ],
-
-    /**
-     * for Mode Map
-     */
     'update_on_request' => [
-
-        [
-            'this' => 'laravellocalization',
-            'closure' => function () {
-                $this->url = app('url');
-                app()->rebinding('request', function () {
-                    $this->request = app('request');
-                });
-            }
-        ],
 
         // for hash
         !empty(LARAVELFLY_SERVICES['hash']) ? false :
@@ -421,6 +408,13 @@ return [
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \App\Http\Middleware\TrustProxies::class,
+    ],
+
+    'swoole-job' => [
+        'delay' => 0,
+        'memory' => 128,
+        'timeout' => 60,
+        'tries' => 0,
     ],
 
 

@@ -32,7 +32,7 @@ class CreateMenuItemsTable extends Migration {
 			$table->tinyIncrements('id');
             $table->string('locale')->index();
 
-            $table->string('name',15);
+            $table->string('name',16);
             $table->string('short_name',15)->nullable();
 
             $table->string('title',50)->nullable();

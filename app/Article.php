@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $articleable
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Place[] $places
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Quote[] $quotes
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Reference[] $references
  * @property-read \App\Volume $volume
  * @method static bool|null forceDelete()
@@ -64,10 +63,12 @@ class Article extends BaseModel
     public function places()
     {
         // return $this->morphToMany('App\Place', 'placeable')->withPivot('place_name', 'title', 'intro', 'deep', 'comment');
-        return $this
+        $p= $this
             ->morphToMany('App\Place', 'placeable')
             ->withPivot('id','place_id',  'placeable_type', 'placeable_id','deep', 'comment')
             ->using(Placeable::class);
+
+        return $p;
     }
 
     function image()

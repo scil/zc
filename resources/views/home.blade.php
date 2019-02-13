@@ -242,7 +242,7 @@
 
 
             $.ajax({
-                url: "https://cdn.bootcss.com/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js",
+                url: "https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js",
                 dataType: "script",
                 cache: true,
                 success:

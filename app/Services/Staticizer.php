@@ -258,15 +258,15 @@ class Staticizer
             app()->setLocale($locale);
             \View::share('URL_LOCALE_PREFIX', $locale === DEFAULT_LOCAL ? '' : "/$locale");
 
-            echo "### blade for navbar, and  " . COUNTRY_URL . " not render sub menu.\n";
+            echo "### blade for navbar, and  " . COUNTRY_URL . " not render sub menu in lang $locale.\n";
             $this->partial('columns.navbar-nav-left', [], 'columns._navbar-nav-left-' . $locale);
 
-            echo "### blade for home site map \n";
+            echo "### blade for home site map in lang $locale \n";
             $this->partial('columns.home-sitemap', [], 'columns._map-' . $locale);
 
             // ### home
-            echo "### blade for home-body\n";
-            $ids = DB::table('menu_items')->whereIn('url', ['/zhen', '/human'])->pluck('id');
+            echo "### blade for /children  in lang $locale\n";
+            $ids = DB::table('menu_items')->whereIn('url', ['/zhen', '/human'])->orderBy('id')->pluck('id');
             $this->partial('columns.home-body', compact('ids'), 'columns._home-body-' . $locale);
         }
         app()->setLocale($localeBackup);

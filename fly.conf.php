@@ -29,15 +29,16 @@ const LARAVELFLY_SERVICES = [
     'translator' => 'use',
     'validator' => 'use',
 
-    'App\Providers\RouteServiceProvider' => true,
     'routes' => true,
     'cookie' => true,
     'auth' => true,
+    'bus' => true,
     'hash' => true,
     'view.finder' => true,
 
-    'kernel' => false,
+    'kernel' => true,
 
+    'no_contextual_binding_for_worker_services' => true,
 ];
 
 
@@ -52,16 +53,18 @@ return [
 
     'listen_port' => 9501,
 
-    'worker_num' => $IN_PRODUCTION ? 5 : 1,
+    'worker_num' => $IN_PRODUCTION ? 4 : 1,
+    'task_worker_num' => 0,//$IN_PRODUCTION ? 10 : 1,
     'max_coro_num' => 20,
-    'max_conn' => 128,
-    'max_request' => 500,
+    'max_conn' => 1024,
+    'max_request' => 2000,
 
     // 'daemonize' => true,
     'daemonize' => false,
 
     'watch' => [
         //'/home/vagrant/.fly-watch',
+        __DIR__ . '/app',
     ],
     'watch_delay' => 3500,
     'watch_down' => false,
@@ -74,11 +77,29 @@ return [
     // 'early_laravel' => true,
     'early_laravel' => false,
 
-    'before_start_func' => function () {
+    'swoole_session_back' => '',
+//    'swoole_session_back' => 'redis',
 
-        // memory share
-        // $this is the instance of the 'server'
+    'prestart_func' => function () {
+
+        /**
+         * @var LaravelFly\Server\Common $this
+         */
         // $this->newIntegerMemory('hits', new swoole_atomic(0));
+
+        if ($this->getConfig('swoole_session_back')) {
+            $this->newTableMemory(
+                'swooleSession',
+                32768,  // 32768 means it store max 32768 sessions
+                [
+                    // 'user_id' => [ swoole_table::TYPE_INT,  4],
+                    'payload' => [swoole_table::TYPE_STRING, 1000], // 1000 bytes is appropriate for most cases
+                    'last_activity' => [swoole_table::TYPE_INT, 4], // 4 bytes
+                ],
+                \LaravelFly\Tools\SessionTable::class
+            );
+
+        }
 
 
         // event

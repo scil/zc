@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             //  5.6.3 之前：字符集为 utf8mb4, 所以可申请索引的 varchar 长度为：767/4 ≈ 191；
             $table->string('email',191)->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

@@ -6,7 +6,7 @@ ALL_LOCALS = ['zh', 'en',],
 
 COUNTRY_URL = '/foot', STARS_URL='sky', SAIL_URL='sail',SAIL_FULL='/sail',
 
-HOMEPAGE_PLOTS_ARTICLE = 'being',
+HOMEPAGE_PLOTS_ARTICLE = 'children',
 
 HOMEPAGE_PLOTS_QUOTE = [STARS_URL, 'human/Indiv'];
 
@@ -23,7 +23,7 @@ MENU_ID = [
 
 MENU_CACHE_DIR = 'bootstrap/cache2',
 
-HOMEPAGE_HEADER=['/being','/sky','/human/Indiv']
+HOMEPAGE_HEADER=['/children','/sky','/human/Indiv']
 
 ;
 

@@ -4,6 +4,9 @@
  is assigned the "web" middleware group
  */
 
+use App\Article;
+use App\Jobs\ProcessPodcast;
+use LaravelFly\Tools\LaravelJobByTask\TaskJobServiceProvider;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
@@ -22,9 +25,9 @@ $routesForAllLocalNoHome = function () {
 
 //article
 // column
-    Route::get('/{mlist_url}', 'CmsController@viewArticleColumn')->where('mlist_url', 'being|think|human|human/road|human/nature|zhen');
+    Route::get('/{mlist_url}', 'CmsController@viewArticleColumn')->where('mlist_url', 'children|think|human|human/road|human/nature|zhen');
 //item
-    Route::get('/{prefix_url}/{slug}', 'CmsController@viewColumnArticle')->where('prefix_url', 'being|think|human|human/road|human/nature|zhen');
+    Route::get('/{prefix_url}/{slug}', 'CmsController@viewColumnArticle')->where('prefix_url', 'children|think|human|human/road|human/nature|zhen');
 
     Route::get('/article/{slug}', 'CmsController@viewColumnArticle');
     Route::get('/article/{slug}/edit', 'CmsController@editArticle');
@@ -48,22 +51,18 @@ $routesForAllLocalNoHome = function () {
     Route::get('/new_article', 'CmsController@createArticle');
     Route::post('/new_article', 'CmsController@storeArticle');
 
-    Route::redirect('/green', '/being', 301);
+    Route::redirect('/green', '/children', 301);
     Route::redirect('/spirit', '/sky', 301);
     Route::redirect('/go', '/sky', 301);
     Route::redirect('/tree', '/bay', 301);
     Route::redirect('/tree/about', '/bay/about', 301);
     Route::get('/green/{slug}', function ($slug) {
-        return redirect("/being/$slug", 301);
+        return redirect("//children'$slug", 301);
     });
     Route::get('/go/{slug}', function ($slug) {
         return redirect("/sky/$slug", 301);
     });
 
-
-    Route::get('/tinker', function () {
-        eval(tinker());
-    });
 
     Route::get('/memoryInRouteClosure', function () {
 
@@ -114,11 +113,11 @@ $routesForAllLocalNoHome = function () {
 
     return;
 
-    Route::get('/people', function () {
-        return redirect("/being", 301);
+    Route::get('/being', function () {
+        return redirect("/children", 301);
     });
-    Route::get('/people/{slug}', function ($slug) {
-        return redirect("/being/$slug", 301);
+    Route::get('/being/{slug}', function ($slug) {
+        return redirect("/children/$slug", 301);
     });
 
 
@@ -155,16 +154,19 @@ $routesForAllLocalNoHome = function () {
 };
 
 
-if (defined('LARAVELFLY_MODE'))
+if (defined('LARAVELFLY_MODE')) {
+
     // use '' for  'zh'
     $target = array_merge([''], array_diff(ALL_LOCALS, [DEFAULT_LOCAL]));
-else
+} else
     $target = [LaravelLocalization::setLocale() ?: ''];
 
 
 foreach ($target as $locale) {
 
     Route::get('/' . $locale, 'CmsController@home')->middleware($locale ? 'locale:' . $locale : 'localeForRoot');
+
+    Route::get('/zh', 'CmsController@home')->middleware('locale:zh');
 
     Route::group(
         [
@@ -181,3 +183,13 @@ Route::get('/php', function () {
     return ob_get_clean();
 });
 
+Route::get('/tinker', function () {
+    eval(tinker());
+    return 3;
+});
+Route::get('/dd', function () {
+    event(new \App\Events\TestEvent());
+    return 3;
+});
+
+Route::get('/vvv/{v}', 'CmsController@test1');

@@ -34,45 +34,45 @@ class MenuItemsTableSeeder extends Seeder
 
                     ['show' => true, 'css' => null, 'type' => 'box', 'level' => 2, 'order' => 1, 'url' => '/zhen', '_trans' => [
                         'zh' => ['name' => '真山', 'title' => '真山 &nbsp;|&nbsp; 真城', 'desc' => '人真如山',],
-                        'en' => ['name' => 'Zhen Hills', 'title' => 'Zhen Hills &nbsp;|&nbsp; Zhen', 'desc' => 'Zhen in human nature is like a standing hill.',],
+                        'en' => ['name' => 'Zhen Hills', 'title' => 'Zhen Hills &nbsp;|&nbsp; Zhen City', 'desc' => 'Zhen in human nature is like a standing hill.',],
                     ], '_children' => [
 
-                        ['show' => true, 'css' => '2', 'type' => 'article', 'level' => 3, 'order' => 1, 'url' => '/being', 'pic' => 'qing.jpg', '_trans' => [
-                            'zh' => ['name' => '此身', 'short_name' => '人', 'ctitle' => '此身 &nbsp;|&nbsp; 真城', 'title' => '此身 &nbsp;|&nbsp; 真城', 'desc' => '此身此时此地',],
-                            'en' => ['name' => 'Being', 'short_name' => 'B', 'ctitle' => 'Being &nbsp;|&nbsp; Zhen', 'title' => 'Being &nbsp;|&nbsp; Zhen', 'desc' => 'BEING HERE',],
+                        ['show' => true, 'css' => '2', 'type' => 'article', 'level' => 3, 'order' => 1, 'url' => '/children', 'pic' => 'qing.jpg', '_trans' => [
+                            'zh' => ['name' => '真之子', 'short_name' => '子', 'ctitle' => '真之子 &nbsp;|&nbsp; 真城', 'title' => '真之子 &nbsp;|&nbsp; 真城', 'desc' => '高山仰止,虽不能至,然心向往之',],
+                            'en' => ['name' => 'Children', 'short_name' => 'C', 'ctitle' => 'Children of Zhen &nbsp;|&nbsp; Zhen City', 'title' => 'Children of Zhen &nbsp;|&nbsp; Zhen City', 'desc' => 'Children of Zhen',],
                         ]],
                         ['show' => true, 'css' => '3', 'type' => 'quote', 'level' => 3, 'order' => 2, 'url' => '/sky', 'pic' => 'aboutme.jpg', '_trans' => [
                             'zh' => ['name' => '真意', 'short_name' => '意', 'ctitle' => '真意 &nbsp;|&nbsp; 真城', 'title' => '真意 &nbsp;|&nbsp; 真城', 'desc' => '此中有真意',],
-                            'en' => ['name' => 'Starry Sky', 'short_name' => 'S', 'ctitle' => 'Starry Sky &nbsp;|&nbsp; Zhen', 'title' => 'Starry Sky &nbsp;|&nbsp; Zhen', 'desc' => 'The starry sky Zhen lives under and appreciates',],
+                            'en' => ['name' => 'Starry Sky', 'short_name' => 'S', 'ctitle' => 'Starry Sky &nbsp;|&nbsp; Zhen City', 'title' => 'Starry Sky &nbsp;|&nbsp; Zhen City', 'desc' => 'The starry sky Zhen lives under and appreciates',],
                         ]
                         ],
                         ['show' => true, 'css' => '1', 'type' => 'article', 'level' => 3, 'order' => 3, 'url' => '/think', 'pic' => 'book.jpg', '_trans' => [
                             'zh' => ['name' => '山书', 'short_name' => '书', 'ctitle' => '山书 &nbsp;|&nbsp; 真城', 'title' => '山书 &nbsp;|&nbsp; 真城', 'desc' => '岭上多白云',],
-                            'en' => ['name' => 'Think', 'short_name' => 'T', 'ctitle' => 'Think &nbsp;|&nbsp; Zhen', 'title' => 'Think &nbsp;|&nbsp; Zhen', 'desc' => 'TO KNOW, TO MOVE',],
+                            'en' => ['name' => 'Think', 'short_name' => 'T', 'ctitle' => 'Think &nbsp;|&nbsp; Zhen City', 'title' => 'Think &nbsp;|&nbsp; Zhen City', 'desc' => 'TO KNOW, TO MOVE',],
                         ],],
 //                        ['name' => '海贝', 'show'=>true,'short_name' => '海', 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/shells', 'ctitle'=>'海贝 &nbsp;|&nbsp; 真城','title'=>'海贝 &nbsp;|&nbsp; 真城', 'desc' => '明月共潮生', 'show_pic'=>false,'pic'=>'seashell.jpg', '_trans'=>['zh'=>[]]],
                     ]],
                     ['show' => true, 'css' => null, 'type' => 'box', 'level' => 2, 'order' => 2, 'url' => '/human', '_trans' => [
                         'zh' => ['name' => '人山', 'title' => '人山 &nbsp;|&nbsp; 真城', 'desc' => '人如山立',],
-                        'en' => ['name' => 'Human Hills', 'title' => 'Human Hills &nbsp;|&nbsp; Zhen', 'desc' => 'A person is like a standing hill.',],
+                        'en' => ['name' => 'Human Hills', 'title' => 'Human Hills &nbsp;|&nbsp; Zhen City', 'desc' => 'A person is like a standing hill.',],
                     ], '_children' => [
 
                         ['show' => true, 'css' => '2', 'type' => 'article', 'level' => 3, 'order' => 1, 'url' => '/human/nature', 'pic' => 'nature.jpg', '_trans' => [
                             'zh' => ['name' => '天性', 'short_name' => '人', 'ctitle' => '天性 &nbsp;|&nbsp; 真城', 'title' => '天性 &nbsp;|&nbsp; 真城', 'desc' => '天性，物性，神性',],
-                            'en' => ['name' => 'Nature', 'short_name' => 'N', 'ctitle' => 'Human Nature &nbsp;|&nbsp; Zhen', 'title' => 'Human Nature &nbsp;|&nbsp; Zhen', 'desc' => 'BY NATURE, FROM NATURE',],
+                            'en' => ['name' => 'Nature', 'short_name' => 'N', 'ctitle' => 'Human Nature &nbsp;|&nbsp; Zhen City', 'title' => 'Human Nature &nbsp;|&nbsp; Zhen City', 'desc' => 'BY NATURE, FROM NATURE',],
                         ]
                         ],
                         ['show' => true, 'css' => '1', 'type' => 'article', 'level' => 3, 'order' => 2, 'url' => '/human/road', 'pic' => 'road.jpg', '_trans' => [
                             'zh' => ['name' => '人之路', 'short_name' => '路', 'ctitle' => '人路 &nbsp;|&nbsp; 真城', 'title' => '人之路 &nbsp;|&nbsp; 真城', 'desc' => '成为人',],
-                            'en' => ['name' => 'Road', 'short_name' => 'R', 'ctitle' => 'Human Road &nbsp;|&nbsp; Zhen', 'title' => 'Human Road &nbsp;|&nbsp; Zhen', 'desc' => 'TO BE HUMAN',],
+                            'en' => ['name' => 'Road', 'short_name' => 'R', 'ctitle' => 'Human Road &nbsp;|&nbsp; Zhen City', 'title' => 'Human Road &nbsp;|&nbsp; Zhen City', 'desc' => 'TO BE HUMAN',],
                         ]],
                         ['show' => true, 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 3, 'url' => '/human/country', 'pic' => 'disaster.jpg', '_trans' => [
                             'zh' => ['name' => '人天地', 'short_name' => '这', 'ctitle' => '人天地 &nbsp;|&nbsp; 真城', 'title' => '人天地 &nbsp;|&nbsp; 真城', 'desc' => '天，地'],
-                            'en' => ['name' => 'Country', 'short_name' => 'C', 'ctitle' => 'Human Country &nbsp;|&nbsp; Zhen', 'title' => 'Human Country &nbsp;|&nbsp; Zhen', 'desc' => 'LIVING IN',],
+                            'en' => ['name' => 'Country', 'short_name' => 'C', 'ctitle' => 'Human Country &nbsp;|&nbsp; Zhen City', 'title' => 'Human Country &nbsp;|&nbsp; Zhen City', 'desc' => 'LIVING IN',],
                         ]],
                         ['show' => true, 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 4, 'url' => '/human/Indiv', 'pic' => 'disaster.jpg', '_trans' => [
                             'zh' => ['name' => '个体树', 'short_name' => '个', 'ctitle' => '个体树 &nbsp;|&nbsp; 真城', 'title' => '个体树 &nbsp;|&nbsp; 真城', 'desc' => '天地，人'],
-                            'en' => ['name' => 'Individual', 'short_name' => 'I', 'ctitle' => 'Human Individual &nbsp;|&nbsp; Zhen', 'title' => 'Human Individual &nbsp;|&nbsp; Zhen', 'desc' => 'INDIV TREES',],
+                            'en' => ['name' => 'Individual', 'short_name' => 'I', 'ctitle' => 'Human Individual &nbsp;|&nbsp; Zhen City', 'title' => 'Human Individual &nbsp;|&nbsp; Zhen City', 'desc' => 'INDIV TREES',],
                         ]],
 //                ['name' => '人难',  'show'=>true,'short_name'=>null,'css'=>null,'type'=>'quote','level' => 3, 'order' => 5,  'url' => '/human/disaster', 'ctitle'=>'','title'=>'', 'desc' => '不敢遗忘', 'show_pic'=>false,'pic'=>'disaster.jpg', '_trans'=>['zh'=>[]],],
                     ]],
@@ -80,7 +80,7 @@ class MenuItemsTableSeeder extends Seeder
                     // 远行 远帆 蹈海 渡海
                     ['show' => true, 'css' => null, 'type' => 'box', 'level' => 2, 'order' => 4, 'url' => '/sail', '_trans' => [
                         'zh' => ['name' => '越海', 'ctitle' => '越海 &nbsp;|&nbsp; 真城', 'title' => '越海 &nbsp;|&nbsp; 真城', 'desc' => '人类之路，人类之路的开路人、带路者'],
-                        'en' => ['name' => 'Sailing', 'ctitle' => 'Sailing &nbsp;|&nbsp; Zhen', 'title' => 'Sailing &nbsp;|&nbsp; Zhen', 'desc' => 'Advance in Civilization Road.'],
+                        'en' => ['name' => 'Sailing', 'ctitle' => 'Sailing &nbsp;|&nbsp; Zhen City', 'title' => 'Sailing &nbsp;|&nbsp; Zhen City', 'desc' => 'Advance in Civilization Road.'],
                     ], '_children' => [
 
                         ['show' => true, 'css' => '1', 'type' => 'quote', 'level' => 3, 'order' => 1, 'url' => '/sail/walkers', 'pic' => null, '_trans' => [
@@ -109,12 +109,12 @@ class MenuItemsTableSeeder extends Seeder
                 ], '_children' => [
                     ['show' => true, 'css' => null, 'type' => null, 'level' => 2, 'order' => 1, 'url' => '/book', '_trans' => [
                         'zh' => ['name' => '书架', 'ctitle' => '真城书架', 'title' => '书架 &nbsp;|&nbsp; 真城', 'desc' => '阅读心灵，阅读智慧。',],
-                        'en' => ['name' => 'Bookshelf', 'ctitle' => 'Zhen Bookshelf', 'title' => 'Bookshelf &nbsp;|&nbsp; Zhen', 'desc' => 'Read soul, read wisdom.',],
+                        'en' => ['name' => 'Bookshelf', 'ctitle' => 'Zhen Bookshelf', 'title' => 'Bookshelf &nbsp;|&nbsp; Zhen City', 'desc' => 'Read soul, read wisdom.',],
                     ]
                     ],
                     ['show' => true, 'css' => null, 'type' => null, 'level' => 2, 'order' => 2, 'url' => '/video', '_trans' => [
                         'zh' => ['name' => '视窗', 'ctitle' => '真城视窗', 'title' => '视窗 &nbsp;|&nbsp; 真城', 'desc' => '心灵的影视世界。',],
-                        'en' => ['name' => 'Video Window', 'ctitle' => 'Zhen Video Window', 'title' => 'Video Window &nbsp;|&nbsp; Zhen', 'desc' => 'Window to the soul, window to the world',],
+                        'en' => ['name' => 'Video Window', 'ctitle' => 'Zhen Video Window', 'title' => 'Video Window &nbsp;|&nbsp; Zhen City', 'desc' => 'Window to the soul, window to the world',],
                     ]
                     ],
                     //['name' => '诗抄存', 'show'=>true,  'css' => null, 'type' => null, 'level' => 2, 'order' => 3, 'url' => '/poem', 'ctitle'=>'','title'=>'',  'show_pic'=>false,'pic'=>'', '_trans'=>['zh'=>[]]],

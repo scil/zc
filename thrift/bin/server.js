@@ -3,7 +3,7 @@ var thrift = require('thrift');
 var MarkdownService = require('./../gen-nodejs/MarkdownService.js'),
     ttypes = require('./../gen-nodejs/zc_types');	
     
-const md = require('./../../resources/js/markdownit.js')();
+const md = require('./../../resources/server_js/markdownit.js')();
 const minify = require('html-minifier').minify;
 
 const port = 7911;

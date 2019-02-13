@@ -1,13 +1,14 @@
 
 # url
 
- no support for urls like '/zh', '/zh/being'
+no support for urls like  '/zh/children'
  
- 除了 root url 支持 302，其它页面都不支持转向，都指向唯一页面，即 /en 代表英文首页， /being 中代表中文的 being
+额外支持 /zh (似乎有些seo不友好)
+ 
+除了 root url 支持 302，其它页面都不支持转向，都指向唯一页面，即 /en 代表英文首页， /being 中代表中文的 being
  ```php
 class LocaleForRoot
 {
-
         if (!$request->hasPreviousSession()) {
 }
 ```

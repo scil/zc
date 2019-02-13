@@ -74,7 +74,7 @@ const MENU_MAP = array (
   array (
     'id' => 28,
   ),
-  'being' => 
+  'children' => 
   array (
     'id' => 4,
     'css' => '2',

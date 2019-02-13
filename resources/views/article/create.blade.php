@@ -9,7 +9,7 @@
     <script>
         function loadMap() {
 //            jQuery.getScript("/js/gmaps.js", initMap);
-            jQuery.getScript("//cdn.bootcss.com/gmaps.js/0.4.22/gmaps.min.js", initMap);
+            jQuery.getScript("https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.25/gmaps.min.js", initMap);
         }
         var zmap;
         function initMap() {
