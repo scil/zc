@@ -1,0 +1,84 @@
+/*
+quote
+*/
+
+.QL{
+//  >article{
+//    min-height:9em; // 文字太少的quote 别显得太单薄了
+//  }
+}
+.QL-item-hr {
+  margin: 50px 0 60px;
+}
+//.QL-item {
+//  max-width:630px;
+//}
+
+
+.QL-item-body> p {
+  >.footnote-ref{
+    overflow: hidden;
+    width: 1em;
+    height:1em;
+    display: inline-block;
+    line-height: normal;
+    position: static;
+    &:before{
+      content: '〉';
+      color: orange;
+      font-weight: bold;
+    }
+  }
+}
+
+
+.QL-item-img {
+  display: block;
+  margin-top: 1.5em;
+  max-width:100%;
+  //@media(max-width: $screen-md){
+  //  max-width:100%;
+  //}
+}
+
+.QL-read-more-box{
+  text-align: right;
+  margin-bottom: -1em;
+  margin-top: -5px;
+}
+.QL-read-more{
+  padding: 2px 12px 3px 20px;
+  opacity: 0.8;
+  background-color: #efefef;
+  z-index: 10;
+  &::before{
+    content: 'read more ...';
+  }
+ }
+.QL-item-info-box{
+    font-size: 12px;
+    margin-top: 14px;
+  .QL-read-more+&{
+    margin-top: 10px;
+
+  }
+}
+
+.QL-item-info{
+  color: #aaa;
+  &:hover{
+    color: #555;
+  }
+}
+
+
+.truncate {
+  display: inline-block;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &:hover{
+    width: auto;
+  }
+}

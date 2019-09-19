@@ -1,0 +1,51 @@
+.slick-slide {
+  // chrome 有个默认样式:focus 会加上outline
+  outline:none;
+}
+
+// theme
+
+.slick-dots>li {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+  padding: 0;
+  cursor: pointer;
+
+  >button {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    cursor: pointer;
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: transparent;
+    //&::before {
+    //  font-family: 'slick';
+    //  font-size: 6px;
+    //  line-height: 20px;
+    //  position: absolute;
+    //  top: 0;
+    //  left: 0;
+    //  width: 20px;
+    //  height: 20px;
+    //  content: '•';
+    //  text-align: center;
+    //  opacity: .25;
+    //  color: black;
+    //  -webkit-font-smoothing: antialiased;
+    //  -moz-osx-font-smoothing: grayscale;
+    //}
+  }
+}
+
+//.slick-dots>li.slick-active>button::before {
+//  opacity: .75;
+//  color: black;
+//}

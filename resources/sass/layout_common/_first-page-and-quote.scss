@@ -1,0 +1,63 @@
+
+/**
+ *  first page 首屏
+ * -------------------------- */
+
+// 上提，直接连接 #header
+.first-up {
+  margin-top: -$line-height-computed; // equal to margin bottom of hr
+}
+
+// 和 #header底部的hr拉开一定距离
+.normal-first {
+  margin-top: 2%;
+}
+
+.first-page {
+  background-color: lightblue;
+  margin-bottom: 25px;
+  margin-top: -$line-height-computed; // equal to margin bottom of hr
+  @media (max-width: $screen-sm-min) {
+    margin-top:-$header_hr_margin_sm;
+  }
+}
+
+// border-radius在Android下的几个BUG
+// http://www.tuicool.com/articles/vQZnMjv
+.quote-img {
+  margin: auto;
+  display: block;
+  width: 100px;
+  height: 100px;
+  border: 3px solid #FFF;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+
+  border-radius: 100%;
+  behavior: url(/PIE.htc);
+
+  > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+  }
+}
+
+.quote-text {
+  margin: 2.5% auto 3.3% auto;
+  font-size: 19px;
+  //font-weight: 600;
+  max-width: 480px;
+  > div {
+    display: table;
+    margin: auto;
+    min-height: 68px; // 这是当前字体下两行的高度，确保只有一行文字时也有两行高度；同时使用表格排版，使得一行文本时位置也好看
+    > p {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+}
+
+.quote-src {
+  font-size: 16px;
+}

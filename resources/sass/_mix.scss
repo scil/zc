@@ -1,0 +1,23 @@
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+// CSS百分比实现高度占位自适应（margin/padding）
+// http://www.cnblogs.com/cuoreqzt/p/5848270.html
+//$type: 是否可控高度：false（无法控制min-height,但没有多余结构） true(可控制min-height，但要增加结构)
+@mixin proporBox($arg:1, $type:false, $ele:':before'){
+    position: relative;
+    @if $type == true {
+        &#{$ele}{
+            content: '';
+            display: block;
+            width: 100%;
+            padding-top: percentage($arg);
+        }
+    }@else{
+        padding-top: percentage($arg);
+    }
+}

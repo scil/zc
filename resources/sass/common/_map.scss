@@ -1,0 +1,10 @@
+
+.map-placeholder{
+  @include proporBox($map_ratio);
+}
+
+// mapael
+//
+.zoomButton {
+  display: none;
+}

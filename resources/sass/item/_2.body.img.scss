@@ -1,0 +1,71 @@
+
+/* *****************
+ *   img
+ */
+
+
+// default img is in center
+#body>p,#body>blockquote>p {
+ >img{
+   display: block;
+   margin: 30px auto;
+   @media (min-width: $screen-xs) {
+     max-width: 90%;
+   }
+ }
+}
+
+// top means: span text is on top instead of bottom
+.left-img-box,.left-img-box-top {
+  @extend .clearfix;
+  @extend .kaiti;
+  position: relative; // 里面的文字可用绝对定位 当然一般用float:right
+
+  > img {
+    float: left;
+    margin: 0 8px 0 0 !important;
+    @media (min-width: $screen-xs) {
+      max-width: 80%;
+    }
+    @media (max-width: $screen-xs) {
+      width: 100%;
+    }
+  }
+
+  > a:first-child /* a img with link*/
+  {
+    float: left;
+    margin-right: 8px;
+    @media (min-width: $screen-xs) {
+      max-width: 80%;
+    }
+    @media (max-width: $screen-xs) {
+      width: 100%;
+    }
+    > img {
+      width: 100%;
+    }
+  }
+
+  @media (min-width: $screen-xs) {
+    > span {
+      float: none;
+      position: absolute;
+      bottom: 2px;
+    }
+  }
+}
+.left-img-box-top{
+  > span {
+    float: right;
+    position: static;
+    bottom:inherit;
+  }
+}
+
+.img-list {
+  > img {
+    max-width: 100%;
+  }
+}
+

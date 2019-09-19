@@ -1,0 +1,55 @@
+
+//== zc Layout
+$header_hr_margin_sm: 10px;
+$footer_margin_top: 350px;
+$footer_margin_top_small: 70px;
+
+//== world map
+$map_ratio: 0.4;
+
+
+
+@import "re-variables";
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss";
+@import "re-css";
+
+@import 'mix.scss';
+
+@import 'common/common.scss';
+
+@import 'layout_common/navbar.scss';
+@import 'layout_common/header.scss';
+@import 'layout_common/first-page-and-quote.scss';
+//@import 'layout_common/level4column.scss';
+@import 'layout_common/footer.scss';
+@import 'layout_common/side.scss';
+
+@import 'common/slick.scss';
+@import 'common/blockquote.scss';
+
+@import 'home.scss';
+
+@import 'item/0.scss';
+@import 'item/1.header.scss';
+@import 'item/2.body.scss';
+@import 'item/2.body.img.scss';
+@import 'item/2.body_tail.scss';
+@import 'item/2.select-body.scss';
+@import 'item/2.quote.scss';
+@import 'item/3.form.scss';
+@import 'item/5.supplement.vol.scss';
+@import 'item/suggest.scss';
+
+@import 'list/list.scss';
+@import 'list/list.quote.scss';
+@import 'list/bottom.scss';
+
+@import 'common/mce.scss';
+@import 'common/map.scss';
+
+@import 'pass/pass.scss';
+//@import 'pass/ferry.scss';
+
+@import "media/item.scss";
+
+

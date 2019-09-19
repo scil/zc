@@ -1,0 +1,198 @@
+#body {
+  font-size: 17px;
+  > p {
+    margin-bottom: 20px;
+  }
+  > h2 {
+    margin: 28px 0 20px;
+    font-weight: 600;
+    background-color: #D8B2D8;
+    padding: 17px 12px;
+    line-height: 1.4;
+    > small {
+    }
+    //color:#DA7739 ;// red; //salmon;
+  }
+  > h3 {
+    line-height: 1.3;
+    padding: 12px;
+    margin-bottom: 20px;
+    background-color: lightgray;
+  }
+}
+
+.ins-hr {
+  margin: 30px 0 2px 0;
+  border-color: #ccc;
+}
+
+.ins {
+  //border: 3px solid #eee;
+  //border-left: 25px solid #eeeeee;
+  //padding: 20px;
+  border: 1px solid #ccc;
+  border-right: 0;
+  padding: 20px 10px 10px 50px;
+  line-height: 1.5;
+  position: relative;
+
+  margin-bottom: 35px;
+  + .ins {
+    margin-top: -10px; // 相邻的两个不要离太远
+  }
+  > h3 {
+    margin-top: 0;
+    line-height: 1.5;
+  }
+}
+
+.prefix-quote {
+  border-radius: 11px;
+  color: white;
+  padding: 0 5px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  background-color: lightgrey;
+  font-size: 14px;
+}
+
+.limit-height {
+  overflow: hidden;
+  position: relative;
+}
+
+#body > .limit-height {
+  max-height: 200px;
+}
+
+.no-limit-height {
+  max-height: none !important;
+}
+
+.read-more {
+  position: absolute;
+  bottom: 7px;
+  right: 10px;
+  padding: 2px 12px 3px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  background-color: #efefef;
+  //border: 6px solid #eee;
+  opacity: 0.8;
+  z-index: 10; // 不被其后的文字、图片挡住
+  &::before {
+    content: 'show more ...';
+  }
+}
+
+.read-less {
+  padding: 2px 20px 3px 12px;
+  &::before {
+    content: '... show less' !important;
+  }
+}
+
+a.spotlight {
+  @extend .btn;
+  @extend .bg-danger;
+  margin: 3px;
+}
+
+dl.spotlight > dt {
+  border-radius: 30px;
+  background-color: beige;
+  display: inline-block;
+  font-size: 30px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+mark {
+  @extend code;
+}
+
+// markdown-it-container
+.section {
+  @extend .kaiti;
+  font-size: 110%;
+}
+
+z-que, z-ans {
+  font-weight: bold;
+}
+
+z-deep, .z-deep {
+  visibility: hidden;
+}
+
+z-que {
+  position: relative;
+}
+
+h2 {
+  counter-reset: question;
+}
+
+z-que:before {
+  counter-increment: question;
+  content: counter(question) "、";
+  position: absolute;
+  left: -2em;
+}
+
+h2.first-counter {
+  counter-reset: h2counter;
+}
+
+h2.counter:before {
+  counter-increment: h2counter;
+  content: counter(h2counter) "、";
+}
+
+s, del {
+  display: none;
+}
+
+ins {
+  text-decoration: inherit;
+}
+
+// for footer produced by markdown-it-footnote
+.footnotes, .footnotes-sep {
+  display: none;
+}
+
+/* *****************
+ *   font
+ */
+
+.big-font {
+  text-align: center;
+  font-size: 36px;
+}
+
+/* google fonts */
+@font-face {
+  font-family: 'Cormorant Upright';
+  src: local('CormorantUpright-Medium'),
+  url('/fonts/CormorantUpright-Medium.ttf');
+}
+
+.Cormorant-Upright {
+  font-family: 'Cormorant Upright', serif;
+}
+
+@font-face {
+  font-family: 'Italianno';
+  src: local('Italianno-Regular'),
+  url('/fonts/Italianno-Regular.ttf');
+}
+
+.Italianno {
+  font-family: 'Italianno', serif;
+}
+
