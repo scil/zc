@@ -28,9 +28,9 @@ const check_level = program.check_level || default_check_level;
 
 const map = {
     'LaravelLocalization.php': {
-        'enable':true,
-        'desc': `any non-zh browsers visits non-local url,like "/children", will be thought to use locale "en", then 
-            LaravelLocalizationRedirectFilter will redirect to "/en/children" `,
+        'enable': true,
+        'desc': `any non-zh browsers visits non-local url,like "/zhenyi", will be thought to use locale "en", then 
+            LaravelLocalizationRedirectFilter will redirect to "/en/zhenyi" `,
         'origin': '/vendor/mcamara/laravel-localization/src/Mcamara/LaravelLocalization/LaravelLocalization.php',
 
         'type': 'replace-in-file',
@@ -48,20 +48,42 @@ const map = {
 
 for (let i in map) {
 
-    if(!map[i]['enable']) continue;
+    if (!map[i]['enable']) {
+        console.info('[SKIP] ', i,' not enabled')
+        continue;
+    }
+
+    var origin_file = project_root + map[i]['origin']
+    var full = fs.readFileSync(origin_file).toString();
+
+    if (hacked(full, map[i])) {
+        console.info('[SKIP] ', i,' hacked.')
+        continue;
+    }
 
     if (check_level !== 'no') {
-        origin_file = project_root + map[i]['origin']
-        let full = fs.readFileSync(origin_file).toString().replace(/\s+/g, ' ');
-        $part = checkPart(i, full, origin_file)
+        let full_simple = full.replace(/\s+/g, ' ');
+        $part = checkPart(i, full_simple, origin_file)
         assert.strictEqual($part, true)
         if (check_level === 'full') {
-            $full = checkFull(i, full,origin_file)
+            $full = checkFull(i, full_simple, origin_file)
             assert.strictEqual($full, true)
         }
     }
 
     replace_in_file(i, map[i])
+}
+
+function hacked(full, info) {
+    let origin = project_root + info.origin;
+
+    let expected = info.to;
+
+    if (full.indexOf(expected) === -1) {
+        return false;
+    }
+    return true;
+
 }
 
 function replace_in_file(item, info) {
@@ -72,19 +94,18 @@ function replace_in_file(item, info) {
     try {
         const changes = replace.sync(options);
         console.log('Modified files:', changes.join(', '));
-    }
-    catch (error) {
+    } catch (error) {
         console.error('Error occurred:', error);
     }
 }
 
-function checkFull(item_name, full, origin_file) {
+function checkFull(item_name, full_simple, origin_file) {
 
     let backup_file = hack_files_root + '/backup/' + item_name
 
     let back_full = fs.readFileSync(backup_file).toString().replace(/\s+/g, ' ');
 
-    if (back_full !== full) {
+    if (back_full !== full_simple) {
 
         diffOPtions = '--ignore-all-space --ignore-blank-lines';
         cmdArguments = `${diffOPtions} ${backup_file} ${origin_file} `;
@@ -116,7 +137,9 @@ function checkPart(item, full) {
     for (let part of parts) {
         part = part.replace(/\s+/g, ' ')
         if (full.indexOf(part) === -1) {
-            console.log(part_file, ' part not found:', part.substr(0,30),'...')
+            console.log('part not found:\n', part_file, '\n',part.substr(0, 70), '...\n')
+            fs.writeFileSync('/var/tmp/php.tmp', part+'\n\n\n'+full )
+      
             return false;
         }
 

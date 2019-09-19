@@ -14,13 +14,13 @@ class CreateMediaQuotesTable extends Migration
     public function up()
     {
         Schema::create('media_quotes', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('body',3000);
             $table->string('md',3000)->nullable();
             $table->string('origin',300)->nullable();
             $table->boolean('spoiler')->default(true);
             $table->enum('quoteable_type',['App\\\\Video','App\\\\Book']);
-            $table->integer('quoteable_id')->unsigned();
+            $table->bigInteger('quoteable_id')->unsigned();
 
             $table->index(['quoteable_type','quoteable_id']);
         });

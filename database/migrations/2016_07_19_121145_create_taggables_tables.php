@@ -13,12 +13,12 @@ class CreateTaggablesTables extends Migration
     public function up()
     {
         Schema::create('taggables', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('tag_id')->unsigned();
+            $table->bigIncrements('id');
+            $table->bigInteger('tag_id')->unsigned();
             $table->enum('taggable_type',['App\\\\Article',
 //                'App\\\\Column',
                 'App\\\\Quote','App\\\\Book','App\\\\Video']);
-            $table->integer('taggable_id')->unsigned();
+            $table->bigInteger('taggable_id')->unsigned();
 //            $table->string('intro')->nullable();
             $table->tinyInteger('order')->nullable();
         });

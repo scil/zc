@@ -14,12 +14,12 @@ class CreatePlaceablesTalbe extends Migration
     public function up()
     {
         Schema::create('placeables', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
 
-            $table->integer('place_id')->unsigned();
+            $table->bigInteger('place_id')->unsigned();
 
             $table->enum('placeable_type', ['App\\\\Experience', 'App\\\\Article', 'App\\\\Book', 'App\\\\Video', 'App\\\\Tree'])->nullable(); // 用在 Article 时，不是代表引用(文章的引用都是markdown内置)，而是代表推荐文章或链接
-            $table->integer('placeable_id')->unsigned();
+            $table->bigInteger('placeable_id')->unsigned();
 
 
             $table->boolean('relation')->default(true); // 是否和内容严格相关
@@ -39,7 +39,7 @@ class CreatePlaceablesTalbe extends Migration
             $table->timestamps();
         });
         Schema::create('placeable_translations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('locale')->index();
 
 
@@ -47,8 +47,9 @@ class CreatePlaceablesTalbe extends Migration
             $table->string('title', 100)->nullable(); // markdown
             $table->string('intro', 800)->nullable(); // markdown
 
-            $table->integer('placeable_id')->unsigned();
-            $table->unique(['placeable_id', 'locale']);
+            $table->bigInteger('placeable_table_id')->unsigned();
+            $table->unique(['placeable_table_id', 'locale']);
+            $table->foreign('placeable_table_id')->references('id')->on('placeables')->onDelete('cascade');
 
         });
     }
@@ -60,7 +61,7 @@ class CreatePlaceablesTalbe extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('placeables');
         Schema::dropIfExists('placeable_translations');
+        Schema::dropIfExists('placeables');
     }
 }

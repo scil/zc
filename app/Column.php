@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Astrotomic\Translatable\Translatable;;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -18,9 +19,11 @@ class Column extends Model
     //
     protected $table = 'menu_items';
 
-    use \Dimsav\Translatable\Translatable;
+    use Translatable;
     public $translatedAttributes = ['name','short_name','title','ctitle','desc'];
     public $translationModel = \App\ColumnTranslation::class;
+    protected $translationForeignKey = 'column_id';
+
     /**
      * The relations to eager load on every query.
      *

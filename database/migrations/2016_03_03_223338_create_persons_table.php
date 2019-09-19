@@ -15,7 +15,7 @@ class CreatePersonsTable extends Migration
         //
         Schema::create('persons',function(Blueprint $table){
 
-            $table->increments('id');
+            $table->bigIncrements('id');
 
            $table->string('name'); // "标准"名字，中国人用汉语，其它用英语
             $table->date('birthday');
@@ -24,7 +24,7 @@ class CreatePersonsTable extends Migration
             $table->enum('deathday_level',['y','m','d','yy','mm','dd'])->nullable();
 
             $table->string('family',1000);
-            $table->integer('place_id')->unsigned();
+            $table->bigInteger('place_id')->unsigned();
             $table->string('place_intro')->nullable();
 
             $table->string('missing',1000)->nullable();

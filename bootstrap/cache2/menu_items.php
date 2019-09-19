@@ -15,9 +15,9 @@ const MENU_ITEMS = array (
     'zhen' => 
     array (
       'id' => 3,
-      'name' => '真山',
+      'name' => '真河',
       'desc' => '人真如山',
-      'title' => '真山 &nbsp;|&nbsp; 真城',
+      'title' => '真河 &nbsp;|&nbsp; 真城',
     ),
     'human' => 
     array (
@@ -63,23 +63,22 @@ const MENU_ITEMS = array (
       'id' => 28,
       'name' => '淡水湾',
     ),
-    'children' => 
+    'zhenyi' => 
     array (
       'id' => 4,
-      'name' => '真之子',
-      'short_name' => '子',
-      'desc' => '高山仰止,虽不能至,然心向往之',
-      'title' => '真之子 &nbsp;|&nbsp; 真城',
-      'ctitle' => '真之子 &nbsp;|&nbsp; 真城',
+      'name' => '真意',
+      'short_name' => '人',
+      'desc' => '此中是真意',
+      'title' => '真意 &nbsp;|&nbsp; 真城',
+      'ctitle' => '真意 &nbsp;|&nbsp; 真城',
     ),
     'sky' => 
     array (
       'id' => 5,
-      'name' => '真意',
+      'name' => '星火',
       'short_name' => '意',
-      'desc' => '此中有真意',
-      'title' => '真意 &nbsp;|&nbsp; 真城',
-      'ctitle' => '真意 &nbsp;|&nbsp; 真城',
+      'title' => '星火 &nbsp;|&nbsp; 真城',
+      'ctitle' => '星火 &nbsp;|&nbsp; 真城',
     ),
     'think' => 
     array (
@@ -130,7 +129,7 @@ const MENU_ITEMS = array (
     array (
       'id' => 13,
       'name' => '行者',
-      'short_name' => '人',
+      'short_name' => '行',
       'desc' => '从远方而来，向远方而去',
       'title' => '行者 &nbsp;|&nbsp; 越海',
     ),
@@ -306,14 +305,14 @@ const MENU_ITEMS = array (
     array (
       'id' => 28,
     ),
-    'children' => 
+    'zhenyi' => 
     array (
       'id' => 4,
-      'name' => 'Children',
-      'short_name' => 'C',
-      'desc' => 'Children of Zhen',
-      'title' => 'Children of Zhen &nbsp;|&nbsp; Zhen City',
-      'ctitle' => 'Children of Zhen &nbsp;|&nbsp; Zhen City',
+      'name' => 'zhenyi',
+      'short_name' => 'F',
+      'desc' => 'Following Hear With Climbing Up',
+      'title' => 'Follow With Climbing Up &nbsp;|&nbsp; Zhen City',
+      'ctitle' => 'Follow With Climbing Up &nbsp;|&nbsp; Zhen City',
     ),
     'sky' => 
     array (

@@ -14,6 +14,7 @@ class PersonsTableSeeder extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
         //
         DB::table('places')->truncate();
         DB::table('place_translations')->truncate();
@@ -22,6 +23,7 @@ class PersonsTableSeeder extends Seeder
         DB::table('placeables')->truncate();
         DB::table('placeable_translations')->truncate();
 
+//        Schema::enableForeignKeyConstraints();
 
         $referenceIDs = json_encode(file_get_contents(__DIR__ . '/reference_ID.php'));
 
@@ -2056,11 +2058,10 @@ http://www.jgzyw.com/zhuanyelunwen/shekelunwen/falvlunwen/sifazhidu/27/433926.ht
 
                 if (isset($this->placeIDs[$place_slug])) {
 
-                    // DB::table('placeables')->insert($data);
-
-
-                    $item = \App\Placeable::create($data);
 //                    var_dump($data);exit();
+
+                    // DB::table('placeables')->insert($data);
+                    $item = \App\Placeable::create($data);
                     $item->save();
                 } else {
                     echo "$_place not set isset in \$this->placeIDs])";

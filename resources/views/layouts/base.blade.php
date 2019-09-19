@@ -20,7 +20,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
         <script src="data:text/javascript;base64, aWYoIXdpbmRvdy5qUXVlcnkpe3ZhciBoPWRvY3VtZW50LmhlYWQsZj0iLy9jZG4uanNkZWxpdnIubmV0L25wbS8iLGU9Ii5taW4uanMiLGo9ImpxdWVyeSIsYj0iYm9vdHN0cmFwIixyPSJyYXBoYWVsIix1PVtmK2orIkAzLjMuMS9kaXN0LyIraitlXSx1Mj1bZitiKyItc2Fzc0AzLjMuNy9hc3NldHMvamF2YXNjcmlwdHMvIitiK2UsZityKyJAMi4yLjcvIityK2VdLHE9Ij9zPTQiLHUzPVsiL2pzL3ZlbmRvci5qcyIrcSwiL2pzL2FwcC5qcyIrcV07ZnVuY3Rpb24geihuKXtmb3IoaSBpbiBuKXM9ZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgic2NyaXB0Iikscy5zcmM9bltpXSxoLmluc2VydEJlZm9yZShzLGguZmlyc3RDaGlsZCl9ZnVuY3Rpb24gdChuKXtzLm9ubG9hZD1mdW5jdGlvbigpe3NldFRpbWVvdXQobiwzMDApfX16KHUpLHQoZnVuY3Rpb24oKXt6KHUyKSx0KGZ1bmN0aW9uKCl7eih1MyksdChmdW5jdGlvbigpe3dpbmRvdy5kZXBlbmRlbnRfZnVuYyYmZGVwZW5kZW50X2Z1bmMoKX0pfSl9KX0=
 " defer></script>
 
@@ -207,6 +207,7 @@ M;
 
 <script>
 
+    // run here and pjax sucess
     window.standalone_func && standalone_func();
 
     function open_gate() {
@@ -219,8 +220,7 @@ M;
         document.getElementById('me').innerHTML = LOCALE === 'zh' ? '真城 · 越海' : 'Zhen · Sailing';
     }
 
-    var last_script = document.getElementById('LAST-SCRIPT'),
-        last_script_done = false;
+    var last_script = document.getElementById('LAST-SCRIPT'), last_script_done = false;
 
 
     function select_lang() {
@@ -275,23 +275,35 @@ M;
 
     G_conten_1_func_pool.push(select_lang)
 
-    old_dependent_func = window.dependent_func && dependent_func;
+    /*
+    *
+    * This one is bug, because  dependent_func may be overwrited by script from pjax
+    *   G_conten_func_pool.push( dependent_func )
+    *
+    */
+    G_conten_func_pool.push(function () {
+        window.dependent_func && dependent_func();
+    })
 
+    //# sourceURL=zc_gate
+
+</script>
+<script>
     /**
      *
-     * @param all {boolean} if run functions in G_content_1_func_pool which not run when pjax.success
+     * @param bRunOnce {boolean} if run functions in G_content_1_func_pool which not run when pjax.success
      */
-    function run_all_dependent_func(all) {
+    function run_all_dependent_func(bRunOnce) {
         for (var i_in_pool in G_conten_func_pool) {
             G_conten_func_pool[i_in_pool]();
         }
-        if (all) {
+        if (bRunOnce) {
             for (var i_in_pool in G_conten_1_func_pool) {
                 G_conten_1_func_pool[i_in_pool]();
             }
 
         }
-        old_dependent_func && old_dependent_func();
+
     }
 
     // https://stackoverflow.com/questions/4845762/onload-handler-for-script-tag-in-internet-explorer
@@ -302,16 +314,7 @@ M;
 
             last_script_done = true;
 
-
-            // Pjax.prototype.getElements = function () {
-            //     var elements = [];
-            //     for (var i of document.links) {
-            //         if( i.getAttribute('href').substr(0,1)==='/' ){
-            //             elements.push(i)
-            //         }
-            //     }
-            //     return elements;
-            // }
+            // https://github.com/MoOx/pjax
             var pjax = new Pjax({
                 // elements: "a", // default is "a[href], form[action]"
                 selectors: ["title", ".pjax",],
@@ -338,7 +341,7 @@ M;
         }
 
     }
-    //# sourceURL=zc_gate
+    //# sourceURL=zc_on_last_script
 </script>
 </body>
 </html>

@@ -14,7 +14,7 @@ class CreateFoliagesTable extends Migration
     public function up()
     {
         Schema::create('foliages', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->timestamps();
         });
     }

@@ -14,10 +14,10 @@ class CreateContentsTable extends Migration
     public function up()
     {
         Schema::create('contents', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->mediumText('body');
             $table->boolean('md')->default(false);
-            $table->integer('article_id')->unsigned();
+            $table->bigInteger('article_id')->unsigned();
 //            $table->enum('contentable_type',['App\\\\Article','App\\\\Quote']);
 //            $table->integer('contentable_id')->unsigned();
             $table->timestamps();

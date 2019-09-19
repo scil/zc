@@ -14,7 +14,7 @@ class CreateContactsTable extends Migration
     public function up()
     {
         Schema::create('tree_contacts', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('tree_id')->unsigned(); // 编辑是谁
             $table->boolean('buy')->default(false);
             $table->enum('type',['weibo','wechat','wechat-pub','zhihu','blog','zhaopin','email',

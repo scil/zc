@@ -12,7 +12,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+//        Model::unguard();
+        Schema::disableForeignKeyConstraints();
+
 
         // $this->call(UsersTableSeeder::class);
         $this->call(MenuItemsTableSeeder::class);
@@ -29,6 +31,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(TreesTableSeeder::class);
 
-        Model::reguard();
+//        Model::reguard();
+        Schema::enableForeignKeyConstraints();
     }
 }

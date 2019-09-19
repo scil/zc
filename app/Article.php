@@ -2,7 +2,10 @@
 
 namespace App;
 
-use Dimsav\Translatable\Translatable;
+use Astrotomic\Translatable\Translatable;
+
+;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -19,13 +22,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Article withoutTrashed()
  * @mixin \Eloquent
  */
-class Article extends BaseModel
+class Article extends BaseModel implements \Astrotomic\Translatable\Contracts\Translatable
 {
     use SoftDeletes;
 
 
     use Translatable;
-    protected $translatedAttributes = ['title', 'sub_title','desc','intro','intro_md'];
+    protected $translatedAttributes = ['title', 'sub_title', 'desc', 'intro', 'intro_md'];
     public $translationModel = \App\ArticleTranslation::class;
     protected $translationForeignKey = 'article_id';
 
@@ -50,6 +53,7 @@ class Article extends BaseModel
     {
         return $this->contents()->where('md', '=', false);
     }
+
     function mds()
     {
         return $this->contents()->where('md', '=', true);
@@ -63,9 +67,9 @@ class Article extends BaseModel
     public function places()
     {
         // return $this->morphToMany('App\Place', 'placeable')->withPivot('place_name', 'title', 'intro', 'deep', 'comment');
-        $p= $this
+        $p = $this
             ->morphToMany('App\Place', 'placeable')
-            ->withPivot('id','place_id',  'placeable_type', 'placeable_id','deep', 'comment')
+            ->withPivot('id', 'place_id', 'placeable_type', 'placeable_id', 'deep', 'comment')
             ->using(Placeable::class);
 
         return $p;

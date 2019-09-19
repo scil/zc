@@ -32,7 +32,7 @@ class CreateMenuItemsTable extends Migration {
 			$table->tinyIncrements('id');
             $table->string('locale')->index();
 
-            $table->string('name',16);
+            $table->string('name',25);
             $table->string('short_name',15)->nullable();
 
             $table->string('title',50)->nullable();
@@ -40,10 +40,10 @@ class CreateMenuItemsTable extends Migration {
             $table->string('ctitle',50)->nullable();
             $table->string('desc',200)->nullable();
 
-            $table->integer('column_id')->unsigned();
+            $table->tinyInteger('column_id')->unsigned();
             $table->unique(['column_id','locale']);
             //todo
-//            $table->foreign('menu_item_id')->references('id')->on('menu_items')->onDelete('cascade');
+            $table->foreign('column_id')->references('id')->on('menu_items')->onDelete('cascade');
 		});
 	}
 
@@ -54,8 +54,8 @@ class CreateMenuItemsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('menu_items');
         Schema::drop('menu_item_translations');
+        Schema::drop('menu_items');
 
 	}
 

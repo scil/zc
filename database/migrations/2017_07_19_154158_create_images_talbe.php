@@ -14,7 +14,7 @@ class CreateImagesTalbe extends Migration
     public function up()
     {
         Schema::create('images', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             // local url
             $table->string('local')->nullable();
             $table->string('url')->nullable();

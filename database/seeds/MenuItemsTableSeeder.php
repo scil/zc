@@ -17,8 +17,11 @@ class MenuItemsTableSeeder extends Seeder
     public function run()
     {
 
+
+        Schema::disableForeignKeyConstraints();
         DB::table('menu_items')->truncate();
         DB::table('menu_item_translations')->truncate();
+//        Schema::enableForeignKeyConstraints();
 
         $main_menu = [
             ['show' => true, 'css' => null, 'type' => 'box', 'level' => 0, 'order' => 1,
@@ -33,16 +36,16 @@ class MenuItemsTableSeeder extends Seeder
                 ], '_children' => [
 
                     ['show' => true, 'css' => null, 'type' => 'box', 'level' => 2, 'order' => 1, 'url' => '/zhen', '_trans' => [
-                        'zh' => ['name' => '真山', 'title' => '真山 &nbsp;|&nbsp; 真城', 'desc' => '人真如山',],
+                        'zh' => ['name' => '真河', 'title' => '真河 &nbsp;|&nbsp; 真城', 'desc' => '人真如山',],
                         'en' => ['name' => 'Zhen Hills', 'title' => 'Zhen Hills &nbsp;|&nbsp; Zhen City', 'desc' => 'Zhen in human nature is like a standing hill.',],
                     ], '_children' => [
 
-                        ['show' => true, 'css' => '2', 'type' => 'article', 'level' => 3, 'order' => 1, 'url' => '/children', 'pic' => 'qing.jpg', '_trans' => [
-                            'zh' => ['name' => '真之子', 'short_name' => '子', 'ctitle' => '真之子 &nbsp;|&nbsp; 真城', 'title' => '真之子 &nbsp;|&nbsp; 真城', 'desc' => '高山仰止,虽不能至,然心向往之',],
-                            'en' => ['name' => 'Children', 'short_name' => 'C', 'ctitle' => 'Children of Zhen &nbsp;|&nbsp; Zhen City', 'title' => 'Children of Zhen &nbsp;|&nbsp; Zhen City', 'desc' => 'Children of Zhen',],
+                        ['show' => true, 'css' => '2', 'type' => 'article', 'level' => 3, 'order' => 1, 'url' => '/zhenyi', 'pic' => 'qing.jpg', '_trans' => [
+                            'zh' => ['name' => '真意', 'short_name' => '人', 'ctitle' => '真意 &nbsp;|&nbsp; 真城', 'title' => '真意 &nbsp;|&nbsp; 真城', 'desc' => '此中是真意',],
+                            'en' => ['name' => 'zhenyi', 'short_name' => 'F', 'ctitle' => 'Follow With Climbing Up &nbsp;|&nbsp; Zhen City', 'title' => 'Follow With Climbing Up &nbsp;|&nbsp; Zhen City', 'desc' => 'Following Hear With Climbing Up',],
                         ]],
                         ['show' => true, 'css' => '3', 'type' => 'quote', 'level' => 3, 'order' => 2, 'url' => '/sky', 'pic' => 'aboutme.jpg', '_trans' => [
-                            'zh' => ['name' => '真意', 'short_name' => '意', 'ctitle' => '真意 &nbsp;|&nbsp; 真城', 'title' => '真意 &nbsp;|&nbsp; 真城', 'desc' => '此中有真意',],
+                            'zh' => ['name' => '星火', 'short_name' => '意', 'ctitle' => '星火 &nbsp;|&nbsp; 真城', 'title' => '星火 &nbsp;|&nbsp; 真城', 'desc' => '',],
                             'en' => ['name' => 'Starry Sky', 'short_name' => 'S', 'ctitle' => 'Starry Sky &nbsp;|&nbsp; Zhen City', 'title' => 'Starry Sky &nbsp;|&nbsp; Zhen City', 'desc' => 'The starry sky Zhen lives under and appreciates',],
                         ]
                         ],
@@ -84,7 +87,7 @@ class MenuItemsTableSeeder extends Seeder
                     ], '_children' => [
 
                         ['show' => true, 'css' => '1', 'type' => 'quote', 'level' => 3, 'order' => 1, 'url' => '/sail/walkers', 'pic' => null, '_trans' => [
-                            'zh' => ['name' => '行者', 'short_name' => '人', 'title' => '行者 &nbsp;|&nbsp; 越海', 'desc' => '从远方而来，向远方而去'],
+                            'zh' => ['name' => '行者', 'short_name' => '行', 'title' => '行者 &nbsp;|&nbsp; 越海', 'desc' => '从远方而来，向远方而去'],
                             'en' => ['name' => 'Walkers', 'short_name' => 'P', 'title' => 'Walkers &nbsp;|&nbsp; Sailing', 'desc' => 'from afar'],
                         ]],
                         ['show' => true, 'css' => 'q', 'type' => 'quote', 'level' => 3, 'order' => 2, 'url' => '/sail/road', 'pic' => null, '_trans' => [

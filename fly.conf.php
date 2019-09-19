@@ -2,7 +2,7 @@
 $basePath = $basePath ?? __DIR__;
 
 if (!defined('HOMEPAGE_PLOTS_QUOTE'))
-    require $basePath . '/bootstrap/global_config.php';
+    require $basePath . '/bootstrap/app-before.php';
 
 foreach (file($basePath . '/.env') as $line) {
     if (substr($line, 0, 7) === 'APP_ENV') {

@@ -11,7 +11,7 @@ class CmsController extends Controller
 
     function home()
     {
-        list($IDs, $plots, $articles) = \Cache::remember('homedata-'.app()->getLocale(), 60 * 24, function () {
+        list($IDs, $plots, $articles) = \Cache::remember('homedata-'.app()->getLocale(), 60*60 * 24, function () {
 
             $columnUrl = HOMEPAGE_PLOTS_ARTICLE;
             $columnUrlPrefix = '/'.HOMEPAGE_PLOTS_ARTICLE;
@@ -87,7 +87,7 @@ class CmsController extends Controller
 
             }
 
-            return [json_encode($IDs), json_encode($plots), $plots['/children']];
+            return [json_encode($IDs), json_encode($plots), $plots['/zhenyi']];
         });
         $columnID = 0;
         $articleID = 29;

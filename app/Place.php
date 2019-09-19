@@ -2,7 +2,7 @@
 
 namespace App;
 
-use Dimsav\Translatable\Translatable;
+use Astrotomic\Translatable\Translatable;;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Experience[] $experiences
  * @mixin \Eloquent
  */
-class Place extends Model
+class Place extends Model  implements  \Astrotomic\Translatable\Contracts\Translatable
 {
     protected $table = 'places';
 

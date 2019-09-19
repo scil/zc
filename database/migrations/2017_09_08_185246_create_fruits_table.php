@@ -14,9 +14,9 @@ class CreateFruitsTable extends Migration
     public function up()
     {
         Schema::create('fruits', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name',50);
-            $table->integer('type_id')->unsigned()->nullable();
+            $table->bigInteger('type_id')->unsigned()->nullable();
             $table->string('intro',500); // 用处：描述、作为相关信息时展示、文章列表时显示
             $table->string('tip',500); // 购买提示
             $table->mediumText('body');

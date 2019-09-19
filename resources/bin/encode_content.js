@@ -11,7 +11,7 @@ const minify = require('html-minifier').minify;
 const program = require('commander');
 
 // const md = require('./resources/server_js/markdownit.js')();
-const md = require('./../js/markdownit.js')();
+const md = require('./../server_js/markdownit.js')();
 
 program
     .version('0.0.1')

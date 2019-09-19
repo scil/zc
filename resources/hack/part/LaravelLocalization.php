@@ -12,6 +12,8 @@
             }
         }
 
+        $locale = $this->getInversedLocaleFromMapping($locale);
+
         if (!empty($this->supportedLocales[$locale])) {
             $this->currentLocale = $locale;
         } else {
@@ -44,5 +46,5 @@
             setlocale(LC_MONETARY, $regional . $suffix);
         }
 
-        return $locale;
+        return $this->getLocaleFromMapping($locale);
     }

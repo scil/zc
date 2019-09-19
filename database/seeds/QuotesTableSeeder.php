@@ -18,7 +18,7 @@ class QuotesTableSeeder extends Seeder
         DB::table('articles')->truncate();
 
         $book_id = MENU_MAP["think"]['id']; //;
-        $zhi_ren_ye_id = MENU_MAP["being"]['id'];
+        $zhi_ren_ye_id = MENU_MAP["zhenyi"]['id'];
         $rain_id = MENU_MAP[STARS_URL]['id']; //
 //        $si_id=MENU_MAP["zhen/think"]; // 15;
 

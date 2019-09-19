@@ -1,7 +1,7 @@
 
 # url
 
-no support for urls like  '/zh/children'
+no support for urls like  '/zh/zhenyi'
  
 额外支持 /zh (似乎有些seo不友好)
  

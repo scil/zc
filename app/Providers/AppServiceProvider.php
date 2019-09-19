@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use Laravel\Telescope\TelescopeApplicationServiceProvider;
 use Thrift\Protocol\TBinaryProtocol;
 use Thrift\Transport\TSocket;
 use Thrift\Transport\THttpClient;
@@ -29,8 +30,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        if ($this->app->runningInConsole() || defined('LARAVELFLY_MODE'))
+        if ($this->app->runningInConsole() || defined('LARAVELFLY_MODE')){
             $this->registerMarkdownServiceClient();
+        }
+        
+        if ($this->app->isLocal()) {
+            if(class_exists(TelescopeApplicationServiceProvider::class)){
+                $this->app->register(TelescopeServiceProvider::class);
+            }    
+        }
     }
 
     function registerMarkdownServiceClient()

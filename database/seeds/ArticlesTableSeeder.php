@@ -23,7 +23,7 @@ class ArticlesTableSeeder extends Seeder
         $person_ids = require __DIR__ . '/person_ID.php';
 
         $book_id = MENU_MAP["think"]['id'];
-        $qing_id = MENU_MAP["being"]['id'];
+        $qing_id = MENU_MAP["zhenyi"]['id'];
 
         $ren_nature_id = MENU_MAP["human/nature"]['id'];
         $ren_id = MENU_MAP["human/road"]['id'];

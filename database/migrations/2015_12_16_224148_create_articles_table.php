@@ -13,19 +13,19 @@ class CreateArticlesTable extends Migration
     public function up()
     {
         Schema::create('articles', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('slug',70)->nullable();
 
 
-            $table->integer('image_id')->unsigned()->nullable();
+            $table->bigInteger('image_id')->unsigned()->nullable();
 
             // todo 如果以后需要表示月、日，那可把类型改为小数 如92.0321 sig仍然只针对年数
-            $table->integer('year')->nullable();
+            $table->bigInteger('year')->nullable();
             // 有效数字，但 -1表示: extact
             $table->tinyInteger('sig')->default(-1);
 
             $table->string('author')->nullable(); //来源，注意这是给读者看的，如果没用的(如没多大用的作者信息)就不需要显示在这里，显示在tip
-            $table->integer('author_id')->unsigned()->nullable();
+            $table->bigInteger('author_id')->unsigned()->nullable();
             $table->string('origin')->nullable(); //来源，注意这是给读者看的，如果没用的(如没多大用的作者信息)就不需要显示在这里，显示在tip
             $table->date('origin_date')->nullable(); //最初发表时间 一般是出版时间 若有更早的创作时间 则使用创作时间；若是时间段,使用起始时间
             $table->boolean('show_date')->nullable(); // 是否除了 origin ，还显示单独的 date，用在 origin不包含时间信息的情况下
@@ -51,23 +51,23 @@ class CreateArticlesTable extends Migration
             $table->string('copyright', 500)->nullable(); // 版权信息，如作者、出处等，文章正文后面就是版权信息
 
             // 对于已被存档的文章 是否把其与替代者的关系存到数据库里面呢？
-            $table->integer('status')->unsigned()->default(1); // 0 not ready; 1 ok; 2 achive ; >2 archive,point to another article id
+            $table->bigInteger('status')->unsigned()->default(1); // 0 not ready; 1 ok; 2 achive ; >2 archive,point to another article id
             // list 对游客显示在列表上
             $table->enum('deep',['open','member-list','deep-list','friend','member','deep']);
 
             $table->string('comment',900)->nullable(); // mysql里, varchar(300) 300不是指字节 而是指字符
 
 
-            $table->integer('editor_id')->unsigned()->default(1); // 编辑是谁
+            $table->bigInteger('editor_id')->unsigned()->default(1); // 编辑是谁
 
-            $table->integer('volume_id')->unsigned()->nullable();
+            $table->bigInteger('volume_id')->unsigned()->nullable();
 
             $table->enum('articleable_type',[
                 'App\\\\Article',  // this one is only for Quote
                 'App\\\\Column',
                 'App\\\\Video',
                 'App\\\\Book']);
-            $table->integer('articleable_id')->unsigned();
+            $table->bigInteger('articleable_id')->unsigned();
             $table->tinyInteger('order')->unsigned()->default(0);
             $table->enum('type',[
                 'first','normal',
@@ -102,7 +102,7 @@ class CreateArticlesTable extends Migration
 
         });
         Schema::create('article_translations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('locale')->index();
 
             $table->string('title',50)->nullable();
@@ -111,8 +111,9 @@ class CreateArticlesTable extends Migration
             $table->string('intro',1500)->nullable(); // 用处：描述、作为相关信息时展示、文章列表时显示
             $table->string('intro_md',1500)->nullable();
 
-            $table->integer('article_id')->unsigned();
+            $table->bigInteger('article_id')->unsigned();
             $table->unique(['article_id', 'locale']);
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('cascade');
         });
     }
 
@@ -123,7 +124,7 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('articles');
         Schema::drop('article_translations');
+        Schema::drop('articles');
     }
 }

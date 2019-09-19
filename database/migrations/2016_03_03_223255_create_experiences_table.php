@@ -14,7 +14,7 @@ class CreateExperiencesTable extends Migration
     {
         //
         Schema::create('experiences', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
 
             $table->string('intro'); // 
             $table->string('title')->nullable(); // 和'intro'类似，但title更有“画龙点睛”的标题作用，而'intro'则简朴，只是客观描述
@@ -33,7 +33,7 @@ class CreateExperiencesTable extends Migration
             $table->enum('display',['persons','person','normal'])->default('normal');
 
 
-            $table->integer('person_id')->unsigned();
+            $table->bigInteger('person_id')->unsigned();
             $table->string('comment',500)->nullable();
             $table->timestamps();
             $table->softDeletes();

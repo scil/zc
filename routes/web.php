@@ -25,9 +25,9 @@ $routesForAllLocalNoHome = function () {
 
 //article
 // column
-    Route::get('/{mlist_url}', 'CmsController@viewArticleColumn')->where('mlist_url', 'children|think|human|human/road|human/nature|zhen');
+    Route::get('/{mlist_url}', 'CmsController@viewArticleColumn')->where('mlist_url', 'zhenyi|think|human|human/road|human/nature|zhen');
 //item
-    Route::get('/{prefix_url}/{slug}', 'CmsController@viewColumnArticle')->where('prefix_url', 'children|think|human|human/road|human/nature|zhen');
+    Route::get('/{prefix_url}/{slug}', 'CmsController@viewColumnArticle')->where('prefix_url', 'zhenyi|think|human|human/road|human/nature|zhen');
 
     Route::get('/article/{slug}', 'CmsController@viewColumnArticle');
     Route::get('/article/{slug}/edit', 'CmsController@editArticle');
@@ -51,16 +51,55 @@ $routesForAllLocalNoHome = function () {
     Route::get('/new_article', 'CmsController@createArticle');
     Route::post('/new_article', 'CmsController@storeArticle');
 
-    Route::redirect('/green', '/children', 301);
+    Route::redirect('/green', '/zhenyi', 301);
     Route::redirect('/spirit', '/sky', 301);
     Route::redirect('/go', '/sky', 301);
     Route::redirect('/tree', '/bay', 301);
     Route::redirect('/tree/about', '/bay/about', 301);
     Route::get('/green/{slug}', function ($slug) {
-        return redirect("//children'$slug", 301);
+        return redirect("/zhenyi'$slug", 301);
     });
     Route::get('/go/{slug}', function ($slug) {
         return redirect("/sky/$slug", 301);
+    });
+
+    Route::get('/being', function () {
+        return redirect("/zhenyi", 301);
+    });
+    Route::get('/being/{slug}', function ($slug) {
+        return redirect("/zhenyi/$slug", 301);
+    });
+
+    return;
+
+    Route::get('/opcache', function () {
+        $request = app()->make('request');
+
+        if ($request->query('clear')) {
+            opcache_reset();
+            return back();
+        }
+
+//    ob_start();
+        require __DIR__ . '/../storage/scripts/opcache-me.php';
+//    $c = ob_get_clean();
+
+//    return $c;
+
+    });
+
+    Event::listen('x', function (\Illuminate\Http\Request $request) {
+        echo PHP_EOL, PHP_EOL, 'cid:', \Swoole\Coroutine::getuid();
+        echo PHP_EOL, $request->getRequestUri(), PHP_EOL;
+    });
+    Route::get('/test', function () {
+        $u = app('url')->full();
+        Event::listen('x', function (\Illuminate\Http\Request $request) {
+            echo '111', PHP_EOL;
+        });
+        \Swoole\Coroutine::sleep(6);
+//    event('x', [app('request')]);
+        return $u . "\n" . app('url')->full();
     });
 
 
@@ -111,45 +150,6 @@ $routesForAllLocalNoHome = function () {
         return "config: $configLocale; trans: $transLocale";
     });
 
-    return;
-
-    Route::get('/being', function () {
-        return redirect("/children", 301);
-    });
-    Route::get('/being/{slug}', function ($slug) {
-        return redirect("/children/$slug", 301);
-    });
-
-
-    Route::get('/opcache', function () {
-        $request = app()->make('request');
-
-        if ($request->query('clear')) {
-            opcache_reset();
-            return back();
-        }
-
-//    ob_start();
-        require __DIR__ . '/../storage/scripts/opcache-me.php';
-//    $c = ob_get_clean();
-
-//    return $c;
-
-    });
-
-    Event::listen('x', function (\Illuminate\Http\Request $request) {
-        echo PHP_EOL, PHP_EOL, 'cid:', \Swoole\Coroutine::getuid();
-        echo PHP_EOL, $request->getRequestUri(), PHP_EOL;
-    });
-    Route::get('/test', function () {
-        $u = app('url')->full();
-        Event::listen('x', function (\Illuminate\Http\Request $request) {
-            echo '111', PHP_EOL;
-        });
-        \Swoole\Coroutine::sleep(6);
-//    event('x', [app('request')]);
-        return $u . "\n" . app('url')->full();
-    });
 
 };
 
@@ -188,6 +188,18 @@ Route::get('/tinker', function () {
     return 3;
 });
 Route::get('/dd', function () {
+
+//    return \Request::header();
+    return \Request::header() . \Request::header('SERVER_ADDR').'abc';
+
+    $configLocale = \App::getLocale();
+    $transLocale = app('translator')->getLocale();
+    $newLocale = 'en';
+    \App::setLocale($newLocale);
+    $configLocale2 = \App::getLocale();
+    $transLocale2 = app('translator')->getLocale();
+    return "config: $configLocale -> $configLocale2; trans: $transLocale -> $transLocale2";
+
     event(new \App\Events\TestEvent());
     return 3;
 });
