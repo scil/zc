@@ -60,7 +60,7 @@ return [
     'max_request' => 2000,
 
     // 'daemonize' => true,
-    'daemonize' => false,
+'daemonize' => false,
 
     'watch' => [
         //'/home/vagrant/.fly-watch',

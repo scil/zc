@@ -183,11 +183,13 @@ Route::get('/php', function () {
     return ob_get_clean();
 });
 
-Route::get('/tinker', function () {
+Route::get('/fly-tinker', function () {
     eval(tinker());
     return 3;
 });
 Route::get('/dd', function () {
+
+
 
 //    return \Request::header();
     return \Request::header() . \Request::header('SERVER_ADDR').'abc';
