@@ -1,7 +1,7 @@
 
-# url
+# url rules
 
-no support for urls like  '/zh/zhenyi'
+support urls like '/en/xx', but no support for urls like  '/zh/zhenyi'
  
 额外支持 /zh (似乎有些seo不友好)
  

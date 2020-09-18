@@ -154,11 +154,11 @@ $routesForAllLocalNoHome = function () {
 };
 
 
-if (defined('LARAVELFLY_MODE')) {
-
+if (defined('LARAVELFLY_MODE'))
     // use '' for  'zh'
     $target = array_merge([''], array_diff(ALL_LOCALS, [DEFAULT_LOCAL]));
-} else
+else
+    // use '' for  'zh'
     $target = [LaravelLocalization::setLocale() ?: ''];
 
 
@@ -190,9 +190,8 @@ Route::get('/fly-tinker', function () {
 Route::get('/dd', function () {
 
 
-
 //    return \Request::header();
-    return \Request::header() . \Request::header('SERVER_ADDR').'abc';
+    return \Request::header() . \Request::header('SERVER_ADDR') . 'abc';
 
     $configLocale = \App::getLocale();
     $transLocale = app('translator')->getLocale();

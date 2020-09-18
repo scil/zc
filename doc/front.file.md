@@ -1,5 +1,5 @@
 
-# cdn callback
+# optimizing trick: cdn callback
 
 对 https://www.bootcdn.cn/ 提供callback支持，所以只支持中文版本的网页。(英文网页直接使用 cdn.jsdelivr.net)
 
