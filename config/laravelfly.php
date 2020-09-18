@@ -63,7 +63,6 @@ return [
      */
     'providers_ignore' => array_merge([
 
-        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         Fideloper\Proxy\TrustedProxyServiceProvider::class,
         LaravelFly\Providers\ServiceProvider::class,
@@ -72,6 +71,7 @@ return [
     ],
         $IN_PRODUCTION ? [
             'Barryvdh\\Debugbar\\ServiceProvider',
+            Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
         ] : [
 
 //        //test

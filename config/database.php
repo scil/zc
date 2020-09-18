@@ -39,6 +39,9 @@ return [
 
         'mysql' => [
             'coroutine' => true,
+            'pool' => [
+                'class' => 'LaravelFly\Map\Illuminate\Database\Pool\SmfPool',
+            ],
             'driver' => 'mysql',
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
@@ -115,10 +118,13 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
         'default' => [
+            'pool' => [
+                'class' => 'LaravelFly\Map\Illuminate\Database\Pool\SmfPool',
+            ],
             'url' => env('REDIS_URL'),
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
@@ -127,6 +133,9 @@ return [
         ],
 
         'cache' => [
+            'pool' => [
+                'class' => 'LaravelFly\Map\Illuminate\Database\Pool\SimplePool',
+            ],
             'url' => env('REDIS_URL'),
             'host' => env('REDIS_HOST', '127.0.0.1'),
             'password' => env('REDIS_PASSWORD', null),
