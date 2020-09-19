@@ -76,11 +76,16 @@ class Kernel extends WhichKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 	'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
+
+        /**
+         * disable Mcamara\LaravelLocalization's official middleware, use Local and LocaleForRoot
+         * new locale strategy: no support for urls like '/zh', '/zh/being'
+         *
+         */
 //        'localize' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
 //        'localizationRedirect' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
 //        'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
 //        'localeViewPath' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
-
         'locale'=> Locale::class,
         'localeForRoot'=> LocaleForRoot::class,
 

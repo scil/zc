@@ -1,17 +1,19 @@
 
 # url rules
 
-support urls like '/en/xx', but no support for urls like  '/zh/zhenyi'
+support urls like '/en/xx', but no support for urls like  '/zh/zhenyi', 例外：额外支持 /zh (似乎有些seo不友好)
  
-额外支持 /zh (似乎有些seo不友好)
- 
-除了 root url 支持 302，其它页面都不支持转向，都指向唯一页面，即 /en 代表英文首页， /being 中代表中文的 being
+除了 root url 支持 302，其它页面都不支持转向，都指向唯一页面，即 /en 代表英文首页， /being 中代表中文的 being.
  ```php
 class LocaleForRoot
 {
         if (!$request->hasPreviousSession()) {
 }
 ```
+
+# tech
+
+使用 `Mcamara\LaravelLocalization`，但使用了自定义的中间件，见 `app/Http/Kernel.php`
  
 # front end
 

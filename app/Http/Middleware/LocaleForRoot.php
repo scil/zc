@@ -18,6 +18,7 @@ class LocaleForRoot
      */
     public function handle($request, Closure $next)
     {
+        // 初次访问首页，需要判断是否自动转移到其它页面
         if (!$request->hasPreviousSession()) {
 
             $locale = (new LanguageNegotiator("en", LaravelLocalization::getSupportedLocales(), $request))->negotiateLanguage();

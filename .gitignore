@@ -16,3 +16,4 @@ npm-debug.log
 yarn-error.log
 resources/views/layouts/base.blade.php.product
 public/rev
+/.project
