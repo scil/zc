@@ -4,6 +4,7 @@
  *
  * e.g.
  * resources/bin/hack.js -c full
+ * resources/bin/hack.js -c part
  */
 const fs = require('fs');
 const replace = require('replace-in-file');
@@ -21,14 +22,15 @@ const hack_files_root = fs.realpathSync(project_root + '/resources/hack')
 program
     .version('0.0.1')
     .usage('hack vendor file according const map')
-    .option('-c, --check_level [value]', 'no, part, full')
+    .option('-c, --check_level [value]. before hacking, first check between resources/hack/ and vendor/ ', 'no, part, full')
     .parse(process.argv);
 
 const check_level = program.check_level || default_check_level;
 
 const map = {
     'LaravelLocalization.php': {
-        'enable': true,
+      // i think this hack is useless, a french user is about to visit a zhenc page? he is supposed to visit /en/x, not /x
+        'enable': false,
         'desc': `any non-zh browsers visits non-local url,like "/zhenyi", will be thought to use locale "en", then 
             LaravelLocalizationRedirectFilter will redirect to "/en/zhenyi" `,
         'origin': '/vendor/mcamara/laravel-localization/src/Mcamara/LaravelLocalization/LaravelLocalization.php',
@@ -41,6 +43,11 @@ const map = {
             + default_lang_if_no_zh_header
             + '", $this->getSupportedLocales(), $this->request))->negotiateLanguage();',
         ].join('\n'),
+        /**
+         * result:
+         // hack.js $this->currentLocale = $this->defaultLocale;
+         $this->currentLocale = (new LanguageNegotiator("en", $this->getSupportedLocales(), $this->request))->negotiateLanguage();
+         */
     },
 
 
