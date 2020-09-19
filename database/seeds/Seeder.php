@@ -55,9 +55,9 @@ class Seeder extends BaseSeeder
 
 
         if (!(is_file($htmlFile) && filemtime($sourceFile) < filemtime($htmlFile))) {
-            echo 'EXEC nodejs encode_content.js for ', $uniqName, $field, PHP_EOL;
+            echo 'EXEC nodejs encode_markdown_file_to_html.js for ', $uniqName, $field, PHP_EOL;
             chdir(base_path());
-            $cmd = "nodejs ./resources/bin/encode_content.js -i $sourceFile -h $htmlFile ";
+            $cmd = "nodejs ./resources/bin/encode_markdown_file_to_html.js -i $sourceFile -h $htmlFile ";
 //            echo "cmd is : $cmd \n";
             $a = exec($cmd, $out, $status);
 
@@ -67,7 +67,7 @@ class Seeder extends BaseSeeder
                 throw new \Exception("exec wrong: $cmd");
             }
         } else {
-            echo 'SKIP exec nodejs encode_content.js for ', $uniqName, $field, PHP_EOL;
+            echo 'SKIP exec nodejs encode_markdown_file_to_html.js for ', $uniqName, $field, PHP_EOL;
         }
 
 

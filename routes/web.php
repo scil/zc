@@ -73,18 +73,9 @@ $routesForAllLocalNoHome = function () {
     return;
 
     Route::get('/opcache', function () {
-        $request = app()->make('request');
+        // $request = app()->make('request'); if ($request->query('clear')) { opcache_reset(); return back(); }
 
-        if ($request->query('clear')) {
-            opcache_reset();
-            return back();
-        }
-
-//    ob_start();
-        require __DIR__ . '/../storage/scripts/opcache-me.php';
-//    $c = ob_get_clean();
-
-//    return $c;
+        require __DIR__ . '/../vendor/scil/opcache-status/opcache.php';
 
     });
 
