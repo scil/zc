@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Route;
 /*
  routes are loaded by the RouteServiceProvider within a group which
  is assigned the "web" middleware group

@@ -39,5 +39,7 @@ class BladeColumns extends Command
     {
 //        ( new \App\Services\Staticizer)->makeColumnsCacheAndBlade();
         ( new \App\Services\Staticizer)->makeColumnsBlade();
+
+        return 0;
     }
 }
