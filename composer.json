@@ -38,7 +38,8 @@
     "laravel/telescope": "^2.1",
     "mockery/mockery": "^1.0",
     "nunomaduro/collision": "^3.0",
-    "phpunit/phpunit": "^8.0"
+    "phpunit/phpunit": "^8.0",
+    "scil/opcache-status":""
   },
   "config": {
         "optimize-autoloader": true,
