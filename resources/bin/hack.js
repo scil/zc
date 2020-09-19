@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * hack source file within a third-party package
+ * hack source files provided by third-party vendors
  *
  * e.g.
  * resources/bin/hack.js -c full
